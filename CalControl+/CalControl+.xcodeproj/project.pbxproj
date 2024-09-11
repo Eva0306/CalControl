@@ -1,0 +1,614 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B3B512892C91682700E02A43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B512882C91682700E02A43 /* AppDelegate.swift */; };
+		B3B5128B2C91682700E02A43 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5128A2C91682700E02A43 /* SceneDelegate.swift */; };
+		B3B5128D2C91682700E02A43 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5128C2C91682700E02A43 /* ViewController.swift */; };
+		B3B512902C91682700E02A43 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B3B5128F2C91682700E02A43 /* Base */; };
+		B3B512922C91682700E02A43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B512912C91682700E02A43 /* Assets.xcassets */; };
+		B3B512952C91682700E02A43 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B3B512942C91682700E02A43 /* Base */; };
+		B3B512A02C91682800E02A43 /* CalControl_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5129F2C91682800E02A43 /* CalControl_Tests.swift */; };
+		B3B512AA2C91682800E02A43 /* CalControl_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B512A92C91682800E02A43 /* CalControl_UITests.swift */; };
+		B3B512AC2C91682800E02A43 /* CalControl_UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B512AB2C91682800E02A43 /* CalControl_UITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B3B5129C2C91682800E02A43 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3B5127D2C91682600E02A43 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3B512842C91682700E02A43;
+			remoteInfo = "CalControl+";
+		};
+		B3B512A62C91682800E02A43 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3B5127D2C91682600E02A43 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3B512842C91682700E02A43;
+			remoteInfo = "CalControl+";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B3B512852C91682700E02A43 /* CalControl+.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CalControl+.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3B512882C91682700E02A43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B3B5128A2C91682700E02A43 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		B3B5128C2C91682700E02A43 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B3B5128F2C91682700E02A43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B3B512912C91682700E02A43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B3B512942C91682700E02A43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B3B512962C91682700E02A43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3B5129B2C91682800E02A43 /* CalControl+Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalControl+Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3B5129F2C91682800E02A43 /* CalControl_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControl_Tests.swift; sourceTree = "<group>"; };
+		B3B512A52C91682800E02A43 /* CalControl+UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalControl+UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3B512A92C91682800E02A43 /* CalControl_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControl_UITests.swift; sourceTree = "<group>"; };
+		B3B512AB2C91682800E02A43 /* CalControl_UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControl_UITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B3B512822C91682700E02A43 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3B512982C91682800E02A43 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3B512A22C91682800E02A43 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B3B5127C2C91682600E02A43 = {
+			isa = PBXGroup;
+			children = (
+				B3B512872C91682700E02A43 /* CalControl+ */,
+				B3B5129E2C91682800E02A43 /* CalControl+Tests */,
+				B3B512A82C91682800E02A43 /* CalControl+UITests */,
+				B3B512862C91682700E02A43 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B3B512862C91682700E02A43 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B3B512852C91682700E02A43 /* CalControl+.app */,
+				B3B5129B2C91682800E02A43 /* CalControl+Tests.xctest */,
+				B3B512A52C91682800E02A43 /* CalControl+UITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B3B512872C91682700E02A43 /* CalControl+ */ = {
+			isa = PBXGroup;
+			children = (
+				B3B512882C91682700E02A43 /* AppDelegate.swift */,
+				B3B5128A2C91682700E02A43 /* SceneDelegate.swift */,
+				B3B5128C2C91682700E02A43 /* ViewController.swift */,
+				B3B5128E2C91682700E02A43 /* Main.storyboard */,
+				B3B512912C91682700E02A43 /* Assets.xcassets */,
+				B3B512932C91682700E02A43 /* LaunchScreen.storyboard */,
+				B3B512962C91682700E02A43 /* Info.plist */,
+			);
+			path = "CalControl+";
+			sourceTree = "<group>";
+		};
+		B3B5129E2C91682800E02A43 /* CalControl+Tests */ = {
+			isa = PBXGroup;
+			children = (
+				B3B5129F2C91682800E02A43 /* CalControl_Tests.swift */,
+			);
+			path = "CalControl+Tests";
+			sourceTree = "<group>";
+		};
+		B3B512A82C91682800E02A43 /* CalControl+UITests */ = {
+			isa = PBXGroup;
+			children = (
+				B3B512A92C91682800E02A43 /* CalControl_UITests.swift */,
+				B3B512AB2C91682800E02A43 /* CalControl_UITestsLaunchTests.swift */,
+			);
+			path = "CalControl+UITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B3B512842C91682700E02A43 /* CalControl+ */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3B512AF2C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+" */;
+			buildPhases = (
+				B3B512812C91682700E02A43 /* Sources */,
+				B3B512822C91682700E02A43 /* Frameworks */,
+				B3B512832C91682700E02A43 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CalControl+";
+			productName = "CalControl+";
+			productReference = B3B512852C91682700E02A43 /* CalControl+.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B3B5129A2C91682800E02A43 /* CalControl+Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3B512B22C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+Tests" */;
+			buildPhases = (
+				B3B512972C91682800E02A43 /* Sources */,
+				B3B512982C91682800E02A43 /* Frameworks */,
+				B3B512992C91682800E02A43 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3B5129D2C91682800E02A43 /* PBXTargetDependency */,
+			);
+			name = "CalControl+Tests";
+			productName = "CalControl+Tests";
+			productReference = B3B5129B2C91682800E02A43 /* CalControl+Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B3B512A42C91682800E02A43 /* CalControl+UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3B512B52C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+UITests" */;
+			buildPhases = (
+				B3B512A12C91682800E02A43 /* Sources */,
+				B3B512A22C91682800E02A43 /* Frameworks */,
+				B3B512A32C91682800E02A43 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3B512A72C91682800E02A43 /* PBXTargetDependency */,
+			);
+			name = "CalControl+UITests";
+			productName = "CalControl+UITests";
+			productReference = B3B512A52C91682800E02A43 /* CalControl+UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B3B5127D2C91682600E02A43 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1540;
+				LastUpgradeCheck = 1540;
+				TargetAttributes = {
+					B3B512842C91682700E02A43 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					B3B5129A2C91682800E02A43 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = B3B512842C91682700E02A43;
+					};
+					B3B512A42C91682800E02A43 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = B3B512842C91682700E02A43;
+					};
+				};
+			};
+			buildConfigurationList = B3B512802C91682600E02A43 /* Build configuration list for PBXProject "CalControl+" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B3B5127C2C91682600E02A43;
+			productRefGroup = B3B512862C91682700E02A43 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B3B512842C91682700E02A43 /* CalControl+ */,
+				B3B5129A2C91682800E02A43 /* CalControl+Tests */,
+				B3B512A42C91682800E02A43 /* CalControl+UITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B3B512832C91682700E02A43 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B512922C91682700E02A43 /* Assets.xcassets in Resources */,
+				B3B512952C91682700E02A43 /* Base in Resources */,
+				B3B512902C91682700E02A43 /* Base in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3B512992C91682800E02A43 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3B512A32C91682800E02A43 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B3B512812C91682700E02A43 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B5128D2C91682700E02A43 /* ViewController.swift in Sources */,
+				B3B512892C91682700E02A43 /* AppDelegate.swift in Sources */,
+				B3B5128B2C91682700E02A43 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3B512972C91682800E02A43 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B512A02C91682800E02A43 /* CalControl_Tests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3B512A12C91682800E02A43 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3B512AA2C91682800E02A43 /* CalControl_UITests.swift in Sources */,
+				B3B512AC2C91682800E02A43 /* CalControl_UITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B3B5129D2C91682800E02A43 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B3B512842C91682700E02A43 /* CalControl+ */;
+			targetProxy = B3B5129C2C91682800E02A43 /* PBXContainerItemProxy */;
+		};
+		B3B512A72C91682800E02A43 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B3B512842C91682700E02A43 /* CalControl+ */;
+			targetProxy = B3B512A62C91682800E02A43 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B3B5128E2C91682700E02A43 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B3B5128F2C91682700E02A43 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B3B512932C91682700E02A43 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B3B512942C91682700E02A43 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B3B512AD2C91682800E02A43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B3B512AE2C91682800E02A43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B3B512B02C91682800E02A43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8MQ39JANS;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "CalControl+/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B3B512B12C91682800E02A43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8MQ39JANS;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "CalControl+/Info.plist";
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B3B512B32C91682800E02A43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8MQ39JANS;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CalControl+.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CalControl+";
+			};
+			name = Debug;
+		};
+		B3B512B42C91682800E02A43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8MQ39JANS;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-Tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CalControl+.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CalControl+";
+			};
+			name = Release;
+		};
+		B3B512B62C91682800E02A43 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8MQ39JANS;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "CalControl+";
+			};
+			name = Debug;
+		};
+		B3B512B72C91682800E02A43 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8MQ39JANS;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "CalControl+";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B3B512802C91682600E02A43 /* Build configuration list for PBXProject "CalControl+" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3B512AD2C91682800E02A43 /* Debug */,
+				B3B512AE2C91682800E02A43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3B512AF2C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3B512B02C91682800E02A43 /* Debug */,
+				B3B512B12C91682800E02A43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3B512B22C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3B512B32C91682800E02A43 /* Debug */,
+				B3B512B42C91682800E02A43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3B512B52C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3B512B62C91682800E02A43 /* Debug */,
+				B3B512B72C91682800E02A43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B3B5127D2C91682600E02A43 /* Project object */;
+}
