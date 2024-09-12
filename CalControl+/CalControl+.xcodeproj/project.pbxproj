@@ -7,15 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B32699762C91A00200585AE3 /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32699752C91A00200585AE3 /* DashboardVC.swift */; };
+		B3644C142C91A323005195AA /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C132C91A323005195AA /* MainTabBarController.swift */; };
+		B3644C192C91A48B005195AA /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C182C91A48B005195AA /* CameraVC.swift */; };
+		B3644C1B2C91A4A0005195AA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C1A2C91A4A0005195AA /* Model.swift */; };
+		B3644C1D2C91A4A9005195AA /* HttpManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C1C2C91A4A9005195AA /* HttpManager.swift */; };
+		B3644C1F2C91A4B0005195AA /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C1E2C91A4B0005195AA /* UIColorExtension.swift */; };
+		B3644C212C91A4B8005195AA /* ProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C202C91A4B8005195AA /* ProgressBarView.swift */; };
+		B3644C232C91D651005195AA /* RecordTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C222C91D651005195AA /* RecordTabBarController.swift */; };
+		B3644C252C91DAB0005195AA /* DietRecord.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3644C242C91DAB0005195AA /* DietRecord.storyboard */; };
+		B3644C272C91E01C005195AA /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C262C91E01C005195AA /* PhotosVC.swift */; };
+		B3644C292C91E03C005195AA /* TextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C282C91E03C005195AA /* TextVC.swift */; };
+		B3644C2B2C91EBC9005195AA /* CheckVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C2A2C91EBC9005195AA /* CheckVC.swift */; };
 		B3B512892C91682700E02A43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B512882C91682700E02A43 /* AppDelegate.swift */; };
 		B3B5128B2C91682700E02A43 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5128A2C91682700E02A43 /* SceneDelegate.swift */; };
-		B3B5128D2C91682700E02A43 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5128C2C91682700E02A43 /* ViewController.swift */; };
+		B3B5128D2C91682700E02A43 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5128C2C91682700E02A43 /* HomeVC.swift */; };
 		B3B512902C91682700E02A43 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B3B5128F2C91682700E02A43 /* Base */; };
 		B3B512922C91682700E02A43 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3B512912C91682700E02A43 /* Assets.xcassets */; };
 		B3B512952C91682700E02A43 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B3B512942C91682700E02A43 /* Base */; };
 		B3B512A02C91682800E02A43 /* CalControl_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5129F2C91682800E02A43 /* CalControl_Tests.swift */; };
 		B3B512AA2C91682800E02A43 /* CalControl_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B512A92C91682800E02A43 /* CalControl_UITests.swift */; };
 		B3B512AC2C91682800E02A43 /* CalControl_UITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B512AB2C91682800E02A43 /* CalControl_UITestsLaunchTests.swift */; };
+		B3B512B92C91849B00E02A43 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3B512B82C91849B00E02A43 /* GoogleService-Info.plist */; };
+		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
+		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
+		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +52,22 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B32699752C91A00200585AE3 /* DashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
+		B3644C132C91A323005195AA /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		B3644C182C91A48B005195AA /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
+		B3644C1A2C91A4A0005195AA /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B3644C1C2C91A4A9005195AA /* HttpManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpManager.swift; sourceTree = "<group>"; };
+		B3644C1E2C91A4B0005195AA /* UIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		B3644C202C91A4B8005195AA /* ProgressBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProgressBarView.swift; sourceTree = "<group>"; };
+		B3644C222C91D651005195AA /* RecordTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordTabBarController.swift; sourceTree = "<group>"; };
+		B3644C242C91DAB0005195AA /* DietRecord.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = DietRecord.storyboard; sourceTree = "<group>"; };
+		B3644C262C91E01C005195AA /* PhotosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosVC.swift; sourceTree = "<group>"; };
+		B3644C282C91E03C005195AA /* TextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextVC.swift; sourceTree = "<group>"; };
+		B3644C2A2C91EBC9005195AA /* CheckVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckVC.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControl+.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CalControl+.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B512882C91682700E02A43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B5128A2C91682700E02A43 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B3B5128C2C91682700E02A43 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B3B5128C2C91682700E02A43 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		B3B5128F2C91682700E02A43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B3B512912C91682700E02A43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3B512942C91682700E02A43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +77,7 @@
 		B3B512A52C91682800E02A43 /* CalControl+UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalControl+UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B512A92C91682800E02A43 /* CalControl_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControl_UITests.swift; sourceTree = "<group>"; };
 		B3B512AB2C91682800E02A43 /* CalControl_UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControl_UITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B3B512B82C91849B00E02A43 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +85,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */,
+				B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */,
+				B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +108,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B3644C152C91A421005195AA /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B3B5128C2C91682700E02A43 /* HomeVC.swift */,
+				B3644C202C91A4B8005195AA /* ProgressBarView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B3644C162C91A432005195AA /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				B32699752C91A00200585AE3 /* DashboardVC.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		B3644C172C91A43C005195AA /* FoodRecord */ = {
+			isa = PBXGroup;
+			children = (
+				B3644C1A2C91A4A0005195AA /* Model.swift */,
+				B3644C222C91D651005195AA /* RecordTabBarController.swift */,
+				B3644C182C91A48B005195AA /* CameraVC.swift */,
+				B3644C2A2C91EBC9005195AA /* CheckVC.swift */,
+				B3644C262C91E01C005195AA /* PhotosVC.swift */,
+				B3644C282C91E03C005195AA /* TextVC.swift */,
+			);
+			path = FoodRecord;
+			sourceTree = "<group>";
+		};
 		B3B5127C2C91682600E02A43 = {
 			isa = PBXGroup;
 			children = (
@@ -101,11 +163,18 @@
 			children = (
 				B3B512882C91682700E02A43 /* AppDelegate.swift */,
 				B3B5128A2C91682700E02A43 /* SceneDelegate.swift */,
-				B3B5128C2C91682700E02A43 /* ViewController.swift */,
+				B3644C1C2C91A4A9005195AA /* HttpManager.swift */,
+				B3644C1E2C91A4B0005195AA /* UIColorExtension.swift */,
+				B3644C132C91A323005195AA /* MainTabBarController.swift */,
+				B3644C152C91A421005195AA /* Home */,
+				B3644C162C91A432005195AA /* Dashboard */,
+				B3644C172C91A43C005195AA /* FoodRecord */,
 				B3B5128E2C91682700E02A43 /* Main.storyboard */,
-				B3B512912C91682700E02A43 /* Assets.xcassets */,
+				B3644C242C91DAB0005195AA /* DietRecord.storyboard */,
 				B3B512932C91682700E02A43 /* LaunchScreen.storyboard */,
+				B3B512912C91682700E02A43 /* Assets.xcassets */,
 				B3B512962C91682700E02A43 /* Info.plist */,
+				B3B512B82C91849B00E02A43 /* GoogleService-Info.plist */,
 			);
 			path = "CalControl+";
 			sourceTree = "<group>";
@@ -143,6 +212,11 @@
 			dependencies = (
 			);
 			name = "CalControl+";
+			packageProductDependencies = (
+				B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */,
+				B3B512BD2C9185E700E02A43 /* FirebaseAuth */,
+				B3B512BF2C9185E700E02A43 /* FirebaseFirestore */,
+			);
 			productName = "CalControl+";
 			productReference = B3B512852C91682700E02A43 /* CalControl+.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +289,9 @@
 				Base,
 			);
 			mainGroup = B3B5127C2C91682600E02A43;
+			packageReferences = (
+				B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = B3B512862C91682700E02A43 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -231,7 +308,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3644C252C91DAB0005195AA /* DietRecord.storyboard in Resources */,
 				B3B512922C91682700E02A43 /* Assets.xcassets in Resources */,
+				B3B512B92C91849B00E02A43 /* GoogleService-Info.plist in Resources */,
 				B3B512952C91682700E02A43 /* Base in Resources */,
 				B3B512902C91682700E02A43 /* Base in Resources */,
 			);
@@ -258,9 +337,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3B5128D2C91682700E02A43 /* ViewController.swift in Sources */,
+				B3644C1B2C91A4A0005195AA /* Model.swift in Sources */,
+				B3B5128D2C91682700E02A43 /* HomeVC.swift in Sources */,
+				B3644C192C91A48B005195AA /* CameraVC.swift in Sources */,
+				B3644C232C91D651005195AA /* RecordTabBarController.swift in Sources */,
+				B3644C292C91E03C005195AA /* TextVC.swift in Sources */,
+				B32699762C91A00200585AE3 /* DashboardVC.swift in Sources */,
+				B3644C142C91A323005195AA /* MainTabBarController.swift in Sources */,
+				B3644C1F2C91A4B0005195AA /* UIColorExtension.swift in Sources */,
+				B3644C272C91E01C005195AA /* PhotosVC.swift in Sources */,
+				B3644C2B2C91EBC9005195AA /* CheckVC.swift in Sources */,
 				B3B512892C91682700E02A43 /* AppDelegate.swift in Sources */,
 				B3B5128B2C91682700E02A43 /* SceneDelegate.swift in Sources */,
+				B3644C1D2C91A4A9005195AA /* HttpManager.swift in Sources */,
+				B3644C212C91A4B8005195AA /* ProgressBarView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,7 +546,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruiintelligence.CalControlPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -485,7 +575,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-";
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruiintelligence.CalControlPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -502,7 +592,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8MQ39JANS;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -522,7 +612,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8MQ39JANS;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -541,6 +631,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8MQ39JANS;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -559,6 +650,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8MQ39JANS;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ruiintelligence.CalControl-UITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -609,6 +701,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		B3B512BD2C9185E700E02A43 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		B3B512BF2C9185E700E02A43 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B3B5127D2C91682600E02A43 /* Project object */;
 }
