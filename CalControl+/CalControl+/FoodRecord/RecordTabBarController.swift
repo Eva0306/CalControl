@@ -14,6 +14,12 @@ class RecordTabBarController: UITabBarController {
         
         tabBar.backgroundColor = UIColor.background
         
+        tabBar.layer.shadowColor = UIColor.gray.cgColor
+        tabBar.layer.shadowOpacity = 0.3
+        tabBar.layer.shadowOffset = CGSize(width: 0, height: -1)
+        tabBar.layer.shadowRadius = 5
+        tabBar.layer.masksToBounds = false
+        
         self.selectedIndex = 1
         
         if let tabItems = tabBar.items {

@@ -24,26 +24,27 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.layer.masksToBounds = false
     }
     
-    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         
         guard let viewControllers = tabBarController.viewControllers,
               let index = viewControllers.firstIndex(of: viewController) else {
-            return
+            return true
         }
         
         if index == 2 {
             
             let storyboard = UIStoryboard(name: "DietRecord", bundle: nil)
-            
             if let popupTabBarController = storyboard.instantiateViewController(withIdentifier: "RecordTabBarController") as? RecordTabBarController {
-                
                 popupTabBarController.modalPresentationStyle = .fullScreen
                 present(popupTabBarController, animated: true, completion: nil)
                 
             } else {
-                
                 print("Cannot Find RecordTabBarController")
             }
+            
+            return false  // 阻止切換到第三個頁籤
         }
+        
+        return true  // 允許切換到其他頁籤
     }
 }

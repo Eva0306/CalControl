@@ -16,11 +16,20 @@ class CameraVC: UIViewController {
     
     var didTakenPhoto: ((UIImage) -> Void)?
     
+    private lazy var closeButton: UIButton = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName: "xmark"), for: .normal)
+        btn.imageView?.contentMode = .scaleToFill
+        btn.tintColor = .white
+        return btn
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupCamera()
         setupOverlay()
+        setupButton()
     }
     
     private func setupCamera() {
@@ -81,7 +90,6 @@ class CameraVC: UIViewController {
     private func setupOverlay() {
         let overlayView = UIView()
         
-        // 設定 4:3 比例的框架大小
         let frameWidth: CGFloat = 300
         let frameHeight: CGFloat = frameWidth * 4 / 3
         
@@ -97,6 +105,26 @@ class CameraVC: UIViewController {
         overlayView.backgroundColor = UIColor.clear
         
         view.addSubview(overlayView)
+    }
+    
+    private func setupButton() {
+        closeButton.contentMode = .scaleToFill
+        closeButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(closeButton)
+        
+        NSLayoutConstraint.activate([
+            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            closeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            closeButton.widthAnchor.constraint(equalToConstant: 50),
+            closeButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        closeButton.addTarget(self, action: #selector(closeVC), for: .touchUpInside)
+    }
+    
+    @objc func closeVC() {
+        self.tabBarController?.dismiss(animated: true, completion: nil)
     }
 }
 
@@ -114,9 +142,9 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
         goToCheckVC(with: image)
     }
     
-    func goToCheckVC(with croppedImage: UIImage) {
+    func goToCheckVC(with image: UIImage) {
         let checkVC = CheckVC()
-        checkVC.checkPhoto = croppedImage
+        checkVC.checkPhoto = image
         checkVC.modalPresentationStyle = .fullScreen
         self.present(checkVC, animated: true, completion: nil)
     }

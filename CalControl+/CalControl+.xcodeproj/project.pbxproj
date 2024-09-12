@@ -131,8 +131,8 @@
 				B3644C1A2C91A4A0005195AA /* Model.swift */,
 				B3644C222C91D651005195AA /* RecordTabBarController.swift */,
 				B3644C182C91A48B005195AA /* CameraVC.swift */,
-				B3644C2A2C91EBC9005195AA /* CheckVC.swift */,
 				B3644C262C91E01C005195AA /* PhotosVC.swift */,
+				B3644C2A2C91EBC9005195AA /* CheckVC.swift */,
 				B3644C282C91E03C005195AA /* TextVC.swift */,
 			);
 			path = FoodRecord;
