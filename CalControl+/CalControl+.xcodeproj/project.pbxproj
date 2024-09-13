@@ -19,6 +19,11 @@
 		B3644C272C91E01C005195AA /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C262C91E01C005195AA /* PhotosVC.swift */; };
 		B3644C292C91E03C005195AA /* TextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C282C91E03C005195AA /* TextVC.swift */; };
 		B3644C2B2C91EBC9005195AA /* CheckVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C2A2C91EBC9005195AA /* CheckVC.swift */; };
+		B3644C302C94155C005195AA /* FoodImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B3644C2F2C94155C005195AA /* FoodImageClassifier.mlmodel */; };
+		B3644C322C94345D005195AA /* NutritionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C312C94345D005195AA /* NutritionVC.swift */; };
+		B3644C342C94382C005195AA /* NutritionImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C332C94382C005195AA /* NutritionImageCell.swift */; };
+		B3644C362C943B4E005195AA /* NutritionTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C352C943B4E005195AA /* NutritionTitleCell.swift */; };
+		B3644C382C943B73005195AA /* NutritionFactsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C372C943B73005195AA /* NutritionFactsCell.swift */; };
 		B3B512892C91682700E02A43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B512882C91682700E02A43 /* AppDelegate.swift */; };
 		B3B5128B2C91682700E02A43 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5128A2C91682700E02A43 /* SceneDelegate.swift */; };
 		B3B5128D2C91682700E02A43 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5128C2C91682700E02A43 /* HomeVC.swift */; };
@@ -64,6 +69,11 @@
 		B3644C262C91E01C005195AA /* PhotosVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosVC.swift; sourceTree = "<group>"; };
 		B3644C282C91E03C005195AA /* TextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextVC.swift; sourceTree = "<group>"; };
 		B3644C2A2C91EBC9005195AA /* CheckVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckVC.swift; sourceTree = "<group>"; };
+		B3644C2F2C94155C005195AA /* FoodImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodImageClassifier.mlmodel; sourceTree = "<group>"; };
+		B3644C312C94345D005195AA /* NutritionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionVC.swift; sourceTree = "<group>"; };
+		B3644C332C94382C005195AA /* NutritionImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionImageCell.swift; sourceTree = "<group>"; };
+		B3644C352C943B4E005195AA /* NutritionTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionTitleCell.swift; sourceTree = "<group>"; };
+		B3644C372C943B73005195AA /* NutritionFactsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionFactsCell.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControl+.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CalControl+.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B512882C91682700E02A43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B5128A2C91682700E02A43 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,14 +138,43 @@
 		B3644C172C91A43C005195AA /* FoodRecord */ = {
 			isa = PBXGroup;
 			children = (
+				B3644C2C2C9411F4005195AA /* Model */,
+				B3644C2D2C9411FC005195AA /* View */,
+				B3644C2E2C941201005195AA /* ViewController */,
+			);
+			path = FoodRecord;
+			sourceTree = "<group>";
+		};
+		B3644C2C2C9411F4005195AA /* Model */ = {
+			isa = PBXGroup;
+			children = (
 				B3644C1A2C91A4A0005195AA /* Model.swift */,
+				B3644C2F2C94155C005195AA /* FoodImageClassifier.mlmodel */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B3644C2D2C9411FC005195AA /* View */ = {
+			isa = PBXGroup;
+			children = (
 				B3644C222C91D651005195AA /* RecordTabBarController.swift */,
+				B3644C332C94382C005195AA /* NutritionImageCell.swift */,
+				B3644C352C943B4E005195AA /* NutritionTitleCell.swift */,
+				B3644C372C943B73005195AA /* NutritionFactsCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B3644C2E2C941201005195AA /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
 				B3644C182C91A48B005195AA /* CameraVC.swift */,
 				B3644C262C91E01C005195AA /* PhotosVC.swift */,
 				B3644C2A2C91EBC9005195AA /* CheckVC.swift */,
 				B3644C282C91E03C005195AA /* TextVC.swift */,
+				B3644C312C94345D005195AA /* NutritionVC.swift */,
 			);
-			path = FoodRecord;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		B3B5127C2C91682600E02A43 = {
@@ -338,8 +377,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3644C1B2C91A4A0005195AA /* Model.swift in Sources */,
+				B3644C322C94345D005195AA /* NutritionVC.swift in Sources */,
 				B3B5128D2C91682700E02A43 /* HomeVC.swift in Sources */,
+				B3644C362C943B4E005195AA /* NutritionTitleCell.swift in Sources */,
 				B3644C192C91A48B005195AA /* CameraVC.swift in Sources */,
+				B3644C302C94155C005195AA /* FoodImageClassifier.mlmodel in Sources */,
 				B3644C232C91D651005195AA /* RecordTabBarController.swift in Sources */,
 				B3644C292C91E03C005195AA /* TextVC.swift in Sources */,
 				B32699762C91A00200585AE3 /* DashboardVC.swift in Sources */,
@@ -348,6 +390,8 @@
 				B3644C272C91E01C005195AA /* PhotosVC.swift in Sources */,
 				B3644C2B2C91EBC9005195AA /* CheckVC.swift in Sources */,
 				B3B512892C91682700E02A43 /* AppDelegate.swift in Sources */,
+				B3644C342C94382C005195AA /* NutritionImageCell.swift in Sources */,
+				B3644C382C943B73005195AA /* NutritionFactsCell.swift in Sources */,
 				B3B5128B2C91682700E02A43 /* SceneDelegate.swift in Sources */,
 				B3644C1D2C91A4A9005195AA /* HttpManager.swift in Sources */,
 				B3644C212C91A4B8005195AA /* ProgressBarView.swift in Sources */,

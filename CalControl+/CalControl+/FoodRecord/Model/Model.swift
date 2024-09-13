@@ -5,7 +5,13 @@
 //  Created by 楊芮瑊 on 2024/9/9.
 //
 
-// MARK: - Welcome
+// MARK: - classifyType
+enum ClassifyType: String {
+    case food
+    case nutritionFact
+}
+
+// MARK: - Response
 struct NutritionResponse: Codable {
     let uri: String
     let calories: Double

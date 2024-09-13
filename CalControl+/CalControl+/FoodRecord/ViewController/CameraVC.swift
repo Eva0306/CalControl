@@ -69,7 +69,7 @@ class CameraVC: UIViewController {
             }
             
             // 添加拍照按鈕
-            let captureButton = UIButton(frame: CGRect(x: (view.frame.size.width - 70) / 2, y: view.frame.size.height - 200, width: 70, height: 70))
+            let captureButton = UIButton(frame: CGRect(x: (view.frame.size.width - 70) / 2, y: view.frame.size.height - 180, width: 70, height: 70))
             captureButton.backgroundColor = .white
             captureButton.layer.cornerRadius = captureButton.frame.size.width / 2
             captureButton.layer.borderColor = UIColor.gray.cgColor
@@ -108,6 +108,7 @@ class CameraVC: UIViewController {
     }
     
     private func setupButton() {
+        
         closeButton.contentMode = .scaleToFill
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         

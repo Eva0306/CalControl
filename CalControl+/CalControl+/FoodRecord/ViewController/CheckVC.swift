@@ -1,0 +1,329 @@
+//
+//  CheckVC.swift
+//  CalControl+
+//
+//  Created by 楊芮瑊 on 2024/9/11.
+//
+
+import UIKit
+import CoreML
+import Vision
+
+class CheckVC: UIViewController {
+    
+    var checkPhoto: UIImage?
+    
+    private let checkImageView = UIImageView()
+    
+    private var classifyType: ClassifyType = .food
+    
+    private var nutritionFacts: [[String]] = []
+    
+    private lazy var foodButton : UIButton = {
+        let btn = UIButton()
+        btn.setTitle("食物", for: .normal)
+        btn.setTitleColor(.mainGreen, for: .normal)
+        btn.isSelected = true
+        btn.addTarget(self, action: #selector(toggleButtonSelection(_:)), for: .touchUpInside)
+        return btn
+    }()
+    
+    private lazy var nutritionButton : UIButton = {
+        let btn = UIButton()
+        btn.setTitle("營養標示", for: .normal)
+        btn.setTitleColor(.lightGray, for: .normal)
+        btn.isSelected = false
+        btn.addTarget(self, action: #selector(toggleButtonSelection(_:)), for: .touchUpInside)
+        return btn
+    }()
+    
+    private lazy var homeButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setTitle("Home", for: .normal)
+        btn.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
+        return btn
+    }()
+    
+    private lazy var reselectButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setTitle("Reselect", for: .normal)
+        btn.addTarget(self, action: #selector(reselectPhoto), for: .touchUpInside)
+        return btn
+    }()
+    
+    private lazy var analysisButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setTitle("Analysis", for: .normal)
+        btn.addTarget(self, action: #selector(analysisPhoto), for: .touchUpInside)
+        return btn
+    }()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = UIColor.background
+        setupView()
+        setupButtons()
+    }
+    
+    private func setupView() {
+        
+        checkImageView.contentMode = .scaleAspectFit
+        checkImageView.clipsToBounds = true
+        checkImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(checkImageView)
+        
+        NSLayoutConstraint.activate([
+            checkImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            checkImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 120),
+            checkImageView.widthAnchor.constraint(equalToConstant: 300),
+            checkImageView.heightAnchor.constraint(equalToConstant: 500)
+        ])
+        
+        if let photo = checkPhoto {
+            checkImageView.image = photo
+        }
+    }
+    
+    private func setupButtons() {
+        
+        let buttonStackView = UIStackView(arrangedSubviews: [homeButton, reselectButton, analysisButton])
+        buttonStackView.axis = .horizontal
+        buttonStackView.alignment = .center
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 20
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(buttonStackView)
+        
+        let typeButtonStackView = UIStackView(arrangedSubviews: [foodButton, nutritionButton])
+        typeButtonStackView.axis = .horizontal
+        typeButtonStackView.alignment = .center
+        typeButtonStackView.distribution = .fillEqually
+        typeButtonStackView.spacing = 20
+        typeButtonStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(typeButtonStackView)
+        
+        NSLayoutConstraint.activate([
+            buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            buttonStackView.heightAnchor.constraint(equalToConstant: 50),
+            typeButtonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            typeButtonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            typeButtonStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -130),
+            typeButtonStackView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    @objc private func toggleButtonSelection(_ sender: UIButton) {
+        
+        if sender == foodButton {
+            classifyType = .food
+            
+            foodButton.isSelected = true
+            nutritionButton.isSelected = false
+            
+            foodButton.setTitleColor(.mainGreen, for: .normal)
+            nutritionButton.setTitleColor(.lightGray, for: .normal)
+            
+        } else if sender == nutritionButton {
+            classifyType = .nutritionFact
+            
+            nutritionButton.isSelected = true
+            foodButton.isSelected = false
+            
+            nutritionButton.setTitleColor(.mainGreen, for: .normal)
+            foodButton.setTitleColor(.lightGray, for: .normal)
+        }
+    }
+    
+    @objc private func backToHome() {
+        
+        presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
+            
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+               let window = windowScene.windows.first,
+               let mainTabBarController = window.rootViewController as? UITabBarController {
+                mainTabBarController.selectedIndex = 0
+            }
+        })
+    }
+    
+    @objc private func reselectPhoto() {
+        
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func analysisPhoto() {
+        if let checkPhoto = checkPhoto {
+            
+            if classifyType == .food {
+                classifyImage(checkPhoto)
+                
+            } else if classifyType == .nutritionFact {
+                recognizeNutritionFacts(checkPhoto)
+                
+            }
+        }
+    }
+}
+
+//MARK: - Classify Image
+extension CheckVC {
+    
+    func classifyImage(_ image: UIImage) {
+        
+        let configuration = MLModelConfiguration()
+        
+        guard let model = try? FoodImageClassifier(configuration: configuration).model,
+                  let visionModel = try? VNCoreMLModel(for: model) else {
+                print("模型加載失敗")
+                return
+            }
+        
+        let request = VNCoreMLRequest(model: visionModel) { (request, error) in
+                guard let results = request.results as? [VNClassificationObservation], let firstResult = results.first else {
+                    DispatchQueue.main.async {
+                        //self.resultLabel.text = "無法識別圖像"
+                    }
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    print("\(firstResult.identifier)\nConfidence: \(String(format: "%.2f", firstResult.confidence * 100))%")
+                    //self.resultLabel.text = "\(firstResult.identifier)\nConfidence: \(String(format: "%.2f", firstResult.confidence * 100))%"
+                }
+            }
+        
+        guard let ciImage = CIImage(image: image) else {
+            DispatchQueue.main.async {
+                //self.resultLabel.text = "無法轉換圖片"
+            }
+            return
+        }
+        
+//        #if targetEnvironment(simulator)
+//        request.usesCPUOnly = true
+//        #endif
+        
+        let handler = VNImageRequestHandler(ciImage: ciImage)
+        DispatchQueue.global(qos: .userInteractive).async {
+            do {
+                try handler.perform([request])
+            } catch {
+                DispatchQueue.main.async {
+                    //self.resultLabel.text = "識別失敗: \(error.localizedDescription)"
+                    print("Vision request failed with error: \(error)")
+                }
+            }
+        }
+    }
+}
+
+//MARK: - Recognize Nutrition Facts
+extension CheckVC {
+    
+    func recognizeNutritionFacts(_ image: UIImage) {
+        guard let cgImage = image.cgImage else { return }
+
+        let requestHandler = VNImageRequestHandler(cgImage: cgImage)
+
+        let request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
+        
+        request.usesLanguageCorrection = true
+        request.recognitionLanguages = ["zh-Hant", "en"]
+
+        do {
+            try requestHandler.perform([request])
+        } catch {
+            print("Unable to perform the requests: \(error).")
+        }
+    }
+    
+    func recognizeTextHandler(request: VNRequest, error: Error?) {
+        
+        if let error = error {
+            print("Error during text recognition: \(error.localizedDescription)")
+            return
+        }
+        
+        guard let observations = request.results as? [VNRecognizedTextObservation], !observations.isEmpty else {
+            print("No text recognized.")
+            showNoTextAlert()
+            return
+        }
+
+        // 儲存每一行的文字和其 boundingBox 的資料
+        var lineData: [(String, CGRect)] = []
+
+        // 將每個觀察到的文字與 boundingBox 一起儲存
+        for observation in observations {
+            if let topCandidate = observation.topCandidates(1).first {
+                lineData.append((topCandidate.string, observation.boundingBox))
+            }
+        }
+
+        // 依照 boundingBox 的 y 座標進行排序，確保從上到下處理每行
+        lineData.sort { $0.1.origin.y > $1.1.origin.y }
+
+        // 根據 y 座標的相似性來分組（每一行的文字）
+        var currentRow: [(String, CGRect)] = []
+        var previousY: CGFloat = -1.0
+
+        for (text, boundingBox) in lineData {
+            // 當前文字的 y 座標
+            let currentY = boundingBox.origin.y
+
+            // 如果是同一行 (y 座標接近)，就加入到當前行
+            if previousY == -1.0 || abs(previousY - currentY) < 0.03 {
+                currentRow.append((text, boundingBox))
+            } else {
+                // 如果不是同一行，則將當前行按 x 座標從左到右排序後加入 tableRows
+                if !currentRow.isEmpty {
+                    let sortedRow = currentRow.sorted { $0.1.origin.x < $1.1.origin.x }
+                    nutritionFacts.append(sortedRow.map { $0.0 })
+                }
+                currentRow = [(text, boundingBox)]
+            }
+
+            // 更新上一個 y 座標
+            previousY = currentY
+        }
+
+        // 處理最後一行
+        if !currentRow.isEmpty {
+            let sortedRow = currentRow.sorted { $0.1.origin.x < $1.1.origin.x }
+            nutritionFacts.append(sortedRow.map { $0.0 })
+        }
+
+        // 顯示分組和排序後的結果
+        for row in nutritionFacts {
+            print(row)
+        }
+    }
+    
+    func showNoTextAlert() {
+        let alert = UIAlertController(title: "No Text Found", message: "The image does not contain recognizable text. Please try again with a different image.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        }))
+        
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+//MARK: - Fetch Nutrition Fact
+extension CheckVC {
+//    HttpManager().fetchNutrition(ingredient: "180g of cooked rice") { result in
+//
+//        switch result {
+//        case .success(let nutritionData):
+//            print(nutritionData.calories)
+//
+//        case .failure(let error):
+//            print("Failed to fetch product data: \(error)")
+//        }
+//    }
+}
