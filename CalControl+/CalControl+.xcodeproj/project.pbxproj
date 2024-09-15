@@ -24,6 +24,9 @@
 		B3644C342C94382C005195AA /* NutritionImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C332C94382C005195AA /* NutritionImageCell.swift */; };
 		B3644C362C943B4E005195AA /* NutritionTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C352C943B4E005195AA /* NutritionTitleCell.swift */; };
 		B3644C382C943B73005195AA /* NutritionFactsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C372C943B73005195AA /* NutritionFactsCell.swift */; };
+		B370A3752C958CA600CDBF44 /* BaseCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B370A3742C958CA600CDBF44 /* BaseCardTableViewCell.swift */; };
+		B370A3772C9687AF00CDBF44 /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B370A3762C9687AF00CDBF44 /* TextViewCell.swift */; };
+		B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */; };
 		B3B512892C91682700E02A43 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B512882C91682700E02A43 /* AppDelegate.swift */; };
 		B3B5128B2C91682700E02A43 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5128A2C91682700E02A43 /* SceneDelegate.swift */; };
 		B3B5128D2C91682700E02A43 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3B5128C2C91682700E02A43 /* HomeVC.swift */; };
@@ -74,6 +77,8 @@
 		B3644C332C94382C005195AA /* NutritionImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionImageCell.swift; sourceTree = "<group>"; };
 		B3644C352C943B4E005195AA /* NutritionTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionTitleCell.swift; sourceTree = "<group>"; };
 		B3644C372C943B73005195AA /* NutritionFactsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionFactsCell.swift; sourceTree = "<group>"; };
+		B370A3742C958CA600CDBF44 /* BaseCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCardTableViewCell.swift; sourceTree = "<group>"; };
+		B370A3762C9687AF00CDBF44 /* TextViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControl+.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CalControl+.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B512882C91682700E02A43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B5128A2C91682700E02A43 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -96,6 +101,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */,
+				B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */,
 				B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */,
 				B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */,
 			);
@@ -158,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				B3644C222C91D651005195AA /* RecordTabBarController.swift */,
+				B370A3762C9687AF00CDBF44 /* TextViewCell.swift */,
 				B3644C332C94382C005195AA /* NutritionImageCell.swift */,
 				B3644C352C943B4E005195AA /* NutritionTitleCell.swift */,
 				B3644C372C943B73005195AA /* NutritionFactsCell.swift */,
@@ -170,11 +177,18 @@
 			children = (
 				B3644C182C91A48B005195AA /* CameraVC.swift */,
 				B3644C262C91E01C005195AA /* PhotosVC.swift */,
-				B3644C2A2C91EBC9005195AA /* CheckVC.swift */,
 				B3644C282C91E03C005195AA /* TextVC.swift */,
+				B3644C2A2C91EBC9005195AA /* CheckVC.swift */,
 				B3644C312C94345D005195AA /* NutritionVC.swift */,
 			);
 			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B3644C3F2C948EF5005195AA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B3B5127C2C91682600E02A43 = {
@@ -184,6 +198,7 @@
 				B3B5129E2C91682800E02A43 /* CalControl+Tests */,
 				B3B512A82C91682800E02A43 /* CalControl+UITests */,
 				B3B512862C91682700E02A43 /* Products */,
+				B3644C3F2C948EF5005195AA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -205,6 +220,7 @@
 				B3644C1C2C91A4A9005195AA /* HttpManager.swift */,
 				B3644C1E2C91A4B0005195AA /* UIColorExtension.swift */,
 				B3644C132C91A323005195AA /* MainTabBarController.swift */,
+				B370A3742C958CA600CDBF44 /* BaseCardTableViewCell.swift */,
 				B3644C152C91A421005195AA /* Home */,
 				B3644C162C91A432005195AA /* Dashboard */,
 				B3644C172C91A43C005195AA /* FoodRecord */,
@@ -245,6 +261,7 @@
 				B3B512812C91682700E02A43 /* Sources */,
 				B3B512822C91682700E02A43 /* Frameworks */,
 				B3B512832C91682700E02A43 /* Resources */,
+				B3644C3E2C9445EB005195AA /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -255,6 +272,7 @@
 				B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */,
 				B3B512BD2C9185E700E02A43 /* FirebaseAuth */,
 				B3B512BF2C9185E700E02A43 /* FirebaseFirestore */,
+				B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */,
 			);
 			productName = "CalControl+";
 			productReference = B3B512852C91682700E02A43 /* CalControl+.app */;
@@ -274,6 +292,8 @@
 				B3B5129D2C91682800E02A43 /* PBXTargetDependency */,
 			);
 			name = "CalControl+Tests";
+			packageProductDependencies = (
+			);
 			productName = "CalControl+Tests";
 			productReference = B3B5129B2C91682800E02A43 /* CalControl+Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -330,6 +350,7 @@
 			mainGroup = B3B5127C2C91682600E02A43;
 			packageReferences = (
 				B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				B370A3782C96CAD900CDBF44 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = B3B512862C91682700E02A43 /* Products */;
 			projectDirPath = "";
@@ -371,6 +392,28 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		B3644C3E2C9445EB005195AA /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\n/opt/homebrew/bin/swiftlint\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B3B512812C91682700E02A43 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -382,6 +425,8 @@
 				B3644C362C943B4E005195AA /* NutritionTitleCell.swift in Sources */,
 				B3644C192C91A48B005195AA /* CameraVC.swift in Sources */,
 				B3644C302C94155C005195AA /* FoodImageClassifier.mlmodel in Sources */,
+				B370A3772C9687AF00CDBF44 /* TextViewCell.swift in Sources */,
+				B370A3752C958CA600CDBF44 /* BaseCardTableViewCell.swift in Sources */,
 				B3644C232C91D651005195AA /* RecordTabBarController.swift in Sources */,
 				B3644C292C91E03C005195AA /* TextVC.swift in Sources */,
 				B32699762C91A00200585AE3 /* DashboardVC.swift in Sources */,
@@ -487,7 +532,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -502,7 +547,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -550,7 +595,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -559,7 +604,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -747,6 +792,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B370A3782C96CAD900CDBF44 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.1.1;
+			};
+		};
 		B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -758,6 +811,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B370A3782C96CAD900CDBF44 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
+		};
 		B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

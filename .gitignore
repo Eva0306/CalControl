@@ -135,4 +135,8 @@ iOSInjectionProject/
 # Google Firebase
 GoogleService-Info.plist
 
+# swiftlint
+.swiftlint.yml
+
+
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode,macos

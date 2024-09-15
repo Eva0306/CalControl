@@ -7,34 +7,78 @@
 
 import UIKit
 
-class NutritionImageCell: UITableViewCell {
+class NutritionImageCell: BaseCardTableViewCell {
     
-    lazy var foodImageView: UIImageView = {
-        let iv = UIImageView()
-        return iv
+    private let foodImageView = UIImageView()
+    
+    private let colorView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .lightOrg
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "Helvetica Neue", size: 30)
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupView() {
+    func configureCell(image: UIImage?, name: String?) {
+        if let image = image {
+            setupImageView(image)
+        } else if let name = name {
+            setupNameView(name)
+        }
+    }
+    
+    private func setupImageView(_ image: UIImage) {
         
+        foodImageView.image = image
+        foodImageView.contentMode = .scaleAspectFit
         foodImageView.translatesAutoresizingMaskIntoConstraints = false
-        contentView.addSubview(foodImageView)
+        foodImageView.clipsToBounds = true
+        
+        innerContentView.addSubview(foodImageView)
         
         NSLayoutConstraint.activate([
-            foodImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            foodImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            foodImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            foodImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            foodImageView.leadingAnchor.constraint(equalTo: innerContentView.leadingAnchor),
+            foodImageView.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor),
+            foodImageView.topAnchor.constraint(equalTo: innerContentView.topAnchor),
+            foodImageView.bottomAnchor.constraint(equalTo: innerContentView.bottomAnchor),
+            foodImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 400)
         ])
     }
+    
+    private func setupNameView(_ name: String) {
+        nameLabel.text = name
+        
+        innerContentView.addSubview(colorView)
+        
+        NSLayoutConstraint.activate([
+            colorView.leadingAnchor.constraint(equalTo: innerContentView.leadingAnchor),
+            colorView.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor),
+            colorView.topAnchor.constraint(equalTo: innerContentView.topAnchor),
+            colorView.bottomAnchor.constraint(equalTo: innerContentView.bottomAnchor),
+            colorView.heightAnchor.constraint(equalToConstant: 300)
+        ])
+        
+        colorView.addSubview(nameLabel)
+        
+        NSLayoutConstraint.activate([
+            nameLabel.centerXAnchor.constraint(equalTo: colorView.centerXAnchor),
+            nameLabel.centerYAnchor.constraint(equalTo: colorView.centerYAnchor)
+        ])
+        
+    }
 }
-
-

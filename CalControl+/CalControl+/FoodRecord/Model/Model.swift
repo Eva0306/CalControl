@@ -5,10 +5,24 @@
 //  Created by 楊芮瑊 on 2024/9/9.
 //
 
-// MARK: - classifyType
+// MARK: - Classify Type
 enum ClassifyType: String {
     case food
     case nutritionFact
+}
+
+// MARK: - Nutrition Facts
+struct Nutrient {
+    let value: Double
+    let unit: String
+}
+
+struct NutritionFacts {
+    let weight: Nutrient
+    let calories: Nutrient
+    let carbs: Nutrient
+    let fats: Nutrient
+    let protein: Nutrient
 }
 
 // MARK: - Response

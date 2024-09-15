@@ -9,7 +9,26 @@ import UIKit
 
 class NutritionVC: UIViewController {
     
-    private var nutritionTableView = UITableView()
+    private lazy var nutritionTableView: UITableView = {
+        let tv = UITableView()
+        tv.dataSource = self
+        tv.backgroundColor = .clear
+        tv.separatorStyle = .none
+        // tv.delegate = self
+        
+        tv.register(NutritionImageCell.self, forCellReuseIdentifier: "NutritionImageCell")
+        tv.register(NutritionTitleCell.self, forCellReuseIdentifier: "NutritionTitleCell")
+        tv.register(NutritionFactsCell.self, forCellReuseIdentifier: "NutritionFactsCell")
+        return tv
+    }()
+    
+    var checkPhoto: UIImage?
+    
+    var foodName: String?
+    
+    var nutritionFacts: NutritionFacts?
+    
+    // var nutritionResponse
     
     private lazy var homeButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -36,19 +55,19 @@ class NutritionVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .background
         
-        nutritionTableView.register(NutritionImageCell.self, forCellReuseIdentifier: "NutritionImageCell")
-        nutritionTableView.register(NutritionTitleCell.self, forCellReuseIdentifier: "NutritionTitleCell")
-        nutritionTableView.register(NutritionFactsCell.self, forCellReuseIdentifier: "NutritionFactsCell")
+        setupTableView()
+        setupButtons()
     }
     
     private func setupTableView() {
+        nutritionTableView.showsVerticalScrollIndicator = false
         nutritionTableView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nutritionTableView)
         NSLayoutConstraint.activate([
             nutritionTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             nutritionTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            nutritionTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            nutritionTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -70)
+            nutritionTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            nutritionTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
         ])
     }
     
@@ -72,7 +91,8 @@ class NutritionVC: UIViewController {
     
     @objc private func backToHome() {
         
-        presentingViewController?.presentingViewController?.dismiss(animated: true, completion: {
+        presentingViewController?.presentingViewController?.presentingViewController?
+            .dismiss(animated: true, completion: {
             
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let window = windowScene.windows.first,
@@ -84,11 +104,11 @@ class NutritionVC: UIViewController {
     
     @objc private func reselectPhoto() {
         
-        self.dismiss(animated: true, completion: nil)
+        presentingViewController?.presentingViewController?.dismiss(animated: true)
     }
     
     @objc private func addRecord() {
-        
+        // TODO: 上傳資料至firebase
     }
 
 }
@@ -106,21 +126,30 @@ extension NutritionVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionImageCell", for: indexPath)
-            
+            // swiftlint:disable force_cast line_length
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionImageCell", for: indexPath) as! NutritionImageCell
+            // swiftlint:enable force_cast line_length
+            cell.configureCell(image: checkPhoto, name: "Food")
             return cell
             
         } else if indexPath.row == 1 {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionTitleCell", for: indexPath)
-            
+            // swiftlint:disable force_cast  line_length
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionTitleCell", for: indexPath) as! NutritionTitleCell
+            // swiftlint:enable force_cast line_length
+            if let foodName = foodName {
+                cell.configureCell(title: foodName)
+            } else {
+                
+            }
             return cell
             
         } else if indexPath.row == 2 {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionFactsCell", for: indexPath)
-            
+            // swiftlint:disable force_cast line_length
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionFactsCell", for: indexPath) as! NutritionFactsCell
+            // swiftlint:enable force_cast line_length
+            if let nutritionFacts = nutritionFacts {
+                cell.configureCell(nutritionFacts: nutritionFacts)
+            }
             return cell
             
         }
