@@ -20,8 +20,8 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
     private func setupPhotoPicker() {
         // 創建配置
         var configuration = PHPickerConfiguration()
-        configuration.filter = .images // 只顯示圖片
-        configuration.selectionLimit = 1 // 允許多選，0表示無限制
+        configuration.filter = .images
+        configuration.selectionLimit = 1
         
         // 創建 PHPickerViewController
         let picker = PHPickerViewController(configuration: configuration)
@@ -38,7 +38,7 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
                 picker.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 picker.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 picker.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                picker.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight) // 將 bottomAnchor 設置為 tabBar 頂部
+                picker.view.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight)
             ])
         }
         

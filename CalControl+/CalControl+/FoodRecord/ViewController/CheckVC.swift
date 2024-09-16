@@ -19,8 +19,6 @@ class CheckVC: UIViewController {
     
     private var nutritionFactsArray: [[String]] = []
     
-    private var nutritionFacts: NutritionFacts?
-    
     private lazy var foodButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("食物", for: .normal)
@@ -162,11 +160,11 @@ class CheckVC: UIViewController {
             
             if classifyType == .food {
                 classifyImage(checkPhoto)
-                goToNutritionVC(image: checkPhoto)
+                //goToNutritionVC(image: checkPhoto)
                 
             } else if classifyType == .nutritionFact {
                 recognizeNutritionFacts(checkPhoto)
-                goToNutritionVC(image: checkPhoto)
+                //goToNutritionVC(image: checkPhoto)
             }
         }
     }
@@ -180,28 +178,37 @@ extension CheckVC {
         let configuration = MLModelConfiguration()
         
         guard let model = try? FoodImageClassifier(configuration: configuration).model,
-                  let visionModel = try? VNCoreMLModel(for: model) else {
-                print("模型加載失敗")
-                return
-            }
+              let visionModel = try? VNCoreMLModel(for: model) else {
+            print("Failed to load model")
+            return
+        }
+        
+        
         
         let request = VNCoreMLRequest(model: visionModel) { (request, error) in
-                guard let results = request.results as? [VNClassificationObservation], let firstResult = results.first else {
+            
+            guard let results = request.results as? [VNClassificationObservation], let firstResult = results.first else {
+                print("Couldn't classify the image")
+                return
+            }
+            
+            print("\(firstResult.identifier)\nConfidence: \(String(format: "%.2f", firstResult.confidence * 100))%")
+            if firstResult.confidence * 100 >= 70 {
+                print("one" + firstResult.identifier)
+                self.fetchNutritionData(foodDescript: "one " + firstResult.identifier){ [weak self] nutritionData in
+                    
+                    
                     DispatchQueue.main.async {
-                        // self.resultLabel.text = "無法識別圖像"
+                        self?.goToNutritionVC(image: image, nutritionFacts: nutritionData)
+                        
                     }
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    print("\(firstResult.identifier)\nConfidence: \(String(format: "%.2f", firstResult.confidence * 100))%")
-                    //self.resultLabel.text = "\(firstResult.identifier)\nConfidence: \(String(format: "%.2f", firstResult.confidence * 100))%"
                 }
             }
+        }
         
         guard let ciImage = CIImage(image: image) else {
             DispatchQueue.main.async {
-                //self.resultLabel.text = "無法轉換圖片"
+                print("Couldn't transform UIImage to CIImage")
             }
             return
         }
@@ -216,7 +223,6 @@ extension CheckVC {
                 try handler.perform([request])
             } catch {
                 DispatchQueue.main.async {
-                    // self.resultLabel.text = "識別失敗: \(error.localizedDescription)"
                     print("Vision request failed with error: \(error)")
                 }
             }
@@ -302,7 +308,7 @@ extension CheckVC {
         print(nutritionFactsArray)
         print("Recognize Text ======================")
         if let nutritionFacts = parseNutritionData(from: nutritionFactsArray) {
-            self.nutritionFacts = nutritionFacts
+            goToNutritionVC(image: checkPhoto, nutritionFacts: nutritionFacts)
             print(nutritionFacts, "\n==============")
         }
     }
@@ -324,16 +330,44 @@ extension CheckVC {
 
 // MARK: - Fetch Nutrition Fact
 extension CheckVC {
-    //    HttpManager().fetchNutrition(ingredient: "180g of cooked rice") { result in
-    //
-    //        switch result {
-    //        case .success(let nutritionData):
-    //            print(nutritionData.calories)
-    //
-    //        case .failure(let error):
-    //            print("Failed to fetch product data: \(error)")
-    //        }
-    //    }
+    func fetchNutritionData(foodDescript: String, completion: @escaping (NutritionFacts) -> Void) {
+        HttpManager().fetchNutrition(ingredient: foodDescript) { result in
+            
+            switch result {
+            case .success(let nutritionData):
+                guard let calcoriesData = nutritionData.totalNutrients["ENERC_KCAL"],
+                      let proteinData = nutritionData.totalNutrients["PROCNT"],
+                      let carbsData = nutritionData.totalNutrients["CHOCDF"],
+                      let fatsData = nutritionData.totalNutrients["FAT"] else {
+                    print("Lose Data")
+                    return
+                }
+                // TODO: - 格式顯示問題及食物名字待傳入
+                let nutritionFacts = NutritionFacts(
+                    title: nutritionData.ingredients?[0].parsed?[0].foodMatch,
+                    weight: Nutrient(
+                        value: nutritionData.totalWeight,
+                        unit: "g"),
+                    calories: Nutrient(
+                        value: calcoriesData.quantity,
+                        unit: calcoriesData.unit),
+                    carbs: Nutrient(
+                        value: carbsData.quantity,
+                        unit: carbsData.unit),
+                    fats: Nutrient(
+                        value: fatsData.quantity,
+                        unit: fatsData.unit),
+                    protein: Nutrient(
+                        value: proteinData.quantity,
+                        unit: proteinData.unit)
+                )
+                completion(nutritionFacts)
+            case .failure(let error):
+                print("Failed to fetch product data: \(error)")
+            }
+        }
+    }
+    
 }
 
 // MARK: - Parse Nutrition Data
@@ -389,16 +423,16 @@ extension CheckVC {
         let finalFats = Nutrient(value: fats.value * servings, unit: fats.unit)
         let finalProtein = Nutrient(value: protein.value * servings, unit: protein.unit)
         
-        return NutritionFacts(weight: finalWeight, calories: finalCalories, carbs: finalCarbs, fats: finalFats, protein: finalProtein)
+        return NutritionFacts(title: nil, weight: finalWeight, calories: finalCalories, carbs: finalCarbs, fats: finalFats, protein: finalProtein)
     }
 }
 
 // MARK: - Go To Nutrition VC
 extension CheckVC {
-    func goToNutritionVC(image: UIImage?) {
+    func goToNutritionVC(image: UIImage?, nutritionFacts: NutritionFacts?) {
         let NutritionVC = NutritionVC()
         NutritionVC.checkPhoto = image
-        NutritionVC.nutritionFacts = self.nutritionFacts
+        NutritionVC.nutritionFacts = nutritionFacts
         NutritionVC.modalPresentationStyle = .fullScreen
         self.present(NutritionVC, animated: true, completion: nil)
     }

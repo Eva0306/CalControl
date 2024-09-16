@@ -18,6 +18,7 @@ struct Nutrient {
 }
 
 struct NutritionFacts {
+    let title: String?
     let weight: Nutrient
     let calories: Nutrient
     let carbs: Nutrient
@@ -34,14 +35,14 @@ struct NutritionResponse: Codable {
     let totalWeight: Double
     let dietLabels, healthLabels: [String]
     let totalNutrients, totalDaily: [String: TotalDaily]
-    let ingredients: [Ingredient]
+    let ingredients: [Ingredient]?
     let totalNutrientsKCal: TotalNutrientsKCal
 }
 
 // MARK: - Ingredient
 struct Ingredient: Codable {
     let text: String
-    let parsed: [Parsed]
+    let parsed: [Parsed]?
 }
 
 // MARK: - Parsed
@@ -57,7 +58,7 @@ struct Parsed: Codable {
 struct TotalDaily: Codable {
     let label: String
     let quantity: Double
-    let unit: Unit
+    let unit: String
 }
 
 enum Unit: String, Codable {

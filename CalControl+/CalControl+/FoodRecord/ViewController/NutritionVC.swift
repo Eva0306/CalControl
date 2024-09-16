@@ -24,8 +24,6 @@ class NutritionVC: UIViewController {
     
     var checkPhoto: UIImage?
     
-    var foodName: String?
-    
     var nutritionFacts: NutritionFacts?
     
     // var nutritionResponse
@@ -136,10 +134,10 @@ extension NutritionVC: UITableViewDataSource {
             // swiftlint:disable force_cast  line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionTitleCell", for: indexPath) as! NutritionTitleCell
             // swiftlint:enable force_cast line_length
-            if let foodName = foodName {
+            if let foodName = nutritionFacts?.title {
                 cell.configureCell(title: foodName)
             } else {
-                
+                // TODO: - 如果沒有名字??
             }
             return cell
             
