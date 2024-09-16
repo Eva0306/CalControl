@@ -36,6 +36,8 @@ class NutritionTitleCell: BaseCardTableViewCell, UITextFieldDelegate {
         return button
     }()
     
+    var didUpdateTitle: ((String) -> Void)?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -87,5 +89,9 @@ class NutritionTitleCell: BaseCardTableViewCell, UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         bottomLine.isHidden = true
         textField.isUserInteractionEnabled = false
+        
+        if let newTitle = textField.text, !newTitle.isEmpty {
+            didUpdateTitle?(newTitle)
+        }
     }
 }

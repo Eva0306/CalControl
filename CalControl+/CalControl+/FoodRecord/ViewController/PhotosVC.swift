@@ -52,7 +52,6 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
         for result in results {
             result.itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
                 if let image = object as? UIImage {
-                    
                     DispatchQueue.main.async {
                         self.goToCheckVC(with: image)
                     }
@@ -64,6 +63,11 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
     func goToCheckVC(with image: UIImage) {
         let checkVC = CheckVC()
         checkVC.checkPhoto = image
+        if let recordTabBarController = self.tabBarController as? RecordTabBarController {
+            checkVC.mealType = recordTabBarController.selectedMealType
+        } else {
+            print("Tab bar controller is not of type RecordTabBarController")
+        }
         checkVC.modalPresentationStyle = .fullScreen
         self.present(checkVC, animated: true, completion: nil)
     }

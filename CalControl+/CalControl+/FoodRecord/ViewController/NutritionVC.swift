@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseCore
 
 class NutritionVC: UIViewController {
     
@@ -21,12 +22,6 @@ class NutritionVC: UIViewController {
         tv.register(NutritionFactsCell.self, forCellReuseIdentifier: "NutritionFactsCell")
         return tv
     }()
-    
-    var checkPhoto: UIImage?
-    
-    var nutritionFacts: NutritionFacts?
-    
-    // var nutritionResponse
     
     private lazy var homeButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -48,6 +43,12 @@ class NutritionVC: UIViewController {
         btn.addTarget(self, action: #selector(addRecord), for: .touchUpInside)
         return btn
     }()
+    
+    var checkPhoto: UIImage?
+    
+    var nutritionFacts: NutritionFacts?
+    
+    var isFromText: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,10 +89,15 @@ class NutritionVC: UIViewController {
     }
     
     @objc private func backToHome() {
+        let vc: UIViewController?
         
-        presentingViewController?.presentingViewController?.presentingViewController?
-            .dismiss(animated: true, completion: {
-            
+        if isFromText {
+            vc = presentingViewController?.presentingViewController
+        } else {
+            vc = presentingViewController?.presentingViewController?.presentingViewController
+        }
+        
+        vc?.dismiss(animated: true, completion: {
             if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                let window = windowScene.windows.first,
                let mainTabBarController = window.rootViewController as? UITabBarController {
@@ -101,16 +107,39 @@ class NutritionVC: UIViewController {
     }
     
     @objc private func reselectPhoto() {
-        
-        presentingViewController?.presentingViewController?.dismiss(animated: true)
+        if isFromText {
+            self.dismiss(animated: true)
+        } else {
+            presentingViewController?.presentingViewController?.dismiss(animated: true)
+        }
     }
     
     @objc private func addRecord() {
-        // TODO: 上傳資料至firebase
+        guard let nutritionFacts = nutritionFacts, let title = nutritionFacts.title else {
+            showAlert()
+            return
+        }
+        let docRef = FirebaseManager.shared.newDocument(of: FirestoreEndpoint.foodRecord)
+        let foodRecord = FoodRecord(id: docRef.documentID,
+                                    user_id: "Eva123",
+                                    date: Timestamp(date: Date()),
+                                    nutritionFacts: nutritionFacts,
+                                    imageUrl: nil)
+        FirebaseManager.shared.setData(foodRecord, at: docRef)
+        
+        let alert = UIAlertController(title: "儲存成功！", message: nil, preferredStyle: .alert)
+        present(alert, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            alert.dismiss(animated: true) {
+                self.backToHome()
+            }
+        }
     }
 
 }
 
+// MARK: - Tableview DataSource
 extension NutritionVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -127,18 +156,24 @@ extension NutritionVC: UITableViewDataSource {
             // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionImageCell", for: indexPath) as! NutritionImageCell
             // swiftlint:enable force_cast line_length
-            cell.configureCell(image: checkPhoto, name: "Food")
+            cell.configureCell(image: checkPhoto, name: nutritionFacts?.title)
+            
             return cell
             
         } else if indexPath.row == 1 {
             // swiftlint:disable force_cast  line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionTitleCell", for: indexPath) as! NutritionTitleCell
             // swiftlint:enable force_cast line_length
-            if let foodName = nutritionFacts?.title {
-                cell.configureCell(title: foodName)
-            } else {
-                // TODO: - 如果沒有名字??
+            cell.configureCell(title: nutritionFacts?.title)
+            
+            cell.didUpdateTitle = { [weak self] newTitle in
+                guard let strongSelf = self else { return }
+                strongSelf.nutritionFacts?.title = newTitle
+                
+                let indexPathForImageCell = IndexPath(row: 0, section: 0)
+                strongSelf.nutritionTableView.reloadRows(at: [indexPathForImageCell], with: .automatic)
             }
+            
             return cell
             
         } else if indexPath.row == 2 {
@@ -148,9 +183,23 @@ extension NutritionVC: UITableViewDataSource {
             if let nutritionFacts = nutritionFacts {
                 cell.configureCell(nutritionFacts: nutritionFacts)
             }
-            return cell
             
+            return cell
         }
         return UITableViewCell()
+    }
+}
+
+// MARK: - Show Alert
+extension NutritionVC {
+    func showAlert() {
+        let alert = UIAlertController(
+            title: "資料缺失",
+            message: "請確認輸入食物名字",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true, completion: nil)
     }
 }

@@ -22,6 +22,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.layer.shadowOffset = CGSize(width: 0, height: -1)
         tabBar.layer.shadowRadius = 5
         tabBar.layer.masksToBounds = false
+        tabBar.layer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
     }
     
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
@@ -33,18 +34,27 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         if index == 2 {
             
-            let storyboard = UIStoryboard(name: "DietRecord", bundle: nil)
-            if let popupTabBarController = storyboard.instantiateViewController(withIdentifier: "RecordTabBarController") as? RecordTabBarController {
-                popupTabBarController.modalPresentationStyle = .fullScreen
-                present(popupTabBarController, animated: true, completion: nil)
-                
-            } else {
-                print("Cannot Find RecordTabBarController")
+            let mealSelectionVC = MealSelectionVC()
+            mealSelectionVC.modalPresentationStyle = .overFullScreen
+            mealSelectionVC.onMealSelected = { [weak self] selectedMeal in
+                self?.showRecordTabBar(for: selectedMeal)
             }
-            
-            return false  // 阻止切換到第三個頁籤
+            present(mealSelectionVC, animated: true, completion: nil)
+            return false
         }
         
-        return true  // 允許切換到其他頁籤
+        return true
+    }
+    
+    private func showRecordTabBar(for mealType: Int) {
+        let storyboard = UIStoryboard(name: "DietRecord", bundle: nil)
+        if let popupTabBarController = storyboard.instantiateViewController(withIdentifier: "RecordTabBarController") as? RecordTabBarController {
+            popupTabBarController.modalPresentationStyle = .fullScreen
+            popupTabBarController.selectedMealType = mealType
+            present(popupTabBarController, animated: true, completion: nil)
+            
+        } else {
+            print("Cannot Find RecordTabBarController")
+        }
     }
 }

@@ -37,8 +37,8 @@ class NutritionImageCell: BaseCardTableViewCell {
     func configureCell(image: UIImage?, name: String?) {
         if let image = image {
             setupImageView(image)
-        } else if let name = name {
-            setupNameView(name)
+        } else {
+            setupNameView(name ?? "Food")
         }
     }
     

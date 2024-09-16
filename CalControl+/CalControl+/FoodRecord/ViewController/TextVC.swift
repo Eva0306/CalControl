@@ -23,6 +23,7 @@ class TextVC: UIViewController {
     
     private lazy var foodTextField: UITextField = {
         let tf = UITextField()
+        tf.delegate = self
         tf.backgroundColor = .white
         tf.layer.cornerRadius = 10
         tf.placeholder = "輸入食物種類"
@@ -30,13 +31,15 @@ class TextVC: UIViewController {
         return tf
     }()
     
-    lazy var addButton : UIButton = {
+    lazy var addButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("新增", for: .normal)
         btn.tintColor = .white
-        btn.backgroundColor = .mainGreen
+        btn.backgroundColor = .mainGreen.withAlphaComponent(0.6)
         btn.layer.cornerRadius = 10
         btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.addTarget(self, action: #selector(addFoodByText), for: .touchUpInside)
+        btn.isEnabled = false
         return btn
     }()
     
@@ -52,7 +55,10 @@ class TextVC: UIViewController {
         return tv
     }()
     
-    private var foodList: [[String]] = [["荷包蛋", "一顆"], ["白飯", "一碗"], ["雞胸肉", "一片, 150g"], ["青菜", "一份, 100g"], ["雞胸肉", "一片, 150g"]]
+    private var recordFood: String? // From user texting
+    
+    private var foodList: [[String]] = [["荷包蛋", "一顆"], ["白飯", "一碗"], ["雞胸肉", "一片, 150g"],
+                                        ["青菜", "一份, 100g"], ["雞胸肉", "一片, 150g"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +101,31 @@ class TextVC: UIViewController {
     @objc private func closeVC() {
         self.tabBarController?.dismiss(animated: true, completion: nil)
     }
+    
+    @objc private func addFoodByText() {
+        if let recordFood = recordFood {
+            TranslationManager.shared.detectAndTranslateText(recordFood, completion: { translatedText in
+                
+                if let translatedText = translatedText {
+                    
+                    DispatchQueue.main.async {
+                        if let recordTabBarController = self.tabBarController as? RecordTabBarController {
+                            if let mealType = recordTabBarController.selectedMealType {
+                                NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { nutritionFacts in
+                                    
+                                    self.goToNutritionVC(image: nil, nutritionFacts: nutritionFacts)
+                                }
+                            }
+                        } else {
+                            print("Tab bar controller is not of type RecordTabBarController")
+                        }
+                    }
+                } else {
+                    self.showAlert()
+                }
+            })
+        }
+    }
 }
 
 // MARK: - TableView DataSource
@@ -111,4 +142,52 @@ extension TextVC: UITableViewDataSource {
         cell.configureCell(food: food)
         return cell
     }
+}
+
+// MARK: - TextField Delegate
+extension TextVC: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let currentText = textField.text ?? ""
+        let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        
+        recordFood = updatedText
+        
+        if !updatedText.isEmpty {
+            addButton.isEnabled = true
+            addButton.backgroundColor = addButton.backgroundColor?.withAlphaComponent(1.0)
+        } else {
+            addButton.isEnabled = false
+            addButton.backgroundColor = addButton.backgroundColor?.withAlphaComponent(0.6)
+        }
+        
+        return true
+    }
+}
+
+// MARK: - Show Alert
+extension TextVC {
+    func showAlert() {
+        let alert = UIAlertController(
+            title: "無法辨識資料",
+            message: "試試其他說法或使用英文輸入",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Go To NutritionVC
+extension TextVC {
+    func goToNutritionVC(image: UIImage?, nutritionFacts: NutritionFacts?) {
+        let nutritionVC = NutritionVC()
+        nutritionVC.isFromText = true
+        nutritionVC.checkPhoto = image
+        nutritionVC.nutritionFacts = nutritionFacts
+        nutritionVC.modalPresentationStyle = .fullScreen
+        self.present(nutritionVC, animated: true, completion: nil)
+    }
+    
 }

@@ -5,6 +5,17 @@
 //  Created by 楊芮瑊 on 2024/9/9.
 //
 
+// MARK: - Firestore Struct
+import FirebaseFirestore
+
+struct FoodRecord: Codable {
+    let id: String
+    let user_id: String
+    let date: Timestamp
+    let nutritionFacts: NutritionFacts
+    let imageUrl: String?
+}
+
 // MARK: - Classify Type
 enum ClassifyType: String {
     case food
@@ -12,13 +23,14 @@ enum ClassifyType: String {
 }
 
 // MARK: - Nutrition Facts
-struct Nutrient {
+struct Nutrient: Codable {
     let value: Double
     let unit: String
 }
 
-struct NutritionFacts {
-    let title: String?
+struct NutritionFacts: Codable {
+    var title: String?
+    var mealType: Int
     let weight: Nutrient
     let calories: Nutrient
     let carbs: Nutrient
