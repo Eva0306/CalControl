@@ -4,6 +4,10 @@
 <dict>
 	<key>NSCameraUsageDescription</key>
 	<string>使用相機以拍攝照片</string>
+	<key>CFBundleExecutable</key>
+	<string>CalControlPlus</string>
+	<key>CFBundleDisplayName</key>
+	<string>CalControl+</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

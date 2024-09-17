@@ -89,7 +89,7 @@
 		B36C18A32C99BDE200D9D1CC /* WaterCupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCupCell.swift; sourceTree = "<group>"; };
 		B370A3742C958CA600CDBF44 /* BaseCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCardTableViewCell.swift; sourceTree = "<group>"; };
 		B370A3762C9687AF00CDBF44 /* TextViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
-		B3B512852C91682700E02A43 /* CalControl+.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CalControl+.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B512882C91682700E02A43 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B3B5128A2C91682700E02A43 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B3B5128C2C91682700E02A43 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
@@ -97,9 +97,9 @@
 		B3B512912C91682700E02A43 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B3B512942C91682700E02A43 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B3B512962C91682700E02A43 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B3B5129B2C91682800E02A43 /* CalControl+Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalControl+Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3B5129B2C91682800E02A43 /* CalControlPlusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalControlPlusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B5129F2C91682800E02A43 /* CalControl_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControl_Tests.swift; sourceTree = "<group>"; };
-		B3B512A52C91682800E02A43 /* CalControl+UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalControl+UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3B512A52C91682800E02A43 /* CalControlPlusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalControlPlusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3B512A92C91682800E02A43 /* CalControl_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControl_UITests.swift; sourceTree = "<group>"; };
 		B3B512AB2C91682800E02A43 /* CalControl_UITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControl_UITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B3B512B82C91849B00E02A43 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -222,9 +222,9 @@
 		B3B512862C91682700E02A43 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B3B512852C91682700E02A43 /* CalControl+.app */,
-				B3B5129B2C91682800E02A43 /* CalControl+Tests.xctest */,
-				B3B512A52C91682800E02A43 /* CalControl+UITests.xctest */,
+				B3B512852C91682700E02A43 /* CalControlPlus.app */,
+				B3B5129B2C91682800E02A43 /* CalControlPlusTests.xctest */,
+				B3B512A52C91682800E02A43 /* CalControlPlusUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -283,9 +283,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B3B512842C91682700E02A43 /* CalControl+ */ = {
+		B3B512842C91682700E02A43 /* CalControlPlus */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B3B512AF2C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+" */;
+			buildConfigurationList = B3B512AF2C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControlPlus" */;
 			buildPhases = (
 				B3B512812C91682700E02A43 /* Sources */,
 				B3B512822C91682700E02A43 /* Frameworks */,
@@ -296,7 +296,7 @@
 			);
 			dependencies = (
 			);
-			name = "CalControl+";
+			name = CalControlPlus;
 			packageProductDependencies = (
 				B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */,
 				B3B512BD2C9185E700E02A43 /* FirebaseAuth */,
@@ -304,12 +304,12 @@
 				B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */,
 			);
 			productName = "CalControl+";
-			productReference = B3B512852C91682700E02A43 /* CalControl+.app */;
+			productReference = B3B512852C91682700E02A43 /* CalControlPlus.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B3B5129A2C91682800E02A43 /* CalControl+Tests */ = {
+		B3B5129A2C91682800E02A43 /* CalControlPlusTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B3B512B22C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+Tests" */;
+			buildConfigurationList = B3B512B22C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControlPlusTests" */;
 			buildPhases = (
 				B3B512972C91682800E02A43 /* Sources */,
 				B3B512982C91682800E02A43 /* Frameworks */,
@@ -320,16 +320,16 @@
 			dependencies = (
 				B3B5129D2C91682800E02A43 /* PBXTargetDependency */,
 			);
-			name = "CalControl+Tests";
+			name = CalControlPlusTests;
 			packageProductDependencies = (
 			);
 			productName = "CalControl+Tests";
-			productReference = B3B5129B2C91682800E02A43 /* CalControl+Tests.xctest */;
+			productReference = B3B5129B2C91682800E02A43 /* CalControlPlusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B3B512A42C91682800E02A43 /* CalControl+UITests */ = {
+		B3B512A42C91682800E02A43 /* CalControlPlusUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B3B512B52C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+UITests" */;
+			buildConfigurationList = B3B512B52C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControlPlusUITests" */;
 			buildPhases = (
 				B3B512A12C91682800E02A43 /* Sources */,
 				B3B512A22C91682800E02A43 /* Frameworks */,
@@ -340,9 +340,9 @@
 			dependencies = (
 				B3B512A72C91682800E02A43 /* PBXTargetDependency */,
 			);
-			name = "CalControl+UITests";
+			name = CalControlPlusUITests;
 			productName = "CalControl+UITests";
-			productReference = B3B512A52C91682800E02A43 /* CalControl+UITests.xctest */;
+			productReference = B3B512A52C91682800E02A43 /* CalControlPlusUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -368,7 +368,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B3B512802C91682600E02A43 /* Build configuration list for PBXProject "CalControl+" */;
+			buildConfigurationList = B3B512802C91682600E02A43 /* Build configuration list for PBXProject "CalControlPlus" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -385,9 +385,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B3B512842C91682700E02A43 /* CalControl+ */,
-				B3B5129A2C91682800E02A43 /* CalControl+Tests */,
-				B3B512A42C91682800E02A43 /* CalControl+UITests */,
+				B3B512842C91682700E02A43 /* CalControlPlus */,
+				B3B5129A2C91682800E02A43 /* CalControlPlusTests */,
+				B3B512A42C91682800E02A43 /* CalControlPlusUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -501,12 +501,12 @@
 /* Begin PBXTargetDependency section */
 		B3B5129D2C91682800E02A43 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B3B512842C91682700E02A43 /* CalControl+ */;
+			target = B3B512842C91682700E02A43 /* CalControlPlus */;
 			targetProxy = B3B5129C2C91682800E02A43 /* PBXContainerItemProxy */;
 		};
 		B3B512A72C91682800E02A43 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B3B512842C91682700E02A43 /* CalControl+ */;
+			target = B3B512842C91682700E02A43 /* CalControlPlus */;
 			targetProxy = B3B512A62C91682800E02A43 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -724,7 +724,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CalControl+.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CalControl+";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CalControlPlus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CalControlPlus";
 			};
 			name = Debug;
 		};
@@ -744,7 +744,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CalControl+.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CalControl+";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CalControlPlus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CalControlPlus";
 			};
 			name = Release;
 		};
@@ -789,7 +789,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B3B512802C91682600E02A43 /* Build configuration list for PBXProject "CalControl+" */ = {
+		B3B512802C91682600E02A43 /* Build configuration list for PBXProject "CalControlPlus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B3B512AD2C91682800E02A43 /* Debug */,
@@ -798,7 +798,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B3B512AF2C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+" */ = {
+		B3B512AF2C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControlPlus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B3B512B02C91682800E02A43 /* Debug */,
@@ -807,7 +807,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B3B512B22C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+Tests" */ = {
+		B3B512B22C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControlPlusTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B3B512B32C91682800E02A43 /* Debug */,
@@ -816,7 +816,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B3B512B52C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControl+UITests" */ = {
+		B3B512B52C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControlPlusUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B3B512B62C91682800E02A43 /* Debug */,
