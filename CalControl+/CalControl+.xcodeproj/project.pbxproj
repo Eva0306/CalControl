@@ -25,6 +25,8 @@
 		B3644C362C943B4E005195AA /* NutritionTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C352C943B4E005195AA /* NutritionTitleCell.swift */; };
 		B3644C382C943B73005195AA /* NutritionFactsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3644C372C943B73005195AA /* NutritionFactsCell.swift */; };
 		B36C18A02C9892EB00D9D1CC /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C189F2C9892EB00D9D1CC /* FirebaseManager.swift */; };
+		B36C18A22C99BB5600D9D1CC /* WaterRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A12C99BB5600D9D1CC /* WaterRecordCell.swift */; };
+		B36C18A42C99BDE200D9D1CC /* WaterCupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A32C99BDE200D9D1CC /* WaterCupCell.swift */; };
 		B370A3752C958CA600CDBF44 /* BaseCardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B370A3742C958CA600CDBF44 /* BaseCardTableViewCell.swift */; };
 		B370A3772C9687AF00CDBF44 /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B370A3762C9687AF00CDBF44 /* TextViewCell.swift */; };
 		B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */; };
@@ -83,6 +85,8 @@
 		B3644C352C943B4E005195AA /* NutritionTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionTitleCell.swift; sourceTree = "<group>"; };
 		B3644C372C943B73005195AA /* NutritionFactsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionFactsCell.swift; sourceTree = "<group>"; };
 		B36C189F2C9892EB00D9D1CC /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		B36C18A12C99BB5600D9D1CC /* WaterRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterRecordCell.swift; sourceTree = "<group>"; };
+		B36C18A32C99BDE200D9D1CC /* WaterCupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterCupCell.swift; sourceTree = "<group>"; };
 		B370A3742C958CA600CDBF44 /* BaseCardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCardTableViewCell.swift; sourceTree = "<group>"; };
 		B370A3762C9687AF00CDBF44 /* TextViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControl+.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CalControl+.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -137,6 +141,8 @@
 		B3644C152C91A421005195AA /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B36C18A32C99BDE200D9D1CC /* WaterCupCell.swift */,
+				B36C18A12C99BB5600D9D1CC /* WaterRecordCell.swift */,
 				B3B5128C2C91682700E02A43 /* HomeVC.swift */,
 				B3644C202C91A4B8005195AA /* ProgressBarView.swift */,
 			);
@@ -446,11 +452,13 @@
 				B3644C1B2C91A4A0005195AA /* Model.swift in Sources */,
 				B3644C322C94345D005195AA /* NutritionVC.swift in Sources */,
 				B3B5128D2C91682700E02A43 /* HomeVC.swift in Sources */,
+				B36C18A42C99BDE200D9D1CC /* WaterCupCell.swift in Sources */,
 				B3644C362C943B4E005195AA /* NutritionTitleCell.swift in Sources */,
 				B3644C192C91A48B005195AA /* CameraVC.swift in Sources */,
 				B3644C302C94155C005195AA /* FoodImageClassifier.mlmodel in Sources */,
 				B370A3772C9687AF00CDBF44 /* TextViewCell.swift in Sources */,
 				B370A3752C958CA600CDBF44 /* BaseCardTableViewCell.swift in Sources */,
+				B36C18A22C99BB5600D9D1CC /* WaterRecordCell.swift in Sources */,
 				B3644C232C91D651005195AA /* RecordTabBarController.swift in Sources */,
 				B3644C292C91E03C005195AA /* TextVC.swift in Sources */,
 				B32699762C91A00200585AE3 /* DashboardVC.swift in Sources */,
