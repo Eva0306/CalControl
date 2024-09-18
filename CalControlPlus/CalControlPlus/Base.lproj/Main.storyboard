@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--DashboardVC-->
         <scene sceneID="c0F-hg-4YX">
             <objects>
-                <viewController id="1We-yg-hds" sceneMemberID="viewController">
+                <viewController id="1We-yg-hds" customClass="DashboardVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a6N-80-6oG">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -45,10 +45,10 @@
             </objects>
             <point key="canvasLocation" x="684.73282442748086" y="-18.30985915492958"/>
         </scene>
-        <!--View Controller-->
+        <!--FriendVC-->
         <scene sceneID="mNp-0F-LDL">
             <objects>
-                <viewController id="C8P-1y-veH" sceneMemberID="viewController">
+                <viewController id="C8P-1y-veH" customClass="FriendVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bBx-7X-qQC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -63,10 +63,10 @@
             </objects>
             <point key="canvasLocation" x="1405" y="-18"/>
         </scene>
-        <!--View Controller-->
+        <!--ProfileVC-->
         <scene sceneID="YCL-Mz-Rlp">
             <objects>
-                <viewController id="4Bh-cn-M9H" sceneMemberID="viewController">
+                <viewController id="4Bh-cn-M9H" customClass="ProfileVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DUL-yS-5aA">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -84,7 +84,7 @@
         <!--HomeVC-->
         <scene sceneID="dMJ-Nf-ecf">
             <objects>
-                <viewController id="34c-sa-jYy" customClass="HomeVC" customModule="CalControl_" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="34c-sa-jYy" customClass="HomeVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7hR-zL-V0Q">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -102,7 +102,7 @@
         <!--Main Tab Bar Controller-->
         <scene sceneID="QRe-4e-iAP">
             <objects>
-                <tabBarController id="Dff-kC-TaT" customClass="MainTabBarController" customModule="CalControl_" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController id="Dff-kC-TaT" customClass="MainTabBarController" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tQn-Ik-1vV">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>

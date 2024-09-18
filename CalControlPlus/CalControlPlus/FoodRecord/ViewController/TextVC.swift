@@ -111,9 +111,9 @@ class TextVC: UIViewController {
                     DispatchQueue.main.async {
                         if let recordTabBarController = self.tabBarController as? RecordTabBarController {
                             if let mealType = recordTabBarController.selectedMealType {
-                                NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { nutritionFacts in
+                                NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { foodRecord in
                                     
-                                    self.goToNutritionVC(image: nil, nutritionFacts: nutritionFacts)
+                                    self.goToNutritionVC(image: nil, foodRecord: foodRecord)
                                 }
                             }
                         } else {
@@ -181,11 +181,11 @@ extension TextVC {
 
 // MARK: - Go To NutritionVC
 extension TextVC {
-    func goToNutritionVC(image: UIImage?, nutritionFacts: NutritionFacts?) {
+    func goToNutritionVC(image: UIImage?, foodRecord: FoodRecord?) {
         let nutritionVC = NutritionVC()
         nutritionVC.isFromText = true
         nutritionVC.checkPhoto = image
-        nutritionVC.nutritionFacts = nutritionFacts
+        nutritionVC.foodRecord = foodRecord
         nutritionVC.modalPresentationStyle = .fullScreen
         self.present(nutritionVC, animated: true, completion: nil)
     }

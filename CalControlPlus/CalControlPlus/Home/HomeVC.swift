@@ -20,6 +20,8 @@ class HomeVC: UIViewController {
         tv.register(WaterRecordCell.self, forCellReuseIdentifier: WaterRecordCell.identifier)
         return tv
     }()
+    
+    var currentDate = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +53,7 @@ extension HomeVC: UITableViewDataSource {
         // swiftlint:disable force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: WaterRecordCell.identifier, for: indexPath) as! WaterRecordCell
         // swiftlint:enable force_cast
+        cell.configure(for: currentDate)
         return cell
     }
 }

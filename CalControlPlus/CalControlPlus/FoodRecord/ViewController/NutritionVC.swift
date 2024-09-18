@@ -46,7 +46,7 @@ class NutritionVC: UIViewController {
     
     var checkPhoto: UIImage?
     
-    var nutritionFacts: NutritionFacts?
+    var foodRecord: FoodRecord?
     
     var isFromText: Bool = true
     
@@ -115,18 +115,19 @@ class NutritionVC: UIViewController {
     }
     
     @objc private func addRecord() {
-        guard let nutritionFacts = nutritionFacts, let title = nutritionFacts.title else {
+        guard let foodRecord = foodRecord, let title = foodRecord.title else {
             showAlert()
             return
         }
+
         let docRef = FirebaseManager.shared.newDocument(of: FirestoreEndpoint.foodRecord)
-        let foodRecord = FoodRecord(id: docRef.documentID,
-                                    user_id: "Eva123",
-                                    date: Timestamp(date: Date()),
-                                    nutritionFacts: nutritionFacts,
-                                    imageUrl: nil)
-        FirebaseManager.shared.setData(foodRecord, at: docRef)
-        
+
+        var updatedFoodRecord = foodRecord
+        updatedFoodRecord.id = docRef.documentID
+        updatedFoodRecord.date = Timestamp(date: Date())
+
+        FirebaseManager.shared.setData(updatedFoodRecord, at: docRef)
+
         let alert = UIAlertController(title: "儲存成功！", message: nil, preferredStyle: .alert)
         present(alert, animated: true)
         
@@ -156,7 +157,7 @@ extension NutritionVC: UITableViewDataSource {
             // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionImageCell", for: indexPath) as! NutritionImageCell
             // swiftlint:enable force_cast line_length
-            cell.configureCell(image: checkPhoto, name: nutritionFacts?.title)
+            cell.configureCell(image: checkPhoto, name: foodRecord?.title)
             
             return cell
             
@@ -164,11 +165,11 @@ extension NutritionVC: UITableViewDataSource {
             // swiftlint:disable force_cast  line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionTitleCell", for: indexPath) as! NutritionTitleCell
             // swiftlint:enable force_cast line_length
-            cell.configureCell(title: nutritionFacts?.title)
+            cell.configureCell(title: foodRecord?.title)
             
             cell.didUpdateTitle = { [weak self] newTitle in
                 guard let strongSelf = self else { return }
-                strongSelf.nutritionFacts?.title = newTitle
+                strongSelf.foodRecord?.title = newTitle
                 
                 let indexPathForImageCell = IndexPath(row: 0, section: 0)
                 strongSelf.nutritionTableView.reloadRows(at: [indexPathForImageCell], with: .automatic)
@@ -180,8 +181,8 @@ extension NutritionVC: UITableViewDataSource {
             // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionFactsCell", for: indexPath) as! NutritionFactsCell
             // swiftlint:enable force_cast line_length
-            if let nutritionFacts = nutritionFacts {
-                cell.configureCell(nutritionFacts: nutritionFacts)
+            if let foodRecord = foodRecord {
+                cell.configureCell(nutritionFacts: foodRecord.nutritionFacts)
             }
             
             return cell

@@ -55,7 +55,7 @@ class NutritionManager: NSObject {
         task.resume()
     }
     
-    func fetchNutritionFacts(_ viewController: UIViewController, mealType: Int, ingredient: String, completion: @escaping (NutritionFacts?) -> Void) {
+    func fetchNutritionFacts(_ viewController: UIViewController, mealType: Int, ingredient: String, completion: @escaping (FoodRecord?) -> Void) {
         fetchNutrition(ingredient: ingredient) { result in
             switch result {
             case .success(let nutritionData):
@@ -63,41 +63,39 @@ class NutritionManager: NSObject {
                       let proteinData = nutritionData.totalNutrients["PROCNT"],
                       let carbsData = nutritionData.totalNutrients["CHOCDF"],
                       let fatsData = nutritionData.totalNutrients["FAT"] else {
-                    
                     print("Lose Data")
                     self.showAlert(on: viewController)
                     completion(nil)
                     return
                 }
-                
+
                 let nutritionFacts = NutritionFacts(
-                    title: nutritionData.ingredients?.first?.parsed?.first?.foodMatch,
-                    mealType: mealType,
-                    weight: Nutrient(
-                        value: nutritionData.totalWeight.rounded(toPlaces: 2),
-                        unit: "g"),
-                    calories: Nutrient(
-                        value: calcoriesData.quantity.rounded(toPlaces: 2),
-                        unit: calcoriesData.unit),
-                    carbs: Nutrient(
-                        value: carbsData.quantity.rounded(toPlaces: 2),
-                        unit: carbsData.unit),
-                    fats: Nutrient(
-                        value: fatsData.quantity.rounded(toPlaces: 2),
-                        unit: fatsData.unit),
-                    protein: Nutrient(
-                        value: proteinData.quantity.rounded(toPlaces: 2),
-                        unit: proteinData.unit)
+                    weight: Nutrient(value: nutritionData.totalWeight.rounded(toPlaces: 2), unit: "g"),
+                    calories: Nutrient(value: calcoriesData.quantity.rounded(toPlaces: 2), unit: calcoriesData.unit),
+                    carbs: Nutrient(value: carbsData.quantity.rounded(toPlaces: 2), unit: carbsData.unit),
+                    fats: Nutrient(value: fatsData.quantity.rounded(toPlaces: 2), unit: fatsData.unit),
+                    protein: Nutrient(value: proteinData.quantity.rounded(toPlaces: 2), unit: proteinData.unit)
                 )
                 
-                completion(nutritionFacts)
+                let foodRecord = FoodRecord(
+                    title: nutritionData.ingredients?.first?.parsed?.first?.foodMatch,
+                    mealType: mealType,
+                    id: "",
+                    userID: "Eva123",
+                    date: nil,
+                    nutritionFacts: nutritionFacts,
+                    imageUrl: nil
+                )
+                
+                completion(foodRecord)
+                
             case .failure(let error):
                 print("Failed to fetch product data: \(error)")
                 completion(nil)
             }
         }
     }
-    
+
     func showAlert(on viewController: UIViewController) {
         let alert = UIAlertController(
             title: "獲取營養素失敗",

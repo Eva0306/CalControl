@@ -6,17 +6,26 @@
 //
 
 import UIKit
+import Combine
+import FirebaseFirestore
 
 class WaterRecordCell: BaseCardTableViewCell {
     
     static let identifier = "WaterRecordCell"
     
+    var viewModel = WaterRecordViewModel()
+    private var subscriptions = Set<AnyCancellable>()
+    
+    var currentDate = Date()
+    
     private let totalCups = 8
-    private var currentWaterIntake = 0 {
-        didSet {
-            collectionView.reloadData()
-        }
-    }
+//    private var currentWaterIntake = 0 {
+//        didSet {
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadData()
+//            }
+//        }
+//    }
     
     private let emptyCupImage = UIImage(named: "emptyCup")!
     private let filledCupImage = UIImage(named: "filledCup")!
@@ -55,6 +64,7 @@ class WaterRecordCell: BaseCardTableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupLayout()
+        addBindings()
     }
     
     required init?(coder: NSCoder) {
@@ -94,14 +104,32 @@ class WaterRecordCell: BaseCardTableViewCell {
         ])
     }
     
-    // MARK: - Configure Collection View
-    func configure(with waterIntake: Int) {
-        self.currentWaterIntake = waterIntake
-        updateWaterIntakeLabel()
+    // MARK: - Configure Cell
+    func configure(for date: Date) {
+        self.currentDate = date
+        viewModel.fetchWaterRecord(for: date)
+    }
+    
+    // MARK: - bind ViewModel
+    private func addBindings() {
+        viewModel.$currentWaterIntake
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.collectionView.reloadData()
+                self?.updateWaterIntakeLabel()
+            }
+            .store(in: &subscriptions)
+        
+        viewModel.$cupSize
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.updateWaterIntakeLabel()
+            }
+            .store(in: &subscriptions)
     }
     
     private func updateWaterIntakeLabel() {
-        let totalWaterAmount = currentWaterIntake * 250
+        let totalWaterAmount = viewModel.totalWaterAmount
         amountLabel.text = "\(totalWaterAmount) ml"
     }
 }
@@ -116,9 +144,9 @@ extension WaterRecordCell: UICollectionViewDataSource {
         // swiftlint:disable force_cast
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WaterCupCell.identifier, for: indexPath) as! WaterCupCell
         // swiftlint:enable force_cast
-        if indexPath.item < currentWaterIntake {
+        if indexPath.item < viewModel.currentWaterIntake {
             cell.configure(with: filledCupImage)
-        } else if indexPath.item == currentWaterIntake {
+        } else if indexPath.item == viewModel.currentWaterIntake {
             cell.configure(with: plusCupImage)
         } else {
             cell.configure(with: emptyCupImage)
@@ -131,12 +159,11 @@ extension WaterRecordCell: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension WaterRecordCell: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.item == 0 && currentWaterIntake > 0 {
-            currentWaterIntake = 0
+        if indexPath.item == 0 && viewModel.currentWaterIntake > 0 {
+            viewModel.updateWaterIntake(date: currentDate, for: 0)
         } else {
-            currentWaterIntake = indexPath.item + 1
+            viewModel.updateWaterIntake(date: currentDate, for: indexPath.item + 1)
         }
-        updateWaterIntakeLabel()
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

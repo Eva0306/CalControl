@@ -10,6 +10,7 @@ import Foundation
 
 enum FirestoreEndpoint {
     case foodRecord
+    case waterRecord
 
     var ref: CollectionReference {
         let firestore = Firestore.firestore()
@@ -17,6 +18,8 @@ enum FirestoreEndpoint {
         switch self {
         case .foodRecord:
             return firestore.collection("foodRecord")
+        case .waterRecord:
+            return firestore.collection("waterRecord")
         }
     }
 }
@@ -32,6 +35,13 @@ final class FirebaseManager {
             completion(self.parseDocuments(snapshot: snapshot, error: error))
         }
     }
+    
+    func getDocuments<T: Decodable>(from collection: FirestoreEndpoint, where field: String, isEqualTo value: Any, completion: @escaping ([T]) -> Void) {
+        collection.ref.whereField(field, isEqualTo: value).getDocuments { [weak self] snapshot, error in
+            guard let self = self else { return }
+            completion(self.parseDocuments(snapshot: snapshot, error: error))
+        }
+    }
 
     // 通用的添加 document 方法，使用泛型
     func setData<T: Encodable>(_ data: T, at docRef: DocumentReference) {
@@ -43,10 +53,14 @@ final class FirebaseManager {
     }
 
     // 創建新 document 的參考
-    func newDocument(of collection: FirestoreEndpoint) -> DocumentReference {
-        collection.ref.document()
+    func newDocument(of collection: FirestoreEndpoint, documentID: String? = nil) -> DocumentReference {
+        if let documentID = documentID {
+            return collection.ref.document(documentID) // 使用傳入的 documentID
+        } else {
+            return collection.ref.document() // 自動生成新的 documentID
+        }
     }
-
+    
     // 解析獲取到的 documents，使用泛型解碼
     private func parseDocuments<T: Decodable>(snapshot: QuerySnapshot?, error: Error?) -> [T] {
         guard let snapshot = snapshot else {

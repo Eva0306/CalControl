@@ -7,6 +7,7 @@
 
 import UIKit
 import PhotosUI
+import Photos
 
 class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
     
@@ -18,7 +19,31 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
     }
     
     private func setupPhotoPicker() {
-        // 創建配置
+        // 檢查照片庫權限
+        PHPhotoLibrary.requestAuthorization { [weak self] status in
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized:
+                    // 用戶授權完全訪問
+                    self?.presentPhotoPicker()
+                    
+                case .limited:
+                    // 用戶只授權有限的照片訪問，提示用戶可以選擇更多的照片
+                    self?.presentLimitedAccessAlert()
+                    
+                case .denied, .restricted:
+                    // 用戶拒絕授權，可能需要提示用戶去設置授權
+                    self?.presentDeniedAccessAlert()
+                    
+                default:
+                    break
+                }
+            }
+        }
+    }
+    
+    private func presentPhotoPicker() {
+        // 創建 PHPicker 的配置
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
         configuration.selectionLimit = 1
@@ -43,6 +68,40 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
         }
         
         picker.didMove(toParent: self) // 通知子控制器已添加完成
+    }
+    
+    private func presentLimitedAccessAlert() {
+        let alert = UIAlertController(
+            title: "有限照片訪問",
+            message: "你目前僅限訪問部分照片。要選擇更多的照片或相簿，請更新訪問權限。",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "選擇更多照片", style: .default, handler: { _ in
+            PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    private func presentDeniedAccessAlert() {
+        let alert = UIAlertController(
+            title: "無法訪問照片",
+            message: "應用無法訪問你的照片。請到「設置」中啟用照片訪問權限。",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "打開設置", style: .default, handler: { _ in
+            if let appSettings = URL(string: UIApplication.openSettingsURLString) {
+                UIApplication.shared.open(appSettings, options: [:], completionHandler: nil)
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        
+        present(alert, animated: true, completion: nil)
     }
     
     // PHPickerViewControllerDelegate 方法，用來處理選擇的圖片

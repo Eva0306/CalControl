@@ -1,5 +1,5 @@
 //
-//  Model.swift
+//  FoodRecordModel.swift
 //  FoodClassifier
 //
 //  Created by 楊芮瑊 on 2024/9/9.
@@ -9,9 +9,11 @@
 import FirebaseFirestore
 
 struct FoodRecord: Codable {
-    let id: String
-    let user_id: String
-    let date: Timestamp
+    var title: String?
+    var mealType: Int
+    var id: String
+    let userID: String
+    var date: Timestamp?
     let nutritionFacts: NutritionFacts
     let imageUrl: String?
 }
@@ -29,8 +31,8 @@ struct Nutrient: Codable {
 }
 
 struct NutritionFacts: Codable {
-    var title: String?
-    var mealType: Int
+//    var title: String?
+//    var mealType: Int
     let weight: Nutrient
     let calories: Nutrient
     let carbs: Nutrient
