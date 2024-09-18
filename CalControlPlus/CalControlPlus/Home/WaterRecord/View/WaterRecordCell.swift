@@ -19,13 +19,6 @@ class WaterRecordCell: BaseCardTableViewCell {
     var currentDate = Date()
     
     private let totalCups = 8
-//    private var currentWaterIntake = 0 {
-//        didSet {
-//            DispatchQueue.main.async {
-//                self.collectionView.reloadData()
-//            }
-//        }
-//    }
     
     private let emptyCupImage = UIImage(named: "emptyCup")!
     private let filledCupImage = UIImage(named: "filledCup")!

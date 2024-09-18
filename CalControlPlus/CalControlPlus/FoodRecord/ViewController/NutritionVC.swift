@@ -48,6 +48,8 @@ class NutritionVC: UIViewController {
     
     var foodRecord: FoodRecord?
     
+    var currentDate =  Calendar.current.startOfDay(for: Date())
+    
     var isFromText: Bool = true
     
     override func viewDidLoad() {
@@ -124,7 +126,7 @@ class NutritionVC: UIViewController {
 
         var updatedFoodRecord = foodRecord
         updatedFoodRecord.id = docRef.documentID
-        updatedFoodRecord.date = Timestamp(date: Date())
+        updatedFoodRecord.date = Timestamp(date: currentDate)
 
         FirebaseManager.shared.setData(updatedFoodRecord, at: docRef)
 

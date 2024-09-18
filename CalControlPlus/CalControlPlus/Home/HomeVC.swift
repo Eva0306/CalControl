@@ -18,6 +18,7 @@ class HomeVC: UIViewController {
         tv.showsVerticalScrollIndicator = false
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.register(WaterRecordCell.self, forCellReuseIdentifier: WaterRecordCell.identifier)
+        tv.register(DailyAnalysisCell.self, forCellReuseIdentifier: DailyAnalysisCell.identifier)
         return tv
     }()
     
@@ -46,14 +47,23 @@ class HomeVC: UIViewController {
 // MARK: - TableView DataSource
 extension HomeVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // swiftlint:disable force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: WaterRecordCell.identifier, for: indexPath) as! WaterRecordCell
-        // swiftlint:enable force_cast
-        cell.configure(for: currentDate)
-        return cell
+        if indexPath.item == 0 {
+            // swiftlint:disable force_cast
+            let cell = tableView.dequeueReusableCell(withIdentifier: DailyAnalysisCell.identifier, for: indexPath) as! DailyAnalysisCell
+            // swiftlint:enable force_cast
+//            cell.configure(for: currentDate)
+            return cell
+        } else if indexPath.item == 1 {
+            // swiftlint:disable force_cast
+            let cell = tableView.dequeueReusableCell(withIdentifier: WaterRecordCell.identifier, for: indexPath) as! WaterRecordCell
+            // swiftlint:enable force_cast
+            cell.configure(for: currentDate)
+            return cell
+        }
+        return UITableViewCell()
     }
 }
