@@ -6,6 +6,7 @@
 //
 
 import FirebaseFirestore
+import FirebaseStorage
 import Foundation
 
 enum FirestoreEndpoint {
@@ -79,5 +80,33 @@ final class FirebaseManager {
             }
         }
         return models
+    }
+    
+    func uploadImage(image: UIImage, completion: @escaping (URL?) -> Void) {
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
+            completion(nil)
+            return
+        }
+
+        let storageRef = Storage.storage().reference().child("FoodRecordImages/\(UUID().uuidString).jpg")
+
+        storageRef.putData(imageData, metadata: nil) { metadata, error in
+            guard error == nil else {
+                print("Failed to upload image: \(error!.localizedDescription)")
+                completion(nil)
+                return
+            }
+
+            storageRef.downloadURL { url, error in
+                guard let downloadURL = url, error == nil else {
+                    print("Failed to fetch imageUrl: \(error!.localizedDescription)")
+                    completion(nil)
+                    return
+                }
+
+                completion(downloadURL)
+            }
+        }
     }
 }

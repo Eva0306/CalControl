@@ -12,6 +12,9 @@ struct ProgressBarView: View {
     var remainingValue: Int
     var basicGoal: Int
     
+    var valueSize: Font
+    var textSize: Font
+    
     var body: some View {
         ZStack {
             Circle()
@@ -28,14 +31,14 @@ struct ProgressBarView: View {
             
             VStack {
                 Text("\(remainingValue)")
-                    .font(.largeTitle)
+                    .font(valueSize)
                     .fontWeight(.semibold)
                 Text("剩餘")
-                    .font(.body)
+                    .font(textSize)
                     .foregroundColor(.gray)
             }
         }
-        .frame(width: 150, height: 150)
+        .aspectRatio(1, contentMode: .fit)
     }
 }
 
@@ -142,7 +145,12 @@ struct DailyAnalysisView: View {
                 .padding(.bottom, 20)
             
             HStack {
-                ProgressBarView(progress: progress, remainingValue: remainingValue, basicGoal: basicGoal)
+                ProgressBarView(progress: progress,
+                                remainingValue: remainingValue,
+                                basicGoal: basicGoal,
+                                valueSize: .largeTitle,
+                                textSize: .body)
+                    .frame(width: 150, height: 150)
                     .padding(.leading, 40)
                     .padding(.trailing, 40)
                 

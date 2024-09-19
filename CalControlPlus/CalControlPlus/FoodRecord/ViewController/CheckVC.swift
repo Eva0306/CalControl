@@ -182,9 +182,6 @@ extension CheckVC {
             print("Failed to load model")
             return
         }
-        
-        
-        
         let request = VNCoreMLRequest(model: visionModel) { (request, error) in
             
             guard let results = request.results as? [VNClassificationObservation], let firstResult = results.first else {
@@ -197,7 +194,7 @@ extension CheckVC {
                 
                 NutritionManager.shared.fetchNutritionFacts(self, mealType: self.mealType ?? 0, ingredient: "one " + firstResult.identifier) { foodRecord in
                     
-                    self.goToNutritionVC(image: nil, foodRecord: foodRecord)
+                    self.goToNutritionVC(image: image, foodRecord: foodRecord)
                 }
             }
         }

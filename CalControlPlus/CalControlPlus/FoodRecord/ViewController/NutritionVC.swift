@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FirebaseCore
+import FirebaseFirestore
 
 class NutritionVC: UIViewController {
     
@@ -128,18 +128,23 @@ class NutritionVC: UIViewController {
         updatedFoodRecord.id = docRef.documentID
         updatedFoodRecord.date = Timestamp(date: currentDate)
 
-        FirebaseManager.shared.setData(updatedFoodRecord, at: docRef)
-
-        let alert = UIAlertController(title: "儲存成功！", message: nil, preferredStyle: .alert)
-        present(alert, animated: true)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            alert.dismiss(animated: true) {
-                self.backToHome()
+        if let checkPhoto = checkPhoto {
+            
+            FirebaseManager.shared.uploadImage(image: checkPhoto) { [weak self] url in
+                guard let self = self else { return }
+                
+                if let url = url {
+                    
+                    updatedFoodRecord.imageUrl = url.absoluteString
+                }
+                
+                self.saveRecord(updatedFoodRecord, to: docRef)
             }
+        } else {
+            
+            saveRecord(updatedFoodRecord, to: docRef)
         }
     }
-
 }
 
 // MARK: - Tableview DataSource
@@ -204,5 +209,21 @@ extension NutritionVC {
         
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true, completion: nil)
+    }
+}
+
+// MARK: - Save Record To Firebase
+extension NutritionVC {
+    private func saveRecord(_ foodRecord: FoodRecord, to docRef: DocumentReference) {
+        FirebaseManager.shared.setData(foodRecord, at: docRef)
+        
+        let alert = UIAlertController(title: "儲存成功！", message: nil, preferredStyle: .alert)
+        present(alert, animated: true)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            alert.dismiss(animated: true) {
+                self.backToHome()
+            }
+        }
     }
 }

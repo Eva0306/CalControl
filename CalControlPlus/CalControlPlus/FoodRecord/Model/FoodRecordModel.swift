@@ -15,7 +15,7 @@ struct FoodRecord: Codable {
     let userID: String
     var date: Timestamp?
     let nutritionFacts: NutritionFacts
-    let imageUrl: String?
+    var imageUrl: String?
 }
 
 // MARK: - Classify Type

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */; };
+		B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */; };
+		B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */; };
+		B32CDD732C9BF02000F92244 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B32CDD722C9BF02000F92244 /* FirebaseStorage */; };
 		B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A52C99D96700D9D1CC /* DashboardVC.swift */; };
 		B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */; };
 		B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */; };
@@ -46,8 +50,8 @@
 		B36C190B2C9A9BE400D9D1CC /* WaterRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C190A2C9A9BE400D9D1CC /* WaterRecordViewModel.swift */; };
 		B36C19122C9AD60B00D9D1CC /* DailyAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C19112C9AD60B00D9D1CC /* DailyAnalysisCell.swift */; };
 		B36C19142C9AD90000D9D1CC /* DailyAnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C19132C9AD90000D9D1CC /* DailyAnalysisViewModel.swift */; };
-		B36C19182C9B318600D9D1CC /* WeeklyAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C19172C9B318600D9D1CC /* WeeklyAnalysisCell.swift */; };
-		B36C191D2C9B31E500D9D1CC /* WeeklyAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C191C2C9B31E500D9D1CC /* WeeklyAnalysisView.swift */; };
+		B36C19182C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C19172C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift */; };
+		B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C191C2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift */; };
 		B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */; };
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
@@ -55,6 +59,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisView.swift; sourceTree = "<group>"; };
+		B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisCell.swift; sourceTree = "<group>"; };
+		B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriModel.swift; sourceTree = "<group>"; };
 		B36C18A52C99D96700D9D1CC /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodImageClassifier.mlmodel; sourceTree = "<group>"; };
 		B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodRecordModel.swift; sourceTree = "<group>"; };
@@ -95,8 +102,8 @@
 		B36C190A2C9A9BE400D9D1CC /* WaterRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterRecordViewModel.swift; sourceTree = "<group>"; };
 		B36C19112C9AD60B00D9D1CC /* DailyAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAnalysisCell.swift; sourceTree = "<group>"; };
 		B36C19132C9AD90000D9D1CC /* DailyAnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAnalysisViewModel.swift; sourceTree = "<group>"; };
-		B36C19172C9B318600D9D1CC /* WeeklyAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyAnalysisCell.swift; sourceTree = "<group>"; };
-		B36C191C2C9B31E500D9D1CC /* WeeklyAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyAnalysisView.swift; sourceTree = "<group>"; };
+		B36C19172C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalAnalysisCell.swift; sourceTree = "<group>"; };
+		B36C191C2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalAnalysisView.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -108,6 +115,7 @@
 				B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */,
 				B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */,
 				B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */,
+				B32CDD732C9BF02000F92244 /* FirebaseStorage in Frameworks */,
 				B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,6 +123,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B32CDD6F2C9BCD5500F92244 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B32CDD742C9BF32300F92244 /* MealRecord */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = MealRecord;
+			sourceTree = "<group>";
+		};
 		B3644C3F2C948EF5005195AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				B36C18A52C99D96700D9D1CC /* DashboardVC.swift */,
+				B32CDD6F2C9BCD5500F92244 /* Model */,
 				B36C19192C9B31A300D9D1CC /* View */,
 			);
 			path = Dashboard;
@@ -179,8 +203,9 @@
 			isa = PBXGroup;
 			children = (
 				B36C18B82C99D96700D9D1CC /* HomeVC.swift */,
-				B36C190C2C9AD51500D9D1CC /* WaterRecord */,
 				B36C19102C9AD59E00D9D1CC /* DailyAnalysis */,
+				B36C190C2C9AD51500D9D1CC /* WaterRecord */,
+				B32CDD742C9BF32300F92244 /* MealRecord */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -317,8 +342,10 @@
 		B36C19192C9B31A300D9D1CC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B36C191C2C9B31E500D9D1CC /* WeeklyAnalysisView.swift */,
-				B36C19172C9B318600D9D1CC /* WeeklyAnalysisCell.swift */,
+				B36C191C2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift */,
+				B36C19172C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift */,
+				B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */,
+				B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -362,6 +389,7 @@
 				B3B512BD2C9185E700E02A43 /* FirebaseAuth */,
 				B3B512BF2C9185E700E02A43 /* FirebaseFirestore */,
 				B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */,
+				B32CDD722C9BF02000F92244 /* FirebaseStorage */,
 			);
 			productName = "CalControl+";
 			productReference = B3B512852C91682700E02A43 /* CalControlPlus.app */;
@@ -454,6 +482,8 @@
 				B36C18E02C99D96700D9D1CC /* DailyAnalysisView.swift in Sources */,
 				B36C18DE2C99D96700D9D1CC /* TextVC.swift in Sources */,
 				B36C18DB2C99D96700D9D1CC /* MealSelectionVC.swift in Sources */,
+				B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */,
+				B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */,
 				B36C19122C9AD60B00D9D1CC /* DailyAnalysisCell.swift in Sources */,
 				B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */,
 				B36C18D62C99D96700D9D1CC /* NutritionTitleCell.swift in Sources */,
@@ -464,6 +494,7 @@
 				B36C18D82C99D96700D9D1CC /* TextViewCell.swift in Sources */,
 				B36C18D52C99D96700D9D1CC /* NutritionImageCell.swift in Sources */,
 				B36C18F02C99D96700D9D1CC /* MainTabBarController.swift in Sources */,
+				B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */,
 				B36C18E42C99D96700D9D1CC /* NutritionManager.swift in Sources */,
 				B36C18DF2C99D96700D9D1CC /* HomeVC.swift in Sources */,
 				B36C18E62C99D96700D9D1CC /* TranslationManager.swift in Sources */,
@@ -479,9 +510,9 @@
 				B36C18E52C99D96700D9D1CC /* TranslationAPI.swift in Sources */,
 				B36C18DC2C99D96700D9D1CC /* NutritionVC.swift in Sources */,
 				B36C18D92C99D96700D9D1CC /* CameraVC.swift in Sources */,
-				B36C19182C9B318600D9D1CC /* WeeklyAnalysisCell.swift in Sources */,
+				B36C19182C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift in Sources */,
 				B36C18E32C99D96700D9D1CC /* FirebaseManager.swift in Sources */,
-				B36C191D2C9B31E500D9D1CC /* WeeklyAnalysisView.swift in Sources */,
+				B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -729,6 +760,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B32CDD722C9BF02000F92244 /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
 		B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B370A3782C96CAD900CDBF44 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
