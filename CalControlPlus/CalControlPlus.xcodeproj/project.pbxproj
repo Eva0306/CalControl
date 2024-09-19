@@ -58,6 +58,8 @@
 		B36C19182C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C19172C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift */; };
 		B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C191C2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift */; };
 		B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */; };
+		B387D9682C9C7C7400CCC311 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9672C9C7C7400CCC311 /* UserSettings.swift */; };
+		B387D96B2C9C811200CCC311 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */; };
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
@@ -113,6 +115,8 @@
 		B36C19132C9AD90000D9D1CC /* DailyAnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyAnalysisViewModel.swift; sourceTree = "<group>"; };
 		B36C19172C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalAnalysisCell.swift; sourceTree = "<group>"; };
 		B36C191C2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalAnalysisView.swift; sourceTree = "<group>"; };
+		B387D9672C9C7C7400CCC311 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
+		B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -163,6 +167,7 @@
 				B36C18A52C99D96700D9D1CC /* DashboardVC.swift */,
 				B32CDD6F2C9BCD5500F92244 /* Model */,
 				B36C19192C9B31A300D9D1CC /* View */,
+				B387D9692C9C80E900CCC311 /* ViewModel */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 				B36C18CE2C99D96700D9D1CC /* SceneDelegate.swift */,
 				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
 				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
+				B387D9672C9C7C7400CCC311 /* UserSettings.swift */,
 				B36C19022C9A97E500D9D1CC /* Extension */,
 				B36C18C12C99D96700D9D1CC /* Manager */,
 				B36C18BC2C99D96700D9D1CC /* Home */,
@@ -362,6 +368,14 @@
 				B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		B387D9692C9C80E900CCC311 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B3B5127C2C91682600E02A43 = {
@@ -511,6 +525,8 @@
 				B36C18E72C99D96700D9D1CC /* AppDelegate.swift in Sources */,
 				B36C18FF2C9A974600D9D1CC /* FriendVC.swift in Sources */,
 				B36C18D82C99D96700D9D1CC /* TextViewCell.swift in Sources */,
+				B387D96B2C9C811200CCC311 /* DashboardViewModel.swift in Sources */,
+				B387D9682C9C7C7400CCC311 /* UserSettings.swift in Sources */,
 				B36C18D52C99D96700D9D1CC /* NutritionImageCell.swift in Sources */,
 				B36C18F02C99D96700D9D1CC /* MainTabBarController.swift in Sources */,
 				B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */,

@@ -31,8 +31,6 @@ struct Nutrient: Codable {
 }
 
 struct NutritionFacts: Codable {
-//    var title: String?
-//    var mealType: Int
     let weight: Nutrient
     let calories: Nutrient
     let carbs: Nutrient

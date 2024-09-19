@@ -52,19 +52,18 @@ extension DashboardVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.item == 0 {
-            // swiftlint:disable force_cast
+            // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: WeeklyCalAnalysisCell.identifier, for: indexPath) as! WeeklyCalAnalysisCell
-            // swiftlint:enable force_cast
+            // swiftlint:enable force_cast line_length
             cell.configure()
             return cell
         } else if indexPath.item == 1 {
-            // swiftlint:disable force_cast
+            // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: WeeklyNutriAnalysisCell.identifier, for: indexPath) as! WeeklyNutriAnalysisCell
-            // swiftlint:enable force_cast
+            // swiftlint:enable force_cast line_length
             cell.configure()
             return cell
         }
         return UITableViewCell()
     }
 }
-

@@ -25,7 +25,7 @@ class HomeVC: UIViewController {
         return tv
     }()
     
-    var viewModel = HomeViewModel()
+    var viewModel: HomeViewModel!
     private var subscriptions = Set<AnyCancellable>()
     
     var currentDate = Calendar.current.startOfDay(for: Date())
@@ -33,6 +33,9 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(resource: .background)
+        
+        let settings = UserSettings()
+        viewModel = HomeViewModel(userSettings: settings)
         
         setupView()
         addBindings()
@@ -52,7 +55,7 @@ class HomeVC: UIViewController {
     }
     
     private func addBindings() {
-        viewModel.$foodRecord
+        viewModel.$foodRecords
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.homeTableView.reloadData()
@@ -79,7 +82,7 @@ extension HomeVC: UITableViewDataSource {
             // swiftlint:disable force_cast
             let cell = tableView.dequeueReusableCell(withIdentifier: DailyAnalysisCell.identifier, for: indexPath) as! DailyAnalysisCell
             // swiftlint:enable force_cast
-//            cell.configure(for: currentDate)
+            cell.configure(with: viewModel)
             return cell
         } else if indexPath.item == 1 {
             // swiftlint:disable force_cast
@@ -92,7 +95,7 @@ extension HomeVC: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: MealRecordCell.identifier, for: indexPath) as! MealRecordCell
             // swiftlint:enable force_cast
             let mealType = indexPath.item - 2
-            let foodRecords = viewModel.foodRecord.filter { $0.mealType == mealType }
+            let foodRecords = viewModel.foodRecords.filter { $0.mealType == mealType }
             cell.configure(mealType: mealType, foodRecords: foodRecords)
             return cell
         }

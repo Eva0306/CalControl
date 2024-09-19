@@ -77,7 +77,7 @@ struct NutritionProgressView: View {
                 Text(nutritionName)
                     .font(.caption)
                     .foregroundColor(.gray)
-                ProgressView(value: currentAmount, total: totalAmount)
+                ProgressView(value: min(currentAmount, totalAmount), total: totalAmount)
                     .progressViewStyle(LinearProgressViewStyle(tint: .orange))
                 Text("\(Int(currentAmount))/\(Int(totalAmount))g")
                     .font(.caption)
