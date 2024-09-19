@@ -11,6 +11,11 @@
 		B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */; };
 		B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */; };
 		B32CDD732C9BF02000F92244 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B32CDD722C9BF02000F92244 /* FirebaseStorage */; };
+		B32CDD762C9BF3E700F92244 /* MealRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD752C9BF3E700F92244 /* MealRecordCell.swift */; };
+		B32CDD782C9BF61100F92244 /* FoodRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD772C9BF61100F92244 /* FoodRecordCell.swift */; };
+		B32CDD7E2C9C492A00F92244 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD7D2C9C492A00F92244 /* HomeViewModel.swift */; };
+		B32CDD882C9C4DFE00F92244 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B32CDD872C9C4DFE00F92244 /* Kingfisher */; };
+		B32CDD8A2C9C4E4500F92244 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */; };
 		B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A52C99D96700D9D1CC /* DashboardVC.swift */; };
 		B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */; };
 		B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */; };
@@ -62,6 +67,10 @@
 		B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisView.swift; sourceTree = "<group>"; };
 		B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisCell.swift; sourceTree = "<group>"; };
 		B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriModel.swift; sourceTree = "<group>"; };
+		B32CDD752C9BF3E700F92244 /* MealRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealRecordCell.swift; sourceTree = "<group>"; };
+		B32CDD772C9BF61100F92244 /* FoodRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRecordCell.swift; sourceTree = "<group>"; };
+		B32CDD7D2C9C492A00F92244 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
 		B36C18A52C99D96700D9D1CC /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodImageClassifier.mlmodel; sourceTree = "<group>"; };
 		B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodRecordModel.swift; sourceTree = "<group>"; };
@@ -115,6 +124,7 @@
 				B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */,
 				B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */,
 				B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */,
+				B32CDD882C9C4DFE00F92244 /* Kingfisher in Frameworks */,
 				B32CDD732C9BF02000F92244 /* FirebaseStorage in Frameworks */,
 				B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */,
 			);
@@ -134,6 +144,8 @@
 		B32CDD742C9BF32300F92244 /* MealRecord */ = {
 			isa = PBXGroup;
 			children = (
+				B32CDD772C9BF61100F92244 /* FoodRecordCell.swift */,
+				B32CDD752C9BF3E700F92244 /* MealRecordCell.swift */,
 			);
 			path = MealRecord;
 			sourceTree = "<group>";
@@ -203,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				B36C18B82C99D96700D9D1CC /* HomeVC.swift */,
+				B32CDD7D2C9C492A00F92244 /* HomeViewModel.swift */,
 				B36C19102C9AD59E00D9D1CC /* DailyAnalysis */,
 				B36C190C2C9AD51500D9D1CC /* WaterRecord */,
 				B32CDD742C9BF32300F92244 /* MealRecord */,
@@ -266,6 +279,7 @@
 			children = (
 				B36C18CF2C99D96700D9D1CC /* UIColorExtension.swift */,
 				B36C18C62C99D96700D9D1CC /* DoubleExtension.swift */,
+				B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -390,6 +404,7 @@
 				B3B512BF2C9185E700E02A43 /* FirebaseFirestore */,
 				B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */,
 				B32CDD722C9BF02000F92244 /* FirebaseStorage */,
+				B32CDD872C9C4DFE00F92244 /* Kingfisher */,
 			);
 			productName = "CalControl+";
 			productReference = B3B512852C91682700E02A43 /* CalControlPlus.app */;
@@ -422,6 +437,7 @@
 			packageReferences = (
 				B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B370A3782C96CAD900CDBF44 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				B32CDD862C9C4DFE00F92244 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = B3B512862C91682700E02A43 /* Products */;
 			projectDirPath = "";
@@ -477,10 +493,13 @@
 				B36C19012C9A979800D9D1CC /* ProfileVC.swift in Sources */,
 				B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */,
 				B36C18E22C99D96700D9D1CC /* WaterRecordCell.swift in Sources */,
+				B32CDD7E2C9C492A00F92244 /* HomeViewModel.swift in Sources */,
 				B36C190B2C9A9BE400D9D1CC /* WaterRecordViewModel.swift in Sources */,
 				B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */,
+				B32CDD8A2C9C4E4500F92244 /* UIImageViewExtension.swift in Sources */,
 				B36C18E02C99D96700D9D1CC /* DailyAnalysisView.swift in Sources */,
 				B36C18DE2C99D96700D9D1CC /* TextVC.swift in Sources */,
+				B32CDD782C9BF61100F92244 /* FoodRecordCell.swift in Sources */,
 				B36C18DB2C99D96700D9D1CC /* MealSelectionVC.swift in Sources */,
 				B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */,
 				B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */,
@@ -511,6 +530,7 @@
 				B36C18DC2C99D96700D9D1CC /* NutritionVC.swift in Sources */,
 				B36C18D92C99D96700D9D1CC /* CameraVC.swift in Sources */,
 				B36C19182C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift in Sources */,
+				B32CDD762C9BF3E700F92244 /* MealRecordCell.swift in Sources */,
 				B36C18E32C99D96700D9D1CC /* FirebaseManager.swift in Sources */,
 				B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */,
 			);
@@ -741,6 +761,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B32CDD862C9C4DFE00F92244 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.1;
+			};
+		};
 		B370A3782C96CAD900CDBF44 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
@@ -764,6 +792,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		B32CDD872C9C4DFE00F92244 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B32CDD862C9C4DFE00F92244 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */ = {
 			isa = XCSwiftPackageProductDependency;

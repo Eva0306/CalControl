@@ -22,7 +22,7 @@ class WaterRecordViewModel: ObservableObject {
         
         currentWaterIntake = intake
         
-        let dateOnly = startOfDay(for: date)
+        let dateOnly = Calendar.current.startOfDay(for: date)
         let timestamp = Timestamp(date: dateOnly)
         
         FirebaseManager.shared.getDocuments(from: .waterRecord, where: "date", isEqualTo: timestamp) { [weak self] (records: [WaterRecord]) in
@@ -50,7 +50,7 @@ class WaterRecordViewModel: ObservableObject {
     
     // Fetch water record by date (using startOfDay)
     func fetchWaterRecord(for date: Date) {
-        let dateOnly = startOfDay(for: date)
+        let dateOnly = Calendar.current.startOfDay(for: date)
         let timestamp = Timestamp(date: dateOnly)
         
         FirebaseManager.shared.getDocuments(from: .waterRecord, where: "date", isEqualTo: timestamp) { [weak self] (records: [WaterRecord]) in
@@ -80,10 +80,5 @@ class WaterRecordViewModel: ObservableObject {
         
         FirebaseManager.shared.setData(newRecord, at: docRef)
         self.waterRecord = newRecord
-    }
-    
-    // Convert a Date object to the start of the day (00:00:00)
-    private func startOfDay(for date: Date) -> Date {
-        return Calendar.current.startOfDay(for: date)
     }
 }
