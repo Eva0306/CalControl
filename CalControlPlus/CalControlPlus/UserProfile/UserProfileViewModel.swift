@@ -56,7 +56,8 @@ class UserProfileViewModel: ObservableObject {
         }
     }
     // swiftlint:disable large_tuple
-    private func transformToBasicGoal(tdee: Int, target: Int) -> (calories: Int, proteinPercentage: Double, carbPercentage: Double, fatPercentage: Double) {
+    private func transformToBasicGoal(tdee: Int, target: Int) -> (calories: Int, proteinPercentage: Double,
+          carbPercentage: Double, fatPercentage: Double) {
         // swiftlint:enable large_tuple
         switch target {
         case 0: // 減重

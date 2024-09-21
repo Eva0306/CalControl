@@ -10,24 +10,54 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var userProfileViewModel: UserProfileViewModel?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
-//        if let userID = UserDefaults.standard.string(forKey: "userID") {
-//                // 如果有 userID，直接導航到主畫面
-//                let homeVC = HomeViewController()
-//                homeVC.currentUserID = userID
-//                window?.rootViewController = UINavigationController(rootViewController: homeVC)
-//            } else {
-//                // 沒有 userID，導航到填寫基本資料頁面
-//                let onboardingVC = OnboardingViewController() // 假設這是填寫基本資料的頁面
-//                window?.rootViewController = UINavigationController(rootViewController: onboardingVC)
-//            }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+        
+        // 檢查是否有 userID
+        if let userID = UserDefaults.standard.string(forKey: "userID") {
+            // 有 userID，從 Firebase 獲取使用者資料並初始化 UserProfileViewModel
+            fetchUser(userID: userID) { [weak self] user in
+                guard let self = self else { return }
+                self.userProfileViewModel = UserProfileViewModel(user: user)
+                
+                // 導航到主頁面
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                // swiftlint:disable force_cast line_length
+                let tabBarController = storyboard.instantiateInitialViewController() as! MainTabBarController
+                // swiftlint:enable force_cast line_length
+                
+                // 設置 userProfileViewModel 到 HomeVC
+                if let navController = tabBarController.viewControllers?.first as? UINavigationController,
+                   let homeVC = navController.topViewController as? HomeVC {
+                    homeVC.userProfileViewModel = self.userProfileViewModel
+                }
+                
+                self.window?.rootViewController = tabBarController
+                self.window?.makeKeyAndVisible()
+            }
+        } else {
+            // 沒有 userID，導航到填寫基本資料頁面
+            //            let onboardingVC = OnboardingViewController() // 假設這是填寫基本資料的頁面，要記得將產生的 userID 儲存至 UserDefault
+//            window?.rootViewController = UINavigationController(rootViewController: onboardingVC)
 //            window?.makeKeyAndVisible()
+        }
+    }
+
+    // 從 Firebase 獲取使用者資料
+    private func fetchUser(userID: String, completion: @escaping (User) -> Void) {
+        FirebaseManager.shared.getDocuments(from: .users, where: [("id", userID)]) { (users: [User]) in
+            if let user = users.first {
+                completion(user)
+            } else {
+                print("Error fetching user")
+            }
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -40,8 +40,22 @@ final class FirebaseManager {
         }
     }
     
-    func getDocuments<T: Decodable>(from collection: FirestoreEndpoint, where field: String, isEqualTo value: Any, completion: @escaping ([T]) -> Void) {
-        collection.ref.whereField(field, isEqualTo: value).getDocuments { [weak self] snapshot, error in
+//    func getDocuments<T: Decodable>(from collection: FirestoreEndpoint, where field: String, isEqualTo value: Any, completion: @escaping ([T]) -> Void) {
+//        collection.ref.whereField(field, isEqualTo: value).getDocuments { [weak self] snapshot, error in
+//            guard let self = self else { return }
+//            completion(self.parseDocuments(snapshot: snapshot, error: error))
+//        }
+//    }
+    func getDocuments<T: Decodable>(from collection: FirestoreEndpoint, where conditions: [(String, Any)], completion: @escaping ([T]) -> Void) {
+        var query: Query = collection.ref
+
+        // 根據傳入的條件構建查詢
+        for (field, value) in conditions {
+            query = query.whereField(field, isEqualTo: value)
+        }
+
+        // 執行查詢並解析結果
+        query.getDocuments { [weak self] snapshot, error in
             guard let self = self else { return }
             completion(self.parseDocuments(snapshot: snapshot, error: error))
         }
@@ -85,6 +99,32 @@ final class FirebaseManager {
         return models
     }
     
+    // 通用的刪除 document 方法，根據 Document ID 刪除
+    func deleteDocument(from collection: FirestoreEndpoint, documentID: String, completion: @escaping (Bool) -> Void) {
+        let docRef = collection.ref.document(documentID)
+        docRef.delete { error in
+            if let error = error {
+                print("DEBUG: Failed to delete document - \(error.localizedDescription)")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+    
+    // 通用的更新 document 方法，根據 Document ID 更新某些欄位
+    func updateDocument(from collection: FirestoreEndpoint, documentID: String, data: [String: Any], completion: @escaping (Bool) -> Void) {
+        let docRef = collection.ref.document(documentID)
+        docRef.updateData(data) { error in
+            if let error = error {
+                print("DEBUG: Failed to update document - \(error.localizedDescription)")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+    
     func uploadImage(image: UIImage, completion: @escaping (URL?) -> Void) {
         
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
@@ -123,11 +163,11 @@ final class FirebaseManager {
                 // 檢查是否已有當日資料，並更新或插入新資料
                 if let index = totalNutrition.firstIndex(where: {
                     let timestamp = $0["createdTime"] as? Timestamp
-                    return timestamp?.dateValue() == newNutrition.createdTime.dateValue()
+                    return timestamp?.dateValue() == newNutrition.date.dateValue()
                 }) {
                     // 更新當日資料
                     totalNutrition[index] = [
-                        "createdTime": newNutrition.createdTime,
+                        "createdTime": newNutrition.date,
                         "totalCalories": newNutrition.totalCalories,
                         "totalCarbs": newNutrition.totalCarbs,
                         "totalProtein": newNutrition.totalProtein,
@@ -136,7 +176,7 @@ final class FirebaseManager {
                 } else {
                     // 插入新資料，並保持最新 7 天的記錄
                     totalNutrition.append([
-                        "createdTime": newNutrition.createdTime,
+                        "createdTime": newNutrition.date,
                         "totalCalories": newNutrition.totalCalories,
                         "totalCarbs": newNutrition.totalCarbs,
                         "totalProtein": newNutrition.totalProtein,

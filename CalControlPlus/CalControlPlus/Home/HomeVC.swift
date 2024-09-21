@@ -29,29 +29,32 @@ class HomeVC: UIViewController {
         return tv
     }()
     
-    var userProfileViewModel: UserProfileViewModel!
+    var userProfileViewModel: UserProfileViewModel?
     var homeViewModel: HomeViewModel?
     private var subscriptions = Set<AnyCancellable>()
     
     var currentDate = Calendar.current.startOfDay(for: Date())
-    var currentUserID = "o0rbDjlpam158hluBnaW"
+//    var currentUserID = "iVc3Fvrj6Gvi5N8DgXMz"
     
     var mealCellIsExpanded: [Bool] = [false, false, false, false]
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(resource: .background)
         
-        fetchUser { [weak self] user in
-            guard let self = self else { return }
-            
-            self.userProfileViewModel = UserProfileViewModel(user: user)
-            self.homeViewModel = HomeViewModel(userProfileViewModel: self.userProfileViewModel!)
+        if let userProfileViewModel = userProfileViewModel {
+            self.homeViewModel = HomeViewModel(userProfileViewModel: userProfileViewModel)
             self.addBindings()
             self.homeViewModel?.fetchFoodRecord(for: currentDate)
+        } else {
+            print("User profile view model is missing.")
         }
         setupView()
-        NotificationCenter.default.addObserver(self, selector: #selector(foodRecordDidChange(_:)), name: Notification.Name("FoodRecordDidChange"), object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(foodRecordDidChange(_:)),
+            name: Notification.Name("FoodRecordDidChange"),
+            object: nil)
     }
     
     @objc private func foodRecordDidChange(_ notification: Notification) {
@@ -77,16 +80,6 @@ class HomeVC: UIViewController {
                 self?.homeTableView.reloadData()
             }
             .store(in: &subscriptions)
-    }
-    
-    private func fetchUser(completion: @escaping (User) -> Void) {
-        FirebaseManager.shared.getDocuments(from: .users, where: "id", isEqualTo: currentUserID) { (users: [User]) in
-            if let user = users.first {
-                completion(user)
-            } else {
-                print("Error fetching user")
-            }
-        }
     }
 }
 

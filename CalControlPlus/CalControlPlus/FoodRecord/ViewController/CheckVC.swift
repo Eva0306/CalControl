@@ -301,7 +301,7 @@ extension CheckVC {
         print(nutritionFactsArray)
         print("Recognize Text ======================")
         if let nutritionFacts = parseNutritionData(from: nutritionFactsArray) {
-            let foodRecord = FoodRecord(mealType: mealType ?? 0, id: "", userID: "Eva123", nutritionFacts: nutritionFacts, imageUrl: nil)
+            let foodRecord = FoodRecord(mealType: mealType ?? 0, id: "", userID: "iVc3Fvrj6Gvi5N8DgXMz", nutritionFacts: nutritionFacts, imageUrl: nil)
             goToNutritionVC(image: checkPhoto, foodRecord: foodRecord)
             print(nutritionFacts, "\n==============")
         }

@@ -51,6 +51,11 @@ class FoodRecordCell: BaseCardTableViewCell {
         ])
     }
     
+    override func prepareForReuse() {
+        foodTitleLabel.text = ""
+        foodImage.image = UIImage(systemName: "carrot")
+    }
+    
     private func setupView() {
         innerContentView.addSubview(foodTitleLabel)
         innerContentView.addSubview(foodImage)

@@ -12,6 +12,8 @@ class HomeViewModel: ObservableObject {
     @Published var foodRecords: [FoodRecord] = []
     @Published var exerciseValue: Int = 0
     
+    let userProfileViewModel: UserProfileViewModel
+    
     let mealCategories = ["早餐", "午餐", "晚餐", "點心"]
     
     var totalCalories: Double {
@@ -58,8 +60,6 @@ class HomeViewModel: ObservableObject {
         return categorizedRecords
     }
     
-    let userProfileViewModel: UserProfileViewModel
-    
     init(userProfileViewModel: UserProfileViewModel) {
         self.userProfileViewModel = userProfileViewModel
     }
@@ -69,7 +69,7 @@ class HomeViewModel: ObservableObject {
         let timestamp = Timestamp(date: dateOnly)
         
         FirebaseManager.shared.getDocuments(
-            from: .foodRecord, where: "date", isEqualTo: timestamp
+            from: .foodRecord, where: [("date", timestamp)]
         ) { [weak self] (records: [FoodRecord]) in
             guard let self = self else { return }
             self.foodRecords = records

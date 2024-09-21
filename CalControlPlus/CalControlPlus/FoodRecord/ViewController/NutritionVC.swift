@@ -55,7 +55,7 @@ class NutritionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
-        
+        print("init")
         setupTableView()
         setupButtons()
     }
@@ -117,7 +117,7 @@ class NutritionVC: UIViewController {
     }
     
     @objc private func addRecord() {
-        guard let foodRecord = foodRecord, let title = foodRecord.title else {
+        guard let foodRecord = foodRecord else {
             showAlert()
             return
         }

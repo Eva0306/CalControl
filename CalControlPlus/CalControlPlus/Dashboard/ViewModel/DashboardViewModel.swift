@@ -9,6 +9,8 @@ import Foundation
 
 class DashboardViewModel: ObservableObject {
     
+    @Published var foodRecords: [FoodRecord] = []
+    
     let userProfileViewModel: UserProfileViewModel
     
     init(userProfileViewModel: UserProfileViewModel) {

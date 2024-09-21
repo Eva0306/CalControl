@@ -25,7 +25,11 @@ class WaterRecordViewModel: ObservableObject {
         let dateOnly = Calendar.current.startOfDay(for: date)
         let timestamp = Timestamp(date: dateOnly)
         
-        FirebaseManager.shared.getDocuments(from: .waterRecord, where: "date", isEqualTo: timestamp) { [weak self] (records: [WaterRecord]) in
+        FirebaseManager.shared.getDocuments(
+            from: .waterRecord,
+            where : [("date", timestamp),
+                     ("userID", "iVc3Fvrj6Gvi5N8DgXMz")]
+        ) { [weak self] (records: [WaterRecord]) in
             guard let self = self else { return }
             
             if let record = records.first {
@@ -53,7 +57,11 @@ class WaterRecordViewModel: ObservableObject {
         let dateOnly = Calendar.current.startOfDay(for: date)
         let timestamp = Timestamp(date: dateOnly)
         
-        FirebaseManager.shared.getDocuments(from: .waterRecord, where: "date", isEqualTo: timestamp) { [weak self] (records: [WaterRecord]) in
+        FirebaseManager.shared.getDocuments(
+            from: .waterRecord,
+            where: [("date", timestamp),
+                    ("userID", "iVc3Fvrj6Gvi5N8DgXMz")]
+        ) { [weak self] (records: [WaterRecord]) in
             guard let self = self else { return }
             
             if let record = records.first {
@@ -73,7 +81,7 @@ class WaterRecordViewModel: ObservableObject {
         
         let newRecord = WaterRecord(
             id: docRef.documentID,
-            userID: "Eva123",
+            userID: "iVc3Fvrj6Gvi5N8DgXMz",
             date: date,
             totalWaterIntake: currentWaterIntake * cupSize
         )

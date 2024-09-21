@@ -41,7 +41,7 @@ struct PieChartView: View {
                     .fill(slice.color)
                 }
             }
-            .aspectRatio(1, contentMode: .fit)  // 确保保持1:1的比例
+            .aspectRatio(1, contentMode: .fit)
         }
     }
 }
@@ -66,10 +66,10 @@ struct StackedBarChartView: View {
             ForEach(data, id: \.day) { item in
                 BarMark(x: .value("Day", item.day), y: .value("Carbohydrate", item.carbohydrate))
                     .foregroundStyle(Color.orange)
-                BarMark(x: .value("Day", item.day), y: .value("Fat", item.fat))
-                    .foregroundStyle(Color.yellow)
                 BarMark(x: .value("Day", item.day), y: .value("Protein", item.protein))
                     .foregroundStyle(Color.blue)
+                BarMark(x: .value("Day", item.day), y: .value("Fat", item.fat))
+                    .foregroundStyle(Color.yellow)
             }
             .cornerRadius(5)
         }
@@ -105,12 +105,12 @@ struct WeeklyNutriAnalysisView: View {
                         Text("碳水化合物 33.3%")
                     }
                     HStack {
-                        Circle().fill(Color.yellow).frame(width: 10, height: 10)
-                        Text("脂肪 33.3%")
-                    }
-                    HStack {
                         Circle().fill(Color.blue).frame(width: 10, height: 10)
                         Text("蛋白質 33.3%")
+                    }
+                    HStack {
+                        Circle().fill(Color.yellow).frame(width: 10, height: 10)
+                        Text("脂肪 33.3%")
                     }
                 }
                 .font(.caption)

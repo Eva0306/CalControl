@@ -36,7 +36,7 @@ struct WeightRecord: Codable {
 }
 
 struct TotalNutrition: Codable {
-    let createdTime: Timestamp
+    let date: Timestamp
     var totalCalories: Double
     var totalCarbs: Double // g
     var totalProtein: Double // g
