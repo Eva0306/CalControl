@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+class DashboardViewModel: ObservableObject {
+    
+    let userProfileViewModel: UserProfileViewModel
+    
+    init(userProfileViewModel: UserProfileViewModel) {
+        self.userProfileViewModel = userProfileViewModel
+    }
+    
+}

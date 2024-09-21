@@ -12,6 +12,7 @@ import Foundation
 enum FirestoreEndpoint {
     case foodRecord
     case waterRecord
+    case users
 
     var ref: CollectionReference {
         let firestore = Firestore.firestore()
@@ -21,6 +22,8 @@ enum FirestoreEndpoint {
             return firestore.collection("foodRecord")
         case .waterRecord:
             return firestore.collection("waterRecord")
+        case .users:
+            return firestore.collection("users")
         }
     }
 }
@@ -106,6 +109,47 @@ final class FirebaseManager {
                 }
 
                 completion(downloadURL)
+            }
+        }
+    }
+    
+    func updateTotalNutrition(userID: String, newNutrition: TotalNutrition) {
+        let userRef = Firestore.firestore().collection("users").document(userID)
+        
+        userRef.getDocument { document, error in
+            if let document = document, document.exists {
+                var totalNutrition = document.data()?["totalNutrition"] as? [[String: Any]] ?? []
+                
+                // 檢查是否已有當日資料，並更新或插入新資料
+                if let index = totalNutrition.firstIndex(where: {
+                    let timestamp = $0["createdTime"] as? Timestamp
+                    return timestamp?.dateValue() == newNutrition.createdTime.dateValue()
+                }) {
+                    // 更新當日資料
+                    totalNutrition[index] = [
+                        "createdTime": newNutrition.createdTime,
+                        "totalCalories": newNutrition.totalCalories,
+                        "totalCarbs": newNutrition.totalCarbs,
+                        "totalProtein": newNutrition.totalProtein,
+                        "totalFats": newNutrition.totalFats
+                    ]
+                } else {
+                    // 插入新資料，並保持最新 7 天的記錄
+                    totalNutrition.append([
+                        "createdTime": newNutrition.createdTime,
+                        "totalCalories": newNutrition.totalCalories,
+                        "totalCarbs": newNutrition.totalCarbs,
+                        "totalProtein": newNutrition.totalProtein,
+                        "totalFats": newNutrition.totalFats
+                    ])
+                    if totalNutrition.count > 7 {
+                        totalNutrition.removeFirst() // 移除最早的資料
+                    }
+                }
+                
+                userRef.updateData([
+                    "totalNutrition": totalNutrition
+                ])
             }
         }
     }

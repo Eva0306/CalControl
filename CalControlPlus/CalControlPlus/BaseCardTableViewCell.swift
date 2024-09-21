@@ -29,7 +29,7 @@ class BaseCardTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupInnerContentView() {
+    func setupInnerContentView() {
         contentView.addSubview(innerContentView)
         
         NSLayoutConstraint.activate([

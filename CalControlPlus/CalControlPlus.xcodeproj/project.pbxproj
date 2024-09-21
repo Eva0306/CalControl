@@ -60,6 +60,8 @@
 		B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */; };
 		B387D9682C9C7C7400CCC311 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9672C9C7C7400CCC311 /* UserSettings.swift */; };
 		B387D96B2C9C811200CCC311 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */; };
+		B387D96F2C9D231900CCC311 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D96E2C9D231900CCC311 /* UserProfileViewModel.swift */; };
+		B387D9722C9EC09E00CCC311 /* MealTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9712C9EC09E00CCC311 /* MealTitleView.swift */; };
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
@@ -117,6 +119,8 @@
 		B36C191C2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyCalAnalysisView.swift; sourceTree = "<group>"; };
 		B387D9672C9C7C7400CCC311 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		B387D96E2C9D231900CCC311 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
+		B387D9712C9EC09E00CCC311 /* MealTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTitleView.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -149,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				B32CDD772C9BF61100F92244 /* FoodRecordCell.swift */,
+				B387D9712C9EC09E00CCC311 /* MealTitleView.swift */,
 				B32CDD752C9BF3E700F92244 /* MealRecordCell.swift */,
 			);
 			path = MealRecord;
@@ -246,7 +251,7 @@
 				B36C18CE2C99D96700D9D1CC /* SceneDelegate.swift */,
 				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
 				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
-				B387D9672C9C7C7400CCC311 /* UserSettings.swift */,
+				B387D9702C9D242500CCC311 /* UserProfile */,
 				B36C19022C9A97E500D9D1CC /* Extension */,
 				B36C18C12C99D96700D9D1CC /* Manager */,
 				B36C18BC2C99D96700D9D1CC /* Home */,
@@ -376,6 +381,15 @@
 				B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B387D9702C9D242500CCC311 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				B387D9672C9C7C7400CCC311 /* UserSettings.swift */,
+				B387D96E2C9D231900CCC311 /* UserProfileViewModel.swift */,
+			);
+			path = UserProfile;
 			sourceTree = "<group>";
 		};
 		B3B5127C2C91682600E02A43 = {
@@ -527,6 +541,7 @@
 				B36C18D82C99D96700D9D1CC /* TextViewCell.swift in Sources */,
 				B387D96B2C9C811200CCC311 /* DashboardViewModel.swift in Sources */,
 				B387D9682C9C7C7400CCC311 /* UserSettings.swift in Sources */,
+				B387D96F2C9D231900CCC311 /* UserProfileViewModel.swift in Sources */,
 				B36C18D52C99D96700D9D1CC /* NutritionImageCell.swift in Sources */,
 				B36C18F02C99D96700D9D1CC /* MainTabBarController.swift in Sources */,
 				B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */,
@@ -539,6 +554,7 @@
 				B36C18DA2C99D96700D9D1CC /* CheckVC.swift in Sources */,
 				B36C18EB2C99D96700D9D1CC /* DoubleExtension.swift in Sources */,
 				B36C18D72C99D96700D9D1CC /* RecordTabBarController.swift in Sources */,
+				B387D9722C9EC09E00CCC311 /* MealTitleView.swift in Sources */,
 				B36C18F12C99D96700D9D1CC /* SceneDelegate.swift in Sources */,
 				B36C18E92C99D96700D9D1CC /* BaseCardTableViewCell.swift in Sources */,
 				B36C18F22C99D96700D9D1CC /* UIColorExtension.swift in Sources */,

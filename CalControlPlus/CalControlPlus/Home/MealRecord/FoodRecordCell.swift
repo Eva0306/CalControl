@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FoodRecordCell: UITableViewCell {
+class FoodRecordCell: BaseCardTableViewCell {
     
     static let identifier = "FoodRecordCell"
     
@@ -34,7 +34,6 @@ class FoodRecordCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.selectionStyle = .none
         setupView()
     }
     
@@ -42,17 +41,27 @@ class FoodRecordCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func setupInnerContentView() {
+        contentView.addSubview(super.innerContentView)
+        NSLayoutConstraint.activate([
+            innerContentView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            innerContentView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            innerContentView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            innerContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+        ])
+    }
+    
     private func setupView() {
-        contentView.addSubview(foodTitleLabel)
-        contentView.addSubview(foodImage)
+        innerContentView.addSubview(foodTitleLabel)
+        innerContentView.addSubview(foodImage)
         
         NSLayoutConstraint.activate([
-            foodTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            foodTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            foodTitleLabel.leadingAnchor.constraint(equalTo: innerContentView.leadingAnchor, constant: 20),
+            foodTitleLabel.centerYAnchor.constraint(equalTo: innerContentView.centerYAnchor),
             
-            foodImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            foodImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
-            foodImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            foodImage.topAnchor.constraint(equalTo: innerContentView.topAnchor, constant: 10),
+            foodImage.bottomAnchor.constraint(equalTo: innerContentView.bottomAnchor, constant: -10),
+            foodImage.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor, constant: -20),
             foodImage.widthAnchor.constraint(equalToConstant: 50),
             foodImage.heightAnchor.constraint(equalToConstant: 50)
         ])

@@ -17,6 +17,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+//        if let userID = UserDefaults.standard.string(forKey: "userID") {
+//                // 如果有 userID，直接導航到主畫面
+//                let homeVC = HomeViewController()
+//                homeVC.currentUserID = userID
+//                window?.rootViewController = UINavigationController(rootViewController: homeVC)
+//            } else {
+//                // 沒有 userID，導航到填寫基本資料頁面
+//                let onboardingVC = OnboardingViewController() // 假設這是填寫基本資料的頁面
+//                window?.rootViewController = UINavigationController(rootViewController: onboardingVC)
+//            }
+//            window?.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

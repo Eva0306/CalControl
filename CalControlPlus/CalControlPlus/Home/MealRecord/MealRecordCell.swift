@@ -18,7 +18,7 @@ class MealRecordCell: BaseCardTableViewCell {
         }
     }
     
-    private var tableViewHeightConstraint: NSLayoutConstraint!
+//    private var tableViewHeightConstraint: NSLayoutConstraint!
     
     private var foodRecords: [FoodRecord] = []
     
@@ -70,8 +70,8 @@ class MealRecordCell: BaseCardTableViewCell {
             mealRecordTableView.leadingAnchor.constraint(equalTo: innerContentView.leadingAnchor, constant: 20),
             mealRecordTableView.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor, constant: -10)
         ])
-        tableViewHeightConstraint = mealRecordTableView.heightAnchor.constraint(equalToConstant: 0)
-        tableViewHeightConstraint.isActive = true
+//        tableViewHeightConstraint = mealRecordTableView.heightAnchor.constraint(equalToConstant: 0)
+//        tableViewHeightConstraint.isActive = true
     }
     
     private func addTapGesture() {
@@ -85,8 +85,10 @@ class MealRecordCell: BaseCardTableViewCell {
     
     private func updateTableViewHeight() {
         // 根据 isExpanded 修改 mealRecordTableView 的高度
-        let newHeight = isExpanded ? mealRecordTableView.contentSize.height : 0
-        tableViewHeightConstraint.constant = newHeight
+//        let newHeight = isExpanded ? mealRecordTableView.contentSize.height : 0
+//        tableViewHeightConstraint.constant = newHeight
+//        print(tableViewHeightConstraint.constant)
+        mealRecordTableView.layoutIfNeeded()
         
         // 通知外层的 UITableView 更新行高
         guard let tableView = superview as? UITableView else { return }
@@ -97,18 +99,9 @@ class MealRecordCell: BaseCardTableViewCell {
         }
     }
     
-    func configure(mealType: Int, foodRecords: [FoodRecord]) {
-        if mealType == 0 {
-            mealTypeLabel.text = "早餐"
-        } else if mealType == 1 {
-            mealTypeLabel.text = "午餐"
-        } else if mealType == 2 {
-            mealTypeLabel.text = "晚餐"
-        } else {
-            mealTypeLabel.text = "點心"
-        }
+    func configure(foodRecords: [FoodRecord]) {
         self.foodRecords = foodRecords
-        mealRecordTableView.reloadData()
+//        mealRecordTableView.reloadData()
     }
 }
 
@@ -132,5 +125,12 @@ extension MealRecordCell: UITableViewDataSource {
         let foodRecord = foodRecords[indexPath.row]
         cell.configure(with: foodRecord)
         return cell
+    }
+    
+}
+
+extension MealRecordCell {
+    override func prepareForReuse() {
+        isExpanded = false
     }
 }
