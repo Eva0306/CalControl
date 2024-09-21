@@ -12,6 +12,8 @@ class WeeklyNutriAnalysisCell: BaseCardTableViewCell {
     
     static let identifier = "WeeklyNutriAnalysisCell"
     
+    private var viewModel = WeeklyAnalysisViewModel()
+    
     private var hostingController: UIHostingController<WeeklyNutriAnalysisView>?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -25,18 +27,7 @@ class WeeklyNutriAnalysisCell: BaseCardTableViewCell {
     }
     
     private func setupHostingController() {
-        let dailyAnalysisView = WeeklyNutriAnalysisView(
-            dailyData: [
-                WANutriData(day: "Sun", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
-                WANutriData(day: "Mon", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
-                WANutriData(day: "Tue", carbohydrate: 0.4, fat: 0.2, protein: 0.4),
-                WANutriData(day: "Wed", carbohydrate: 0.2, fat: 0.4, protein: 0.4),
-                WANutriData(day: "Thu", carbohydrate: 0.4, fat: 0.3, protein: 0.3),
-                WANutriData(day: "Fri", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
-                WANutriData(day: "Sat", carbohydrate: 0.3, fat: 0.3, protein: 0.4)
-            ],
-            todayNutrition: [0.33, 0.33, 0.34]
-        )
+        let dailyAnalysisView = WeeklyNutriAnalysisView(viewModel: viewModel)
         
         hostingController = UIHostingController(rootView: dailyAnalysisView)
         
@@ -53,7 +44,7 @@ class WeeklyNutriAnalysisCell: BaseCardTableViewCell {
         }
     }
     
-    func configure() {
-
+    func configure(with dashboardViewModel: DashboardViewModel, _ homeViewModel: HomeViewModel) {
+        self.viewModel.update(from: dashboardViewModel, homeViewModel)
     }
 }

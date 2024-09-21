@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 class DashboardVC: UIViewController {
     
-    private lazy var DashboardTableView: UITableView = {
+    private lazy var dashboardTableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
         // tv.delegate = self
@@ -22,25 +23,56 @@ class DashboardVC: UIViewController {
         return tv
     }()
     
-//    var currentDate = Date()
+    var homeViewModel: HomeViewModel?
+    var dashboardViewModel: DashboardViewModel?
+    private var subscriptions = Set<AnyCancellable>()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(resource: .background)
+
+        if let navController = self.tabBarController?.viewControllers?.first as? UINavigationController,
+           let homeVC = navController.topViewController as? HomeVC {
+            
+            self.homeViewModel = homeVC.homeViewModel
+            
+            if let homeViewModel = homeViewModel {
+                self.dashboardViewModel = DashboardViewModel(userProfileViewModel: homeViewModel.userProfileViewModel)
+                self.addBindings()
+                self.dashboardViewModel?.fetchTotalNutrition()
+            }
+        } else {
+            print("Failed to get HomeVC")
+        }
         
         setupView()
     }
     
     private func setupView() {
         
-        view.addSubview(DashboardTableView)
+        view.addSubview(dashboardTableView)
         
         NSLayoutConstraint.activate([
-            DashboardTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            DashboardTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            DashboardTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            DashboardTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            dashboardTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            dashboardTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            dashboardTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            dashboardTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+    
+    private func addBindings() {
+//        dashboardViewModel?.$foodRecords
+//            .receive(on: DispatchQueue.main)
+//            .sink { [weak self] _ in
+//                self?.dashboardTableView.reloadData()
+//            }
+//            .store(in: &subscriptions)
+        dashboardViewModel?.$totalNutrition
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.dashboardTableView.reloadData()
+            }
+            .store(in: &subscriptions)
     }
 }
 
@@ -55,13 +87,19 @@ extension DashboardVC: UITableViewDataSource {
             // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: WeeklyCalAnalysisCell.identifier, for: indexPath) as! WeeklyCalAnalysisCell
             // swiftlint:enable force_cast line_length
-            cell.configure()
+            if let dashboardViewModel = dashboardViewModel,
+               let homeViewModel = homeViewModel {
+                cell.configure(with: dashboardViewModel, homeViewModel)
+            }
             return cell
         } else if indexPath.item == 1 {
             // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: WeeklyNutriAnalysisCell.identifier, for: indexPath) as! WeeklyNutriAnalysisCell
             // swiftlint:enable force_cast line_length
-            cell.configure()
+            if let dashboardViewModel = dashboardViewModel,
+               let homeViewModel = homeViewModel {
+                cell.configure(with: dashboardViewModel, homeViewModel)
+            }
             return cell
         }
         return UITableViewCell()

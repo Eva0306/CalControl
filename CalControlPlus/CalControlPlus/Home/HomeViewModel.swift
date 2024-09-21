@@ -69,7 +69,7 @@ class HomeViewModel: ObservableObject {
         let timestamp = Timestamp(date: dateOnly)
         
         FirebaseManager.shared.getDocuments(
-            from: .foodRecord, where: [("date", timestamp)]
+            from: .foodRecord, where: [("date", .isEqualTo, timestamp)]
         ) { [weak self] (records: [FoodRecord]) in
             guard let self = self else { return }
             self.foodRecords = records

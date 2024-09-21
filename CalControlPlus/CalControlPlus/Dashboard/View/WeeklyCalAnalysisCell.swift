@@ -12,6 +12,8 @@ class WeeklyCalAnalysisCell: BaseCardTableViewCell {
     
     static let identifier = "WeeklyCalAnalysisCell"
     
+    private var viewModel = WeeklyAnalysisViewModel()
+    
     private var hostingController: UIHostingController<WeeklyCalAnalysisView>?
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -25,22 +27,7 @@ class WeeklyCalAnalysisCell: BaseCardTableViewCell {
     }
     
     private func setupHostingController() {
-        let weeklyCalAnalysisView = WeeklyCalAnalysisView(basicGoal: 1000,
-                                                    foodValue: 750,
-                                                    exerciseValue: 0,
-                                                   netCalories: 250,
-                                                   bargetValue: 0,
-                                                    threshold: 0.8,
-                                                    weeklyCaloriesData: [
-                                                     ("Sun", 0.8),
-                                                     ("Mon", 0.7),
-                                                     ("Tue", 0.7),
-                                                     ("Wed", 0.7),
-                                                     ("Thu", 0.94),
-                                                     ("Fri", 0.6),
-                                                     ("Sat", 0.6)
-                                                    ]
-                                 )
+        let weeklyCalAnalysisView = WeeklyCalAnalysisView(viewModel: viewModel)
         
         hostingController = UIHostingController(rootView: weeklyCalAnalysisView)
         
@@ -57,7 +44,7 @@ class WeeklyCalAnalysisCell: BaseCardTableViewCell {
         }
     }
     
-    func configure() {
-
+    func configure(with dashboardViewModel: DashboardViewModel, _ homeViewModel: HomeViewModel) {
+        self.viewModel.update(from: dashboardViewModel, homeViewModel)
     }
 }

@@ -51,7 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     // 從 Firebase 獲取使用者資料
     private func fetchUser(userID: String, completion: @escaping (User) -> Void) {
-        FirebaseManager.shared.getDocuments(from: .users, where: [("id", userID)]) { (users: [User]) in
+        FirebaseManager.shared.getDocuments(from: .users, where: [("id", .isEqualTo, userID)]) { (users: [User]) in
             if let user = users.first {
                 completion(user)
             } else {

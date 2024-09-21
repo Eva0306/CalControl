@@ -84,9 +84,11 @@ struct StackedBarChartView: View {
 }
 
 struct WeeklyNutriAnalysisView: View {
-    var dailyData: [WANutriData]
-    var todayNutrition: [Double]
-    var nutritionColors: [Color] = [.orange, .yellow, .blue]
+    @ObservedObject var viewModel: WeeklyAnalysisViewModel
+    
+//    var weeklyNutritionData: [WANutriData]
+//    var todayNutrition: [Double]
+//    var nutritionColors: [Color] = [.orange, .yellow, .blue]
     
     var body: some View {
         HStack(alignment: .bottom, spacing: 20) {
@@ -96,7 +98,7 @@ struct WeeklyNutriAnalysisView: View {
                     .fontWeight(.bold)
                     .padding(.bottom, 5)
                 
-                PieChartView(slices: calculateSlices(for: todayNutrition, colors: nutritionColors))
+                PieChartView(slices: calculateSlices(for: viewModel.todayNutrition, colors: viewModel.nutritionColors))
                     .frame(width: 100)
                 
                 VStack(alignment: .leading) {
@@ -117,7 +119,7 @@ struct WeeklyNutriAnalysisView: View {
             }
             
             VStack(alignment: .center) {
-                StackedBarChartView(data: dailyData)
+                StackedBarChartView(data: viewModel.weeklyNutritionData)
                 
                 Text("攝取均衡！繼續保持！")
                     .font(.body)
@@ -129,18 +131,19 @@ struct WeeklyNutriAnalysisView: View {
     }
 }
 
-#Preview {
-    WeeklyNutriAnalysisView(
-        dailyData: [
-            WANutriData(day: "Sun", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
-            WANutriData(day: "Mon", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
-            WANutriData(day: "Tue", carbohydrate: 0.4, fat: 0.2, protein: 0.4),
-            WANutriData(day: "Wed", carbohydrate: 0.2, fat: 0.4, protein: 0.4),
-            WANutriData(day: "Thu", carbohydrate: 0.4, fat: 0.3, protein: 0.3),
-            WANutriData(day: "Fri", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
-            WANutriData(day: "Sat", carbohydrate: 0.3, fat: 0.3, protein: 0.4)
-        ],
-        todayNutrition: [0.33, 0.33, 0.34]
-    )
-    .frame(width: 393, height: 200)
-}
+// #Preview {
+//    WeeklyNutriAnalysisView(
+//        weeklyNutritionData: [
+//            WANutriData(day: "Sun", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
+//            WANutriData(day: "Mon", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
+//            WANutriData(day: "Tue", carbohydrate: 0.4, fat: 0.2, protein: 0.4),
+//            WANutriData(day: "Wed", carbohydrate: 0.2, fat: 0.4, protein: 0.4),
+//            WANutriData(day: "Thu", carbohydrate: 0.4, fat: 0.3, protein: 0.3),
+//            WANutriData(day: "Fri", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
+//            WANutriData(day: "Sat", carbohydrate: 0.3, fat: 0.3, protein: 0.4)
+//        ],
+//        todayNutrition: [0.33, 0.33, 0.34]
+//    )
+//    .frame(width: 393, height: 200)
+// }
+

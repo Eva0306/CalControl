@@ -45,16 +45,8 @@ class DailyAnalysisCell: BaseCardTableViewCell {
         }
     }
     
-    func configure(with viewModel: HomeViewModel) {
-        self.viewModel.basicGoal = viewModel.userProfileViewModel.userSettings.basicGoal
-        self.viewModel.foodValue = Int(viewModel.totalCalories)
-        self.viewModel.exerciseValue = viewModel.exerciseValue
-        self.viewModel.carbohydrateCurrent = viewModel.totalCarbs
-        self.viewModel.carbohydrateTotal = viewModel.userProfileViewModel.userSettings.carbohydrateTotal
-        self.viewModel.proteinCurrent = viewModel.totalProtein
-        self.viewModel.proteinTotal = viewModel.userProfileViewModel.userSettings.proteinTotal
-        self.viewModel.fatCurrent = viewModel.totalFats
-        self.viewModel.fatTotal = viewModel.userProfileViewModel.userSettings.fatTotal
+    func configure(with homeViewModel: HomeViewModel) {
+        viewModel.update(from: homeViewModel)
     }
     
     private func didTappedTargetButton() {
@@ -79,7 +71,7 @@ class DailyAnalysisCell: BaseCardTableViewCell {
 //        let fakeNutrition = TotalNutrition(date: Timestamp(date: currentDate), totalCalories: 0, totalCarbs: 0, totalProtein: 0, totalFats: 0)
 //        var nutritionArray: [TotalNutrition] = []
 //        for i in 0..<7 {
-//            if let previousDate = Calendar.current.date(byAdding: .day, value: -i, to: currentDate) {
+//            if let previousDate = Calendar.current.date(byAdding: .date, value: -i, to: currentDate) {
 //                let nutrition = TotalNutrition(date: Timestamp(date: previousDate), totalCalories: 0, totalCarbs: 0, totalProtein: 0, totalFats: 0)
 //                nutritionArray.insert(nutrition, at: 0) // 將新的 nutrition 插入到陣列的最前面，這樣最後一筆資料是今天
 //            }

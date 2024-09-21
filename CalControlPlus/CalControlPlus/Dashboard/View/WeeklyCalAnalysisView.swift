@@ -39,28 +39,32 @@ struct BarChartView: View {
 
 struct WeeklyCalAnalysisView: View {
     
-    var basicGoal: Int
-    var foodValue: Int
-    var exerciseValue: Int
+    @ObservedObject var viewModel: WeeklyAnalysisViewModel
     
-    var netCalories: Int
-    var bargetValue: Int
-    var threshold: Double
-    var weeklyCaloriesData: [(day: String, value: Double)]
+//    var basicGoal: Int
+//    var foodValue: Int
+//    var exerciseValue: Int
+//    var threshold: Double
+//    var weeklyCaloriesData: [(day: String, value: Double)]
+    
+    var netCalories: Int {
+        return viewModel.foodValue - viewModel.exerciseValue
+    }
+
     
     var remainingValue: Int {
-        return basicGoal - foodValue + exerciseValue
+        return viewModel.basicGoal - viewModel.foodValue + viewModel.exerciseValue
     }
     
     var progress: Double {
-        let calculatedProgress = Double(remainingValue) / Double(basicGoal)
+        let calculatedProgress = Double(remainingValue) / Double(viewModel.basicGoal)
         
-        if remainingValue > basicGoal {
+        if remainingValue > viewModel.basicGoal {
             return calculatedProgress - 1.0
         } else if remainingValue <= 0 {
             return calculatedProgress
         } else {
-            return (Double(basicGoal) - Double(remainingValue)) / Double(basicGoal)
+            return (Double(viewModel.basicGoal) - Double(remainingValue)) / Double(viewModel.basicGoal)
         }
     }
     
@@ -76,7 +80,7 @@ struct WeeklyCalAnalysisView: View {
                 VStack(alignment: .center, spacing: 20) {
                     ProgressBarView(progress: progress,
                                     remainingValue: remainingValue,
-                                    basicGoal: basicGoal,
+                                    basicGoal: viewModel.basicGoal,
                                     valueSize: .title2,
                                     textSize: .caption)
                     .frame(width: 80)
@@ -90,15 +94,15 @@ struct WeeklyCalAnalysisView: View {
                         Text("\(netCalories) 卡路里")
                             .font(.system(size: 14))
                             .bold()
-                            .foregroundColor(netCalories < 0 ? .mainRed : Color(uiColor: .darkGray))
+//                            .foregroundColor(netCalories < 0 ? .mainRed : Color(uiColor: .darkGray))
                     }
                 }
             }
             
             VStack {
-                BarChartView(data: weeklyCaloriesData, threshold: threshold)
+                BarChartView(data: viewModel.weeklyCaloriesData, threshold: viewModel.threshold)
                 
-                Text("本週預算尚餘 \(bargetValue)")
+                Text("本週預算尚餘 \(viewModel.bargetValue)")
                     .font(.body)
                     .foregroundColor(.gray)
             }
@@ -109,23 +113,23 @@ struct WeeklyCalAnalysisView: View {
         .padding()
     }
 }
-
-#Preview {
-    WeeklyCalAnalysisView(basicGoal: 1000,
-                       foodValue: 750,
-                       exerciseValue: 0,
-                       netCalories: 250,
-                       bargetValue: 0,
-                       threshold: 0.8,
-                       weeklyCaloriesData: [
-                        ("Sun", 0.8),
-                        ("Mon", 0.7),
-                        ("Tue", 0.7),
-                        ("Wed", 0.7),
-                        ("Thu", 0.94),
-                        ("Fri", 0.6),
-                        ("Sat", 0.6)
-                       ]
-    )
-    .frame(width: 393, height: 200)
-}
+//
+// #Preview {
+//    WeeklyCalAnalysisView(basicGoal: 1000,
+//                       foodValue: 750,
+//                       exerciseValue: 0,
+//                       netCalories: 250,
+//                       bargetValue: 0,
+//                       threshold: 0.8,
+//                       weeklyCaloriesData: [
+//                        ("Sun", 0.8),
+//                        ("Mon", 0.7),
+//                        ("Tue", 0.7),
+//                        ("Wed", 0.7),
+//                        ("Thu", 0.94),
+//                        ("Fri", 0.6),
+//                        ("Sat", 0.6)
+//                       ]
+//    )
+//    .frame(width: 393, height: 200)
+// }

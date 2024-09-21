@@ -62,6 +62,7 @@
 		B387D96B2C9C811200CCC311 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */; };
 		B387D96F2C9D231900CCC311 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D96E2C9D231900CCC311 /* UserProfileViewModel.swift */; };
 		B387D9722C9EC09E00CCC311 /* MealTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9712C9EC09E00CCC311 /* MealTitleView.swift */; };
+		B387D9742C9F269900CCC311 /* WeeklyAnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9732C9F269900CCC311 /* WeeklyAnalysisViewModel.swift */; };
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
@@ -121,6 +122,7 @@
 		B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
 		B387D96E2C9D231900CCC311 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		B387D9712C9EC09E00CCC311 /* MealTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTitleView.swift; sourceTree = "<group>"; };
+		B387D9732C9F269900CCC311 /* WeeklyAnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyAnalysisViewModel.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				B36C18A52C99D96700D9D1CC /* DashboardVC.swift */,
+				B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */,
 				B32CDD6F2C9BCD5500F92244 /* Model */,
 				B36C19192C9B31A300D9D1CC /* View */,
 				B387D9692C9C80E900CCC311 /* ViewModel */,
@@ -378,7 +381,7 @@
 		B387D9692C9C80E900CCC311 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */,
+				B387D9732C9F269900CCC311 /* WeeklyAnalysisViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				B36C18E92C99D96700D9D1CC /* BaseCardTableViewCell.swift in Sources */,
 				B36C18F22C99D96700D9D1CC /* UIColorExtension.swift in Sources */,
 				B36C18E52C99D96700D9D1CC /* TranslationAPI.swift in Sources */,
+				B387D9742C9F269900CCC311 /* WeeklyAnalysisViewModel.swift in Sources */,
 				B36C18DC2C99D96700D9D1CC /* NutritionVC.swift in Sources */,
 				B36C18D92C99D96700D9D1CC /* CameraVC.swift in Sources */,
 				B36C19182C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift in Sources */,

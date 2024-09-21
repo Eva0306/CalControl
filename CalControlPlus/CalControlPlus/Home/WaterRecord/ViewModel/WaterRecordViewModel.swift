@@ -27,8 +27,8 @@ class WaterRecordViewModel: ObservableObject {
         
         FirebaseManager.shared.getDocuments(
             from: .waterRecord,
-            where : [("date", timestamp),
-                     ("userID", "iVc3Fvrj6Gvi5N8DgXMz")]
+            where : [("date", .isEqualTo, timestamp),
+                     ("userID", .isEqualTo, "iVc3Fvrj6Gvi5N8DgXMz")]
         ) { [weak self] (records: [WaterRecord]) in
             guard let self = self else { return }
             
@@ -59,13 +59,13 @@ class WaterRecordViewModel: ObservableObject {
         
         FirebaseManager.shared.getDocuments(
             from: .waterRecord,
-            where: [("date", timestamp),
-                    ("userID", "iVc3Fvrj6Gvi5N8DgXMz")]
+            where: [("date", .isEqualTo, timestamp),
+                    ("userID", .isEqualTo, "iVc3Fvrj6Gvi5N8DgXMz")]
         ) { [weak self] (records: [WaterRecord]) in
             guard let self = self else { return }
             
             if let record = records.first {
-                // If a record is found for the current day
+                // If a record is found for the current date
                 self.waterRecord = record
                 self.currentWaterIntake = record.totalWaterIntake / cupSize
             } else {
@@ -75,7 +75,7 @@ class WaterRecordViewModel: ObservableObject {
         }
     }
     
-    // Create a new water record for the current day
+    // Create a new water record for the current date
     private func createNewWaterRecord(date: Timestamp) {
         let docRef = FirebaseManager.shared.newDocument(of: FirestoreEndpoint.waterRecord)
         

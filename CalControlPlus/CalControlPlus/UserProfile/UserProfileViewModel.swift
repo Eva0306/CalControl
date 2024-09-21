@@ -10,7 +10,11 @@ import Foundation
 class UserProfileViewModel: ObservableObject {
     @Published var userSettings: UserSettings!
     
+    let user: User
+    
     init(user: User) {
+        self.user = user
+        
         let age = calculateAge(from: user.birthday)
         let bmr: Double
         

@@ -28,10 +28,16 @@ enum FirestoreEndpoint {
     }
 }
 
+enum FirestoreCondition {
+    case isEqualTo
+    case isGreaterThanOrEqualTo
+    case isLessThanOrEqualTo
+}
+
 final class FirebaseManager {
     
     static let shared = FirebaseManager()
-
+    
     // 通用的獲取 documents 方法，使用泛型
     func getDocuments<T: Decodable>(from collection: FirestoreEndpoint, completion: @escaping ([T]) -> Void) {
         collection.ref.getDocuments { [weak self] snapshot, error in
@@ -40,20 +46,25 @@ final class FirebaseManager {
         }
     }
     
-//    func getDocuments<T: Decodable>(from collection: FirestoreEndpoint, where field: String, isEqualTo value: Any, completion: @escaping ([T]) -> Void) {
-//        collection.ref.whereField(field, isEqualTo: value).getDocuments { [weak self] snapshot, error in
-//            guard let self = self else { return }
-//            completion(self.parseDocuments(snapshot: snapshot, error: error))
-//        }
-//    }
-    func getDocuments<T: Decodable>(from collection: FirestoreEndpoint, where conditions: [(String, Any)], completion: @escaping ([T]) -> Void) {
+    func getDocuments<T: Decodable>(
+        from collection: FirestoreEndpoint,
+        where conditions: [(String, FirestoreCondition, Any)],
+        completion: @escaping ([T]) -> Void
+    ) {
         var query: Query = collection.ref
-
+        
         // 根據傳入的條件構建查詢
-        for (field, value) in conditions {
-            query = query.whereField(field, isEqualTo: value)
+        for (field, condition, value) in conditions {
+            switch condition {
+            case .isEqualTo:
+                query = query.whereField(field, isEqualTo: value)
+            case .isGreaterThanOrEqualTo:
+                query = query.whereField(field, isGreaterThanOrEqualTo: value)
+            case .isLessThanOrEqualTo:
+                query = query.whereField(field, isLessThanOrEqualTo: value)
+            }
         }
-
+        
         // 執行查詢並解析結果
         query.getDocuments { [weak self] snapshot, error in
             guard let self = self else { return }
