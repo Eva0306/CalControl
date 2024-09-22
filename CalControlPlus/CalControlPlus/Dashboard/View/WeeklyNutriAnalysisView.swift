@@ -109,7 +109,7 @@ struct WeeklyNutriAnalysisView: View {
         HStack(alignment: .bottom, spacing: 20) {
             VStack(alignment: .leading, spacing: 10) {
                 Text("營養成分")
-                    .font(.title2)
+                    .font(.title3)
                     .fontWeight(.bold)
                     .padding(.bottom, 5)
                 

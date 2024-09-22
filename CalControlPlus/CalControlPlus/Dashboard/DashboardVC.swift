@@ -20,6 +20,7 @@ class DashboardVC: UIViewController {
         tv.translatesAutoresizingMaskIntoConstraints = false
         tv.register(WeeklyCalAnalysisCell.self, forCellReuseIdentifier: WeeklyCalAnalysisCell.identifier)
         tv.register(WeeklyNutriAnalysisCell.self, forCellReuseIdentifier: WeeklyNutriAnalysisCell.identifier)
+        tv.register(WeightRecordCell.self, forCellReuseIdentifier: WeightRecordCell.identifier)
         return tv
     }()
     
@@ -70,12 +71,6 @@ class DashboardVC: UIViewController {
     }
     
     private func addBindings() {
-//        dashboardViewModel?.$foodRecords
-//            .receive(on: DispatchQueue.main)
-//            .sink { [weak self] _ in
-//                self?.dashboardTableView.reloadData()
-//            }
-//            .store(in: &subscriptions)
         dashboardViewModel?.$weeklyTotalNutrition
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
@@ -88,7 +83,7 @@ class DashboardVC: UIViewController {
 // MARK: - TableView DataSource
 extension DashboardVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        2
+        3
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -109,6 +104,12 @@ extension DashboardVC: UITableViewDataSource {
                let homeViewModel = homeViewModel {
                 cell.configure(with: dashboardViewModel, homeViewModel)
             }
+            return cell
+        } else if indexPath.item == 2 {
+            // swiftlint:disable force_cast line_length
+            let cell = tableView.dequeueReusableCell(withIdentifier: WeightRecordCell.identifier, for: indexPath) as! WeightRecordCell
+            // swiftlint:enable force_cast line_length
+            cell.configure()
             return cell
         }
         return UITableViewCell()

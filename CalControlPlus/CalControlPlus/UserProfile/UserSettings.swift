@@ -33,6 +33,9 @@ struct User: Codable {
 struct WeightRecord: Codable {
     let createdTime: Timestamp
     let weight: Double
+    var date: Date {
+        return createdTime.dateValue()
+    }
 }
 
 struct TotalNutrition: Codable {

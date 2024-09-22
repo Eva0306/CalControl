@@ -82,7 +82,7 @@ struct WeeklyCalAnalysisView: View {
             
             VStack(alignment: .leading, spacing: 10) {
                 Text("卡路里")
-                    .font(.title2)
+                    .font(.title3)
                     .fontWeight(.medium)
                     .padding(.bottom, 10)
                 
