@@ -36,16 +36,25 @@ class DashboardVC: UIViewController {
             
             self.homeViewModel = homeVC.homeViewModel
             
-            if let homeViewModel = homeViewModel {
-                self.dashboardViewModel = DashboardViewModel(userProfileViewModel: homeViewModel.userProfileViewModel)
-                self.addBindings()
-                self.dashboardViewModel?.fetchTotalNutrition()
-            }
         } else {
             print("Failed to get HomeVC")
         }
         
+        dashboardViewModel = DashboardViewModel(userProfileViewModel: UserProfileViewModel.shared)
+        addBindings()
+        dashboardViewModel?.fetchWeeklyFoodRecords()
+        
         setupView()
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(foodRecordDidChange(_:)),
+            name: Notification.Name("FoodRecordDidChange"),
+            object: nil)
+    }
+    
+    @objc private func foodRecordDidChange(_ notification: Notification){
+        dashboardViewModel?.fetchWeeklyFoodRecords()
     }
     
     private func setupView() {
@@ -67,7 +76,7 @@ class DashboardVC: UIViewController {
 //                self?.dashboardTableView.reloadData()
 //            }
 //            .store(in: &subscriptions)
-        dashboardViewModel?.$totalNutrition
+        dashboardViewModel?.$weeklyTotalNutrition
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.dashboardTableView.reloadData()

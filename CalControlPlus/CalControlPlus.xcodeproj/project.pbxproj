@@ -63,6 +63,7 @@
 		B387D96F2C9D231900CCC311 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D96E2C9D231900CCC311 /* UserProfileViewModel.swift */; };
 		B387D9722C9EC09E00CCC311 /* MealTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9712C9EC09E00CCC311 /* MealTitleView.swift */; };
 		B387D9742C9F269900CCC311 /* WeeklyAnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9732C9F269900CCC311 /* WeeklyAnalysisViewModel.swift */; };
+		B387D9762CA0019C00CCC311 /* NutritionCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9752CA0019C00CCC311 /* NutritionCalculator.swift */; };
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
@@ -123,6 +124,7 @@
 		B387D96E2C9D231900CCC311 /* UserProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewModel.swift; sourceTree = "<group>"; };
 		B387D9712C9EC09E00CCC311 /* MealTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTitleView.swift; sourceTree = "<group>"; };
 		B387D9732C9F269900CCC311 /* WeeklyAnalysisViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyAnalysisViewModel.swift; sourceTree = "<group>"; };
+		B387D9752CA0019C00CCC311 /* NutritionCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionCalculator.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -243,6 +245,7 @@
 				B36C18BE2C99D96700D9D1CC /* NutritionManager.swift */,
 				B36C18BF2C99D96700D9D1CC /* TranslationAPI.swift */,
 				B36C18C02C99D96700D9D1CC /* TranslationManager.swift */,
+				B387D9752CA0019C00CCC311 /* NutritionCalculator.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -521,6 +524,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B387D9762CA0019C00CCC311 /* NutritionCalculator.swift in Sources */,
 				B36C19012C9A979800D9D1CC /* ProfileVC.swift in Sources */,
 				B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */,
 				B36C18E22C99D96700D9D1CC /* WaterRecordCell.swift in Sources */,

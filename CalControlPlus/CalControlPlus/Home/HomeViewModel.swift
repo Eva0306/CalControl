@@ -11,34 +11,11 @@ import FirebaseFirestore
 class HomeViewModel: ObservableObject {
     @Published var foodRecords: [FoodRecord] = []
     @Published var exerciseValue: Int = 0
+    @Published var totalNutrition: TotalNutrition?
     
     let userProfileViewModel: UserProfileViewModel
     
     let mealCategories = ["早餐", "午餐", "晚餐", "點心"]
-    
-    var totalCalories: Double {
-        return foodRecords.reduce(0.0) { result, record in
-            result + record.nutritionFacts.calories.value
-        }
-    }
-    
-    var totalCarbs: Double {
-        return foodRecords.reduce(0.0) { result, record in
-            result + record.nutritionFacts.carbs.value
-        }
-    }
-    
-    var totalProtein: Double {
-        return foodRecords.reduce(0.0) { result, record in
-            result + record.nutritionFacts.protein.value
-        }
-    }
-    
-    var totalFats: Double {
-        return foodRecords.reduce(0.0) { result, record in
-            result + record.nutritionFacts.fats.value
-        }
-    }
     
     var foodRecordsByCategory: [[FoodRecord]] {
         var categorizedRecords: [[FoodRecord]] = [[], [], [], []]
@@ -69,10 +46,12 @@ class HomeViewModel: ObservableObject {
         let timestamp = Timestamp(date: dateOnly)
         
         FirebaseManager.shared.getDocuments(
-            from: .foodRecord, where: [("date", .isEqualTo, timestamp)]
+            from: .foodRecord, where: [("date", .isEqualTo, timestamp),
+                                       ("userID", .isEqualTo, userProfileViewModel.user.id)]
         ) { [weak self] (records: [FoodRecord]) in
             guard let self = self else { return }
             self.foodRecords = records
+            self.totalNutrition = NutritionCalculator.calculateTotalNutrition(from: records, for: dateOnly)
         }
     }
 }

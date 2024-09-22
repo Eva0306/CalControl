@@ -28,7 +28,7 @@ class WaterRecordViewModel: ObservableObject {
         FirebaseManager.shared.getDocuments(
             from: .waterRecord,
             where : [("date", .isEqualTo, timestamp),
-                     ("userID", .isEqualTo, "iVc3Fvrj6Gvi5N8DgXMz")]
+                     ("userID", .isEqualTo, UserProfileViewModel.shared.user.id)]
         ) { [weak self] (records: [WaterRecord]) in
             guard let self = self else { return }
             
@@ -60,7 +60,7 @@ class WaterRecordViewModel: ObservableObject {
         FirebaseManager.shared.getDocuments(
             from: .waterRecord,
             where: [("date", .isEqualTo, timestamp),
-                    ("userID", .isEqualTo, "iVc3Fvrj6Gvi5N8DgXMz")]
+                    ("userID", .isEqualTo, UserProfileViewModel.shared.user.id)]
         ) { [weak self] (records: [WaterRecord]) in
             guard let self = self else { return }
             
@@ -81,7 +81,7 @@ class WaterRecordViewModel: ObservableObject {
         
         let newRecord = WaterRecord(
             id: docRef.documentID,
-            userID: "iVc3Fvrj6Gvi5N8DgXMz",
+            userID: UserProfileViewModel.shared.user.id,
             date: date,
             totalWaterIntake: currentWaterIntake * cupSize
         )

@@ -81,7 +81,7 @@ class NutritionManager: NSObject {
                     title: nutritionData.ingredients?.first?.parsed?.first?.foodMatch,
                     mealType: mealType,
                     id: "",
-                    userID: "iVc3Fvrj6Gvi5N8DgXMz",
+                    userID: UserProfileViewModel.shared.user.id,
                     date: nil,
                     nutritionFacts: nutritionFacts,
                     imageUrl: nil

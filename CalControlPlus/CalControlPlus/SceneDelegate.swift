@@ -24,7 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // 有 userID，從 Firebase 獲取使用者資料並初始化 UserProfileViewModel
             fetchUser(userID: userID) { [weak self] user in
                 guard let self = self else { return }
-                self.userProfileViewModel = UserProfileViewModel(user: user)
+                
+                // 初始化 UserProfileViewModel.shared
+                UserProfileViewModel.shared = UserProfileViewModel(user: user)
                 
                 // 導航到主頁面
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -32,12 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 let tabBarController = storyboard.instantiateInitialViewController() as! MainTabBarController
                 // swiftlint:enable force_cast line_length
                 
-                // 設置 userProfileViewModel 到 HomeVC
-                if let navController = tabBarController.viewControllers?.first as? UINavigationController,
-                   let homeVC = navController.topViewController as? HomeVC {
-                    homeVC.userProfileViewModel = self.userProfileViewModel
-                }
-                
+                // 設置主視圖
                 self.window?.rootViewController = tabBarController
                 self.window?.makeKeyAndVisible()
             }

@@ -7,21 +7,36 @@
 
 import Foundation
 
+struct BasicGoal {
+    var calories: Int
+    var proteinPercentage: Double
+    var carbPercentage: Double
+    var fatPercentage: Double
+}
+
 class UserProfileViewModel: ObservableObject {
-    @Published var userSettings: UserSettings!
     
-    let user: User
+    static var shared: UserProfileViewModel!
+    
+    @Published var userSettings: UserSettings!
+    @Published var user: User
     
     init(user: User) {
         self.user = user
         
+        setupUserSettings()
+    }
+    
+    private func setupUserSettings() {
         let age = calculateAge(from: user.birthday)
         let bmr: Double
         
+        let weight = user.weightRecord.last?.weight ?? 0
+        
         if user.gender == 0 {
-            bmr = (13.7 * user.weightRecord.last!.weight) + (5.0 * user.height) - (6.8 * Double(age)) + 66
+            bmr = (13.7 * weight) + (5.0 * user.height) - (6.8 * Double(age)) + 66
         } else {
-            bmr = (9.6 * user.weightRecord.last!.weight) + (1.8 * user.height) - (4.7 * Double(age)) + 655
+            bmr = (9.6 * weight) + (1.8 * user.height) - (4.7 * Double(age)) + 655
         }
         
         let activityFactor = getActivityFactor(activity: user.activity)
@@ -59,19 +74,17 @@ class UserProfileViewModel: ObservableObject {
         default: return 1.2  // 默認為靜止
         }
     }
-    // swiftlint:disable large_tuple
-    private func transformToBasicGoal(tdee: Int, target: Int) -> (calories: Int, proteinPercentage: Double,
-          carbPercentage: Double, fatPercentage: Double) {
-        // swiftlint:enable large_tuple
+
+    private func transformToBasicGoal(tdee: Int, target: Int) -> BasicGoal {
         switch target {
-        case 0: // 減重
-            return (calories: tdee - 500, proteinPercentage: 0.30, carbPercentage: 0.40, fatPercentage: 0.30)
-        case 1: // 維持
-            return (calories: tdee, proteinPercentage: 0.20, carbPercentage: 0.50, fatPercentage: 0.30)
-        case 2: // 增重
-            return (calories: tdee + 500, proteinPercentage: 0.20, carbPercentage: 0.50, fatPercentage: 0.30)
-        default: // 默認返回維持值
-            return (calories: tdee, proteinPercentage: 0.20, carbPercentage: 0.50, fatPercentage: 0.30)
+        case 0:
+            return BasicGoal(calories: tdee - 500, proteinPercentage: 0.30, carbPercentage: 0.40, fatPercentage: 0.30)
+        case 1:
+            return BasicGoal(calories: tdee, proteinPercentage: 0.20, carbPercentage: 0.50, fatPercentage: 0.30)
+        case 2:
+            return BasicGoal(calories: tdee + 500, proteinPercentage: 0.20, carbPercentage: 0.50, fatPercentage: 0.30)
+        default:
+            return BasicGoal(calories: tdee, proteinPercentage: 0.20, carbPercentage: 0.50, fatPercentage: 0.30)
         }
     }
 }

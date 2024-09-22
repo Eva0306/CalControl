@@ -29,12 +29,10 @@ class HomeVC: UIViewController {
         return tv
     }()
     
-    var userProfileViewModel: UserProfileViewModel?
     var homeViewModel: HomeViewModel?
     private var subscriptions = Set<AnyCancellable>()
     
     var currentDate = Calendar.current.startOfDay(for: Date())
-//    var currentUserID = "iVc3Fvrj6Gvi5N8DgXMz"
     
     var mealCellIsExpanded: [Bool] = [false, false, false, false]
     
@@ -42,13 +40,15 @@ class HomeVC: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(resource: .background)
         
-        if let userProfileViewModel = userProfileViewModel {
-            self.homeViewModel = HomeViewModel(userProfileViewModel: userProfileViewModel)
-            self.addBindings()
-            self.homeViewModel?.fetchFoodRecord(for: currentDate)
-        } else {
+        guard let userProfileViewModel = UserProfileViewModel.shared else {
             print("User profile view model is missing.")
+            return
         }
+        
+        homeViewModel = HomeViewModel(userProfileViewModel: userProfileViewModel)
+        addBindings()
+        homeViewModel?.fetchFoodRecord(for: currentDate)
+        
         setupView()
         NotificationCenter.default.addObserver(
             self,
@@ -65,9 +65,11 @@ class HomeVC: UIViewController {
         
         view.addSubview(homeTableView)
         
+        let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 0
+        
         NSLayoutConstraint.activate([
             homeTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            homeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            homeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight-20),
             homeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             homeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])

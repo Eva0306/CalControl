@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--DashboardVC-->
+        <!--Dashboard-->
         <scene sceneID="c0F-hg-4YX">
             <objects>
                 <viewController id="1We-yg-hds" customClass="DashboardVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,7 +19,7 @@
                         <viewLayoutGuide key="safeArea" id="ErQ-RC-cAz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="VK4-Jj-caU"/>
+                    <navigationItem key="navigationItem" title="Dashboard" id="VK4-Jj-caU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7AG-It-13m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -43,7 +43,7 @@
             </objects>
             <point key="canvasLocation" x="827" y="-147"/>
         </scene>
-        <!--FriendVC-->
+        <!--Friends-->
         <scene sceneID="mNp-0F-LDL">
             <objects>
                 <viewController id="C8P-1y-veH" customClass="FriendVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
@@ -53,13 +53,13 @@
                         <viewLayoutGuide key="safeArea" id="sDw-DS-bRi"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="QNO-5p-wAO"/>
+                    <navigationItem key="navigationItem" title="Friends" id="QNO-5p-wAO"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bk-95-ZYU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1753.4351145038167" y="544.36619718309862"/>
         </scene>
-        <!--ProfileVC-->
+        <!--Profile-->
         <scene sceneID="YCL-Mz-Rlp">
             <objects>
                 <viewController id="4Bh-cn-M9H" customClass="ProfileVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
@@ -69,13 +69,13 @@
                         <viewLayoutGuide key="safeArea" id="Yci-Sp-f5Q"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="na8-Yb-BUR"/>
+                    <navigationItem key="navigationItem" title="Profile" id="na8-Yb-BUR"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Af-cU-1GC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1753.4351145038167" y="1243.661971830986"/>
         </scene>
-        <!--HomeVC-->
+        <!--今天-->
         <scene sceneID="dMJ-Nf-ecf">
             <objects>
                 <viewController id="34c-sa-jYy" customClass="HomeVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
@@ -85,7 +85,7 @@
                         <viewLayoutGuide key="safeArea" id="7A2-D7-LxX"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="TvR-OG-n4e"/>
+                    <navigationItem key="navigationItem" title="今天" id="TvR-OG-n4e"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A64-Q0-hjg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

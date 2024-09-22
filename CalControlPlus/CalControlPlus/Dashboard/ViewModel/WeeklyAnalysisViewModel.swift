@@ -21,14 +21,16 @@ class WeeklyAnalysisViewModel: ObservableObject {
     @Published var todayNutrition: [Double] = []
     @Published var nutritionColors: [Color] = [.orange, .yellow, .blue]
     
-    func update(from dashboardViewModel: DashboardViewModel, _ homeViewModel: HomeViewModel){
-        self.basicGoal = homeViewModel.userProfileViewModel.userSettings.basicGoal
-        self.foodValue = Int(homeViewModel.totalCalories)
-        self.exerciseValue = homeViewModel.exerciseValue
-        self.threshold = Double(self.basicGoal) / dashboardViewModel.maxCalories
-        self.weeklyCaloriesData = dashboardViewModel.weeklyCaloriesData
-        
-        self.weeklyNutritionData = dashboardViewModel.weeklyNutritionData
-        self.todayNutrition = dashboardViewModel.todayNutrition
+    func update(from dashboardViewModel: DashboardViewModel, _ homeViewModel: HomeViewModel) {
+        if let totalNutrition = homeViewModel.totalNutrition {
+            self.basicGoal = homeViewModel.userProfileViewModel.userSettings.basicGoal
+            self.foodValue = Int(totalNutrition.totalCalories)
+            self.exerciseValue = homeViewModel.exerciseValue
+            self.threshold = Double(self.basicGoal) / dashboardViewModel.maxCalories
+            self.weeklyCaloriesData = dashboardViewModel.weeklyCaloriesData
+            
+            self.weeklyNutritionData = dashboardViewModel.weeklyNutritionData
+            self.todayNutrition = dashboardViewModel.todayTotalNutrition
+        }
     }
 }

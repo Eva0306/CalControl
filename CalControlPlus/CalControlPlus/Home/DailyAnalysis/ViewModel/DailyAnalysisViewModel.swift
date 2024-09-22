@@ -20,14 +20,16 @@ class DailyAnalysisViewModel: ObservableObject {
     @Published var fatTotal: Double = 0
     
     func update(from homeViewModel: HomeViewModel) {
-        self.basicGoal = homeViewModel.userProfileViewModel.userSettings.basicGoal
-        self.foodValue = Int(homeViewModel.totalCalories)
-        self.exerciseValue = homeViewModel.exerciseValue
-        self.carbohydrateCurrent = homeViewModel.totalCarbs
-        self.carbohydrateTotal = homeViewModel.userProfileViewModel.userSettings.carbohydrateTotal
-        self.proteinCurrent = homeViewModel.totalProtein
-        self.proteinTotal = homeViewModel.userProfileViewModel.userSettings.proteinTotal
-        self.fatCurrent = homeViewModel.totalFats
-        self.fatTotal = homeViewModel.userProfileViewModel.userSettings.fatTotal
+        if let totalNutrition = homeViewModel.totalNutrition {
+            self.basicGoal = homeViewModel.userProfileViewModel.userSettings.basicGoal
+            self.foodValue = Int(totalNutrition.totalCalories)
+            self.exerciseValue = homeViewModel.exerciseValue
+            self.carbohydrateCurrent = totalNutrition.totalCarbs
+            self.carbohydrateTotal = homeViewModel.userProfileViewModel.userSettings.carbohydrateTotal
+            self.proteinCurrent = totalNutrition.totalProtein
+            self.proteinTotal = homeViewModel.userProfileViewModel.userSettings.proteinTotal
+            self.fatCurrent = totalNutrition.totalFats
+            self.fatTotal = homeViewModel.userProfileViewModel.userSettings.fatTotal
+        }
     }
 }

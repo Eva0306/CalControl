@@ -24,15 +24,19 @@ struct PieChartView: View {
             let height = geometry.size.height
             let radius = min(width, height) / 2
             let center = CGPoint(x: width / 2, y: height / 2)
+            let spacingAngle = Angle(degrees: 2)
             
             ZStack {
                 ForEach(slices) { slice in
                     Path { path in
+                        let adjustedStartAngle = slice.startAngle + spacingAngle / 2
+                        let adjustedEndAngle = slice.endAngle - spacingAngle / 2
+                        
                         path.addArc(
                             center: center,
                             radius: radius,
-                            startAngle: slice.startAngle,
-                            endAngle: slice.endAngle,
+                            startAngle: adjustedStartAngle,
+                            endAngle: adjustedEndAngle,
                             clockwise: false
                         )
                         path.addLine(to: center)
@@ -49,12 +53,18 @@ struct PieChartView: View {
 func calculateSlices(for values: [Double], colors: [Color]) -> [PieSlice] {
     var slices = [PieSlice]()
     var startAngle = Angle(degrees: 270)
-    for (index, value) in values.enumerated() {
+    
+    let allZero = values.allSatisfy { $0 == 0 }
+    let finalValues = allZero ? [0.33, 0.33, 0.34] : values
+    let sliceColors = allZero ? [Color.gray.opacity(0.3)] : colors
+    
+    for (index, value) in finalValues.enumerated() {
         let endAngle = startAngle + Angle(degrees: value * 360)
-        let slice = PieSlice(startAngle: startAngle, endAngle: endAngle, color: colors[index])
+        let slice = PieSlice(startAngle: startAngle, endAngle: endAngle, color: sliceColors[index % sliceColors.count])
         slices.append(slice)
         startAngle = endAngle
     }
+    
     return slices
 }
 
@@ -64,12 +74,17 @@ struct StackedBarChartView: View {
     var body: some View {
         Chart {
             ForEach(data, id: \.day) { item in
-                BarMark(x: .value("Day", item.day), y: .value("Carbohydrate", item.carbohydrate))
-                    .foregroundStyle(Color.orange)
-                BarMark(x: .value("Day", item.day), y: .value("Protein", item.protein))
-                    .foregroundStyle(Color.blue)
-                BarMark(x: .value("Day", item.day), y: .value("Fat", item.fat))
-                    .foregroundStyle(Color.yellow)
+                if item.carbohydrate == 0 && item.protein == 0 && item.fat == 0 {
+                    BarMark(x: .value("Day", item.day), y: .value("Placeholder", 1.0))
+                        .foregroundStyle(Color.gray.opacity(0.3)) // 灰色佔位符
+                } else {
+                    BarMark(x: .value("Day", item.day), y: .value("Carbohydrate", item.carbohydrate))
+                        .foregroundStyle(Color.orange)
+                    BarMark(x: .value("Day", item.day), y: .value("Protein", item.protein))
+                        .foregroundStyle(Color.blue)
+                    BarMark(x: .value("Day", item.day), y: .value("Fat", item.fat))
+                        .foregroundStyle(Color.yellow)
+                }
             }
             .cornerRadius(5)
         }
@@ -104,15 +119,15 @@ struct WeeklyNutriAnalysisView: View {
                 VStack(alignment: .leading) {
                     HStack {
                         Circle().fill(Color.orange).frame(width: 10, height: 10)
-                        Text("碳水化合物 33.3%")
+                        Text("碳水化合物 \(String(format: "%.1f", viewModel.todayNutrition[0] * 100))%")
                     }
                     HStack {
                         Circle().fill(Color.blue).frame(width: 10, height: 10)
-                        Text("蛋白質 33.3%")
+                        Text("蛋白質 \(String(format: "%.1f", viewModel.todayNutrition[1] * 100))%")
                     }
                     HStack {
                         Circle().fill(Color.yellow).frame(width: 10, height: 10)
-                        Text("脂肪 33.3%")
+                        Text("脂肪 \(String(format: "%.1f", viewModel.todayNutrition[2] * 100))%")
                     }
                 }
                 .font(.caption)

@@ -60,7 +60,7 @@ class DailyAnalysisCell: BaseCardTableViewCell {
         let specificDate = Calendar.current.date(from: dateComponent)
         let currentDate = Calendar.current.startOfDay(for: specificDate!)
         FirebaseManager.shared.setData(
-            FoodRecord(title: "Title1", mealType: 3, id: docRef.documentID, userID: "iVc3Fvrj6Gvi5N8DgXMz",
+            FoodRecord(title: "Title1", mealType: 3, id: docRef.documentID, userID: UserProfileViewModel.shared.user.id,
                        date: Timestamp(date: currentDate),
                        nutritionFacts: NutritionFacts(
                         weight: Nutrient(value: 50, unit: "g"),
@@ -71,7 +71,7 @@ class DailyAnalysisCell: BaseCardTableViewCell {
 //        let fakeNutrition = TotalNutrition(date: Timestamp(date: currentDate), totalCalories: 0, totalCarbs: 0, totalProtein: 0, totalFats: 0)
 //        var nutritionArray: [TotalNutrition] = []
 //        for i in 0..<7 {
-//            if let previousDate = Calendar.current.date(byAdding: .date, value: -i, to: currentDate) {
+//            if let previousDate = Calendar.current.date(byAdding: .day, value: -i, to: currentDate) {
 //                let nutrition = TotalNutrition(date: Timestamp(date: previousDate), totalCalories: 0, totalCarbs: 0, totalProtein: 0, totalFats: 0)
 //                nutritionArray.insert(nutrition, at: 0) // 將新的 nutrition 插入到陣列的最前面，這樣最後一筆資料是今天
 //            }

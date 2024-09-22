@@ -73,9 +73,9 @@ final class FirebaseManager {
     }
 
     // 通用的添加 document 方法，使用泛型
-    func setData<T: Encodable>(_ data: T, at docRef: DocumentReference) {
+    func setData<T: Encodable>(_ data: T, at docRef: DocumentReference, merge: Bool = false) {
         do {
-            try docRef.setData(from: data)
+            try docRef.setData(from: data, merge: merge)
         } catch {
             print("DEBUG: Error encoding \(data.self) data -", error.localizedDescription)
         }
@@ -137,71 +137,26 @@ final class FirebaseManager {
     }
     
     func uploadImage(image: UIImage, completion: @escaping (URL?) -> Void) {
-        
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
             completion(nil)
             return
         }
-
         let storageRef = Storage.storage().reference().child("FoodRecordImages/\(UUID().uuidString).jpg")
-
         storageRef.putData(imageData, metadata: nil) { metadata, error in
             guard error == nil else {
                 print("Failed to upload image: \(error!.localizedDescription)")
                 completion(nil)
                 return
             }
-
             storageRef.downloadURL { url, error in
                 guard let downloadURL = url, error == nil else {
                     print("Failed to fetch imageUrl: \(error!.localizedDescription)")
                     completion(nil)
                     return
                 }
-
                 completion(downloadURL)
             }
         }
     }
     
-    func updateTotalNutrition(userID: String, newNutrition: TotalNutrition) {
-        let userRef = Firestore.firestore().collection("users").document(userID)
-        
-        userRef.getDocument { document, error in
-            if let document = document, document.exists {
-                var totalNutrition = document.data()?["totalNutrition"] as? [[String: Any]] ?? []
-                
-                // 檢查是否已有當日資料，並更新或插入新資料
-                if let index = totalNutrition.firstIndex(where: {
-                    let timestamp = $0["createdTime"] as? Timestamp
-                    return timestamp?.dateValue() == newNutrition.date.dateValue()
-                }) {
-                    // 更新當日資料
-                    totalNutrition[index] = [
-                        "createdTime": newNutrition.date,
-                        "totalCalories": newNutrition.totalCalories,
-                        "totalCarbs": newNutrition.totalCarbs,
-                        "totalProtein": newNutrition.totalProtein,
-                        "totalFats": newNutrition.totalFats
-                    ]
-                } else {
-                    // 插入新資料，並保持最新 7 天的記錄
-                    totalNutrition.append([
-                        "createdTime": newNutrition.date,
-                        "totalCalories": newNutrition.totalCalories,
-                        "totalCarbs": newNutrition.totalCarbs,
-                        "totalProtein": newNutrition.totalProtein,
-                        "totalFats": newNutrition.totalFats
-                    ])
-                    if totalNutrition.count > 7 {
-                        totalNutrition.removeFirst() // 移除最早的資料
-                    }
-                }
-                
-                userRef.updateData([
-                    "totalNutrition": totalNutrition
-                ])
-            }
-        }
-    }
 }

@@ -17,7 +17,16 @@ struct BarChartView: View {
             ForEach(data, id: \.day) { item in
                 BarMark(
                     x: .value("Day", item.day),
-                    y: .value("Value", item.value)
+                    yStart: .value("Start", 0),
+                    yEnd: .value("End", 1.0)
+                )
+                .foregroundStyle(Color.gray.opacity(0.3))
+                .cornerRadius(5)
+
+                BarMark(
+                    x: .value("Day", item.day),
+                    yStart: .value("Start", 0),
+                    yEnd: .value("End", item.value)
                 )
                 .foregroundStyle(item.value > threshold ? .mainRed : .mainGreen)
                 .cornerRadius(5)
@@ -37,6 +46,7 @@ struct BarChartView: View {
     }
 }
 
+
 struct WeeklyCalAnalysisView: View {
     
     @ObservedObject var viewModel: WeeklyAnalysisViewModel
@@ -51,7 +61,6 @@ struct WeeklyCalAnalysisView: View {
         return viewModel.foodValue - viewModel.exerciseValue
     }
 
-    
     var remainingValue: Int {
         return viewModel.basicGoal - viewModel.foodValue + viewModel.exerciseValue
     }
