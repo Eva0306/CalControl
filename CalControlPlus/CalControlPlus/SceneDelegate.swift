@@ -20,7 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         // 檢查是否有 userID
-        if let userID = UserDefaults.standard.string(forKey: "userID") {
+//        if let userID = UserDefaults.standard.string(forKey: "userID") {
+        let userID = "mTLegqFprHzNy1SMAbTA"
             // 有 userID，從 Firebase 獲取使用者資料並初始化 UserProfileViewModel
             fetchUser(userID: userID) { [weak self] user in
                 guard let self = self else { return }
@@ -38,12 +39,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.window?.rootViewController = tabBarController
                 self.window?.makeKeyAndVisible()
             }
-        } else {
+//        } else {
             // 沒有 userID，導航到填寫基本資料頁面
             //            let onboardingVC = OnboardingViewController() // 假設這是填寫基本資料的頁面，要記得將產生的 userID 儲存至 UserDefault
 //            window?.rootViewController = UINavigationController(rootViewController: onboardingVC)
 //            window?.makeKeyAndVisible()
-        }
+//        }
     }
 
     // 從 Firebase 獲取使用者資料

@@ -53,17 +53,18 @@ class DashboardVC: UIViewController {
             object: nil)
     }
     
-    @objc private func foodRecordDidChange(_ notification: Notification){
+    @objc private func foodRecordDidChange(_ notification: Notification) {
         dashboardViewModel?.fetchWeeklyFoodRecords()
     }
     
     private func setupView() {
-        
         view.addSubview(dashboardTableView)
+        
+        let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 0
         
         NSLayoutConstraint.activate([
             dashboardTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            dashboardTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            dashboardTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight-20),
             dashboardTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dashboardTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])

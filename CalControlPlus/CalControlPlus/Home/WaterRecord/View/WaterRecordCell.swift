@@ -116,6 +116,7 @@ class WaterRecordCell: BaseCardTableViewCell {
         viewModel.$cupSize
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
+                self?.collectionView.reloadData()
                 self?.updateWaterIntakeLabel()
             }
             .store(in: &subscriptions)

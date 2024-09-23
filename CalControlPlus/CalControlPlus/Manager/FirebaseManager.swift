@@ -45,6 +45,31 @@ final class FirebaseManager {
             completion(self.parseDocuments(snapshot: snapshot, error: error))
         }
     }
+//    
+//    func getDocuments<T: Decodable>(from collection: FirestoreEndpoint, documentID: String, arrayField: String, completion: @escaping ([T]) -> Void) {
+//        
+//        collection.ref.document(documentID).getDocument { document, error in
+//            if let document = document, document.exists {
+//                if let data = document.data(), let arrayData = data[arrayField] as? [[String: Any]] {
+//                    do {
+//                        let jsonData = try JSONSerialization.data(withJSONObject: arrayData, options: [])
+//                        let decodedArray = try JSONDecoder().decode([T].self, from: jsonData)
+//                        completion(decodedArray)
+//                    } catch {
+//                        print("DEBUG: Error decoding \([T].self) data -", error.localizedDescription)
+//                        completion([])
+//                    }
+//                } else {
+//                    print("DEBUG: No array data found for field \(arrayField)")
+//                    completion([])
+//                }
+//            } else {
+//                print("Document does not exist")
+//                completion([])
+//            }
+//        }
+//    }
+
     
     func getDocuments<T: Decodable>(
         from collection: FirestoreEndpoint,
@@ -124,7 +149,11 @@ final class FirebaseManager {
     }
     
     // 通用的更新 document 方法，根據 Document ID 更新某些欄位
-    func updateDocument(from collection: FirestoreEndpoint, documentID: String, data: [String: Any], completion: @escaping (Bool) -> Void) {
+    func updateDocument(
+        from collection: FirestoreEndpoint,
+        documentID: String, data: [String: Any],
+        completion: @escaping (Bool) -> Void
+    ) {
         let docRef = collection.ref.document(documentID)
         docRef.updateData(data) { error in
             if let error = error {

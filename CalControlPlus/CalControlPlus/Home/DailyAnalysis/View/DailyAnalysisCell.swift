@@ -76,11 +76,17 @@ class DailyAnalysisCell: BaseCardTableViewCell {
 //                nutritionArray.insert(nutrition, at: 0) // 將新的 nutrition 插入到陣列的最前面，這樣最後一筆資料是今天
 //            }
 //        }
-//         let docRef = FirebaseManager.shared.newDocument(of: FirestoreEndpoint.users)
-//         FirebaseManager().setData(User(id: docRef.documentID, createdTime: Timestamp(date: Date()),
-//                                       name: "楊芮瑊", avatarUrl: nil, gender: 1, birthday: "2000-03-06",
-//                                       height: 158, weightRecord: [WeightRecord(createdTime: Timestamp(date: Date()), weight: 50)],
-//                                       activity: 1, target: 0, totalNutrition: nutritionArray,
-//                                       friends: [Friend(userID: "123123123", addedAt: Timestamp(date: Date()), status: "accepted")]), at: docRef)
+//        let docRef = FirebaseManager.shared.newDocument(of: FirestoreEndpoint.users)
+//        FirebaseManager().setData(User(id: docRef.documentID,
+//                                       createdTime: Timestamp(date: Date()),
+//                                       name: "蘇子安", avatarUrl: nil,
+//                                       gender: 1,
+//                                       birthday: "2001-05-16",
+//                                       height: 163,
+//                                       weightRecord: [WeightRecord(createdTime: Timestamp(date: Date()), weight: 50)],
+//                                       activity: 2,
+//                                       target: 0,
+//                                       totalNutrition: nutritionArray),
+//                                  at: docRef)
     }
 }

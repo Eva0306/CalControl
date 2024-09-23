@@ -70,6 +70,9 @@
 		B387D9802CA0FA7600CCC311 /* FriendCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D97F2CA0FA7600CCC311 /* FriendCardCell.swift */; };
 		B387D98A2CA0FB0F00CCC311 /* ProfileCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9892CA0FB0F00CCC311 /* ProfileCardCell.swift */; };
 		B387D98C2CA0FB1A00CCC311 /* SettingCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D98B2CA0FB1A00CCC311 /* SettingCardCell.swift */; };
+		B387D98E2CA1483100CCC311 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D98D2CA1483100CCC311 /* FriendViewModel.swift */; };
+		B387D9922CA1491E00CCC311 /* FriendCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9912CA1491E00CCC311 /* FriendCardViewModel.swift */; };
+		B387D9942CA14E6200CCC311 /* UserSettingsCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9932CA14E6200CCC311 /* UserSettingsCalculator.swift */; };
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
@@ -137,6 +140,9 @@
 		B387D97F2CA0FA7600CCC311 /* FriendCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardCell.swift; sourceTree = "<group>"; };
 		B387D9892CA0FB0F00CCC311 /* ProfileCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardCell.swift; sourceTree = "<group>"; };
 		B387D98B2CA0FB1A00CCC311 /* SettingCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCardCell.swift; sourceTree = "<group>"; };
+		B387D98D2CA1483100CCC311 /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
+		B387D9912CA1491E00CCC311 /* FriendCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardViewModel.swift; sourceTree = "<group>"; };
+		B387D9932CA14E6200CCC311 /* UserSettingsCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsCalculator.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -257,7 +263,6 @@
 				B36C18BE2C99D96700D9D1CC /* NutritionManager.swift */,
 				B36C18BF2C99D96700D9D1CC /* TranslationAPI.swift */,
 				B36C18C02C99D96700D9D1CC /* TranslationManager.swift */,
-				B387D9752CA0019C00CCC311 /* NutritionCalculator.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -272,6 +277,7 @@
 				B387D9702C9D242500CCC311 /* UserProfile */,
 				B36C19022C9A97E500D9D1CC /* Extension */,
 				B36C18C12C99D96700D9D1CC /* Manager */,
+				B387D9952CA14E6F00CCC311 /* Calculator */,
 				B36C18BC2C99D96700D9D1CC /* Home */,
 				B36C18A62C99D96700D9D1CC /* Dashboard */,
 				B36C18B72C99D96700D9D1CC /* FoodRecord */,
@@ -421,6 +427,7 @@
 			isa = PBXGroup;
 			children = (
 				B36C18FE2C9A974600D9D1CC /* FriendVC.swift */,
+				B387D98D2CA1483100CCC311 /* FriendViewModel.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -429,6 +436,7 @@
 			isa = PBXGroup;
 			children = (
 				B387D97F2CA0FA7600CCC311 /* FriendCardCell.swift */,
+				B387D9912CA1491E00CCC311 /* FriendCardViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -462,6 +470,15 @@
 			children = (
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B387D9952CA14E6F00CCC311 /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				B387D9752CA0019C00CCC311 /* NutritionCalculator.swift */,
+				B387D9932CA14E6200CCC311 /* UserSettingsCalculator.swift */,
+			);
+			path = Calculator;
 			sourceTree = "<group>";
 		};
 		B3B5127C2C91682600E02A43 = {
@@ -601,9 +618,11 @@
 				B32CDD8A2C9C4E4500F92244 /* UIImageViewExtension.swift in Sources */,
 				B36C18E02C99D96700D9D1CC /* DailyAnalysisView.swift in Sources */,
 				B36C18DE2C99D96700D9D1CC /* TextVC.swift in Sources */,
+				B387D9922CA1491E00CCC311 /* FriendCardViewModel.swift in Sources */,
 				B32CDD782C9BF61100F92244 /* FoodRecordCell.swift in Sources */,
 				B36C18DB2C99D96700D9D1CC /* MealSelectionVC.swift in Sources */,
 				B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */,
+				B387D9942CA14E6200CCC311 /* UserSettingsCalculator.swift in Sources */,
 				B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */,
 				B36C19122C9AD60B00D9D1CC /* DailyAnalysisCell.swift in Sources */,
 				B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */,
@@ -634,6 +653,7 @@
 				B36C18F12C99D96700D9D1CC /* SceneDelegate.swift in Sources */,
 				B387D9802CA0FA7600CCC311 /* FriendCardCell.swift in Sources */,
 				B36C18E92C99D96700D9D1CC /* BaseCardTableViewCell.swift in Sources */,
+				B387D98E2CA1483100CCC311 /* FriendViewModel.swift in Sources */,
 				B36C18F22C99D96700D9D1CC /* UIColorExtension.swift in Sources */,
 				B36C18E52C99D96700D9D1CC /* TranslationAPI.swift in Sources */,
 				B387D98C2CA0FB1A00CCC311 /* SettingCardCell.swift in Sources */,

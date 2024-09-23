@@ -27,7 +27,7 @@ struct User: Codable {
     var activity: Int
     var target: Int
     var totalNutrition: [TotalNutrition] // MAX item: 7
-    var friends: [Friend]?
+    var friends: [Friend]? // ["FriendID": String, "AddedAt": Timestamp, "status": String]
 }
 
 struct WeightRecord: Codable {
