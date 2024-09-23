@@ -30,7 +30,6 @@ class DashboardVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(resource: .background)
 
         if let navController = self.tabBarController?.viewControllers?.first as? UINavigationController,
            let homeVC = navController.topViewController as? HomeVC {

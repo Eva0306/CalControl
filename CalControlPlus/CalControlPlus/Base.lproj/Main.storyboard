@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="ErQ-RC-cAz"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="background"/>
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="VK4-Jj-caU"/>
                 </viewController>
@@ -51,7 +51,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="sDw-DS-bRi"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="background"/>
                     </view>
                     <navigationItem key="navigationItem" title="Friends" id="QNO-5p-wAO"/>
                 </viewController>
@@ -67,7 +67,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="Yci-Sp-f5Q"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="background"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="na8-Yb-BUR"/>
                 </viewController>
@@ -83,7 +83,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="7A2-D7-LxX"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="background"/>
                     </view>
                     <navigationItem key="navigationItem" title="今天" id="TvR-OG-n4e"/>
                 </viewController>
@@ -203,6 +203,9 @@
         <image name="note.text" catalog="system" width="128" height="107"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
+        <namedColor name="background">
+            <color red="0.95300000905990601" green="0.9649999737739563" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="mainGreen">
             <color red="0.42399999499320984" green="0.54100000858306885" blue="0.53299999237060547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

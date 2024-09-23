@@ -13,17 +13,16 @@ struct LineChartView: View {
     var weightRecords: [WeightRecord]
     
     var body: some View {
+        
         Chart {
-            // 畫線，連接點
             ForEach(weightRecords, id: \.createdTime) { record in
                 LineMark(
                     x: .value("Date", record.createdTime.dateValue(), unit: .day),
                     y: .value("Weight", record.weight)
                 )
-                .interpolationMethod(.linear) // 只連接點之間的線條
+                .interpolationMethod(.linear)
             }
             
-            // 為每個紀錄點添加一個點
             ForEach(weightRecords, id: \.createdTime) { record in
                 PointMark(
                     x: .value("Date", record.createdTime.dateValue(), unit: .day),
@@ -42,16 +41,16 @@ struct LineChartView: View {
         }
         .chartXAxis {
             AxisMarks(values: weightRecords.map { $0.createdTime.dateValue() }) { value in
-                            if let date = value.as(Date.self) {
-                                AxisValueLabel(date.formatted(.dateTime.month(.defaultDigits).day(.defaultDigits)))
-                            }
-                        }
+                if let date = value.as(Date.self) {
+                    AxisValueLabel(date.formatted(.dateTime.month(.defaultDigits).day(.defaultDigits)))
+                        .offset(y: 5)
+                }
+            }
         }
-        .chartXScale(domain: chartXScaleDomain()) // 設置 X 軸範圍，增加左右間距
+        .chartXScale(domain: chartXScaleDomain())
         .padding()
     }
     
-    // 計算 X 軸範圍，讓左右留一些間距
     private func chartXScaleDomain() -> ClosedRange<Date> {
         guard let firstDate = weightRecords.first?.createdTime.dateValue(),
               let lastDate = weightRecords.last?.createdTime.dateValue() else {
@@ -67,7 +66,7 @@ struct LineChartView: View {
 }
 
 struct WeightRecordView: View {
-    @ObservedObject var viewModel: WeightRecordViewModel // 使用來自 ViewModel 的資料
+    @ObservedObject var viewModel: WeightRecordViewModel
     
     @State private var showingAddWeightSheet = false
     
@@ -78,7 +77,7 @@ struct WeightRecordView: View {
                     Text("體重")
                         .font(.title3)
                         .fontWeight(.bold)
-                        .padding(.leading, 10)
+                    
                     Text("(過去90天)")
                         .font(.caption2)
                 }
@@ -98,7 +97,15 @@ struct WeightRecordView: View {
             }
             .padding(.bottom, 5)
             
-            LineChartView(weightRecords: viewModel.weightRecords)
+            ZStack(alignment: .bottomLeading) {
+                LineChartView(weightRecords: viewModel.weightRecords)
+                
+                Text("(kg)")
+                    .font(.caption2)
+                    .foregroundColor(.gray)
+                    .padding(.leading, 8)
+                    .padding(.bottom, 10)
+            }
         }
         .padding(.horizontal)
     }

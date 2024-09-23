@@ -38,7 +38,6 @@ class HomeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(resource: .background)
         
         guard let userProfileViewModel = UserProfileViewModel.shared else {
             print("User profile view model is missing.")
