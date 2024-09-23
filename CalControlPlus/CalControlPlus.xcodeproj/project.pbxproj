@@ -68,11 +68,12 @@
 		B387D97C2CA0743000CCC311 /* WeightRecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D97B2CA0743000CCC311 /* WeightRecordView.swift */; };
 		B387D97E2CA07A8200CCC311 /* WeightRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D97D2CA07A8200CCC311 /* WeightRecordViewModel.swift */; };
 		B387D9802CA0FA7600CCC311 /* FriendCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D97F2CA0FA7600CCC311 /* FriendCardCell.swift */; };
-		B387D98A2CA0FB0F00CCC311 /* ProfileCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9892CA0FB0F00CCC311 /* ProfileCardCell.swift */; };
+		B387D98A2CA0FB0F00CCC311 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9892CA0FB0F00CCC311 /* ProfileCell.swift */; };
 		B387D98C2CA0FB1A00CCC311 /* SettingCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D98B2CA0FB1A00CCC311 /* SettingCardCell.swift */; };
 		B387D98E2CA1483100CCC311 /* FriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D98D2CA1483100CCC311 /* FriendViewModel.swift */; };
 		B387D9922CA1491E00CCC311 /* FriendCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9912CA1491E00CCC311 /* FriendCardViewModel.swift */; };
 		B387D9942CA14E6200CCC311 /* UserSettingsCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9932CA14E6200CCC311 /* UserSettingsCalculator.swift */; };
+		B387D9972CA1B34100CCC311 /* UserBasicCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9962CA1B34100CCC311 /* UserBasicCardCell.swift */; };
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
@@ -138,11 +139,12 @@
 		B387D97B2CA0743000CCC311 /* WeightRecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordView.swift; sourceTree = "<group>"; };
 		B387D97D2CA07A8200CCC311 /* WeightRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordViewModel.swift; sourceTree = "<group>"; };
 		B387D97F2CA0FA7600CCC311 /* FriendCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardCell.swift; sourceTree = "<group>"; };
-		B387D9892CA0FB0F00CCC311 /* ProfileCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCardCell.swift; sourceTree = "<group>"; };
+		B387D9892CA0FB0F00CCC311 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		B387D98B2CA0FB1A00CCC311 /* SettingCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCardCell.swift; sourceTree = "<group>"; };
 		B387D98D2CA1483100CCC311 /* FriendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModel.swift; sourceTree = "<group>"; };
 		B387D9912CA1491E00CCC311 /* FriendCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardViewModel.swift; sourceTree = "<group>"; };
 		B387D9932CA14E6200CCC311 /* UserSettingsCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsCalculator.swift; sourceTree = "<group>"; };
+		B387D9962CA1B34100CCC311 /* UserBasicCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBasicCardCell.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -298,7 +300,7 @@
 			children = (
 				B387D9832CA0FAA100CCC311 /* Model */,
 				B387D9822CA0FA9D00CCC311 /* View */,
-				B387D9812CA0FA7C00CCC311 /* ViewController */,
+				B387D9812CA0FA7C00CCC311 /* ViewModel */,
 			);
 			path = FriendPage;
 			sourceTree = "<group>";
@@ -423,20 +425,20 @@
 			path = UserProfile;
 			sourceTree = "<group>";
 		};
-		B387D9812CA0FA7C00CCC311 /* ViewController */ = {
+		B387D9812CA0FA7C00CCC311 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B36C18FE2C9A974600D9D1CC /* FriendVC.swift */,
+				B387D9912CA1491E00CCC311 /* FriendCardViewModel.swift */,
 				B387D98D2CA1483100CCC311 /* FriendViewModel.swift */,
 			);
-			path = ViewController;
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B387D9822CA0FA9D00CCC311 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				B387D97F2CA0FA7600CCC311 /* FriendCardCell.swift */,
-				B387D9912CA1491E00CCC311 /* FriendCardViewModel.swift */,
+				B36C18FE2C9A974600D9D1CC /* FriendVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -459,7 +461,8 @@
 		B387D9872CA0FAEB00CCC311 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B387D9892CA0FB0F00CCC311 /* ProfileCardCell.swift */,
+				B387D9892CA0FB0F00CCC311 /* ProfileCell.swift */,
+				B387D9962CA1B34100CCC311 /* UserBasicCardCell.swift */,
 				B387D98B2CA0FB1A00CCC311 /* SettingCardCell.swift */,
 			);
 			path = View;
@@ -628,7 +631,7 @@
 				B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */,
 				B36C18D62C99D96700D9D1CC /* NutritionTitleCell.swift in Sources */,
 				B36C19092C9A99A800D9D1CC /* WaterRecordModel.swift in Sources */,
-				B387D98A2CA0FB0F00CCC311 /* ProfileCardCell.swift in Sources */,
+				B387D98A2CA0FB0F00CCC311 /* ProfileCell.swift in Sources */,
 				B36C18E12C99D96700D9D1CC /* WaterCupCell.swift in Sources */,
 				B36C18E72C99D96700D9D1CC /* AppDelegate.swift in Sources */,
 				B36C18FF2C9A974600D9D1CC /* FriendVC.swift in Sources */,
@@ -653,6 +656,7 @@
 				B36C18F12C99D96700D9D1CC /* SceneDelegate.swift in Sources */,
 				B387D9802CA0FA7600CCC311 /* FriendCardCell.swift in Sources */,
 				B36C18E92C99D96700D9D1CC /* BaseCardTableViewCell.swift in Sources */,
+				B387D9972CA1B34100CCC311 /* UserBasicCardCell.swift in Sources */,
 				B387D98E2CA1483100CCC311 /* FriendViewModel.swift in Sources */,
 				B36C18F22C99D96700D9D1CC /* UIColorExtension.swift in Sources */,
 				B36C18E52C99D96700D9D1CC /* TranslationAPI.swift in Sources */,

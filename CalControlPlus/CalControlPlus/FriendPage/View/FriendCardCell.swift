@@ -55,9 +55,9 @@ class FriendCardCell: BaseCardTableViewCell {
     lazy var fatsLabel: UILabel = createLabel(withText: "脂質")
     lazy var proteinLabel: UILabel = createLabel(withText: "蛋白質")
     
-    lazy var carbsProgressView = createProgressView(progress: 0.7, color: .orange)
-    lazy var fatsProgressView = createProgressView(progress: 0.5, color: .yellow)
-    lazy var proteinProgressView = createProgressView(progress: 0.6, color: .blue)
+    lazy var carbsProgressView = createProgressView(progress: 0.7, color: .mainOrg)
+    lazy var fatsProgressView = createProgressView(progress: 0.5, color: .mainYellow)
+    lazy var proteinProgressView = createProgressView(progress: 0.6, color: .mainBlue)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -70,7 +70,7 @@ class FriendCardCell: BaseCardTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with friend: Friend){
+    func configure(with friend: Friend) {
         viewModel.fetchFriendData(friendID: friend.userID)
     }
     
@@ -190,7 +190,7 @@ class FriendCardCell: BaseCardTableViewCell {
 
         backgroundCircle.path = circularPath.cgPath
         backgroundCircle.fillColor = UIColor.clear.cgColor
-        backgroundCircle.strokeColor = UIColor.lightGray.cgColor
+        backgroundCircle.strokeColor = UIColor.systemGray5.cgColor
         backgroundCircle.lineWidth = 10
         chartContainer.layer.addSublayer(backgroundCircle)
 
@@ -226,10 +226,10 @@ class FriendCardCell: BaseCardTableViewCell {
     private func createProgressView(progress: Double, color: UIColor) -> UIProgressView {
         let progressView = UIProgressView(progressViewStyle: .default)
         progressView.progress = Float(progress)
-        progressView.trackTintColor = .lightGray
+        progressView.trackTintColor = .systemGray5
         progressView.progressTintColor = color
         progressView.translatesAutoresizingMaskIntoConstraints = false
-        progressView.layer.cornerRadius = 5
+        progressView.layer.cornerRadius = 10
         progressView.clipsToBounds = true
         return progressView
     }

@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // 檢查是否有 userID
 //        if let userID = UserDefaults.standard.string(forKey: "userID") {
-        let userID = "mTLegqFprHzNy1SMAbTA"
+        let userID = "t8VofbETe4sfNNBEqSEb"
             // 有 userID，從 Firebase 獲取使用者資料並初始化 UserProfileViewModel
             fetchUser(userID: userID) { [weak self] user in
                 guard let self = self else { return }

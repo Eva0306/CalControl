@@ -79,11 +79,11 @@ struct StackedBarChartView: View {
                         .foregroundStyle(Color.gray.opacity(0.3)) // 灰色佔位符
                 } else {
                     BarMark(x: .value("Day", item.day), y: .value("Carbohydrate", item.carbohydrate))
-                        .foregroundStyle(Color.orange)
+                        .foregroundStyle(.mainOrg)
                     BarMark(x: .value("Day", item.day), y: .value("Protein", item.protein))
-                        .foregroundStyle(Color.blue)
+                        .foregroundStyle(.mainBlue)
                     BarMark(x: .value("Day", item.day), y: .value("Fat", item.fat))
-                        .foregroundStyle(Color.yellow)
+                        .foregroundStyle(.mainYellow)
                 }
             }
             .cornerRadius(5)
@@ -118,15 +118,15 @@ struct WeeklyNutriAnalysisView: View {
                 
                 VStack(alignment: .leading) {
                     HStack {
-                        Circle().fill(Color.orange).frame(width: 10, height: 10)
+                        Circle().fill(.mainOrg).frame(width: 10, height: 10)
                         Text("碳水化合物 \(String(format: "%.1f", viewModel.todayNutrition[0] * 100))%")
                     }
                     HStack {
-                        Circle().fill(Color.blue).frame(width: 10, height: 10)
+                        Circle().fill(.mainBlue).frame(width: 10, height: 10)
                         Text("蛋白質 \(String(format: "%.1f", viewModel.todayNutrition[1] * 100))%")
                     }
                     HStack {
-                        Circle().fill(Color.yellow).frame(width: 10, height: 10)
+                        Circle().fill(.mainYellow).frame(width: 10, height: 10)
                         Text("脂肪 \(String(format: "%.1f", viewModel.todayNutrition[2] * 100))%")
                     }
                 }
@@ -161,4 +161,3 @@ struct WeeklyNutriAnalysisView: View {
 //    )
 //    .frame(width: 393, height: 200)
 // }
-

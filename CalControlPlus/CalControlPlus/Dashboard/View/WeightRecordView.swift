@@ -88,8 +88,7 @@ struct WeightRecordView: View {
                     showingAddWeightSheet = true
                 }, label: {
                     Image(systemName: "plus")
-                        .font(.title)
-                        .padding()
+                        .font(.headline)
                 })
                 .sheet(isPresented: $showingAddWeightSheet) {
                     AddWeightView(weightRecords: $viewModel.weightRecords, viewModel: viewModel)
