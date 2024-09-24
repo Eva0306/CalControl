@@ -14,15 +14,15 @@ class UserSettingsCalculator {
         
         let weight = user.weightRecord.last?.weight ?? 0
         
-        if user.gender == 0 {
+        if user.gender.rawValue == 0 {
             bmr = (13.7 * weight) + (5.0 * user.height) - (6.8 * Double(age)) + 66
         } else {
             bmr = (9.6 * weight) + (1.8 * user.height) - (4.7 * Double(age)) + 655
         }
         
-        let activityFactor = getActivityFactor(activity: user.activity)
+        let activityFactor = getActivityFactor(activity: user.activity.rawValue)
         let tdee = Int(bmr * activityFactor)
-        let basicGoal = transformToBasicGoal(tdee: tdee, target: user.target)
+        let basicGoal = transformToBasicGoal(tdee: tdee, target: user.target.rawValue)
         
         let carbohydrateTotal = Double(basicGoal.calories) * basicGoal.carbPercentage / 4.0
         let proteinTotal = Double(basicGoal.calories) * basicGoal.proteinPercentage / 4.0

@@ -106,7 +106,7 @@ struct WeightRecordView: View {
                     .padding(.bottom, 10)
             }
         }
-        .padding(.horizontal)
+        .padding()
     }
 }
 

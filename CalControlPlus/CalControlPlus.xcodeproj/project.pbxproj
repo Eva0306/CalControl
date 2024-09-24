@@ -74,6 +74,10 @@
 		B387D9922CA1491E00CCC311 /* FriendCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9912CA1491E00CCC311 /* FriendCardViewModel.swift */; };
 		B387D9942CA14E6200CCC311 /* UserSettingsCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9932CA14E6200CCC311 /* UserSettingsCalculator.swift */; };
 		B387D9972CA1B34100CCC311 /* UserBasicCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9962CA1B34100CCC311 /* UserBasicCardCell.swift */; };
+		B387D9992CA27AB000CCC311 /* PickerViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9982CA27AB000CCC311 /* PickerViewModal.swift */; };
+		B387D99B2CA27CB000CCC311 /* ModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D99A2CA27CB000CCC311 /* ModalVC.swift */; };
+		B387D99D2CA27DE400CCC311 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */; };
+		B387D99F2CA28B4E00CCC311 /* PicerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D99E2CA28B4E00CCC311 /* PicerViewModel.swift */; };
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
@@ -145,6 +149,10 @@
 		B387D9912CA1491E00CCC311 /* FriendCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCardViewModel.swift; sourceTree = "<group>"; };
 		B387D9932CA14E6200CCC311 /* UserSettingsCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingsCalculator.swift; sourceTree = "<group>"; };
 		B387D9962CA1B34100CCC311 /* UserBasicCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBasicCardCell.swift; sourceTree = "<group>"; };
+		B387D9982CA27AB000CCC311 /* PickerViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewModal.swift; sourceTree = "<group>"; };
+		B387D99A2CA27CB000CCC311 /* ModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalVC.swift; sourceTree = "<group>"; };
+		B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		B387D99E2CA28B4E00CCC311 /* PicerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicerViewModel.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -321,6 +329,7 @@
 				B36C18CF2C99D96700D9D1CC /* UIColorExtension.swift */,
 				B36C18C62C99D96700D9D1CC /* DoubleExtension.swift */,
 				B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */,
+				B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -461,6 +470,8 @@
 		B387D9872CA0FAEB00CCC311 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B387D9982CA27AB000CCC311 /* PickerViewModal.swift */,
+				B387D99A2CA27CB000CCC311 /* ModalVC.swift */,
 				B387D9892CA0FB0F00CCC311 /* ProfileCell.swift */,
 				B387D9962CA1B34100CCC311 /* UserBasicCardCell.swift */,
 				B387D98B2CA0FB1A00CCC311 /* SettingCardCell.swift */,
@@ -471,6 +482,7 @@
 		B387D9882CA0FAEF00CCC311 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B387D99E2CA28B4E00CCC311 /* PicerViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -610,6 +622,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B387D99F2CA28B4E00CCC311 /* PicerViewModel.swift in Sources */,
 				B387D9762CA0019C00CCC311 /* NutritionCalculator.swift in Sources */,
 				B36C19012C9A979800D9D1CC /* ProfileVC.swift in Sources */,
 				B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */,
@@ -622,6 +635,7 @@
 				B36C18E02C99D96700D9D1CC /* DailyAnalysisView.swift in Sources */,
 				B36C18DE2C99D96700D9D1CC /* TextVC.swift in Sources */,
 				B387D9922CA1491E00CCC311 /* FriendCardViewModel.swift in Sources */,
+				B387D99D2CA27DE400CCC311 /* UIViewExtension.swift in Sources */,
 				B32CDD782C9BF61100F92244 /* FoodRecordCell.swift in Sources */,
 				B36C18DB2C99D96700D9D1CC /* MealSelectionVC.swift in Sources */,
 				B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */,
@@ -648,6 +662,7 @@
 				B36C18E62C99D96700D9D1CC /* TranslationManager.swift in Sources */,
 				B36C18D42C99D96700D9D1CC /* NutritionFactsCell.swift in Sources */,
 				B36C19142C9AD90000D9D1CC /* DailyAnalysisViewModel.swift in Sources */,
+				B387D9992CA27AB000CCC311 /* PickerViewModal.swift in Sources */,
 				B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */,
 				B36C18DA2C99D96700D9D1CC /* CheckVC.swift in Sources */,
 				B36C18EB2C99D96700D9D1CC /* DoubleExtension.swift in Sources */,
@@ -657,6 +672,7 @@
 				B387D9802CA0FA7600CCC311 /* FriendCardCell.swift in Sources */,
 				B36C18E92C99D96700D9D1CC /* BaseCardTableViewCell.swift in Sources */,
 				B387D9972CA1B34100CCC311 /* UserBasicCardCell.swift in Sources */,
+				B387D99B2CA27CB000CCC311 /* ModalVC.swift in Sources */,
 				B387D98E2CA1483100CCC311 /* FriendViewModel.swift in Sources */,
 				B36C18F22C99D96700D9D1CC /* UIColorExtension.swift in Sources */,
 				B36C18E52C99D96700D9D1CC /* TranslationAPI.swift in Sources */,

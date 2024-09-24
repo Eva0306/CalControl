@@ -76,7 +76,7 @@ struct StackedBarChartView: View {
             ForEach(data, id: \.day) { item in
                 if item.carbohydrate == 0 && item.protein == 0 && item.fat == 0 {
                     BarMark(x: .value("Day", item.day), y: .value("Placeholder", 1.0))
-                        .foregroundStyle(Color.gray.opacity(0.3)) // 灰色佔位符
+                        .foregroundStyle(Color.gray.opacity(0.3))
                 } else {
                     BarMark(x: .value("Day", item.day), y: .value("Carbohydrate", item.carbohydrate))
                         .foregroundStyle(.mainOrg)
