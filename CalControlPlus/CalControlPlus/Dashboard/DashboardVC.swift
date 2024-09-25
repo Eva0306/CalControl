@@ -43,18 +43,8 @@ class DashboardVC: UIViewController {
         dashboardViewModel = DashboardViewModel(userProfileViewModel: UserProfileViewModel.shared)
         addBindings()
         dashboardViewModel?.fetchWeeklyFoodRecords()
-        
+        dashboardViewModel?.addObserver()
         setupView()
-        
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(foodRecordDidChange(_:)),
-            name: Notification.Name("FoodRecordDidChange"),
-            object: nil)
-    }
-    
-    @objc private func foodRecordDidChange(_ notification: Notification) {
-        dashboardViewModel?.fetchWeeklyFoodRecords()
     }
     
     private func setupView() {

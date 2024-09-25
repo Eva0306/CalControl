@@ -13,10 +13,10 @@ enum FirestoreEndpoint {
     case foodRecord
     case waterRecord
     case users
-
+    
     var ref: CollectionReference {
         let firestore = Firestore.firestore()
-
+        
         switch self {
         case .foodRecord:
             return firestore.collection("foodRecord")
@@ -28,10 +28,22 @@ enum FirestoreEndpoint {
     }
 }
 
-enum FirestoreCondition {
+struct FirestoreCondition {
+    let field: String
+    let comparison: FirestoreComparison
+    let value: Any
+}
+
+enum FirestoreComparison {
     case isEqualTo
     case isGreaterThanOrEqualTo
     case isLessThanOrEqualTo
+}
+
+enum DocumentChangeType {
+    case added
+    case modified
+    case removed
 }
 
 final class FirebaseManager {
@@ -45,58 +57,32 @@ final class FirebaseManager {
             completion(self.parseDocuments(snapshot: snapshot, error: error))
         }
     }
-//    
-//    func getDocuments<T: Decodable>(from collection: FirestoreEndpoint, documentID: String, arrayField: String, completion: @escaping ([T]) -> Void) {
-//        
-//        collection.ref.document(documentID).getDocument { document, error in
-//            if let document = document, document.exists {
-//                if let data = document.data(), let arrayData = data[arrayField] as? [[String: Any]] {
-//                    do {
-//                        let jsonData = try JSONSerialization.data(withJSONObject: arrayData, options: [])
-//                        let decodedArray = try JSONDecoder().decode([T].self, from: jsonData)
-//                        completion(decodedArray)
-//                    } catch {
-//                        print("DEBUG: Error decoding \([T].self) data -", error.localizedDescription)
-//                        completion([])
-//                    }
-//                } else {
-//                    print("DEBUG: No array data found for field \(arrayField)")
-//                    completion([])
-//                }
-//            } else {
-//                print("Document does not exist")
-//                completion([])
-//            }
-//        }
-//    }
-
     
     func getDocuments<T: Decodable>(
         from collection: FirestoreEndpoint,
-        where conditions: [(String, FirestoreCondition, Any)],
+        where conditions: [FirestoreCondition],
         completion: @escaping ([T]) -> Void
     ) {
         var query: Query = collection.ref
         
-        // 根據傳入的條件構建查詢
-        for (field, condition, value) in conditions {
-            switch condition {
+        for condition in conditions {
+            switch condition.comparison {
             case .isEqualTo:
-                query = query.whereField(field, isEqualTo: value)
+                query = query.whereField(condition.field, isEqualTo: condition.value)
             case .isGreaterThanOrEqualTo:
-                query = query.whereField(field, isGreaterThanOrEqualTo: value)
+                query = query.whereField(condition.field, isGreaterThanOrEqualTo: condition.value)
             case .isLessThanOrEqualTo:
-                query = query.whereField(field, isLessThanOrEqualTo: value)
+                query = query.whereField(condition.field, isLessThanOrEqualTo: condition.value)
             }
         }
         
-        // 執行查詢並解析結果
         query.getDocuments { [weak self] snapshot, error in
             guard let self = self else { return }
             completion(self.parseDocuments(snapshot: snapshot, error: error))
         }
     }
 
+    
     // 通用的添加 document 方法，使用泛型
     func setData<T: Encodable>(_ data: T, at docRef: DocumentReference, merge: Bool = false) {
         do {
@@ -105,7 +91,7 @@ final class FirebaseManager {
             print("DEBUG: Error encoding \(data.self) data -", error.localizedDescription)
         }
     }
-
+    
     // 創建新 document 的參考
     func newDocument(of collection: FirestoreEndpoint, documentID: String? = nil) -> DocumentReference {
         if let documentID = documentID {
@@ -122,7 +108,7 @@ final class FirebaseManager {
             print("DEBUG: Error fetching snapshot -", errorMessage)
             return []
         }
-
+        
         var models: [T] = []
         snapshot.documents.forEach { document in
             do {
@@ -171,7 +157,7 @@ final class FirebaseManager {
             return
         }
         let storageRef = Storage.storage().reference().child("FoodRecordImages/\(UUID().uuidString).jpg")
-        storageRef.putData(imageData, metadata: nil) { metadata, error in
+        storageRef.putData(imageData, metadata: nil) { _, error in
             guard error == nil else {
                 print("Failed to upload image: \(error!.localizedDescription)")
                 completion(nil)
@@ -188,4 +174,47 @@ final class FirebaseManager {
         }
     }
     
+    func addObserver<T: Decodable>(
+        on collection: FirestoreEndpoint,
+        where conditions: [FirestoreCondition],
+        completion: @escaping (_ changeType: DocumentChangeType, _ data: T) -> Void
+    ) {
+        var query: Query = collection.ref
+        
+        for condition in conditions {
+            switch condition.comparison {
+            case .isEqualTo:
+                query = query.whereField(condition.field, isEqualTo: condition.value)
+            case .isGreaterThanOrEqualTo:
+                query = query.whereField(condition.field, isGreaterThanOrEqualTo: condition.value)
+            case .isLessThanOrEqualTo:
+                query = query.whereField(condition.field, isLessThanOrEqualTo: condition.value)
+            }
+        }
+        
+        query.addSnapshotListener { (snapshot, error) in
+            if let error = error {
+                print("Error listening to changes in \(collection): \(error.localizedDescription)")
+                return
+            }
+            
+            guard let snapshot = snapshot else { return }
+            
+            snapshot.documentChanges.forEach { change in
+                do {
+                    let item = try change.document.data(as: T.self)
+                    switch change.type {
+                    case .added:
+                        completion(.added, item)
+                    case .modified:
+                        completion(.modified, item)
+                    case .removed:
+                        completion(.removed, item)
+                    }
+                } catch {
+                    print("Error decoding document as \(T.self): \(error.localizedDescription)")
+                }
+            }
+        }
+    }
 }

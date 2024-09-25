@@ -9,7 +9,7 @@ import Foundation
 
 class FriendCardViewModel: ObservableObject {
     @Published var friendName: String = "Friend name"
-    @Published var avatarUrl: String? = nil
+    @Published var avatarUrl: String?
     @Published var calProgress: Double = 0.0
     @Published var carbsProgress: Double = 0.7
     @Published var fatsProgress: Double = 0.5
@@ -18,10 +18,11 @@ class FriendCardViewModel: ObservableObject {
     var friend: User?
 
     func fetchFriendData(friendID: String) {
+        let condition = [FirestoreCondition(field: "id", comparison: .isEqualTo, value: friendID)]
         
         FirebaseManager.shared.getDocuments(
             from: .users,
-            where: [("id", .isEqualTo, friendID)]
+            where: condition
         ) { [weak self] (users: [User]) in
             guard let self = self else { return }
             

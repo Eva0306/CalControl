@@ -9,8 +9,9 @@ import Foundation
 import FirebaseCore
 
 class DashboardViewModel: ObservableObject {
-    @Published var foodRecords: [FoodRecord] = []
     @Published var weeklyTotalNutrition: [TotalNutrition] = []
+    
+    var foodRecords: [FoodRecord] = []
     
     var weeklyCaloriesData: [(day: String, value: Double)] = []
     var weeklyNutritionData: [WANutriData] = []
@@ -32,8 +33,7 @@ class DashboardViewModel: ObservableObject {
     }()
     
     var maxCalories: Double {
-        return Double(userProfileViewModel.userSettings.basicGoal + 500) // BarChart max ratio
-//        return weeklyTotalNutrition.map { $0.totalCalories }.max() ?? 1.0
+        return Double(userProfileViewModel.userSettings.basicGoal + 300) // BarChart max ratio
     }
     
     let userProfileViewModel: UserProfileViewModel
@@ -42,59 +42,78 @@ class DashboardViewModel: ObservableObject {
         self.userProfileViewModel = userProfileViewModel
     }
     
+    // MARK: - Public Methods
+    
     func fetchWeeklyFoodRecords() {
+        let conditions = generateQueryConditions()
+        
+        FirebaseManager.shared.getDocuments(
+            from: .foodRecord, where: conditions
+        ) { [weak self] (foodRecords: [FoodRecord]) in
+            guard let self = self else { return }
+            self.foodRecords = foodRecords
+            self.processGroupedRecords(foodRecords: foodRecords)
+        }
+    }
+    
+    func addObserver() {
+        let conditions = generateQueryConditions()
+        
+        FirebaseManager.shared.addObserver(
+            on: .foodRecord,
+            where: conditions
+        ) { [weak self] (_: DocumentChangeType, _: FoodRecord) in
+            guard let self = self else { return }
+            self.fetchWeeklyFoodRecords()
+        }
+    }
+    
+    // MARK: - Private Methods
+    private func generateQueryConditions() -> [FirestoreCondition] {
         let startDate = Calendar.current.date(byAdding: .day, value: -6, to: today)!
         let endDate = Date()
         
         let startTimestamp = Timestamp(date: startDate)
         let endTimestamp = Timestamp(date: endDate)
         
-        let conditions: [(String, FirestoreCondition, Any)] = [
-            ("userID", .isEqualTo, userProfileViewModel.user.id),
-            ("date", .isGreaterThanOrEqualTo, startTimestamp),
-            ("date", .isLessThanOrEqualTo, endTimestamp)
+        return [
+            FirestoreCondition(field: "userID", comparison: .isEqualTo, value: userProfileViewModel.user.id),
+            FirestoreCondition(field: "date", comparison: .isGreaterThanOrEqualTo, value: startTimestamp),
+            FirestoreCondition(field: "date", comparison: .isLessThanOrEqualTo, value: endTimestamp)
         ]
+    }
+    
+    private func processGroupedRecords(foodRecords: [FoodRecord]) {
+        let startDate = Calendar.current.date(byAdding: .day, value: -6, to: today)!
+        let endDate = Date()
         
-        FirebaseManager.shared.getDocuments(
-            from: .foodRecord, where: conditions
-        ) { [weak self] (foodRecords: [FoodRecord]) in
-            guard let self = self else { return }
-            
-            self.foodRecords = foodRecords
-            
-            // 按日期分組
-            let groupedRecords = Dictionary(grouping: foodRecords) { record in
-                Calendar.current.startOfDay(for: record.date!.dateValue())
-            }
-            
-            var weeklyNutritionData = self.generateEmptyNutritionData(startDate: startDate, endDate: endDate)
-            
-            // 將有數據的天數填充上實際的數據
-            for (date, records) in groupedRecords {
-                // 計算該天的總營養
-                let totalNutrition = NutritionCalculator.calculateTotalNutrition(from: records, for: date)
-                
-                // 找到對應的空白數據並更新
-                if let index = weeklyNutritionData.firstIndex(
-                    where: { Calendar.current.isDate(
-                        $0.date.dateValue(),
-                        inSameDayAs: date
-                    ) }
-                ) {
-                    weeklyNutritionData[index] = totalNutrition
-                }
-            }
-            // 更新 weeklyTotalNutrition，按日期排序
-            self.weeklyTotalNutrition = weeklyNutritionData.sorted(by: { $0.date.dateValue() < $1.date.dateValue() })
-            self.updateWeeklyData()
-            
-            let docRef = FirestoreEndpoint.users.ref.document(userProfileViewModel.user.id)
-            FirebaseManager.shared.setData(
-                ["totalNutrition": self.weeklyTotalNutrition],
-                at: docRef,
-                merge: true
-            )
+        let groupedRecords = Dictionary(grouping: foodRecords) { record in
+            Calendar.current.startOfDay(for: record.date!.dateValue())
         }
+        
+        var weeklyNutritionData = self.generateEmptyNutritionData(startDate: startDate, endDate: endDate)
+        
+        for (date, records) in groupedRecords {
+            let totalNutrition = NutritionCalculator.calculateTotalNutrition(from: records, for: date)
+            if let index = weeklyNutritionData.firstIndex(
+                where: { Calendar.current.isDate(
+                    $0.date.dateValue(),
+                    inSameDayAs: date
+                ) }
+            ) {
+                weeklyNutritionData[index] = totalNutrition
+            }
+        }
+        
+        self.weeklyTotalNutrition = weeklyNutritionData.sorted(by: { $0.date.dateValue() < $1.date.dateValue() })
+        self.updateWeeklyData()
+        
+        let docRef = FirestoreEndpoint.users.ref.document(userProfileViewModel.user.id)
+        FirebaseManager.shared.setData(
+            ["totalNutrition": self.weeklyTotalNutrition],
+            at: docRef,
+            merge: true
+        )
     }
     
     private func generateEmptyNutritionData(startDate: Date, endDate: Date) -> [TotalNutrition] {

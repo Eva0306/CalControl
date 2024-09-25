@@ -21,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         // 檢查是否有 userID
         // if let userID = UserDefaults.standard.string(forKey: "userID") {
-        let userID = "t8VofbETe4sfNNBEqSEb"
+        let userID = "t8VofbETe4sfNNBEqSEb" // 子安
+//        let userID = "mTLegqFprHzNy1SMAbTA" // 芮瑊
         fetchUser(userID: userID) { result in
             switch result {
             case .success(let user):
@@ -50,7 +51,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func fetchUser(userID: String, completion: @escaping (Result<User, Error>) -> Void) {
-        FirebaseManager.shared.getDocuments(from: .users, where: [("id", .isEqualTo, userID)]) { (users: [User]) in
+        let condition = [
+        FirestoreCondition(field: "id", comparison: .isEqualTo, value: userID)]
+        
+        FirebaseManager.shared.getDocuments(from: .users, where: condition) { (users: [User]) in
             if let user = users.first {
                 completion(.success(user))
             } else {

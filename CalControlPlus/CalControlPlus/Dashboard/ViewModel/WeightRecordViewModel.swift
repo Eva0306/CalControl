@@ -11,10 +11,14 @@ import FirebaseCore
 class WeightRecordViewModel: ObservableObject {
     @Published var weightRecords: [WeightRecord] = []
     
+    
     func fetchWeightRecord() {
+        let condition = [
+        FirestoreCondition(field: "id", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id)]
+        
         FirebaseManager.shared.getDocuments(
             from: .users,
-            where: [("id", .isEqualTo, UserProfileViewModel.shared.user.id)]
+            where: condition
         ) { [weak self] (users: [User]) in
             guard let self = self else { return }
             

@@ -29,7 +29,7 @@ class HomeVC: UIViewController {
         return tv
     }()
     
-    var homeViewModel: HomeViewModel?
+    var homeViewModel = HomeViewModel()
     private var subscriptions = Set<AnyCancellable>()
     
     var currentDate = Calendar.current.startOfDay(for: Date())
@@ -39,25 +39,10 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let userProfileViewModel = UserProfileViewModel.shared else {
-            print("User profile view model is missing.")
-            return
-        }
-        
-        homeViewModel = HomeViewModel(userProfileViewModel: userProfileViewModel)
         addBindings()
-        homeViewModel?.fetchFoodRecord(for: currentDate)
-        
+        homeViewModel.fetchFoodRecord(for: currentDate)
+        homeViewModel.addObserver(for: currentDate)
         setupView()
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(foodRecordDidChange(_:)),
-            name: Notification.Name("FoodRecordDidChange"),
-            object: nil)
-    }
-    
-    @objc private func foodRecordDidChange(_ notification: Notification) {
-        homeViewModel?.fetchFoodRecord(for: currentDate)
     }
     
     private func setupView() {
@@ -75,7 +60,7 @@ class HomeVC: UIViewController {
     }
     
     private func addBindings() {
-        homeViewModel?.$foodRecords
+        homeViewModel.$foodRecords
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.homeTableView.reloadData()
@@ -95,14 +80,14 @@ extension HomeVC: UITableViewDataSource {
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2 + (homeViewModel?.mealCategories.count ?? 0)
+        return 2 + homeViewModel.mealCategories.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 || section == 1 {
             return 1
         } else {
-            return mealCellIsExpanded[section - 2] ? (homeViewModel?.foodRecordsByCategory[section - 2].count ?? 0) : 0
+            return mealCellIsExpanded[section - 2] ? homeViewModel.foodRecordsByCategory[section - 2].count : 0
         }
     }
     
@@ -111,9 +96,7 @@ extension HomeVC: UITableViewDataSource {
             // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: DailyAnalysisCell.identifier, for: indexPath) as! DailyAnalysisCell
             // swiftlint:enable force_cast line_length
-            if let homeViewModel = homeViewModel {
                 cell.configure(with: homeViewModel)
-            }
             return cell
         } else if indexPath.section == 1 {
             // swiftlint:disable force_cast line_length
@@ -125,10 +108,8 @@ extension HomeVC: UITableViewDataSource {
             // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: FoodRecordCell.identifier, for: indexPath) as! FoodRecordCell
             // swiftlint:enable force_cast line_length
-            if let homeViewModel = homeViewModel {
                 let foodRecord = homeViewModel.foodRecordsByCategory[indexPath.section - 2][indexPath.row]
                 cell.configure(with: foodRecord)
-            }
             return cell
         }
 //        return UITableViewCell()
@@ -148,10 +129,8 @@ extension HomeVC: UITableViewDelegate {
         headerView.delegate = self
         let isExpanded = self.mealCellIsExpanded[section - 2]
         
-        if let homeViewModel = homeViewModel {
             let title = homeViewModel.mealCategories[section - 2]
             headerView.configure(title: title, tag: section - 2, isExpanded: isExpanded)
-        }
         return headerView
     }
     
@@ -171,5 +150,21 @@ extension HomeVC: MealTitleViewDelegate {
     func mealTitleView(_ mealTitleView: MealTitleView, didPressTag tag: Int, isExpand: Bool) {
         self.mealCellIsExpanded[tag] = isExpand
         self.homeTableView.reloadSections(IndexSet(integer: tag + 2), with: .automatic)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            let sectionIndex = tag + 2
+            let indexPath = IndexPath(row: NSNotFound, section: sectionIndex)
+            
+            // 計算展開後的內容是否會超出可視範圍
+            let rect = self.homeTableView.rect(forSection: sectionIndex)
+            let visibleRect = self.homeTableView.visibleRect()
+            
+            // 如果展開後的 section 超出了可視範圍，則滾動以使其可見
+            if !visibleRect.contains(rect) {
+                self.homeTableView.scrollRectToVisible(rect, animated: true)
+            }
+        }
     }
 }

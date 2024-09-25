@@ -154,7 +154,6 @@ class UserBasicCardCell: BaseCardTableViewCell {
     @objc private func rowTappedAction(_ sender: UITapGestureRecognizer) {
         guard let tappedRow = sender.view?.tag else { return }
         
-        let tappedRowText: String
         switch tappedRow {
         case 0:
             showPicker(for: .gender)

@@ -217,8 +217,6 @@ extension NutritionVC {
     private func saveRecord(_ foodRecord: FoodRecord, to docRef: DocumentReference) {
         FirebaseManager.shared.setData(foodRecord, at: docRef)
         
-        NotificationCenter.default.post(name: Notification.Name("FoodRecordDidChange"), object: nil)
-        
         let alert = UIAlertController(title: "儲存成功！", message: nil, preferredStyle: .alert)
         present(alert, animated: true)
         

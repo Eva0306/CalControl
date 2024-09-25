@@ -13,45 +13,66 @@ class HomeViewModel: ObservableObject {
     @Published var exerciseValue: Int = 0
     @Published var totalNutrition: TotalNutrition?
     
-    let userProfileViewModel: UserProfileViewModel
-    
     let mealCategories = ["早餐", "午餐", "晚餐", "點心"]
     
     var foodRecordsByCategory: [[FoodRecord]] {
         var categorizedRecords: [[FoodRecord]] = [[], [], [], []]
         
         for record in foodRecords {
-            switch record.mealType {
-            case 0:
-                categorizedRecords[0].append(record) // 早餐
-            case 1:
-                categorizedRecords[1].append(record) // 午餐
-            case 2:
-                categorizedRecords[2].append(record) // 晚餐
-            case 3:
-                categorizedRecords[3].append(record) // 點心
-            default:
-                break
-            }
+            categorizedRecords[record.mealType].append(record)
         }
         return categorizedRecords
     }
     
-    init(userProfileViewModel: UserProfileViewModel) {
-        self.userProfileViewModel = userProfileViewModel
-    }
-    
+    // MARK: - Public Methods
     func fetchFoodRecord(for date: Date) {
-        let dateOnly = Calendar.current.startOfDay(for: date)
-        let timestamp = Timestamp(date: dateOnly)
+        let conditions = generateQueryConditions(for: date)
         
         FirebaseManager.shared.getDocuments(
-            from: .foodRecord, where: [("date", .isEqualTo, timestamp),
-                                       ("userID", .isEqualTo, userProfileViewModel.user.id)]
+            from: .foodRecord,
+            where: conditions
         ) { [weak self] (records: [FoodRecord]) in
             guard let self = self else { return }
             self.foodRecords = records
-            self.totalNutrition = NutritionCalculator.calculateTotalNutrition(from: records, for: dateOnly)
+            self.totalNutrition = NutritionCalculator.calculateTotalNutrition(from: records, for: Calendar.current.startOfDay(for: date))
         }
     }
+    
+    func addObserver(for date: Date) {
+        let conditions = generateQueryConditions(for: date)
+        
+        FirebaseManager.shared.addObserver(
+            on: .foodRecord,
+            where: conditions
+        ) { [weak self] (changeType: DocumentChangeType, foodRecord: FoodRecord) in
+            guard let self = self else { return }
+            switch changeType {
+            case .added:
+                self.foodRecords.append(foodRecord)
+                
+            case .modified:
+                if let index = self.foodRecords.firstIndex(where: { $0.id == foodRecord.id }) {
+                    self.foodRecords[index] = foodRecord
+                }
+                
+            case .removed:
+                if let index = self.foodRecords.firstIndex(where: { $0.id == foodRecord.id }) {
+                    self.foodRecords.remove(at: index)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Private Methods
+    private func generateQueryConditions(for date: Date) -> [FirestoreCondition] {
+        let dateOnly = Calendar.current.startOfDay(for: date)
+        let timestamp = Timestamp(date: dateOnly)
+        
+        return [
+            FirestoreCondition(field: "userID", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id),
+            FirestoreCondition(field: "date", comparison: .isEqualTo, value: timestamp)
+        ]
+    }
 }
+
+

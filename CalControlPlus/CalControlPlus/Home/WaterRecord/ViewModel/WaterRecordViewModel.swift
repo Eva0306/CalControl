@@ -25,10 +25,13 @@ class WaterRecordViewModel: ObservableObject {
         let dateOnly = Calendar.current.startOfDay(for: date)
         let timestamp = Timestamp(date: dateOnly)
         
+        let condition = [
+        FirestoreCondition(field: "userID", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id),
+        FirestoreCondition(field: "date", comparison: .isEqualTo, value: timestamp)]
+        
         FirebaseManager.shared.getDocuments(
             from: .waterRecord,
-            where : [("date", .isEqualTo, timestamp),
-                     ("userID", .isEqualTo, UserProfileViewModel.shared.user.id)]
+            where : condition
         ) { [weak self] (records: [WaterRecord]) in
             guard let self = self else { return }
             
@@ -57,10 +60,13 @@ class WaterRecordViewModel: ObservableObject {
         let dateOnly = Calendar.current.startOfDay(for: date)
         let timestamp = Timestamp(date: dateOnly)
         
+        let condition = [
+        FirestoreCondition(field: "userID", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id),
+        FirestoreCondition(field: "date", comparison: .isEqualTo, value: timestamp)]
+        
         FirebaseManager.shared.getDocuments(
             from: .waterRecord,
-            where: [("date", .isEqualTo, timestamp),
-                    ("userID", .isEqualTo, UserProfileViewModel.shared.user.id)]
+            where: condition
         ) { [weak self] (records: [WaterRecord]) in
             guard let self = self else { return }
             

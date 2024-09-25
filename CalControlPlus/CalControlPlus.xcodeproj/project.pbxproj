@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B309F9052CA3E2A300414F5B /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B309F9042CA3E2A300414F5B /* UITableViewExtension.swift */; };
 		B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */; };
 		B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */; };
 		B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */; };
@@ -84,6 +85,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B309F9042CA3E2A300414F5B /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
 		B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisView.swift; sourceTree = "<group>"; };
 		B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisCell.swift; sourceTree = "<group>"; };
 		B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriModel.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				B36C18C62C99D96700D9D1CC /* DoubleExtension.swift */,
 				B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */,
 				B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */,
+				B309F9042CA3E2A300414F5B /* UITableViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -641,6 +644,7 @@
 				B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */,
 				B387D9942CA14E6200CCC311 /* UserSettingsCalculator.swift in Sources */,
 				B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */,
+				B309F9052CA3E2A300414F5B /* UITableViewExtension.swift in Sources */,
 				B36C19122C9AD60B00D9D1CC /* DailyAnalysisCell.swift in Sources */,
 				B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */,
 				B36C18D62C99D96700D9D1CC /* NutritionTitleCell.swift in Sources */,

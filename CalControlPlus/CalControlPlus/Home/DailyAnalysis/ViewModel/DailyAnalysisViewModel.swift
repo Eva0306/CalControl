@@ -19,17 +19,32 @@ class DailyAnalysisViewModel: ObservableObject {
     @Published var fatCurrent: Double = 0
     @Published var fatTotal: Double = 0
     
+    private var cancellables = Set<AnyCancellable>()
+    
+    init() {
+        bindToUserProfileViewModel()
+    }
+    
+    private func bindToUserProfileViewModel() {
+        UserProfileViewModel.shared.$userSettings
+            .sink { [weak self] userSettings in
+                guard let self = self else { return }
+                self.basicGoal = userSettings!.basicGoal
+                self.carbohydrateTotal = userSettings!.carbohydrateTotal
+                self.proteinTotal = userSettings!.proteinTotal
+                self.fatTotal = userSettings!.fatTotal
+            }
+            .store(in: &cancellables)
+    }
+    
     func update(from homeViewModel: HomeViewModel) {
         if let totalNutrition = homeViewModel.totalNutrition {
-            self.basicGoal = homeViewModel.userProfileViewModel.userSettings.basicGoal
             self.foodValue = Int(totalNutrition.totalCalories)
             self.exerciseValue = homeViewModel.exerciseValue
             self.carbohydrateCurrent = totalNutrition.totalCarbs
-            self.carbohydrateTotal = homeViewModel.userProfileViewModel.userSettings.carbohydrateTotal
             self.proteinCurrent = totalNutrition.totalProtein
-            self.proteinTotal = homeViewModel.userProfileViewModel.userSettings.proteinTotal
             self.fatCurrent = totalNutrition.totalFats
-            self.fatTotal = homeViewModel.userProfileViewModel.userSettings.fatTotal
         }
     }
 }
+

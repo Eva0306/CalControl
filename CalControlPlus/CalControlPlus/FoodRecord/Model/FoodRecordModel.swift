@@ -42,8 +42,8 @@ struct NutritionFacts: Codable {
 struct NutritionResponse: Codable {
     let uri: String
     let calories: Double
-    let totalCO2Emissions: Double
-    let co2EmissionsClass: String
+    let totalCO2Emissions: Double?
+    let co2EmissionsClass: String?
     let totalWeight: Double
     let dietLabels, healthLabels: [String]
     let totalNutrients, totalDaily: [String: TotalDaily]
@@ -60,11 +60,13 @@ struct Ingredient: Codable {
 // MARK: - Parsed
 struct Parsed: Codable {
     let quantity: Double
-    let measure, foodMatch, food, foodId: String
+    let foodMatch: String
+    let measure, food, foodId: String?
     let weight, retainedWeight: Double
     let nutrients: [String: TotalDaily]
-    let measureURI: String
-    let status: String}
+    let measureURI: String?
+    let status: String
+}
 
 // MARK: - TotalDaily
 struct TotalDaily: Codable {
