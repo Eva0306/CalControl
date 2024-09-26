@@ -35,34 +35,61 @@ class FriendViewModel: ObservableObject {
         }
     }
     
-    func addFriend(with friendID: String) {
-        print("Ready to add")
+    func addFriend(_ viewController: UIViewController, with friendID: String) {
         guard let currentUserID = UserProfileViewModel.shared?.user.id else { return }
         
-        let timestamp = Timestamp(date: Date())
+        let usersCollection = FirestoreEndpoint.users.ref
         
-        let friendData: [String: Any] = [
-            "userID": friendID,
-            "addedAt": timestamp,
-            "status": "accepted"
-        ]
-        
-        // 更新自己和朋友的好友列表
-        updateFriendsList(for: currentUserID, friendData: friendData) { [weak self] success in
-            if success {
-                let currentUserData: [String: Any] = [
-                    "userID": currentUserID,
-                    "addedAt": timestamp,
-                    "status": "accepted"
-                ]
-                
-                self?.updateFriendsList(for: friendID, friendData: currentUserData) { success in
-                    if success {
-                        print("DEBUG: Successfully added friend both ways")
-                        self?.fetchFriendData()
+        usersCollection.document(friendID).getDocument { [weak self] document, error in
+            if let error = error {
+                print("DEBUG: Error fetching friend document - \(error.localizedDescription)")
+                self?.showAlert(in: viewController, message: "發生錯誤，請稍後再試。")
+                return
+            }
+            
+            guard let document = document, document.exists else {
+                print("DEBUG: Friend ID does not exist")
+                self?.showAlert(in: viewController, message: "查無此 ID，請確認後再試。")
+                return
+            }
+            
+            let timestamp = Timestamp(date: Date())
+            
+            let friendData: [String: Any] = [
+                "userID": friendID,
+                "addedAt": timestamp,
+                "status": "accepted"
+            ]
+            
+            self?.updateFriendsList(for: currentUserID, friendData: friendData) { success in
+                if success {
+                    let currentUserData: [String: Any] = [
+                        "userID": currentUserID,
+                        "addedAt": timestamp,
+                        "status": "accepted"
+                    ]
+                    
+                    self?.updateFriendsList(for: friendID, friendData: currentUserData) { success in
+                        if success {
+                            print("DEBUG: Successfully added friend both ways")
+                            self?.fetchFriendData()
+                        }
                     }
+                } else {
+                    print("DEBUG: Failed to add friend")
                 }
             }
+        }
+    }
+
+
+    private func showAlert(in viewController: UIViewController, message: String) {
+        let alert = UIAlertController(title: "錯誤", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
+        alert.addAction(okAction)
+        
+        DispatchQueue.main.async {
+            viewController.present(alert, animated: true, completion: nil)
         }
     }
     
@@ -73,7 +100,6 @@ class FriendViewModel: ObservableObject {
     ) {
         let collection = FirestoreEndpoint.users
         
-        // 獲取文件
         collection.ref.document(userID).getDocument { document, error in
             guard let document = document, document.exists else {
                 print("DEBUG: Failed to fetch document - \(error?.localizedDescription ?? "Unknown error")")
@@ -84,7 +110,6 @@ class FriendViewModel: ObservableObject {
             let data = document.data() ?? [:]
             var friends = data["friends"] as? [[String: Any]] ?? []
             
-            // 檢查是否已經存在這個好友
             if !friends.contains(where: { $0["userID"] as? String == friendData["userID"] as? String }) {
                 print("DEBUG: Adding friend: \(friendData)") // Debug print
                 friends.append(friendData)

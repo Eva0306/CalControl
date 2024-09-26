@@ -13,6 +13,10 @@
 		B313846A2CA53A21008272B0 /* FoodDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384692CA53A21008272B0 /* FoodDetailVC.swift */; };
 		B313846C2CA53B28008272B0 /* FoodDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B313846B2CA53B28008272B0 /* FoodDetailCell.swift */; };
 		B313846E2CA55B5E008272B0 /* DeleteButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B313846D2CA55B5E008272B0 /* DeleteButtonCell.swift */; };
+		B31384702CA59847008272B0 /* AddFriendVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B313846F2CA59847008272B0 /* AddFriendVC.swift */; };
+		B31384722CA5ACA4008272B0 /* InputFriendIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384712CA5ACA4008272B0 /* InputFriendIDVC.swift */; };
+		B31384742CA5ACB3008272B0 /* ShowQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384732CA5ACB3008272B0 /* ShowQRCodeVC.swift */; };
+		B31384762CA5ACBD008272B0 /* ScanQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384752CA5ACBD008272B0 /* ScanQRCodeVC.swift */; };
 		B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */; };
 		B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */; };
 		B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */; };
@@ -96,6 +100,10 @@
 		B31384692CA53A21008272B0 /* FoodDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailVC.swift; sourceTree = "<group>"; };
 		B313846B2CA53B28008272B0 /* FoodDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailCell.swift; sourceTree = "<group>"; };
 		B313846D2CA55B5E008272B0 /* DeleteButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButtonCell.swift; sourceTree = "<group>"; };
+		B313846F2CA59847008272B0 /* AddFriendVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendVC.swift; sourceTree = "<group>"; };
+		B31384712CA5ACA4008272B0 /* InputFriendIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFriendIDVC.swift; sourceTree = "<group>"; };
+		B31384732CA5ACB3008272B0 /* ShowQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowQRCodeVC.swift; sourceTree = "<group>"; };
+		B31384752CA5ACBD008272B0 /* ScanQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRCodeVC.swift; sourceTree = "<group>"; };
 		B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisView.swift; sourceTree = "<group>"; };
 		B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisCell.swift; sourceTree = "<group>"; };
 		B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriModel.swift; sourceTree = "<group>"; };
@@ -466,6 +474,10 @@
 			children = (
 				B387D97F2CA0FA7600CCC311 /* FriendCardCell.swift */,
 				B36C18FE2C9A974600D9D1CC /* FriendVC.swift */,
+				B313846F2CA59847008272B0 /* AddFriendVC.swift */,
+				B31384712CA5ACA4008272B0 /* InputFriendIDVC.swift */,
+				B31384732CA5ACB3008272B0 /* ShowQRCodeVC.swift */,
+				B31384752CA5ACBD008272B0 /* ScanQRCodeVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -677,15 +689,18 @@
 				B36C18D52C99D96700D9D1CC /* NutritionImageCell.swift in Sources */,
 				B36C18F02C99D96700D9D1CC /* MainTabBarController.swift in Sources */,
 				B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */,
+				B31384742CA5ACB3008272B0 /* ShowQRCodeVC.swift in Sources */,
 				B36C18E42C99D96700D9D1CC /* NutritionManager.swift in Sources */,
 				B313846C2CA53B28008272B0 /* FoodDetailCell.swift in Sources */,
 				B313846A2CA53A21008272B0 /* FoodDetailVC.swift in Sources */,
 				B36C18DF2C99D96700D9D1CC /* HomeVC.swift in Sources */,
 				B36C18E62C99D96700D9D1CC /* TranslationManager.swift in Sources */,
 				B36C18D42C99D96700D9D1CC /* NutritionFactsCell.swift in Sources */,
+				B31384722CA5ACA4008272B0 /* InputFriendIDVC.swift in Sources */,
 				B36C19142C9AD90000D9D1CC /* DailyAnalysisViewModel.swift in Sources */,
 				B387D9992CA27AB000CCC311 /* PickerViewModal.swift in Sources */,
 				B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */,
+				B31384702CA59847008272B0 /* AddFriendVC.swift in Sources */,
 				B36C18DA2C99D96700D9D1CC /* CheckVC.swift in Sources */,
 				B36C18EB2C99D96700D9D1CC /* DoubleExtension.swift in Sources */,
 				B36C18D72C99D96700D9D1CC /* RecordTabBarController.swift in Sources */,
@@ -704,6 +719,7 @@
 				B36C18DC2C99D96700D9D1CC /* NutritionVC.swift in Sources */,
 				B36C18D92C99D96700D9D1CC /* CameraVC.swift in Sources */,
 				B36C19182C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift in Sources */,
+				B31384762CA5ACBD008272B0 /* ScanQRCodeVC.swift in Sources */,
 				B32CDD762C9BF3E700F92244 /* MealRecordCell.swift in Sources */,
 				B36C18E32C99D96700D9D1CC /* FirebaseManager.swift in Sources */,
 				B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */,

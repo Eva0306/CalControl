@@ -55,29 +55,7 @@ class FriendVC: UIViewController {
     }
     
     @objc private func addFriendButtonTapped() {
-        print("新增好友按鈕被點擊")
-        let alertController = UIAlertController(title: "新增好友", message: "請輸入好友ID", preferredStyle: .alert)
-        
-        alertController.addTextField { textField in
-            textField.placeholder = "好友ID"
-            textField.keyboardType = .default
-        }
-        
-        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
-        let addAction = UIAlertAction(title: "加入", style: .default) { _ in
-            if let friendID = alertController.textFields?.first?.text, !friendID.isEmpty {
-                print("加入好友ID: \(friendID)")
-                self.friendViewModel.addFriend(with: friendID)
-            } else {
-                print("好友ID不能為空")
-            }
-        }
-        
-        alertController.addAction(cancelAction)
-        alertController.addAction(addAction)
-        
-        self.present(alertController, animated: true, completion: nil)
+        performSegue(withIdentifier: "showAddFriend", sender: self)
     }
     
     private func addBindings() {
@@ -106,5 +84,11 @@ extension FriendVC: UITableViewDataSource {
 }
 
 extension FriendVC: UITableViewDelegate {
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showAddFriend" {
+            if let destinationVC = segue.destination as? AddFriendVC {
+                destinationVC.viewModel = friendViewModel
+            }
+        }
+    }
 }

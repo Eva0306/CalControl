@@ -73,10 +73,29 @@
                         <color key="backgroundColor" name="background"/>
                     </view>
                     <navigationItem key="navigationItem" title="Friends" id="QNO-5p-wAO"/>
+                    <connections>
+                        <segue destination="9eQ-j3-vyv" kind="show" identifier="showAddFriend" id="UIa-EV-ant"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5bk-95-ZYU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1753.4351145038167" y="544.36619718309862"/>
+        </scene>
+        <!--Add FriendVC-->
+        <scene sceneID="SUE-YG-whb">
+            <objects>
+                <viewController id="9eQ-j3-vyv" customClass="AddFriendVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wb2-km-psT">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="yF8-rw-A0g"/>
+                        <color key="backgroundColor" name="background"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="nAu-7E-tEk"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u28-5a-ecg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2621" y="544"/>
         </scene>
         <!--Profile-->
         <scene sceneID="YCL-Mz-Rlp">
@@ -113,7 +132,7 @@
             </objects>
             <point key="canvasLocation" x="1679" y="-1530"/>
         </scene>
-        <!--Food DetailVC-->
+        <!--食物紀錄-->
         <scene sceneID="40f-Gx-w8M">
             <objects>
                 <viewController id="JWW-So-ihy" customClass="FoodDetailVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
@@ -123,7 +142,7 @@
                         <viewLayoutGuide key="safeArea" id="die-m7-a7H"/>
                         <color key="backgroundColor" name="background"/>
                     </view>
-                    <navigationItem key="navigationItem" id="m8e-SB-C5x"/>
+                    <navigationItem key="navigationItem" title="食物紀錄" id="m8e-SB-C5x"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6ha-dQ-Haw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

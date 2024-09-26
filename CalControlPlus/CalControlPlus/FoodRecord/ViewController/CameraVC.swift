@@ -39,7 +39,6 @@ class CameraVC: UIViewController {
         captureSession = AVCaptureSession()
         captureSession.beginConfiguration()
         
-        // 選擇相機設備 (預設使用後攝像頭)
         guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
             
             print("Couldn't find the camera device")

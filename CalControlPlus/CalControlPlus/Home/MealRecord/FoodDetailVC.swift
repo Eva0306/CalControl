@@ -12,7 +12,7 @@ class FoodDetailVC: UIViewController {
     private lazy var foodDetailTableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
-//        tv.delegate = self
+        //        tv.delegate = self
         tv.backgroundColor = .clear
         tv.separatorStyle = .none
         tv.showsVerticalScrollIndicator = false
@@ -51,21 +51,10 @@ class FoodDetailVC: UIViewController {
     }
     
     private func setupView() {
-        let titleLabel = UILabel()
-        titleLabel.text = "食物紀錄"
-        titleLabel.textAlignment = .center
-        titleLabel.font = UIFont(name: "Helvetica Neue", size: 28)
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(titleLabel)
         view.addSubview(foodDetailTableView)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            
-            foodDetailTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            foodDetailTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20),
             foodDetailTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             foodDetailTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             foodDetailTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -126,23 +115,33 @@ extension FoodDetailVC {
             
             let updatedNutritionFacts = NutritionFacts(
                 weight: Nutrient(
-                    value: Double(foodDetailCell.valueTextFields["份量"]?.text ?? "") ?? originalFoodRecord.nutritionFacts.weight.value,
+                    value: Double(
+                        foodDetailCell.valueTextFields["份量"]?.text ?? ""
+                    ) ?? originalFoodRecord.nutritionFacts.weight.value,
                     unit: originalFoodRecord.nutritionFacts.weight.unit
                 ),
                 calories: Nutrient(
-                    value: Double(foodDetailCell.valueTextFields["熱量"]?.text ?? "") ?? originalFoodRecord.nutritionFacts.calories.value,
+                    value: Double(
+                        foodDetailCell.valueTextFields["熱量"]?.text ?? ""
+                    ) ?? originalFoodRecord.nutritionFacts.calories.value,
                     unit: originalFoodRecord.nutritionFacts.calories.unit
                 ),
                 carbs: Nutrient(
-                    value: Double(foodDetailCell.valueTextFields["碳水化合物"]?.text ?? "") ?? originalFoodRecord.nutritionFacts.carbs.value,
+                    value: Double(
+                        foodDetailCell.valueTextFields["碳水化合物"]?.text ?? ""
+                    ) ?? originalFoodRecord.nutritionFacts.carbs.value,
                     unit: originalFoodRecord.nutritionFacts.carbs.unit
                 ),
                 fats: Nutrient(
-                    value: Double(foodDetailCell.valueTextFields["脂質"]?.text ?? "") ?? originalFoodRecord.nutritionFacts.fats.value,
+                    value: Double(
+                        foodDetailCell.valueTextFields["脂質"]?.text ?? ""
+                    ) ?? originalFoodRecord.nutritionFacts.fats.value,
                     unit: originalFoodRecord.nutritionFacts.fats.unit
                 ),
                 protein: Nutrient(
-                    value: Double(foodDetailCell.valueTextFields["蛋白質"]?.text ?? "") ?? originalFoodRecord.nutritionFacts.protein.value,
+                    value: Double(
+                        foodDetailCell.valueTextFields["蛋白質"]?.text ?? ""
+                    ) ?? originalFoodRecord.nutritionFacts.protein.value,
                     unit: originalFoodRecord.nutritionFacts.protein.unit
                 )
             )
@@ -158,27 +157,47 @@ extension FoodDetailVC {
                     imageUrl: originalFoodRecord.imageUrl
                 )
                 
-                updateFoodRecordInFirebase(updatedFoodRecord)
+                updateFoodRecordInFirebase(updatedFoodRecord) { [weak self] success in
+                    if success {
+                        self?.foodRecord = updatedFoodRecord
+                        self?.foodDetailTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+                    }
+                }
             }
+        } else {
+            foodDetailTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
         }
-        
-        foodDetailTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
     }
-
-    private func updateFoodRecordInFirebase(_ updatedFoodRecord: FoodRecord) {
+    
+    private func updateFoodRecordInFirebase(_ updatedFoodRecord: FoodRecord, completion: @escaping (Bool) -> Void) {
         guard let foodRecordID = foodRecord?.id else { return }
         
         let updatedData: [String: Any] = [
             "title": updatedFoodRecord.title ?? "",
             "nutritionFacts": [
-                "weight": ["value": updatedFoodRecord.nutritionFacts.weight.value, "unit": updatedFoodRecord.nutritionFacts.weight.unit],
-                "calories": ["value": updatedFoodRecord.nutritionFacts.calories.value, "unit": updatedFoodRecord.nutritionFacts.calories.unit],
-                "carbs": ["value": updatedFoodRecord.nutritionFacts.carbs.value, "unit": updatedFoodRecord.nutritionFacts.carbs.unit],
-                "fats": ["value": updatedFoodRecord.nutritionFacts.fats.value, "unit": updatedFoodRecord.nutritionFacts.fats.unit],
-                "protein": ["value": updatedFoodRecord.nutritionFacts.protein.value, "unit": updatedFoodRecord.nutritionFacts.protein.unit]
+                "weight": [
+                    "value": updatedFoodRecord.nutritionFacts.weight.value,
+                    "unit": updatedFoodRecord.nutritionFacts.weight.unit
+                ],
+                "calories": [
+                    "value": updatedFoodRecord.nutritionFacts.calories.value, "unit": updatedFoodRecord.nutritionFacts.calories.unit
+                ],
+                "carbs": [
+                    "value": updatedFoodRecord.nutritionFacts.carbs.value,
+                    "unit": updatedFoodRecord.nutritionFacts.carbs.unit
+                ],
+                "fats": [
+                    "value": updatedFoodRecord.nutritionFacts.fats.value,
+                    "unit": updatedFoodRecord.nutritionFacts.fats.unit
+                ],
+                "protein": [
+                    "value": updatedFoodRecord.nutritionFacts.protein.value,
+                    "unit": updatedFoodRecord.nutritionFacts.protein.unit
+                ]
             ]
         ]
         
+        // 提交更新到 Firebase，只更新特定欄位
         FirebaseManager.shared.updateDocument(
             from: .foodRecord,
             documentID: foodRecordID,
@@ -187,12 +206,13 @@ extension FoodDetailVC {
         ) { result in
             if result == true {
                 print("Successfully updated food record in firebase")
+                completion(true)
             } else {
                 print("Error: Failed to update food record in firebase")
+                completion(false)
             }
         }
     }
-
 }
 
 // MARK: - Delete Data
