@@ -9,6 +9,8 @@ import UIKit
 
 class NutritionFactsCell: BaseCardTableViewCell {
     
+    static let identifier = "NutritionFactsCell"
+    
     private let nutritionStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical

@@ -17,9 +17,9 @@ class NutritionVC: UIViewController {
         tv.separatorStyle = .none
         // tv.delegate = self
         
-        tv.register(NutritionImageCell.self, forCellReuseIdentifier: "NutritionImageCell")
-        tv.register(NutritionTitleCell.self, forCellReuseIdentifier: "NutritionTitleCell")
-        tv.register(NutritionFactsCell.self, forCellReuseIdentifier: "NutritionFactsCell")
+        tv.register(NutritionImageCell.self, forCellReuseIdentifier: NutritionImageCell.identifier)
+        tv.register(NutritionTitleCell.self, forCellReuseIdentifier: NutritionTitleCell.identifier)
+        tv.register(NutritionFactsCell.self, forCellReuseIdentifier: NutritionFactsCell.identifier)
         return tv
     }()
     
@@ -55,7 +55,6 @@ class NutritionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
-        print("init")
         setupTableView()
         setupButtons()
     }
@@ -162,7 +161,7 @@ extension NutritionVC: UITableViewDataSource {
         
         if indexPath.row == 0 {
             // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionImageCell", for: indexPath) as! NutritionImageCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: NutritionImageCell.identifier, for: indexPath) as! NutritionImageCell
             // swiftlint:enable force_cast line_length
             cell.configureCell(image: checkPhoto, name: foodRecord?.title)
             
@@ -170,7 +169,7 @@ extension NutritionVC: UITableViewDataSource {
             
         } else if indexPath.row == 1 {
             // swiftlint:disable force_cast  line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionTitleCell", for: indexPath) as! NutritionTitleCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: NutritionTitleCell.identifier, for: indexPath) as! NutritionTitleCell
             // swiftlint:enable force_cast line_length
             cell.configureCell(title: foodRecord?.title)
             
@@ -186,7 +185,7 @@ extension NutritionVC: UITableViewDataSource {
             
         } else if indexPath.row == 2 {
             // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NutritionFactsCell", for: indexPath) as! NutritionFactsCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: NutritionFactsCell.identifier, for: indexPath) as! NutritionFactsCell
             // swiftlint:enable force_cast line_length
             if let foodRecord = foodRecord {
                 cell.configureCell(nutritionFacts: foodRecord.nutritionFacts)
@@ -215,11 +214,9 @@ extension NutritionVC {
 // MARK: - Save Record To Firebase
 extension NutritionVC {
     private func saveRecord(_ foodRecord: FoodRecord, to docRef: DocumentReference) {
-        FirebaseManager.shared.setData(foodRecord, at: docRef)
-        
         let alert = UIAlertController(title: "儲存成功！", message: nil, preferredStyle: .alert)
         present(alert, animated: true)
-        
+        FirebaseManager.shared.setData(foodRecord, at: docRef)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             alert.dismiss(animated: true) {
                 self.backToHome()

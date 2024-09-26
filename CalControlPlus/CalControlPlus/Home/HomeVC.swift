@@ -112,7 +112,6 @@ extension HomeVC: UITableViewDataSource {
                 cell.configure(with: foodRecord)
             return cell
         }
-//        return UITableViewCell()
     }
 }
 
@@ -140,8 +139,14 @@ extension HomeVC: UITableViewDelegate {
         }
         return 50
     }
+    
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard indexPath.section > 1 else { return }
+        performSegue(withIdentifier: "showFoodDetail", sender: self)
     }
 }
 
@@ -155,15 +160,23 @@ extension HomeVC: MealTitleViewDelegate {
             guard let self = self else { return }
             
             let sectionIndex = tag + 2
-            let indexPath = IndexPath(row: NSNotFound, section: sectionIndex)
-            
-            // 計算展開後的內容是否會超出可視範圍
             let rect = self.homeTableView.rect(forSection: sectionIndex)
             let visibleRect = self.homeTableView.visibleRect()
-            
-            // 如果展開後的 section 超出了可視範圍，則滾動以使其可見
             if !visibleRect.contains(rect) {
                 self.homeTableView.scrollRectToVisible(rect, animated: true)
+            }
+        }
+    }
+}
+
+// MARK: - Prepare Segue
+extension HomeVC {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showFoodDetail" {
+            if let destinationVC = segue.destination as? FoodDetailVC,
+               let indexPath = homeTableView.indexPathForSelectedRow {
+                let foodRecord = homeViewModel.foodRecordsByCategory[indexPath.section - 2][indexPath.row]
+                destinationVC.foodRecord = foodRecord
             }
         }
     }

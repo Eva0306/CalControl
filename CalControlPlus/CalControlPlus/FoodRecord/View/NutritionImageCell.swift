@@ -9,6 +9,8 @@ import UIKit
 
 class NutritionImageCell: BaseCardTableViewCell {
     
+    static let identifier = "NutritionImageCell"
+    
     private let foodImageView = UIImageView()
     
     private let colorView: UIView = {
@@ -26,8 +28,13 @@ class NutritionImageCell: BaseCardTableViewCell {
         return label
     }()
     
+    private var isImageMode: Bool = false
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        setupImageView()
+        setupNameView()
     }
     
     required init?(coder: NSCoder) {
@@ -36,15 +43,29 @@ class NutritionImageCell: BaseCardTableViewCell {
     
     func configureCell(image: UIImage?, name: String?) {
         if let image = image {
-            setupImageView(image)
+            isImageMode = true
+            foodImageView.image = image
+            showImageView()
         } else {
-            setupNameView(name ?? "Food")
+            isImageMode = false
+            nameLabel.text = name ?? "Food"
+            showNameView()
         }
     }
     
-    private func setupImageView(_ image: UIImage) {
-        
-        foodImageView.image = image
+    func configureCell(image: String?, name: String?) {
+        if let image = image {
+            isImageMode = true
+            foodImageView.loadImage(with: image)
+            showImageView()
+        } else {
+            isImageMode = false
+            nameLabel.text = name ?? "Food"
+            showNameView()
+        }
+    }
+    
+    private func setupImageView() {
         foodImageView.contentMode = .scaleAspectFit
         foodImageView.translatesAutoresizingMaskIntoConstraints = false
         foodImageView.clipsToBounds = true
@@ -60,9 +81,7 @@ class NutritionImageCell: BaseCardTableViewCell {
         ])
     }
     
-    private func setupNameView(_ name: String) {
-        nameLabel.text = name
-        
+    private func setupNameView() {
         innerContentView.addSubview(colorView)
         
         NSLayoutConstraint.activate([
@@ -79,6 +98,15 @@ class NutritionImageCell: BaseCardTableViewCell {
             nameLabel.centerXAnchor.constraint(equalTo: colorView.centerXAnchor),
             nameLabel.centerYAnchor.constraint(equalTo: colorView.centerYAnchor)
         ])
-        
+    }
+    
+    private func showImageView() {
+        foodImageView.isHidden = false
+        colorView.isHidden = true
+    }
+    
+    private func showNameView() {
+        foodImageView.isHidden = true
+        colorView.isHidden = false
     }
 }

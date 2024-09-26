@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		B309F9052CA3E2A300414F5B /* UITableViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B309F9042CA3E2A300414F5B /* UITableViewExtension.swift */; };
+		B31384662CA50C98008272B0 /* WeightRecordDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384652CA50C98008272B0 /* WeightRecordDetailVC.swift */; };
+		B31384682CA50D38008272B0 /* WeightRecordDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384672CA50D38008272B0 /* WeightRecordDetailCell.swift */; };
+		B313846A2CA53A21008272B0 /* FoodDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384692CA53A21008272B0 /* FoodDetailVC.swift */; };
+		B313846C2CA53B28008272B0 /* FoodDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B313846B2CA53B28008272B0 /* FoodDetailCell.swift */; };
+		B313846E2CA55B5E008272B0 /* DeleteButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B313846D2CA55B5E008272B0 /* DeleteButtonCell.swift */; };
 		B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */; };
 		B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */; };
 		B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */; };
@@ -78,7 +83,7 @@
 		B387D9992CA27AB000CCC311 /* PickerViewModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9982CA27AB000CCC311 /* PickerViewModal.swift */; };
 		B387D99B2CA27CB000CCC311 /* ModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D99A2CA27CB000CCC311 /* ModalVC.swift */; };
 		B387D99D2CA27DE400CCC311 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */; };
-		B387D99F2CA28B4E00CCC311 /* PicerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D99E2CA28B4E00CCC311 /* PicerViewModel.swift */; };
+		B387D99F2CA28B4E00CCC311 /* PickerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D99E2CA28B4E00CCC311 /* PickerModel.swift */; };
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
@@ -86,6 +91,11 @@
 
 /* Begin PBXFileReference section */
 		B309F9042CA3E2A300414F5B /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
+		B31384652CA50C98008272B0 /* WeightRecordDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordDetailVC.swift; sourceTree = "<group>"; };
+		B31384672CA50D38008272B0 /* WeightRecordDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightRecordDetailCell.swift; sourceTree = "<group>"; };
+		B31384692CA53A21008272B0 /* FoodDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailVC.swift; sourceTree = "<group>"; };
+		B313846B2CA53B28008272B0 /* FoodDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodDetailCell.swift; sourceTree = "<group>"; };
+		B313846D2CA55B5E008272B0 /* DeleteButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteButtonCell.swift; sourceTree = "<group>"; };
 		B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisView.swift; sourceTree = "<group>"; };
 		B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisCell.swift; sourceTree = "<group>"; };
 		B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriModel.swift; sourceTree = "<group>"; };
@@ -154,7 +164,7 @@
 		B387D9982CA27AB000CCC311 /* PickerViewModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewModal.swift; sourceTree = "<group>"; };
 		B387D99A2CA27CB000CCC311 /* ModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalVC.swift; sourceTree = "<group>"; };
 		B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		B387D99E2CA28B4E00CCC311 /* PicerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PicerViewModel.swift; sourceTree = "<group>"; };
+		B387D99E2CA28B4E00CCC311 /* PickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerModel.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -189,6 +199,9 @@
 				B32CDD772C9BF61100F92244 /* FoodRecordCell.swift */,
 				B387D9712C9EC09E00CCC311 /* MealTitleView.swift */,
 				B32CDD752C9BF3E700F92244 /* MealRecordCell.swift */,
+				B313846B2CA53B28008272B0 /* FoodDetailCell.swift */,
+				B313846D2CA55B5E008272B0 /* DeleteButtonCell.swift */,
+				B31384692CA53A21008272B0 /* FoodDetailVC.swift */,
 			);
 			path = MealRecord;
 			sourceTree = "<group>";
@@ -415,6 +428,8 @@
 				B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */,
 				B387D97B2CA0743000CCC311 /* WeightRecordView.swift */,
 				B387D9792CA0741A00CCC311 /* WeightRecordCell.swift */,
+				B31384672CA50D38008272B0 /* WeightRecordDetailCell.swift */,
+				B31384652CA50C98008272B0 /* WeightRecordDetailVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -485,7 +500,7 @@
 		B387D9882CA0FAEF00CCC311 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B387D99E2CA28B4E00CCC311 /* PicerViewModel.swift */,
+				B387D99E2CA28B4E00CCC311 /* PickerModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -625,7 +640,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B387D99F2CA28B4E00CCC311 /* PicerViewModel.swift in Sources */,
+				B387D99F2CA28B4E00CCC311 /* PickerModel.swift in Sources */,
 				B387D9762CA0019C00CCC311 /* NutritionCalculator.swift in Sources */,
 				B36C19012C9A979800D9D1CC /* ProfileVC.swift in Sources */,
 				B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */,
@@ -655,6 +670,7 @@
 				B36C18FF2C9A974600D9D1CC /* FriendVC.swift in Sources */,
 				B36C18D82C99D96700D9D1CC /* TextViewCell.swift in Sources */,
 				B387D96B2C9C811200CCC311 /* DashboardViewModel.swift in Sources */,
+				B31384662CA50C98008272B0 /* WeightRecordDetailVC.swift in Sources */,
 				B387D9682C9C7C7400CCC311 /* UserSettings.swift in Sources */,
 				B387D97E2CA07A8200CCC311 /* WeightRecordViewModel.swift in Sources */,
 				B387D96F2C9D231900CCC311 /* UserProfileViewModel.swift in Sources */,
@@ -662,6 +678,8 @@
 				B36C18F02C99D96700D9D1CC /* MainTabBarController.swift in Sources */,
 				B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */,
 				B36C18E42C99D96700D9D1CC /* NutritionManager.swift in Sources */,
+				B313846C2CA53B28008272B0 /* FoodDetailCell.swift in Sources */,
+				B313846A2CA53A21008272B0 /* FoodDetailVC.swift in Sources */,
 				B36C18DF2C99D96700D9D1CC /* HomeVC.swift in Sources */,
 				B36C18E62C99D96700D9D1CC /* TranslationManager.swift in Sources */,
 				B36C18D42C99D96700D9D1CC /* NutritionFactsCell.swift in Sources */,
@@ -678,6 +696,7 @@
 				B387D9972CA1B34100CCC311 /* UserBasicCardCell.swift in Sources */,
 				B387D99B2CA27CB000CCC311 /* ModalVC.swift in Sources */,
 				B387D98E2CA1483100CCC311 /* FriendViewModel.swift in Sources */,
+				B313846E2CA55B5E008272B0 /* DeleteButtonCell.swift in Sources */,
 				B36C18F22C99D96700D9D1CC /* UIColorExtension.swift in Sources */,
 				B36C18E52C99D96700D9D1CC /* TranslationAPI.swift in Sources */,
 				B387D98C2CA0FB1A00CCC311 /* SettingCardCell.swift in Sources */,
@@ -689,6 +708,7 @@
 				B36C18E32C99D96700D9D1CC /* FirebaseManager.swift in Sources */,
 				B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */,
 				B387D97A2CA0741A00CCC311 /* WeightRecordCell.swift in Sources */,
+				B31384682CA50D38008272B0 /* WeightRecordDetailCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

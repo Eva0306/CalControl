@@ -13,7 +13,7 @@ class DashboardVC: UIViewController {
     private lazy var dashboardTableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
-        // tv.delegate = self
+        tv.delegate = self
         tv.backgroundColor = .clear
         tv.separatorStyle = .none
         tv.showsVerticalScrollIndicator = false
@@ -25,7 +25,7 @@ class DashboardVC: UIViewController {
     }()
     
     var homeViewModel: HomeViewModel?
-    var dashboardViewModel: DashboardViewModel?
+    var dashboardViewModel = DashboardViewModel()
     private var subscriptions = Set<AnyCancellable>()
 
     override func viewDidLoad() {
@@ -40,10 +40,9 @@ class DashboardVC: UIViewController {
             print("Failed to get HomeVC")
         }
         
-        dashboardViewModel = DashboardViewModel(userProfileViewModel: UserProfileViewModel.shared)
         addBindings()
-        dashboardViewModel?.fetchWeeklyFoodRecords()
-        dashboardViewModel?.addObserver()
+        dashboardViewModel.fetchWeeklyFoodRecords()
+        dashboardViewModel.addObserver()
         setupView()
     }
     
@@ -61,7 +60,7 @@ class DashboardVC: UIViewController {
     }
     
     private func addBindings() {
-        dashboardViewModel?.$weeklyTotalNutrition
+        dashboardViewModel.$weeklyTotalNutrition
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.dashboardTableView.reloadData()
@@ -81,8 +80,7 @@ extension DashboardVC: UITableViewDataSource {
             // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: WeeklyCalAnalysisCell.identifier, for: indexPath) as! WeeklyCalAnalysisCell
             // swiftlint:enable force_cast line_length
-            if let dashboardViewModel = dashboardViewModel,
-               let homeViewModel = homeViewModel {
+            if let homeViewModel = homeViewModel {
                 cell.configure(with: dashboardViewModel, homeViewModel)
             }
             return cell
@@ -90,8 +88,7 @@ extension DashboardVC: UITableViewDataSource {
             // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: WeeklyNutriAnalysisCell.identifier, for: indexPath) as! WeeklyNutriAnalysisCell
             // swiftlint:enable force_cast line_length
-            if let dashboardViewModel = dashboardViewModel,
-               let homeViewModel = homeViewModel {
+            if let homeViewModel = homeViewModel {
                 cell.configure(with: dashboardViewModel, homeViewModel)
             }
             return cell
@@ -99,9 +96,16 @@ extension DashboardVC: UITableViewDataSource {
             // swiftlint:disable force_cast line_length
             let cell = tableView.dequeueReusableCell(withIdentifier: WeightRecordCell.identifier, for: indexPath) as! WeightRecordCell
             // swiftlint:enable force_cast line_length
-            cell.configure()
             return cell
         }
         return UITableViewCell()
+    }
+}
+
+extension DashboardVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2 {
+            performSegue(withIdentifier: "showWeightRecordDetail", sender: self)
+        }
     }
 }

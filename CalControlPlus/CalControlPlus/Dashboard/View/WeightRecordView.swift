@@ -81,7 +81,7 @@ struct WeightRecordView: View {
                     Text("(過去90天)")
                         .font(.caption2)
                 }
-                    
+                
                 Spacer()
                 
                 Button(action: {
@@ -116,13 +116,19 @@ struct AddWeightView: View {
     @ObservedObject var viewModel: WeightRecordViewModel
     
     @State private var weight: Double = 50.0
-    @State private var date = Date()
+    @State private var currentDate = Calendar.current.startOfDay(for: Date())
     @State private var isEditingWeight = false
+    
+    @State private var showAlert = false
+    @State private var replaceIndex: Int?
     
     var body: some View {
         NavigationView {
             Form {
-                DatePicker("日期", selection: $date, displayedComponents: .date)
+                DatePicker("日期", selection: $currentDate, displayedComponents: .date)
+                    .onChange(of: currentDate) {
+                        checkIfRecordExists()
+                    }
                 
                 HStack {
                     Text("體重")
@@ -144,14 +150,43 @@ struct AddWeightView: View {
             .navigationBarItems(leading: Button("取消") {
                 dismiss()
             }, trailing: Button("儲存") {
-                let newRecord = WeightRecord(createdTime: Timestamp(date: date), weight: weight)
-                viewModel.addWeightRecord(newRecord)
-                dismiss()
+                if replaceIndex != nil {
+                    showAlert = true
+                } else {
+                    viewModel.saveOrReplaceRecord(for: currentDate, weight: weight)
+                    dismiss()
+                }
             })
+            .alert(isPresented: $showAlert) {
+                Alert(
+                    title: Text("該日期已有資料"),
+                    message: Text("要以此資料取代嗎？"),
+                    primaryButton: .destructive(Text("取代")) {
+                        viewModel.saveOrReplaceRecord(for: currentDate, weight: weight)
+                        dismiss()
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
         }
-        .presentationDetents([.medium, .fraction(0.5)]) // 控制彈出視窗的高度
+        .onAppear {
+            checkIfRecordExists()
+        }
+        .presentationDetents([.medium, .fraction(0.5)])
+    }
+    
+    private func checkIfRecordExists() {
+        if let result = viewModel.checkIfRecordExists(for: currentDate) {
+            replaceIndex = result.index
+            weight = result.weight
+        } else {
+            replaceIndex = nil
+            weight = 50.0
+        }
     }
 }
+
+
 
 // #Preview {
 //    WeightRecordView()

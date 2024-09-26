@@ -151,6 +151,23 @@ final class FirebaseManager {
         }
     }
     
+    func updateDocument(
+        from collection: FirestoreEndpoint,
+        documentID: String, data: [String: Any],
+        merge: Bool = false,
+        completion: @escaping (Bool) -> Void
+    ) {
+        let ref = collection.ref.document(documentID)
+        ref.setData(data, merge: merge) { error in
+            if let error = error {
+                print("Error updating document: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                completion(true)
+            }
+        }
+    }
+    
     func uploadImage(image: UIImage, completion: @escaping (URL?) -> Void) {
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
             completion(nil)

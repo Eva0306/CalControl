@@ -83,7 +83,7 @@ class DailyAnalysisCell: BaseCardTableViewCell {
 //                                       gender: 1,
 //                                       birthday: "2001-05-16",
 //                                       height: 163,
-//                                       weightRecord: [WeightRecord(createdTime: Timestamp(date: Date()), weight: 50)],
+//                                       weightRecord: [WeightRecord(createdTime: Timestamp(date: currentDate), weight: 50)],
 //                                       activity: 2,
 //                                       target: 0,
 //                                       totalNutrition: nutritionArray),

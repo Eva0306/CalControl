@@ -25,12 +25,12 @@ enum ClassifyType: String {
 }
 
 // MARK: - Nutrition Facts
-struct Nutrient: Codable {
+struct Nutrient: Codable, Equatable {
     let value: Double
     let unit: String
 }
 
-struct NutritionFacts: Codable {
+struct NutritionFacts: Codable, Equatable {
     let weight: Nutrient
     let calories: Nutrient
     let carbs: Nutrient

@@ -13,3 +13,8 @@ struct WANutriData {
     var fat: Double
     var protein: Double
 }
+
+struct RecordCheckResult {
+    var index: Int
+    var weight: Double
+}

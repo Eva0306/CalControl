@@ -15,6 +15,8 @@ class HomeViewModel: ObservableObject {
     
     let mealCategories = ["早餐", "午餐", "晚餐", "點心"]
     
+    private var cancellables = Set<AnyCancellable>()
+    
     var foodRecordsByCategory: [[FoodRecord]] {
         var categorizedRecords: [[FoodRecord]] = [[], [], [], []]
         
@@ -22,6 +24,19 @@ class HomeViewModel: ObservableObject {
             categorizedRecords[record.mealType].append(record)
         }
         return categorizedRecords
+    }
+    
+    init() {
+        setupBindings()
+    }
+    
+    private func setupBindings() {
+        $foodRecords
+            .sink { [weak self] newRecords in
+                guard let self = self else { return }
+                self.recalculateTotalNutrition(from: newRecords)
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Public Methods
@@ -63,7 +78,6 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Private Methods
     private func generateQueryConditions(for date: Date) -> [FirestoreCondition] {
         let dateOnly = Calendar.current.startOfDay(for: date)
         let timestamp = Timestamp(date: dateOnly)
@@ -73,6 +87,9 @@ class HomeViewModel: ObservableObject {
             FirestoreCondition(field: "date", comparison: .isEqualTo, value: timestamp)
         ]
     }
+    
+    private func recalculateTotalNutrition(from records: [FoodRecord]) {
+        let dateOnly = Calendar.current.startOfDay(for: Date())
+        self.totalNutrition = NutritionCalculator.calculateTotalNutrition(from: records, for: dateOnly)
+    }
 }
-
-

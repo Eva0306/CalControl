@@ -9,6 +9,8 @@ import UIKit
 
 class NutritionTitleCell: BaseCardTableViewCell, UITextFieldDelegate {
     
+    static let identifier = "NutritionTitleCell"
+    
     lazy var titleTextField: UITextField = {
         let textField = UITextField()
         textField.delegate = self

@@ -85,8 +85,8 @@ enum Target: Int, Codable, CaseIterable {
 }
 
 struct WeightRecord: Codable {
-    let createdTime: Timestamp
-    let weight: Double
+    var createdTime: Timestamp
+    var weight: Double
     var date: Date {
         return createdTime.dateValue()
     }

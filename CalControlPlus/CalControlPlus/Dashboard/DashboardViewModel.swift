@@ -33,13 +33,11 @@ class DashboardViewModel: ObservableObject {
     }()
     
     var maxCalories: Double {
-        return Double(userProfileViewModel.userSettings.basicGoal + 300) // BarChart max ratio
+        return Double(UserProfileViewModel.shared.userSettings.basicGoal + 300) // BarChart max ratio
     }
     
-    let userProfileViewModel: UserProfileViewModel
-    
-    init(userProfileViewModel: UserProfileViewModel) {
-        self.userProfileViewModel = userProfileViewModel
+    init() {
+        
     }
     
     // MARK: - Public Methods
@@ -77,7 +75,7 @@ class DashboardViewModel: ObservableObject {
         let endTimestamp = Timestamp(date: endDate)
         
         return [
-            FirestoreCondition(field: "userID", comparison: .isEqualTo, value: userProfileViewModel.user.id),
+            FirestoreCondition(field: "userID", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id),
             FirestoreCondition(field: "date", comparison: .isGreaterThanOrEqualTo, value: startTimestamp),
             FirestoreCondition(field: "date", comparison: .isLessThanOrEqualTo, value: endTimestamp)
         ]
@@ -108,7 +106,7 @@ class DashboardViewModel: ObservableObject {
         self.weeklyTotalNutrition = weeklyNutritionData.sorted(by: { $0.date.dateValue() < $1.date.dateValue() })
         self.updateWeeklyData()
         
-        let docRef = FirestoreEndpoint.users.ref.document(userProfileViewModel.user.id)
+        let docRef = FirestoreEndpoint.users.ref.document(UserProfileViewModel.shared.user.id)
         FirebaseManager.shared.setData(
             ["totalNutrition": self.weeklyTotalNutrition],
             at: docRef,

@@ -20,10 +20,29 @@
                         <color key="backgroundColor" name="background"/>
                     </view>
                     <navigationItem key="navigationItem" title="Dashboard" id="VK4-Jj-caU"/>
+                    <connections>
+                        <segue destination="FoG-jR-uwU" kind="show" identifier="showWeightRecordDetail" id="ikh-eD-9oH"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7AG-It-13m" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1753.4351145038167" y="-837.32394366197184"/>
+        </scene>
+        <!--Weight Record DetailVC-->
+        <scene sceneID="Vbw-dn-L5r">
+            <objects>
+                <viewController id="FoG-jR-uwU" customClass="WeightRecordDetailVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="J0E-wI-82c">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="XlA-o5-0iC"/>
+                        <color key="backgroundColor" name="background"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xWj-WW-hTH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5pe-ng-ywo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2705" y="-837"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="mcQ-Lo-l8w">
@@ -86,10 +105,29 @@
                         <color key="backgroundColor" name="background"/>
                     </view>
                     <navigationItem key="navigationItem" title="今天" id="TvR-OG-n4e"/>
+                    <connections>
+                        <segue destination="JWW-So-ihy" kind="show" identifier="showFoodDetail" id="Z6W-pZ-Spj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A64-Q0-hjg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1679" y="-1530"/>
+        </scene>
+        <!--Food DetailVC-->
+        <scene sceneID="40f-Gx-w8M">
+            <objects>
+                <viewController id="JWW-So-ihy" customClass="FoodDetailVC" customModule="CalControlPlus" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="x8K-UP-N7d">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="die-m7-a7H"/>
+                        <color key="backgroundColor" name="background"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="m8e-SB-C5x"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6ha-dQ-Haw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2621" y="-1530"/>
         </scene>
         <!--Main Tab Bar Controller-->
         <scene sceneID="QRe-4e-iAP">

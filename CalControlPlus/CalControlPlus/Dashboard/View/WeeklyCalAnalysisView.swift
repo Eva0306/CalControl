@@ -26,7 +26,7 @@ struct BarChartView: View {
                 BarMark(
                     x: .value("Day", item.day),
                     yStart: .value("Start", 0),
-                    yEnd: .value("End", item.value)
+                    yEnd: .value("End", min(1, item.value))
                 )
                 .foregroundStyle(item.value > threshold ? .mainRed : .mainGreen)
                 .cornerRadius(5)
@@ -46,16 +46,9 @@ struct BarChartView: View {
     }
 }
 
-
 struct WeeklyCalAnalysisView: View {
     
     @ObservedObject var viewModel: WeeklyAnalysisViewModel
-    
-//    var basicGoal: Int
-//    var foodValue: Int
-//    var exerciseValue: Int
-//    var threshold: Double
-//    var weeklyCaloriesData: [(day: String, value: Double)]
     
     var netCalories: Int {
         return viewModel.foodValue - viewModel.exerciseValue
