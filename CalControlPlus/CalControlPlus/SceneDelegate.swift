@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
@@ -20,39 +21,71 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         // 檢查是否有 userID
-        // if let userID = UserDefaults.standard.string(forKey: "userID") {
-        let userID = "t8VofbETe4sfNNBEqSEb" // 子安
+//         if let userID = UserDefaults.standard.string(forKey: "userID") {
+//        let userID = "t8VofbETe4sfNNBEqSEb" // 子安
 //        let userID = "mTLegqFprHzNy1SMAbTA" // 芮瑊
-        fetchUser(userID: userID) { result in
-            switch result {
-            case .success(let user):
-                UserProfileViewModel.shared = UserProfileViewModel(user: user)
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                // swiftlint:disable force_cast line_length
-                let tabBarController = storyboard.instantiateInitialViewController() as! MainTabBarController
-                // swiftlint:enable force_cast line_length
-                
-                self.window?.rootViewController = tabBarController
-                self.window?.makeKeyAndVisible()
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
-                // 跳出 Alert 並導航至重新建立帳戶
+// ===========
+//        fetchUser(userID: userID) { result in
+//            switch result {
+//            case .success(let user):
+//                UserProfileViewModel.shared = UserProfileViewModel(user: user)
+//                
+//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                // swiftlint:disable force_cast line_length
+//                let tabBarController = storyboard.instantiateInitialViewController() as! MainTabBarController
+//                // swiftlint:enable force_cast line_length
+//                
+//                self.window?.rootViewController = tabBarController
+//                self.window?.makeKeyAndVisible()
+//            case .failure(let error):
+//                print("Error: \(error.localizedDescription)")
+//                // 跳出 Alert 並導航至重新建立帳戶
+//            }
+//        }
+// ===========
+//                    } else {
+//         沒有 userID，導航到填寫基本資料頁面
+         
+//            }
+// ===========
+        // 檢查使用者是否已經登入
+        if let currentUser = Auth.auth().currentUser {
+            // 使用者已經登入，跳轉到主頁
+            print("User is already logged in: \(currentUser.uid)")
+            fetchUser(userID: currentUser.uid) { result in
+                switch result {
+                case .success(let user):
+                    self.showHomeScreen(for: user)
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                    self.showLoginScreen()
+                }
             }
+        } else {
+            // 使用者未登入，顯示登入頁面
+            showLoginScreen()
         }
-        //            } else {
-        // 沒有 userID，導航到填寫基本資料頁面
-        // let onboardingVC = OnboardingViewController()
-        
-        // 假設這是填寫基本資料的頁面，要記得將產生的 userID 儲存至 UserDefault
-        // window?.rootViewController = UINavigationController(rootViewController: onboardingVC)
-        // window?.makeKeyAndVisible()
-        //    }
+    }
+    
+    private func showHomeScreen(for user: User) {
+        UserProfileViewModel.shared = UserProfileViewModel(user: user)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        // swiftlint:disable force_cast line_length
+        let tabBarController = storyboard.instantiateInitialViewController() as! MainTabBarController
+        // swiftlint:enable force_cast line_length
+        self.window?.rootViewController = tabBarController
+        self.window?.makeKeyAndVisible()
+    }
+    
+    private func showLoginScreen() {
+        let SignInVC = SignInVC()
+        window?.rootViewController = UINavigationController(rootViewController: SignInVC)
+        window?.makeKeyAndVisible()
     }
     
     private func fetchUser(userID: String, completion: @escaping (Result<User, Error>) -> Void) {
         let condition = [
-        FirestoreCondition(field: "id", comparison: .isEqualTo, value: userID)]
+            FirestoreCondition(field: "id", comparison: .isEqualTo, value: userID)]
         
         FirebaseManager.shared.getDocuments(from: .users, where: condition) { (users: [User]) in
             if let user = users.first {

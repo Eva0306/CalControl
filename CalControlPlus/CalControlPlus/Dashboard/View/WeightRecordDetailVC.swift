@@ -33,7 +33,7 @@ class WeightRecordDetailVC: UIViewController {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.isHidden = true
         sortedWeightRecords = UserProfileViewModel.shared.user.weightRecord.sorted {
-            $0.createdTime.dateValue() > $1.createdTime.dateValue()
+            $0.date.dateValue() > $1.date.dateValue()
         }
         weightRecordTableView.reloadData()
     }
@@ -132,7 +132,7 @@ extension WeightRecordDetailVC: UITableViewDelegate {
     
     private func deleteWeightRecord(at indexPath: IndexPath) {
         let recordToRemove = sortedWeightRecords[indexPath.row]
-        if let originalIndex = UserProfileViewModel.shared.user.weightRecord.firstIndex(where: { $0.createdTime == recordToRemove.createdTime }) {
+        if let originalIndex = UserProfileViewModel.shared.user.weightRecord.firstIndex(where: { $0.date == recordToRemove.date }) {
             UserProfileViewModel.shared.user.weightRecord.remove(at: originalIndex)
         }
         
@@ -157,7 +157,7 @@ extension WeightRecordDetailVC: UITableViewDelegate {
             guard let self = self, let textField = alertController?.textFields?.first,
                   let newWeightText = textField.text, let newWeight = Double(newWeightText) else { return }
             
-            if let originalIndex = UserProfileViewModel.shared.user.weightRecord.firstIndex(where: { $0.createdTime == weightData.createdTime }) {
+            if let originalIndex = UserProfileViewModel.shared.user.weightRecord.firstIndex(where: { $0.date == weightData.date }) {
                 UserProfileViewModel.shared.user.weightRecord[originalIndex].weight = newWeight
             }
             

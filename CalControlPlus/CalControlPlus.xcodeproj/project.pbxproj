@@ -91,6 +91,8 @@
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
+		B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA116F2CA69283001A3805 /* SignInVC.swift */; };
+		B3FA11722CA6A11F001A3805 /* InformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11712CA6A11F001A3805 /* InformationVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -174,6 +176,9 @@
 		B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		B387D99E2CA28B4E00CCC311 /* PickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerModel.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3FA116D2CA69202001A3805 /* CalControlPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalControlPlus.entitlements; sourceTree = "<group>"; };
+		B3FA116F2CA69283001A3805 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
+		B3FA11712CA6A11F001A3805 /* InformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,10 +308,12 @@
 		B36C18D02C99D96700D9D1CC /* CalControlPlus */ = {
 			isa = PBXGroup;
 			children = (
+				B3FA116D2CA69202001A3805 /* CalControlPlus.entitlements */,
 				B36C18C22C99D96700D9D1CC /* AppDelegate.swift */,
 				B36C18CE2C99D96700D9D1CC /* SceneDelegate.swift */,
 				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
 				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
+				B3FA116E2CA6925D001A3805 /* SignInAndIntro */,
 				B387D9702C9D242500CCC311 /* UserProfile */,
 				B36C19022C9A97E500D9D1CC /* Extension */,
 				B36C18C12C99D96700D9D1CC /* Manager */,
@@ -543,6 +550,15 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		B3FA116E2CA6925D001A3805 /* SignInAndIntro */ = {
+			isa = PBXGroup;
+			children = (
+				B3FA116F2CA69283001A3805 /* SignInVC.swift */,
+				B3FA11712CA6A11F001A3805 /* InformationVC.swift */,
+			);
+			path = SignInAndIntro;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -704,11 +720,13 @@
 				B36C18DA2C99D96700D9D1CC /* CheckVC.swift in Sources */,
 				B36C18EB2C99D96700D9D1CC /* DoubleExtension.swift in Sources */,
 				B36C18D72C99D96700D9D1CC /* RecordTabBarController.swift in Sources */,
+				B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */,
 				B387D9722C9EC09E00CCC311 /* MealTitleView.swift in Sources */,
 				B36C18F12C99D96700D9D1CC /* SceneDelegate.swift in Sources */,
 				B387D9802CA0FA7600CCC311 /* FriendCardCell.swift in Sources */,
 				B36C18E92C99D96700D9D1CC /* BaseCardTableViewCell.swift in Sources */,
 				B387D9972CA1B34100CCC311 /* UserBasicCardCell.swift in Sources */,
+				B3FA11722CA6A11F001A3805 /* InformationVC.swift in Sources */,
 				B387D99B2CA27CB000CCC311 /* ModalVC.swift in Sources */,
 				B387D98E2CA1483100CCC311 /* FriendViewModel.swift in Sources */,
 				B313846E2CA55B5E008272B0 /* DeleteButtonCell.swift in Sources */,
@@ -874,6 +892,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CalControlPlus/CalControlPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8MQ39JANS;
@@ -903,6 +922,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CalControlPlus/CalControlPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8MQ39JANS;

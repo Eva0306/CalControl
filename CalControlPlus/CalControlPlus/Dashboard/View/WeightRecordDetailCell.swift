@@ -55,7 +55,7 @@ class WeightRecordDetailCell: BaseCardTableViewCell {
     }
     
     func configure(with weightRecord: WeightRecord) {
-        timeLabel.text = WeightRecordDetailCell.dateFormatter.string(from: weightRecord.createdTime.dateValue())
+        timeLabel.text = WeightRecordDetailCell.dateFormatter.string(from: weightRecord.date.dateValue())
         weightLabel.text = String(format: "%.1f", weightRecord.weight)
     }
     

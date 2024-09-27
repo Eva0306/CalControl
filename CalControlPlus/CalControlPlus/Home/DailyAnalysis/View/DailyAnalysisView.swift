@@ -179,7 +179,6 @@ struct DailyAnalysisView: View {
     }
 }
 
-
 // #Preview {
 //    DailyAnalysisView(
 //        basicGoal: 1000,

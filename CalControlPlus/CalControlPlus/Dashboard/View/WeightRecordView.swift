@@ -15,17 +15,17 @@ struct LineChartView: View {
     var body: some View {
         
         Chart {
-            ForEach(weightRecords, id: \.createdTime) { record in
+            ForEach(weightRecords, id: \.date) { record in
                 LineMark(
-                    x: .value("Date", record.createdTime.dateValue(), unit: .day),
+                    x: .value("Date", record.date.dateValue(), unit: .day),
                     y: .value("Weight", record.weight)
                 )
                 .interpolationMethod(.linear)
             }
             
-            ForEach(weightRecords, id: \.createdTime) { record in
+            ForEach(weightRecords, id: \.date) { record in
                 PointMark(
-                    x: .value("Date", record.createdTime.dateValue(), unit: .day),
+                    x: .value("Date", record.date.dateValue(), unit: .day),
                     y: .value("Weight", record.weight)
                 )
                 .symbol(Circle())
@@ -40,7 +40,7 @@ struct LineChartView: View {
             }
         }
         .chartXAxis {
-            AxisMarks(values: weightRecords.map { $0.createdTime.dateValue() }) { value in
+            AxisMarks(values: weightRecords.map { $0.date.dateValue() }) { value in
                 if let date = value.as(Date.self) {
                     AxisValueLabel(date.formatted(.dateTime.month(.defaultDigits).day(.defaultDigits)))
                         .offset(y: 5)
@@ -52,8 +52,8 @@ struct LineChartView: View {
     }
     
     private func chartXScaleDomain() -> ClosedRange<Date> {
-        guard let firstDate = weightRecords.first?.createdTime.dateValue(),
-              let lastDate = weightRecords.last?.createdTime.dateValue() else {
+        guard let firstDate = weightRecords.first?.date.dateValue(),
+              let lastDate = weightRecords.last?.date.dateValue() else {
             return Date()...Date()
         }
         

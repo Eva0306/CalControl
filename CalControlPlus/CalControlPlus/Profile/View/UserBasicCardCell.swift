@@ -317,7 +317,7 @@ extension UserBasicCardCell {
             uploadToFirebase(data: ["birthday": dateString])
         case .weight:
             let selectedWeight = weightOptions[selectedIndex]
-            self.viewModel.user.weightRecord.append(WeightRecord(createdTime: Timestamp(date: Date()), weight: selectedWeight))
+            self.viewModel.user.weightRecord.append(WeightRecord(date: Timestamp(date: Date()), weight: selectedWeight))
             let docRef = FirestoreEndpoint.users.ref.document(UserProfileViewModel.shared.user.id)
             FirebaseManager.shared.setData(
                 ["weightRecord": self.viewModel.user.weightRecord],

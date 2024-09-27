@@ -77,7 +77,7 @@ class DailyAnalysisCell: BaseCardTableViewCell {
 //        }
 //        let docRef = FirebaseManager.shared.newDocument(of: FirestoreEndpoint.users)
 //        FirebaseManager().setData(User(id: docRef.documentID,
-//                                       createdTime: Timestamp(date: Date()),
+//                                       date: Timestamp(date: Date()),
 //                                       name: "蘇子安", avatarUrl: nil,
 //                                       gender: 1,
 //                                       birthday: "2001-05-16",

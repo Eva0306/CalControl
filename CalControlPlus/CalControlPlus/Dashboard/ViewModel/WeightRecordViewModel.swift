@@ -26,7 +26,7 @@ class WeightRecordViewModel: ObservableObject {
     
     func addWeightRecord(_ record: WeightRecord) {
         weightRecords.append(record)
-        weightRecords.sort { $0.createdTime.dateValue() < $1.createdTime.dateValue() }
+        weightRecords.sort { $0.date.dateValue() < $1.date.dateValue() }
         
         UserProfileViewModel.shared.user.weightRecord = weightRecords
         
@@ -35,11 +35,11 @@ class WeightRecordViewModel: ObservableObject {
     
     func saveOrReplaceRecord(for date: Date, weight: Double) {
         if let index = weightRecords.firstIndex(
-            where: { Calendar.current.isDate($0.createdTime.dateValue(), inSameDayAs: date) }
+            where: { Calendar.current.isDate($0.date.dateValue(), inSameDayAs: date) }
         ) {
             weightRecords[index].weight = weight
         } else {
-            let newRecord = WeightRecord(createdTime: Timestamp(date: date), weight: weight)
+            let newRecord = WeightRecord(date: Timestamp(date: date), weight: weight)
             addWeightRecord(newRecord)
         }
         
@@ -60,7 +60,7 @@ class WeightRecordViewModel: ObservableObject {
     }
     
     func checkIfRecordExists(for date: Date) -> RecordCheckResult? {
-        if let index = weightRecords.firstIndex(where: { Calendar.current.isDate($0.createdTime.dateValue(), inSameDayAs: date) }) {
+        if let index = weightRecords.firstIndex(where: { Calendar.current.isDate($0.date.dateValue(), inSameDayAs: date) }) {
             return RecordCheckResult(index: index, weight: weightRecords[index].weight)
         }
         return nil

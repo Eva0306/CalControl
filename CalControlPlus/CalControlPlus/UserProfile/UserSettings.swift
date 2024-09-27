@@ -18,6 +18,7 @@ struct UserSettings {
 struct User: Codable {
     let id: String
     let createdTime: Timestamp
+    let email: String?
     var name: String
     var avatarUrl: String?
     var gender: Gender
@@ -85,11 +86,8 @@ enum Target: Int, Codable, CaseIterable {
 }
 
 struct WeightRecord: Codable {
-    var createdTime: Timestamp
+    var date: Timestamp
     var weight: Double
-    var date: Date {
-        return createdTime.dateValue()
-    }
 }
 
 struct TotalNutrition: Codable {
@@ -98,6 +96,16 @@ struct TotalNutrition: Codable {
     var totalCarbs: Double // g
     var totalProtein: Double // g
     var totalFats: Double // g
+    
+    func toDictionary() -> [String: Any] {
+        return [
+            "date": date,
+            "totalCalories": totalCalories,
+            "totalCarbs": totalCarbs,
+            "totalProtein": totalProtein,
+            "totalFats": totalFats
+        ]
+    }
 }
 
 struct Friend: Codable {

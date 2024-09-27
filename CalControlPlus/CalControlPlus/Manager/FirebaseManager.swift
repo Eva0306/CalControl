@@ -58,6 +58,7 @@ final class FirebaseManager {
         }
     }
     
+    // 依搜尋條件獲取 documents
     func getDocuments<T: Decodable>(
         from collection: FirestoreEndpoint,
         where conditions: [FirestoreCondition],
@@ -81,8 +82,26 @@ final class FirebaseManager {
             completion(self.parseDocuments(snapshot: snapshot, error: error))
         }
     }
-
     
+    func getDocument<T: Decodable>(from collection: FirestoreEndpoint, documentID: String, completion: @escaping (T?) -> Void) {
+        let docRef = collection.ref.document(documentID)
+        
+        docRef.getDocument { document, error in
+            if let document = document, document.exists {
+                do {
+                    let item = try document.data(as: T.self)
+                    completion(item)
+                } catch {
+                    print("DEBUG: Error decoding \(T.self) data -", error.localizedDescription)
+                    completion(nil)
+                }
+            } else {
+                print("DEBUG: Document does not exist or error occurred -", error?.localizedDescription ?? "")
+                completion(nil)
+            }
+        }
+    }
+
     // 通用的添加 document 方法，使用泛型
     func setData<T: Encodable>(_ data: T, at docRef: DocumentReference, merge: Bool = false) {
         do {
