@@ -8,10 +8,23 @@
 import Combine
 import FirebaseFirestore
 
+var globalCurrentDate: Date = Calendar.current.startOfDay(for: Date())
+
 class HomeViewModel: ObservableObject {
+    
+    static var shared = HomeViewModel()
+    
     @Published var foodRecords: [FoodRecord] = []
     @Published var exerciseValue: Int = 0
     @Published var totalNutrition: TotalNutrition?
+    @Published var currentDate: Date {
+        didSet {
+            globalCurrentDate = Calendar.current.startOfDay(for: currentDate)
+            print("==== globalCurrentDate: ", globalCurrentDate)
+            fetchFoodRecord(for: currentDate)
+            addObserver(for: currentDate)
+        }
+    }
     
     let mealCategories = ["早餐", "午餐", "晚餐", "點心"]
     
@@ -27,7 +40,10 @@ class HomeViewModel: ObservableObject {
     }
     
     init() {
+        self.currentDate = Calendar.current.startOfDay(for: Date())
         setupBindings()
+        fetchFoodRecord(for: currentDate) // Fetch initial data
+        addObserver(for: currentDate)
     }
     
     private func setupBindings() {
@@ -49,11 +65,17 @@ class HomeViewModel: ObservableObject {
         ) { [weak self] (records: [FoodRecord]) in
             guard let self = self else { return }
             self.foodRecords = records
-            self.totalNutrition = NutritionCalculator.calculateTotalNutrition(from: records, for: Calendar.current.startOfDay(for: date))
+            self.totalNutrition = NutritionCalculator.calculateTotalNutrition(
+                from: records,
+                for: Calendar.current.startOfDay(for: date)
+            )
         }
     }
     
     func addObserver(for date: Date) {
+        
+        FirebaseManager.shared.removeObservers(on: .foodRecord)
+        
         let conditions = generateQueryConditions(for: date)
         
         FirebaseManager.shared.addObserver(
@@ -91,5 +113,9 @@ class HomeViewModel: ObservableObject {
     private func recalculateTotalNutrition(from records: [FoodRecord]) {
         let dateOnly = Calendar.current.startOfDay(for: Date())
         self.totalNutrition = NutritionCalculator.calculateTotalNutrition(from: records, for: dateOnly)
+    }
+    
+    func changeDate(to newDate: Date) {
+        self.currentDate = Calendar.current.startOfDay(for: newDate)
     }
 }

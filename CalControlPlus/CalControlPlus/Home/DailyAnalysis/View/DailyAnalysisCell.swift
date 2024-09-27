@@ -52,7 +52,6 @@ class DailyAnalysisCell: BaseCardTableViewCell {
     private func didTappedTargetButton() {
         print("Target Button Clicked from Cell!")
         let docRef = FirebaseManager.shared.newDocument(of: .foodRecord)
-        //        let currentDate = Calendar.current.startOfDay(for: Date())
         var dateComponent = DateComponents()
         dateComponent.year = 2024
         dateComponent.month = 9

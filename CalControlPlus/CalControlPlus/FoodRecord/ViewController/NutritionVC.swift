@@ -48,7 +48,8 @@ class NutritionVC: UIViewController {
     
     var foodRecord: FoodRecord?
     
-    var currentDate =  Calendar.current.startOfDay(for: Date())
+    var currentDate: Date?
+//    var currentDate = Calendar.current.startOfDay(for: Date())
     
     var isFromText: Bool = true
     
@@ -57,6 +58,11 @@ class NutritionVC: UIViewController {
         view.backgroundColor = .background
         setupTableView()
         setupButtons()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        currentDate = globalCurrentDate
     }
     
     private func setupTableView() {
@@ -125,7 +131,7 @@ class NutritionVC: UIViewController {
 
         var updatedFoodRecord = foodRecord
         updatedFoodRecord.id = docRef.documentID
-        updatedFoodRecord.date = Timestamp(date: currentDate)
+        updatedFoodRecord.date = Timestamp(date: currentDate!)
 
         if let checkPhoto = checkPhoto {
             
@@ -136,7 +142,6 @@ class NutritionVC: UIViewController {
                     
                     updatedFoodRecord.imageUrl = url.absoluteString
                 }
-                
                 self.saveRecord(updatedFoodRecord, to: docRef)
             }
         } else {

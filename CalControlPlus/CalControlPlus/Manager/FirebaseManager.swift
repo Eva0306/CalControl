@@ -209,7 +209,8 @@ final class FirebaseManager {
             }
         }
         
-        query.addSnapshotListener { (snapshot, error) in
+        // 註冊監聽器，並保存它以便稍後可以移除
+        let listener = query.addSnapshotListener { (snapshot, error) in
             if let error = error {
                 print("Error listening to changes in \(collection): \(error.localizedDescription)")
                 return
@@ -233,5 +234,19 @@ final class FirebaseManager {
                 }
             }
         }
+        
+        // 保存監聽器
+        listeners[collection] = listener
     }
+
+    private var listeners: [FirestoreEndpoint: ListenerRegistration] = [:]
+    
+    func removeObservers(on collection: FirestoreEndpoint) {
+        // 檢查並移除該集合的監聽器
+        if let listener = listeners[collection] {
+            listener.remove()
+            listeners[collection] = nil
+        }
+    }
+    
 }

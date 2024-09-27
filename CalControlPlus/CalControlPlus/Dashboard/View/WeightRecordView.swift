@@ -186,8 +186,6 @@ struct AddWeightView: View {
     }
 }
 
-
-
 // #Preview {
 //    WeightRecordView()
 //        .frame(width: 393, height: 300)

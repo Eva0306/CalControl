@@ -15,14 +15,18 @@ class ScanQRCodeVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     private var captureSession: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer!
     
+    lazy var slashImage: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(systemName: "video.slash")
+        iv.tintColor = UIColor.mainGreen.withAlphaComponent(0.6)
+        iv.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
+        iv.center = CGPoint(x: view.center.x, y: view.center.y - 100)
+        return iv
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
-        
-        let slashImage = UIImageView(image: UIImage(systemName: "video.slash"))
-        slashImage.tintColor = UIColor.mainGreen.withAlphaComponent(0.6)
-        slashImage.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
-        slashImage.center = CGPoint(x: view.center.x, y: view.center.y - 100)
         view.addSubview(slashImage)
         
         setupCaptureSession()
@@ -78,18 +82,15 @@ class ScanQRCodeVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.videoGravity = .resizeAspectFill
         
-        // 設置自定義的相機框架
-        let cameraHeight: CGFloat = view.frame.height * 0.6 // 使用畫面高度的 60%
+        let cameraHeight: CGFloat = view.frame.height * 0.6
         previewLayer.frame = CGRect(x: 0, y: view.safeAreaInsets.top, width: view.frame.width, height: cameraHeight)
         
         view.layer.addSublayer(previewLayer)
         
-        // 在背景線程中啟動 capture session
         DispatchQueue.global(qos: .userInitiated).async {
             self.captureSession.startRunning()
         }
     }
-    
     // MARK: - QR Code Detection
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()

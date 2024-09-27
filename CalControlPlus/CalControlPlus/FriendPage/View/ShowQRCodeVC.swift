@@ -21,7 +21,7 @@ class ShowQRCodeVC: UIViewController {
     
     private lazy var userIDLabel: UILabel = {
         let label = UILabel()
-        label.text = "我的ID :\n\n\(userID)"
+        label.text = "我的ID :\n\n\(userID)\n長按以複製"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 20)
         label.numberOfLines = 0
