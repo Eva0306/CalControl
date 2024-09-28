@@ -25,7 +25,7 @@ class InputFriendIDVC: UIViewController {
         button.tintColor = .white
         button.backgroundColor = .mainGreen
         button.layer.cornerRadius = 5
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(addFriendButtonTapped), for: .touchUpInside)
         return button
@@ -47,12 +47,12 @@ class InputFriendIDVC: UIViewController {
             friendIDTextField.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
             friendIDTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             friendIDTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            friendIDTextField.heightAnchor.constraint(equalToConstant: 44),
+            friendIDTextField.heightAnchor.constraint(equalToConstant: 50),
             
             addButton.topAnchor.constraint(equalTo: friendIDTextField.bottomAnchor, constant: 20),
             addButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             addButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
-            addButton.heightAnchor.constraint(equalToConstant: 44)
+            addButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     

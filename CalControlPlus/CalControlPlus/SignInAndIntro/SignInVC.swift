@@ -15,6 +15,7 @@ class SignInVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
+        
         setupSignInWithAppleButton()
     }
     
@@ -46,23 +47,16 @@ class SignInVC: UIViewController {
 }
 
 extension SignInVC: ASAuthorizationControllerDelegate {
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    func authorizationController(
+        controller: ASAuthorizationController,
+        didCompleteWithAuthorization authorization: ASAuthorization
+    ) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
-            // 獲取使用者資訊
+            
             let userIdentifier = appleIDCredential.user
             let fullName = appleIDCredential.fullName
             let email = appleIDCredential.email
             
-            // 打印使用者資訊
-            print("User Identifier: \(userIdentifier)")
-            if let fullName = fullName {
-                print("User Full Name: \(fullName)")
-            }
-            if let email = email {
-                print("User Email: \(email)")
-            }
-            
-            // 獲取 Apple 登入的 ID Token
             guard let identityTokenData = appleIDCredential.identityToken,
                   let identityTokenString = String(data: identityTokenData, encoding: .utf8) else {
                 print("Unable to fetch identity token")
@@ -97,56 +91,18 @@ extension SignInVC: ASAuthorizationControllerDelegate {
                             window.makeKeyAndVisible()
                         }
                     } else {
-                        
-                        let informationVC = InformationVC()
-                        informationVC.userID = user.uid
-                        informationVC.defaultName = name
-                        informationVC.email = email
-                        self.navigationController?.pushViewController(informationVC, animated: true)
+                        UserInfoCollector.shared.userID = user.uid
+                        UserInfoCollector.shared.name = name
+                        UserInfoCollector.shared.email = email
+                        let InfoNameVC = InfoNameVC()
+                        self.navigationController?.pushViewController(InfoNameVC, animated: true)
                     }
                 }
             }
-
-
-
-//            // 使用 Firebase Auth 登入
-//            Auth.auth().signIn(with: credential) { authResult, error in
-//                if let error = error {
-//                    print("Firebase Auth Sign in failed: \(error.localizedDescription)")
-//                    return
-//                }
-//                // 登入成功
-//                guard let user = authResult?.user else { return }
-//                let name = "\(fullName?.givenName ?? "") \(fullName?.familyName ?? "")"
-//                
-//                // Firebase Firestore 資料庫
-//                let db = Firestore.firestore()
-//                
-//                // 構建使用者資料
-//                let userData: [String: Any] = [
-//                    "id": user.uid,
-//                    "email": email ?? "", // 來自 Apple ID 資訊
-//                    "name": name, // 來自 Apple ID 資訊
-//                    "createdTime": Timestamp(date: Date())
-//                ]
-//                // 將資料寫入到 Firestore 中 "users" 集合中，並使用 uid 作為文件 ID
-//                db.collection("users").document(user.uid).setData(userData) { error in
-//                    if let error = error {
-//                        print("Error writing user to Firestore: \(error)")
-//                    } else {
-//                        print("User successfully written to Firestore")
-//                        let informationVC = InformationVC()
-//                        informationVC.userID = user.uid
-//                        informationVC.defaultName = name
-//                        self.navigationController?.pushViewController(informationVC, animated: true)
-//                    }
-//                }
-//            }
         }
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        // 處理錯誤
         print("Sign in with Apple failed: \(error.localizedDescription)")
     }
 }

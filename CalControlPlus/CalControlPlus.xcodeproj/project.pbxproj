@@ -92,7 +92,15 @@
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
 		B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA116F2CA69283001A3805 /* SignInVC.swift */; };
-		B3FA11722CA6A11F001A3805 /* InformationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11712CA6A11F001A3805 /* InformationVC.swift */; };
+		B3FA11742CA80488001A3805 /* InfoNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11732CA80488001A3805 /* InfoNameVC.swift */; };
+		B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */; };
+		B3FA11782CA804B9001A3805 /* InfoBirthdayVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11772CA804B9001A3805 /* InfoBirthdayVC.swift */; };
+		B3FA117A2CA804CE001A3805 /* InfoHeightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11792CA804CE001A3805 /* InfoHeightVC.swift */; };
+		B3FA117C2CA804D8001A3805 /* InfoWeightVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA117B2CA804D8001A3805 /* InfoWeightVC.swift */; };
+		B3FA117E2CA804EA001A3805 /* InfoActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA117D2CA804EA001A3805 /* InfoActivityVC.swift */; };
+		B3FA11802CA804F6001A3805 /* InfoTargetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA117F2CA804F6001A3805 /* InfoTargetVC.swift */; };
+		B3FA11822CA8050A001A3805 /* InfoStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11812CA8050A001A3805 /* InfoStartVC.swift */; };
+		B3FA11852CA855B2001A3805 /* UserInfoCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11842CA855B2001A3805 /* UserInfoCollector.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -178,7 +186,15 @@
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3FA116D2CA69202001A3805 /* CalControlPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalControlPlus.entitlements; sourceTree = "<group>"; };
 		B3FA116F2CA69283001A3805 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
-		B3FA11712CA6A11F001A3805 /* InformationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationVC.swift; sourceTree = "<group>"; };
+		B3FA11732CA80488001A3805 /* InfoNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoNameVC.swift; sourceTree = "<group>"; };
+		B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoGenderVC.swift; sourceTree = "<group>"; };
+		B3FA11772CA804B9001A3805 /* InfoBirthdayVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBirthdayVC.swift; sourceTree = "<group>"; };
+		B3FA11792CA804CE001A3805 /* InfoHeightVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoHeightVC.swift; sourceTree = "<group>"; };
+		B3FA117B2CA804D8001A3805 /* InfoWeightVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoWeightVC.swift; sourceTree = "<group>"; };
+		B3FA117D2CA804EA001A3805 /* InfoActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoActivityVC.swift; sourceTree = "<group>"; };
+		B3FA117F2CA804F6001A3805 /* InfoTargetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTargetVC.swift; sourceTree = "<group>"; };
+		B3FA11812CA8050A001A3805 /* InfoStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoStartVC.swift; sourceTree = "<group>"; };
+		B3FA11842CA855B2001A3805 /* UserInfoCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCollector.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -553,10 +569,34 @@
 		B3FA116E2CA6925D001A3805 /* SignInAndIntro */ = {
 			isa = PBXGroup;
 			children = (
+				B3FA11832CA85597001A3805 /* Model */,
+				B3FA11862CA855D6001A3805 /* ViewController */,
 				B3FA116F2CA69283001A3805 /* SignInVC.swift */,
-				B3FA11712CA6A11F001A3805 /* InformationVC.swift */,
+				B3FA11732CA80488001A3805 /* InfoNameVC.swift */,
+				B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */,
+				B3FA11772CA804B9001A3805 /* InfoBirthdayVC.swift */,
+				B3FA11792CA804CE001A3805 /* InfoHeightVC.swift */,
+				B3FA117B2CA804D8001A3805 /* InfoWeightVC.swift */,
+				B3FA117D2CA804EA001A3805 /* InfoActivityVC.swift */,
+				B3FA117F2CA804F6001A3805 /* InfoTargetVC.swift */,
+				B3FA11812CA8050A001A3805 /* InfoStartVC.swift */,
 			);
 			path = SignInAndIntro;
+			sourceTree = "<group>";
+		};
+		B3FA11832CA85597001A3805 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B3FA11842CA855B2001A3805 /* UserInfoCollector.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B3FA11862CA855D6001A3805 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -669,6 +709,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B387D99F2CA28B4E00CCC311 /* PickerModel.swift in Sources */,
+				B3FA11742CA80488001A3805 /* InfoNameVC.swift in Sources */,
 				B387D9762CA0019C00CCC311 /* NutritionCalculator.swift in Sources */,
 				B36C19012C9A979800D9D1CC /* ProfileVC.swift in Sources */,
 				B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */,
@@ -677,11 +718,15 @@
 				B387D97C2CA0743000CCC311 /* WeightRecordView.swift in Sources */,
 				B36C190B2C9A9BE400D9D1CC /* WaterRecordViewModel.swift in Sources */,
 				B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */,
+				B3FA117C2CA804D8001A3805 /* InfoWeightVC.swift in Sources */,
 				B32CDD8A2C9C4E4500F92244 /* UIImageViewExtension.swift in Sources */,
+				B3FA11782CA804B9001A3805 /* InfoBirthdayVC.swift in Sources */,
 				B36C18E02C99D96700D9D1CC /* DailyAnalysisView.swift in Sources */,
 				B36C18DE2C99D96700D9D1CC /* TextVC.swift in Sources */,
+				B3FA11802CA804F6001A3805 /* InfoTargetVC.swift in Sources */,
 				B387D9922CA1491E00CCC311 /* FriendCardViewModel.swift in Sources */,
 				B387D99D2CA27DE400CCC311 /* UIViewExtension.swift in Sources */,
+				B3FA11822CA8050A001A3805 /* InfoStartVC.swift in Sources */,
 				B32CDD782C9BF61100F92244 /* FoodRecordCell.swift in Sources */,
 				B36C18DB2C99D96700D9D1CC /* MealSelectionVC.swift in Sources */,
 				B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */,
@@ -700,6 +745,8 @@
 				B387D96B2C9C811200CCC311 /* DashboardViewModel.swift in Sources */,
 				B31384662CA50C98008272B0 /* WeightRecordDetailVC.swift in Sources */,
 				B387D9682C9C7C7400CCC311 /* UserSettings.swift in Sources */,
+				B3FA117A2CA804CE001A3805 /* InfoHeightVC.swift in Sources */,
+				B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */,
 				B387D97E2CA07A8200CCC311 /* WeightRecordViewModel.swift in Sources */,
 				B387D96F2C9D231900CCC311 /* UserProfileViewModel.swift in Sources */,
 				B36C18D52C99D96700D9D1CC /* NutritionImageCell.swift in Sources */,
@@ -713,6 +760,7 @@
 				B36C18E62C99D96700D9D1CC /* TranslationManager.swift in Sources */,
 				B36C18D42C99D96700D9D1CC /* NutritionFactsCell.swift in Sources */,
 				B31384722CA5ACA4008272B0 /* InputFriendIDVC.swift in Sources */,
+				B3FA11852CA855B2001A3805 /* UserInfoCollector.swift in Sources */,
 				B36C19142C9AD90000D9D1CC /* DailyAnalysisViewModel.swift in Sources */,
 				B387D9992CA27AB000CCC311 /* PickerViewModal.swift in Sources */,
 				B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */,
@@ -726,12 +774,12 @@
 				B387D9802CA0FA7600CCC311 /* FriendCardCell.swift in Sources */,
 				B36C18E92C99D96700D9D1CC /* BaseCardTableViewCell.swift in Sources */,
 				B387D9972CA1B34100CCC311 /* UserBasicCardCell.swift in Sources */,
-				B3FA11722CA6A11F001A3805 /* InformationVC.swift in Sources */,
 				B387D99B2CA27CB000CCC311 /* ModalVC.swift in Sources */,
 				B387D98E2CA1483100CCC311 /* FriendViewModel.swift in Sources */,
 				B313846E2CA55B5E008272B0 /* DeleteButtonCell.swift in Sources */,
 				B36C18F22C99D96700D9D1CC /* UIColorExtension.swift in Sources */,
 				B36C18E52C99D96700D9D1CC /* TranslationAPI.swift in Sources */,
+				B3FA117E2CA804EA001A3805 /* InfoActivityVC.swift in Sources */,
 				B387D98C2CA0FB1A00CCC311 /* SettingCardCell.swift in Sources */,
 				B387D9742C9F269900CCC311 /* WeeklyAnalysisViewModel.swift in Sources */,
 				B36C18DC2C99D96700D9D1CC /* NutritionVC.swift in Sources */,

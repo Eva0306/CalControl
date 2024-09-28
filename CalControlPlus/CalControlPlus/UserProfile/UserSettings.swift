@@ -78,7 +78,7 @@ enum Target: Int, Codable, CaseIterable {
         case .loseWeight:
             return "減重"
         case .maintainWeight:
-            return "維持體重"
+            return "維持"
         case .gainWeight:
             return "增重"
         }

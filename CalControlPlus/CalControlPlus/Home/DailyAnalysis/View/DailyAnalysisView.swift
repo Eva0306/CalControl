@@ -90,8 +90,7 @@ struct NutritionProgressView: View {
 struct DailyAnalysisView: View {
 
     @ObservedObject var viewModel: DailyAnalysisViewModel
-    var didTappedTargetButton: (() -> Void)?
-
+    
     var remainingValue: Int {
         return viewModel.basicGoal - viewModel.foodValue + viewModel.exerciseValue
     }
@@ -115,16 +114,12 @@ struct DailyAnalysisView: View {
                     .font(.title2)
                     .bold()
                 Spacer()
-                Button(action: {
-                    didTappedTargetButton?()
-                }, label: {
-                    Text("減重")
-                        .font(.caption)
-                        .padding(8)
-                        .background(Color.orange)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                })
+                Text(UserProfileViewModel.shared.user.target.description())
+                    .font(.caption)
+                    .padding(8)
+                    .background(Color.orange)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
             }
             .padding(.horizontal)
             .padding(.top, 10)
