@@ -38,4 +38,3 @@ class WaterCupCell: UICollectionViewCell {
         cupImageView.image = image
     }
 }
-

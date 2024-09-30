@@ -43,6 +43,7 @@ class WaterRecordCell: BaseCardTableViewCell {
         let label = UILabel()
         label.text = "水"
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -50,6 +51,7 @@ class WaterRecordCell: BaseCardTableViewCell {
         let label = UILabel()
         label.text = "0 ml"
         label.font = UIFont.systemFont(ofSize: 16)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -67,9 +69,6 @@ class WaterRecordCell: BaseCardTableViewCell {
     private func setupLayout() {
         let separatorLine = UIView()
         separatorLine.backgroundColor = .systemGray5
-        
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        amountLabel.translatesAutoresizingMaskIntoConstraints = false
         separatorLine.translatesAutoresizingMaskIntoConstraints = false
         
         innerContentView.addSubview(titleLabel)
@@ -134,10 +133,13 @@ extension WaterRecordCell: UICollectionViewDataSource {
         return totalCups
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // swiftlint:disable force_cast
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        // swiftlint:disable force_cast line_length
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WaterCupCell.identifier, for: indexPath) as! WaterCupCell
-        // swiftlint:enable force_cast
+        // swiftlint:enable force_cast line_length
         if indexPath.item < viewModel.currentWaterIntake {
             cell.configure(with: filledCupImage)
         } else if indexPath.item == viewModel.currentWaterIntake {
@@ -160,7 +162,11 @@ extension WaterRecordCell: UICollectionViewDelegate {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         return CGSize(width: 50, height: 70)
     }
 }

@@ -31,38 +31,34 @@ class WaterRecordViewModel: ObservableObject {
         
         FirebaseManager.shared.getDocuments(
             from: .waterRecord,
-            where : condition
+            where: condition
         ) { [weak self] (records: [WaterRecord]) in
             guard let self = self else { return }
             
             if let record = records.first {
-                // 如果當天已有記錄，更新該記錄
                 self.waterRecord = record
                 self.currentWaterIntake = intake
                 
-                // 獲取該記錄的 documentID
                 let docRef = FirebaseManager.shared.newDocument(of: .waterRecord, documentID: record.id)
                 
                 self.waterRecord?.totalWaterIntake = intake * self.cupSize
                 
-                // 更新數據
                 FirebaseManager.shared.setData(self.waterRecord, at: docRef)
                 
             } else {
-                // 如果當天沒有記錄，創建新的記錄
                 self.createNewWaterRecord(date: timestamp)
             }
         }
     }
     
-    // Fetch water record by date (using startOfDay)
     func fetchWaterRecord(for date: Date) {
         let dateOnly = Calendar.current.startOfDay(for: date)
         let timestamp = Timestamp(date: dateOnly)
         
         let condition = [
         FirestoreCondition(field: "userID", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id),
-        FirestoreCondition(field: "date", comparison: .isEqualTo, value: timestamp)]
+        FirestoreCondition(field: "date", comparison: .isEqualTo, value: timestamp)
+        ]
         
         FirebaseManager.shared.getDocuments(
             from: .waterRecord,
@@ -71,17 +67,14 @@ class WaterRecordViewModel: ObservableObject {
             guard let self = self else { return }
             
             if let record = records.first {
-                // If a record is found for the current date
                 self.waterRecord = record
                 self.currentWaterIntake = record.totalWaterIntake / cupSize
             } else {
-                // If no record is found, create a new record
                 self.createNewWaterRecord(date: timestamp)
             }
         }
     }
     
-    // Create a new water record for the current date
     private func createNewWaterRecord(date: Timestamp) {
         let docRef = FirebaseManager.shared.newDocument(of: FirestoreEndpoint.waterRecord)
         

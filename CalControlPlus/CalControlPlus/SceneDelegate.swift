@@ -20,35 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        // 檢查是否有 userID
-//         if let userID = UserDefaults.standard.string(forKey: "userID") {
-//        let userID = "t8VofbETe4sfNNBEqSEb" // 子安
-//        let userID = "mTLegqFprHzNy1SMAbTA" // 芮瑊
-// ===========
-//        fetchUser(userID: userID) { result in
-//            switch result {
-//            case .success(let user):
-//                UserProfileViewModel.shared = UserProfileViewModel(user: user)
-//                
-//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                // swiftlint:disable force_cast line_length
-//                let tabBarController = storyboard.instantiateInitialViewController() as! MainTabBarController
-//                // swiftlint:enable force_cast line_length
-//                
-//                self.window?.rootViewController = tabBarController
-//                self.window?.makeKeyAndVisible()
-//            case .failure(let error):
-//                print("Error: \(error.localizedDescription)")
-//                // 跳出 Alert 並導航至重新建立帳戶
-//            }
-//        }
-// ===========
-//                    } else {
-//         沒有 userID，導航到填寫基本資料頁面
-         
-//            }
-// ===========
-        // 檢查使用者是否已經登入
         if let currentUser = Auth.auth().currentUser {
             // 使用者已經登入，跳轉到主頁
             print("User is already logged in: \(currentUser.uid)")
@@ -62,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 }
             }
         } else {
-            // 使用者未登入，顯示登入頁面
+            
             showLoginScreen()
         }
     }
@@ -70,9 +41,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func showHomeScreen(for user: User) {
         UserProfileViewModel.shared = UserProfileViewModel(user: user)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // swiftlint:disable force_cast line_length
+        // swiftlint:disable force_cast
         let tabBarController = storyboard.instantiateInitialViewController() as! MainTabBarController
-        // swiftlint:enable force_cast line_length
+        // swiftlint:enable force_cast
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
     }

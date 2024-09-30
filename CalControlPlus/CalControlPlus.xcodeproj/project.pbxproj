@@ -101,6 +101,8 @@
 		B3FA11802CA804F6001A3805 /* InfoTargetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA117F2CA804F6001A3805 /* InfoTargetVC.swift */; };
 		B3FA11822CA8050A001A3805 /* InfoStartVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11812CA8050A001A3805 /* InfoStartVC.swift */; };
 		B3FA11852CA855B2001A3805 /* UserInfoCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11842CA855B2001A3805 /* UserInfoCollector.swift */; };
+		B3FA11912CAA66B4001A3805 /* FillWaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11902CAA66B4001A3805 /* FillWaterView.swift */; };
+		B3FA11932CAA66CC001A3805 /* EmptyWaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11922CAA66CC001A3805 /* EmptyWaterView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -195,6 +197,8 @@
 		B3FA117F2CA804F6001A3805 /* InfoTargetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTargetVC.swift; sourceTree = "<group>"; };
 		B3FA11812CA8050A001A3805 /* InfoStartVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoStartVC.swift; sourceTree = "<group>"; };
 		B3FA11842CA855B2001A3805 /* UserInfoCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCollector.swift; sourceTree = "<group>"; };
+		B3FA11902CAA66B4001A3805 /* FillWaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillWaterView.swift; sourceTree = "<group>"; };
+		B3FA11922CAA66CC001A3805 /* EmptyWaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyWaterView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,6 +430,8 @@
 		B36C190E2C9AD52500D9D1CC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B3FA11902CAA66B4001A3805 /* FillWaterView.swift */,
+				B3FA11922CAA66CC001A3805 /* EmptyWaterView.swift */,
 				B36C18BB2C99D96700D9D1CC /* WaterRecordCell.swift */,
 				B36C18BA2C99D96700D9D1CC /* WaterCupCell.swift */,
 			);
@@ -763,6 +769,7 @@
 				B3FA11852CA855B2001A3805 /* UserInfoCollector.swift in Sources */,
 				B36C19142C9AD90000D9D1CC /* DailyAnalysisViewModel.swift in Sources */,
 				B387D9992CA27AB000CCC311 /* PickerViewModal.swift in Sources */,
+				B3FA11912CAA66B4001A3805 /* FillWaterView.swift in Sources */,
 				B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */,
 				B31384702CA59847008272B0 /* AddFriendVC.swift in Sources */,
 				B36C18DA2C99D96700D9D1CC /* CheckVC.swift in Sources */,
@@ -771,6 +778,7 @@
 				B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */,
 				B387D9722C9EC09E00CCC311 /* MealTitleView.swift in Sources */,
 				B36C18F12C99D96700D9D1CC /* SceneDelegate.swift in Sources */,
+				B3FA11932CAA66CC001A3805 /* EmptyWaterView.swift in Sources */,
 				B387D9802CA0FA7600CCC311 /* FriendCardCell.swift in Sources */,
 				B36C18E92C99D96700D9D1CC /* BaseCardTableViewCell.swift in Sources */,
 				B387D9972CA1B34100CCC311 /* UserBasicCardCell.swift in Sources */,
