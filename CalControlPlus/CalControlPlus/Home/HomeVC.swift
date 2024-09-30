@@ -56,6 +56,12 @@ class HomeVC: UIViewController {
         homeViewModel = HomeViewModel()
         setupView()
         addBindings()
+        homeViewModel.requestHealthKitAuthorization()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        homeViewModel.fetchActiveEnergyBurned(for: globalCurrentDate)
     }
     
     private func setupView() {

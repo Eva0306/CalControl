@@ -7,6 +7,7 @@
 
 import Combine
 import FirebaseFirestore
+import HealthKit
 
 var globalCurrentDate: Date = Calendar.current.startOfDay(for: Date())
 
@@ -23,12 +24,15 @@ class HomeViewModel: ObservableObject {
             print("==== globalCurrentDate: ", globalCurrentDate)
             fetchFoodRecord(for: currentDate)
             addObserver(for: currentDate)
+            fetchActiveEnergyBurned(for: currentDate)
         }
     }
     
     let mealCategories = ["早餐", "午餐", "晚餐", "點心"]
     
     private var cancellables = Set<AnyCancellable>()
+    
+    private let healthStore = HKHealthStore()
     
     var foodRecordsByCategory: [[FoodRecord]] {
         var categorizedRecords: [[FoodRecord]] = [[], [], [], []]
@@ -42,7 +46,7 @@ class HomeViewModel: ObservableObject {
     init() {
         self.currentDate = Calendar.current.startOfDay(for: Date())
         setupBindings()
-        fetchFoodRecord(for: currentDate) // Fetch initial data
+        fetchFoodRecord(for: currentDate)
         addObserver(for: currentDate)
     }
     
@@ -55,6 +59,59 @@ class HomeViewModel: ObservableObject {
             .store(in: &cancellables)
     }
     
+    // MARK: - HealthKit Authorization
+    func requestHealthKitAuthorization() {
+        guard HKHealthStore.isHealthDataAvailable() else {
+            print("Health data not available on this device.")
+            return
+        }
+        
+        let energyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!
+        
+        healthStore.requestAuthorization(toShare: nil, read: [energyType]) { success, error in
+            DispatchQueue.main.async {
+                if success {
+                    print("HealthKit authorization succeeded.")
+                    self.fetchActiveEnergyBurned(for: self.currentDate)
+                } else {
+                    if let error = error {
+                        print("HealthKit authorization failed: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: - Fetch Active Energy Burned
+    func fetchActiveEnergyBurned(for date: Date) {
+        let energyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!
+        
+        let startDate = Calendar.current.startOfDay(for: date)
+        let endDate = Calendar.current.date(byAdding: .day, value: 1, to: startDate)!
+        
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+        
+        let query = HKStatisticsQuery(
+            quantityType: energyType,
+            quantitySamplePredicate: predicate,
+            options: .cumulativeSum
+        ) { [weak self] (_, result, error) in
+            guard let self = self else { return }
+            
+            var totalEnergyBurned: Double = 0
+            
+            if let sum = result?.sumQuantity() {
+                totalEnergyBurned = sum.doubleValue(for: HKUnit.kilocalorie())
+            }
+            
+            DispatchQueue.main.async {
+                self.exerciseValue = Int(totalEnergyBurned)
+            }
+        }
+        
+        healthStore.execute(query)
+    }
+
     // MARK: - Public Methods
     func fetchFoodRecord(for date: Date) {
         let conditions = generateQueryConditions(for: date)

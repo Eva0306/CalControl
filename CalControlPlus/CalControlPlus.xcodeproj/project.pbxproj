@@ -103,7 +103,39 @@
 		B3FA11852CA855B2001A3805 /* UserInfoCollector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11842CA855B2001A3805 /* UserInfoCollector.swift */; };
 		B3FA11912CAA66B4001A3805 /* FillWaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11902CAA66B4001A3805 /* FillWaterView.swift */; };
 		B3FA11932CAA66CC001A3805 /* EmptyWaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11922CAA66CC001A3805 /* EmptyWaterView.swift */; };
+		B3FA119A2CAA925A001A3805 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FA11992CAA925A001A3805 /* WidgetKit.framework */; };
+		B3FA119C2CAA925A001A3805 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3FA119B2CAA925A001A3805 /* SwiftUI.framework */; };
+		B3FA119F2CAA925A001A3805 /* CalControlWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA119E2CAA925A001A3805 /* CalControlWidgetBundle.swift */; };
+		B3FA11A12CAA925A001A3805 /* CalControlWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11A02CAA925A001A3805 /* CalControlWidget.swift */; };
+		B3FA11A32CAA925C001A3805 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11A22CAA925C001A3805 /* Assets.xcassets */; };
+		B3FA11A72CAA925C001A3805 /* CalControlWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B3FA11982CAA925A001A3805 /* CalControlWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B3FA11B32CAA9E27001A3805 /* DailyProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */; };
+		B3FA11B42CAA9E27001A3805 /* DailyProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B3FA11A52CAA925C001A3805 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3B5127D2C91682600E02A43 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3FA11972CAA925A001A3805;
+			remoteInfo = CalControlWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B3FA11AB2CAA925C001A3805 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B3FA11A72CAA925C001A3805 /* CalControlWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B309F9042CA3E2A300414F5B /* UITableViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewExtension.swift; sourceTree = "<group>"; };
@@ -199,6 +231,15 @@
 		B3FA11842CA855B2001A3805 /* UserInfoCollector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoCollector.swift; sourceTree = "<group>"; };
 		B3FA11902CAA66B4001A3805 /* FillWaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FillWaterView.swift; sourceTree = "<group>"; };
 		B3FA11922CAA66CC001A3805 /* EmptyWaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyWaterView.swift; sourceTree = "<group>"; };
+		B3FA11982CAA925A001A3805 /* CalControlWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CalControlWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3FA11992CAA925A001A3805 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		B3FA119B2CAA925A001A3805 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		B3FA119E2CAA925A001A3805 /* CalControlWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControlWidgetBundle.swift; sourceTree = "<group>"; };
+		B3FA11A02CAA925A001A3805 /* CalControlWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControlWidget.swift; sourceTree = "<group>"; };
+		B3FA11A22CAA925C001A3805 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B3FA11A42CAA925C001A3805 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3FA11AC2CAA9761001A3805 /* CalControlWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalControlWidgetExtension.entitlements; sourceTree = "<group>"; };
+		B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +253,15 @@
 				B32CDD882C9C4DFE00F92244 /* Kingfisher in Frameworks */,
 				B32CDD732C9BF02000F92244 /* FirebaseStorage in Frameworks */,
 				B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3FA11952CAA925A001A3805 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3FA119C2CAA925A001A3805 /* SwiftUI.framework in Frameworks */,
+				B3FA119A2CAA925A001A3805 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,6 +292,8 @@
 		B3644C3F2C948EF5005195AA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B3FA11992CAA925A001A3805 /* WidgetKit.framework */,
+				B3FA119B2CAA925A001A3805 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -403,6 +455,7 @@
 		B36C19072C9A983B00D9D1CC /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */,
 				B36C18B92C99D96700D9D1CC /* DailyAnalysisView.swift */,
 				B36C19112C9AD60B00D9D1CC /* DailyAnalysisCell.swift */,
 			);
@@ -558,7 +611,9 @@
 		B3B5127C2C91682600E02A43 = {
 			isa = PBXGroup;
 			children = (
+				B3FA11AC2CAA9761001A3805 /* CalControlWidgetExtension.entitlements */,
 				B36C18D02C99D96700D9D1CC /* CalControlPlus */,
+				B3FA119D2CAA925A001A3805 /* CalControlWidget */,
 				B3B512862C91682700E02A43 /* Products */,
 				B3644C3F2C948EF5005195AA /* Frameworks */,
 			);
@@ -568,6 +623,7 @@
 			isa = PBXGroup;
 			children = (
 				B3B512852C91682700E02A43 /* CalControlPlus.app */,
+				B3FA11982CAA925A001A3805 /* CalControlWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -605,6 +661,17 @@
 			path = ViewController;
 			sourceTree = "<group>";
 		};
+		B3FA119D2CAA925A001A3805 /* CalControlWidget */ = {
+			isa = PBXGroup;
+			children = (
+				B3FA119E2CAA925A001A3805 /* CalControlWidgetBundle.swift */,
+				B3FA11A02CAA925A001A3805 /* CalControlWidget.swift */,
+				B3FA11A22CAA925C001A3805 /* Assets.xcassets */,
+				B3FA11A42CAA925C001A3805 /* Info.plist */,
+			);
+			path = CalControlWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -616,10 +683,12 @@
 				B3B512822C91682700E02A43 /* Frameworks */,
 				B3B512832C91682700E02A43 /* Resources */,
 				B3644C3E2C9445EB005195AA /* SwiftLint */,
+				B3FA11AB2CAA925C001A3805 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B3FA11A62CAA925C001A3805 /* PBXTargetDependency */,
 			);
 			name = CalControlPlus;
 			packageProductDependencies = (
@@ -634,6 +703,23 @@
 			productReference = B3B512852C91682700E02A43 /* CalControlPlus.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B3FA11972CAA925A001A3805 /* CalControlWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3FA11A82CAA925C001A3805 /* Build configuration list for PBXNativeTarget "CalControlWidgetExtension" */;
+			buildPhases = (
+				B3FA11942CAA925A001A3805 /* Sources */,
+				B3FA11952CAA925A001A3805 /* Frameworks */,
+				B3FA11962CAA925A001A3805 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CalControlWidgetExtension;
+			productName = CalControlWidgetExtension;
+			productReference = B3FA11982CAA925A001A3805 /* CalControlWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -645,6 +731,9 @@
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					B3B512842C91682700E02A43 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					B3FA11972CAA925A001A3805 = {
 						CreatedOnToolsVersion = 15.4;
 					};
 				};
@@ -668,6 +757,7 @@
 			projectRoot = "";
 			targets = (
 				B3B512842C91682700E02A43 /* CalControlPlus */,
+				B3FA11972CAA925A001A3805 /* CalControlWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -682,6 +772,14 @@
 				B36C18EF2C99D96700D9D1CC /* Main.storyboard in Resources */,
 				B36C18EA2C99D96700D9D1CC /* DietRecord.storyboard in Resources */,
 				B36C18E82C99D96700D9D1CC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3FA11962CAA925A001A3805 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3FA11A32CAA925C001A3805 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,6 +867,7 @@
 				B3FA11852CA855B2001A3805 /* UserInfoCollector.swift in Sources */,
 				B36C19142C9AD90000D9D1CC /* DailyAnalysisViewModel.swift in Sources */,
 				B387D9992CA27AB000CCC311 /* PickerViewModal.swift in Sources */,
+				B3FA11B32CAA9E27001A3805 /* DailyProgressView.swift in Sources */,
 				B3FA11912CAA66B4001A3805 /* FillWaterView.swift in Sources */,
 				B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */,
 				B31384702CA59847008272B0 /* AddFriendVC.swift in Sources */,
@@ -802,7 +901,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B3FA11942CAA925A001A3805 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3FA11A12CAA925A001A3805 /* CalControlWidget.swift in Sources */,
+				B3FA11B42CAA9E27001A3805 /* DailyProgressView.swift in Sources */,
+				B3FA119F2CAA925A001A3805 /* CalControlWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B3FA11A62CAA925C001A3805 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B3FA11972CAA925A001A3805 /* CalControlWidgetExtension */;
+			targetProxy = B3FA11A52CAA925C001A3805 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B36C18CA2C99D96700D9D1CC /* LaunchScreen.storyboard */ = {
@@ -946,6 +1063,7 @@
 		B3B512B02C91682800E02A43 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CalControlPlus/CalControlPlus.entitlements;
@@ -976,6 +1094,7 @@
 		B3B512B12C91682800E02A43 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CalControlPlus/CalControlPlus.entitlements;
@@ -1005,6 +1124,66 @@
 			};
 			name = Release;
 		};
+		B3FA11A92CAA925C001A3805 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CalControlWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8MQ39JANS;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CalControlWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CalControlWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruiintelligence.CalControlPlus.CalControlWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B3FA11AA2CAA925C001A3805 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = CalControlWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8MQ39JANS;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CalControlWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CalControlWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruiintelligence.CalControlPlus.CalControlWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1022,6 +1201,15 @@
 			buildConfigurations = (
 				B3B512B02C91682800E02A43 /* Debug */,
 				B3B512B12C91682800E02A43 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3FA11A82CAA925C001A3805 /* Build configuration list for PBXNativeTarget "CalControlWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3FA11A92CAA925C001A3805 /* Debug */,
+				B3FA11AA2CAA925C001A3805 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

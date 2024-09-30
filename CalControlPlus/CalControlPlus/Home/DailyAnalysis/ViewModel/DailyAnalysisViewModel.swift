@@ -6,7 +6,8 @@
 //
 
 import Combine
-import FirebaseFirestore
+import Foundation
+import WidgetKit
 
 class DailyAnalysisViewModel: ObservableObject {
     @Published var basicGoal: Int = 0
@@ -18,6 +19,22 @@ class DailyAnalysisViewModel: ObservableObject {
     @Published var proteinTotal: Double = 0
     @Published var fatCurrent: Double = 0
     @Published var fatTotal: Double = 0
+    
+    var remainingValue: Int {
+        return basicGoal - foodValue + exerciseValue
+    }
+    
+    var progress: Double {
+        let calculatedProgress = Double(remainingValue) / Double(basicGoal)
+        
+        if remainingValue > basicGoal {
+            return calculatedProgress - 1.0
+        } else if remainingValue <= 0 {
+            return calculatedProgress
+        } else {
+            return (Double(basicGoal) - Double(remainingValue)) / Double(basicGoal)
+        }
+    }
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -35,6 +52,18 @@ class DailyAnalysisViewModel: ObservableObject {
                 self.fatTotal = userSettings!.fatTotal
             }
             .store(in: &cancellables)
+        
+        Publishers.CombineLatest4(
+            $foodValue,
+            $exerciseValue,
+            $carbohydrateCurrent,
+            $proteinCurrent
+        )
+        .combineLatest($fatCurrent)
+        .sink { [weak self] _, _ in
+            self?.saveDataToUserDefaults()
+        }
+        .store(in: &cancellables)
     }
     
     func update(from homeViewModel: HomeViewModel) {
@@ -45,5 +74,26 @@ class DailyAnalysisViewModel: ObservableObject {
             self.proteinCurrent = totalNutrition.totalProtein
             self.fatCurrent = totalNutrition.totalFats
         }
+    }
+    
+    func saveDataToUserDefaults() {
+        let sharedDefaults = UserDefaults(suiteName: "group.com.calControl.widget")
+        
+        sharedDefaults?.set(basicGoal, forKey: "basicGoal")
+        sharedDefaults?.set(foodValue, forKey: "foodValue")
+        sharedDefaults?.set(exerciseValue, forKey: "exerciseValue")
+        
+        sharedDefaults?.set(remainingValue, forKey: "remainingValue")
+        sharedDefaults?.set(progress, forKey: "progress")
+        
+        sharedDefaults?.set(carbohydrateCurrent, forKey: "carbohydrateCurrent")
+        sharedDefaults?.set(carbohydrateTotal, forKey: "carbohydrateTotal")
+        sharedDefaults?.set(proteinCurrent, forKey: "proteinCurrent")
+        sharedDefaults?.set(proteinTotal, forKey: "proteinTotal")
+        sharedDefaults?.set(fatCurrent, forKey: "fatCurrent")
+        sharedDefaults?.set(fatTotal, forKey: "fatTotal")
+        
+        sharedDefaults?.synchronize()
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
