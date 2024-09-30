@@ -175,7 +175,7 @@ extension HomeVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 300
+        return 500
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

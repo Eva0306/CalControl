@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>本應用程式需要將您的運動記錄上傳至健康數據中，以方便追蹤每日活動</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>本應用程式需要讀取您的運動與健康數據，以幫助您追蹤每日的卡路里消耗與活動情況。</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>我們需要訪問您的照片來選擇圖片</string>
 	<key>ITSAppUsesNonExemptEncryption</key>

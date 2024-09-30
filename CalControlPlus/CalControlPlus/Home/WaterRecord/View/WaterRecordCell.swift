@@ -16,29 +16,21 @@ class WaterRecordCell: BaseCardTableViewCell {
     var viewModel = WaterRecordViewModel()
     private var subscriptions = Set<AnyCancellable>()
     
-    var currentDate = Date()
+    var currentDate = globalCurrentDate
     
-    private let totalCups = 8
-    
-    private let emptyCupImage = UIImage(named: "emptyCup")!
-    private let filledCupImage = UIImage(named: "filledCup")!
-    private let plusCupImage = UIImage(named: "plusCup")!
+    private let totalCups = 10
     
     private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 10
-        layout.minimumLineSpacing = 10
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createLayout())
         collectionView.register(WaterCupCell.self, forCellWithReuseIdentifier: WaterCupCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
+        collectionView.isScrollEnabled = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .clear
         return collectionView
     }()
-    
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = "水"
@@ -66,6 +58,12 @@ class WaterRecordCell: BaseCardTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+//    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
+//        collectionView.layoutIfNeeded()
+//        let height = collectionView.contentSize.height
+//        return CGSize(width: targetSize.width, height: height)
+//    }
+    
     private func setupLayout() {
         let separatorLine = UIView()
         separatorLine.backgroundColor = .systemGray5
@@ -92,8 +90,34 @@ class WaterRecordCell: BaseCardTableViewCell {
             collectionView.leadingAnchor.constraint(equalTo: innerContentView.leadingAnchor, constant: 15),
             collectionView.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor, constant: -15),
             collectionView.bottomAnchor.constraint(equalTo: innerContentView.bottomAnchor, constant: -10),
-            collectionView.heightAnchor.constraint(equalToConstant: 120)
+            collectionView.heightAnchor.constraint(equalToConstant: 130)
         ])
+    }
+    
+    private func createLayout() -> UICollectionViewCompositionalLayout {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.2),
+            heightDimension: .fractionalHeight(1.0)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        // Ensure correct width per item
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .fractionalWidth(0.2)
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        
+        group.interItemSpacing = .fixed(25)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 15
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+        
+        return UICollectionViewCompositionalLayout(section: section)
     }
     
     // MARK: - Configure Cell
@@ -105,14 +129,6 @@ class WaterRecordCell: BaseCardTableViewCell {
     // MARK: - bind ViewModel
     private func addBindings() {
         viewModel.$currentWaterIntake
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.collectionView.reloadData()
-                self?.updateWaterIntakeLabel()
-            }
-            .store(in: &subscriptions)
-        
-        viewModel.$cupSize
             .receive(on: DispatchQueue.main)
             .sink { [weak self] _ in
                 self?.collectionView.reloadData()
@@ -141,11 +157,11 @@ extension WaterRecordCell: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WaterCupCell.identifier, for: indexPath) as! WaterCupCell
         // swiftlint:enable force_cast line_length
         if indexPath.item < viewModel.currentWaterIntake {
-            cell.configure(with: filledCupImage)
+            cell.configure(as: .filled)
         } else if indexPath.item == viewModel.currentWaterIntake {
-            cell.configure(with: plusCupImage)
+            cell.configure(as: .plus)
         } else {
-            cell.configure(with: emptyCupImage)
+            cell.configure(as: .empty)
         }
         
         return cell
@@ -160,13 +176,5 @@ extension WaterRecordCell: UICollectionViewDelegate {
         } else {
             viewModel.updateWaterIntake(date: currentDate, for: indexPath.item + 1)
         }
-    }
-    
-    func collectionView(
-        _ collectionView: UICollectionView,
-        layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath
-    ) -> CGSize {
-        return CGSize(width: 50, height: 70)
     }
 }

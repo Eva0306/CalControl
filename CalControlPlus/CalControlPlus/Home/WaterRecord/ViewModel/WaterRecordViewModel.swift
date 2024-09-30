@@ -10,7 +10,7 @@ import FirebaseFirestore
 
 class WaterRecordViewModel: ObservableObject {
     @Published var currentWaterIntake: Int = 0
-    @Published var cupSize: Int = 250 // 每杯水的預設量
+    @Published var cupSize: Int = 250
     
     var totalWaterAmount: Int {
         return currentWaterIntake * cupSize
@@ -19,15 +19,15 @@ class WaterRecordViewModel: ObservableObject {
     private var waterRecord: WaterRecord?
     
     func updateWaterIntake(date: Date, for intake: Int) {
-        
         currentWaterIntake = intake
         
         let dateOnly = Calendar.current.startOfDay(for: date)
         let timestamp = Timestamp(date: dateOnly)
         
         let condition = [
-        FirestoreCondition(field: "userID", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id),
-        FirestoreCondition(field: "date", comparison: .isEqualTo, value: timestamp)]
+            FirestoreCondition(field: "userID", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id),
+            FirestoreCondition(field: "date", comparison: .isEqualTo, value: timestamp)
+        ]
         
         FirebaseManager.shared.getDocuments(
             from: .waterRecord,
@@ -37,10 +37,8 @@ class WaterRecordViewModel: ObservableObject {
             
             if let record = records.first {
                 self.waterRecord = record
-                self.currentWaterIntake = intake
                 
                 let docRef = FirebaseManager.shared.newDocument(of: .waterRecord, documentID: record.id)
-                
                 self.waterRecord?.totalWaterIntake = intake * self.cupSize
                 
                 FirebaseManager.shared.setData(self.waterRecord, at: docRef)
@@ -50,7 +48,7 @@ class WaterRecordViewModel: ObservableObject {
             }
         }
     }
-    
+
     func fetchWaterRecord(for date: Date) {
         let dateOnly = Calendar.current.startOfDay(for: date)
         let timestamp = Timestamp(date: dateOnly)

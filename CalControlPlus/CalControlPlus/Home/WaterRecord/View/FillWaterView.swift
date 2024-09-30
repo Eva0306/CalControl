@@ -13,11 +13,15 @@ class FillWaterView: UIView {
     private var waveLayer: CAShapeLayer!
 
     private var waveFrequency: CGFloat = 2
-    private var waveAmplitude: CGFloat = 10
-    private var waveSpeed: CGFloat = 0.1
+    private var waveAmplitude: CGFloat = 2
+    private var waveSpeed: CGFloat = 0.05
     private lazy var waveHeight: CGFloat = bounds.height
     private var phase: CGFloat = 0
-    private let inset: CGFloat = 20
+    
+    private let insetRatio: CGFloat = 0.12
+    private let waveHeightRatio: CGFloat = 0.3
+
+    private lazy var inset = bounds.width * insetRatio
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,13 +41,13 @@ class FillWaterView: UIView {
     
     private func setupCup() {
         cupLayer = CAShapeLayer()
-        cupLayer.fillColor = UIColor.systemTeal.withAlphaComponent(0.3).cgColor
+        cupLayer.fillColor = UIColor.cupBlue.cgColor
         layer.addSublayer(cupLayer)
     }
     
     private func setupWave() {
         waveLayer = CAShapeLayer()
-        waveLayer.fillColor = UIColor.systemBlue.withAlphaComponent(0.5).cgColor
+        waveLayer.fillColor = UIColor.waterBlue.cgColor
         layer.addSublayer(waveLayer)
     }
     
@@ -62,7 +66,7 @@ class FillWaterView: UIView {
         let path = UIBezierPath()
         let width = bounds.width
         let height = bounds.height
-        let cornerRadius: CGFloat = 8
+        let cornerRadius: CGFloat = 5
         
         // Define the cup shape (no inset for the cup)
         path.move(to: CGPoint(x: 0, y: cornerRadius))
@@ -87,9 +91,9 @@ class FillWaterView: UIView {
     // Use an inset for wave path
     private func createWaveCupPath() -> UIBezierPath {
         let path = UIBezierPath()
-        let width = bounds.width - inset * 2 // Subtract inset from both sides
-        let height = bounds.height - inset * 2 // Subtract inset from top and bottom
-        let cornerRadius: CGFloat = 8
+        let width = bounds.width - inset * 2
+        let height = bounds.height - inset * 2
+        let cornerRadius: CGFloat = 5
         
         path.move(to: CGPoint(x: inset, y: inset + cornerRadius))
         path.addQuadCurve(to: CGPoint(x: inset + cornerRadius, y: inset),
@@ -128,7 +132,7 @@ class FillWaterView: UIView {
     
     func animateWaveView() {
         waveHeight = bounds.height
-        waveAmplitude = 10
+        waveAmplitude = 8
         waveSpeed = 0.1
 
         let displayLink = CADisplayLink(target: self, selector: #selector(animateWaveRise))
@@ -136,8 +140,8 @@ class FillWaterView: UIView {
     }
     
     @objc private func animateWaveRise(displayLink: CADisplayLink) {
-        if waveHeight > 80 {
-            waveHeight -= 5
+        if waveHeight > bounds.height * waveHeightRatio {
+            waveHeight -= 3
             updateWave()
         } else {
             displayLink.invalidate()
@@ -150,8 +154,4 @@ class FillWaterView: UIView {
         waveSpeed = 0
         updateWave()
     }
-    
-//    func restartWaveMotion() {
-//        waveHeight = bounds.height
-//    }
 }

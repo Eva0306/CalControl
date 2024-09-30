@@ -11,8 +11,10 @@ class EmptyWaterView: UIView {
 
     private var cupLayer: CAShapeLayer!
     private var grayLayer: CAShapeLayer!
-    private let inset: CGFloat = 20
-    private let waveHeight: CGFloat = 80
+    
+    private let insetRatio: CGFloat = 0.12
+    private let waveHeightRatio: CGFloat = 0.1
+    private lazy var inset = bounds.width * insetRatio
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,7 +57,7 @@ class EmptyWaterView: UIView {
         let path = UIBezierPath()
         let width = bounds.width
         let height = bounds.height
-        let cornerRadius: CGFloat = 8
+        let cornerRadius: CGFloat = 5
         
         path.move(to: CGPoint(x: 0, y: cornerRadius))
         path.addQuadCurve(to: CGPoint(x: cornerRadius, y: 0), controlPoint: CGPoint(x: 0, y: 0))
@@ -74,8 +76,8 @@ class EmptyWaterView: UIView {
         let path = UIBezierPath()
         let width = bounds.width - inset * 2
         let height = bounds.height - inset * 2
-        let cornerRadius: CGFloat = 8
-        let waveHeightOffset: CGFloat = -40
+        let cornerRadius: CGFloat = 5
+        let waveHeightOffset: CGFloat = -(bounds.height * waveHeightRatio)
         
         // Move to top-left without rounded corner
         path.move(to: CGPoint(x: inset, y: bounds.height - waveHeightOffset - height))
@@ -106,4 +108,3 @@ class EmptyWaterView: UIView {
         return path
     }
 }
-
