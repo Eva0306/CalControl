@@ -94,12 +94,27 @@ extension WeightRecordDetailVC: UITableViewDataSource {
         return cell
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                   commit editingStyle: UITableViewCell.EditingStyle,
+                   forRowAt indexPath: IndexPath
+    ) {
+        if editingStyle == .delete && indexPath.row == 0 {
+            let alertController = UIAlertController(
+                title: "無法刪除",
+                message: "第一筆紀錄無法被刪除。",
+                preferredStyle: .alert
+            )
+            let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        
         if editingStyle == .delete {
             deleteWeightRecord(at: indexPath)
         }
     }
-    
+
     private func updateWeightRecordsInFirebase() {
         let userID = UserProfileViewModel.shared.user.id
         let docRef = FirestoreEndpoint.users.ref.document(userID)
@@ -115,6 +130,9 @@ extension WeightRecordDetailVC: UITableViewDataSource {
 // MARK: - TableView Delegate
 extension WeightRecordDetailVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if indexPath.row == 0 {
+            return nil
+        }
         
         let editAction = UIContextualAction(
             style: .normal, title: "更改"
@@ -136,6 +154,18 @@ extension WeightRecordDetailVC: UITableViewDelegate {
     }
     
     private func deleteWeightRecord(at indexPath: IndexPath) {
+        if indexPath.row == 0 {
+            let alertController = UIAlertController(
+                title: "無法刪除",
+                message: "第一筆紀錄無法被刪除。",
+                preferredStyle: .alert
+            )
+            let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
+            alertController.addAction(okAction)
+            present(alertController, animated: true, completion: nil)
+            return
+        }
+        
         let recordToRemove = sortedWeightRecords[indexPath.row]
         if let originalIndex = UserProfileViewModel.shared.user.weightRecord.firstIndex(where: { $0.date == recordToRemove.date }) {
             UserProfileViewModel.shared.user.weightRecord.remove(at: originalIndex)
@@ -178,5 +208,4 @@ extension WeightRecordDetailVC: UITableViewDelegate {
         
         present(alertController, animated: true, completion: nil)
     }
-    
 }

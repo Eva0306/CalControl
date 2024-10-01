@@ -29,6 +29,7 @@ class FriendVC: UIViewController {
         super.viewDidLoad()
         setupView()
         friendViewModel.fetchFriendData()
+        friendViewModel.addObserver()
         addBindings()
     }
     

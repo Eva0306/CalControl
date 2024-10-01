@@ -35,6 +35,19 @@ class FriendViewModel: ObservableObject {
         }
     }
     
+    func addObserver() {
+        let condition = [
+            FirestoreCondition(field: "user", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id)
+        ]
+        FirebaseManager.shared.addObserver(
+            on: .users,
+            where: condition
+        ) { [weak self] (_: DocumentChangeType, _: FoodRecord) in
+            guard let self = self else { return }
+            self.fetchFriendData()
+        }
+    }
+    
     func addFriend(_ viewController: UIViewController, with friendID: String) {
         guard let currentUserID = UserProfileViewModel.shared?.user.id else { return }
         
@@ -111,7 +124,7 @@ class FriendViewModel: ObservableObject {
             var friends = data["friends"] as? [[String: Any]] ?? []
             
             if !friends.contains(where: { $0["userID"] as? String == friendData["userID"] as? String }) {
-                print("DEBUG: Adding friend: \(friendData)") // Debug print
+                print("DEBUG: Adding friend: \(friendData)")
                 friends.append(friendData)
             } else {
                 print("DEBUG: Friend already exists")
@@ -119,7 +132,6 @@ class FriendViewModel: ObservableObject {
                 return
             }
             
-            // 更新文檔
             FirebaseManager.shared.updateDocument(
                 from: collection,
                 documentID: userID,
@@ -135,7 +147,6 @@ class FriendViewModel: ObservableObject {
         }
     }
 
-    // Helper function to parse friend data
     private func parseFriends(from friendsData: [[String: Any]]) -> [Friend] {
         var friendsList: [Friend] = []
         

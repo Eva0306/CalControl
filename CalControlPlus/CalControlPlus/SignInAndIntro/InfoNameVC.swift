@@ -6,8 +6,17 @@
 //
 
 import UIKit
-
+// TODO: - Title!! button使用比例對齊
 class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "輸入您的姓名及上傳大頭照"
+        label.textColor = .darkGreen
+        label.font = .systemFont(ofSize: 24, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     private lazy var nameTextField: UITextField = {
         let tf = UITextField()
@@ -21,6 +30,7 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     private lazy var avatarImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
+        iv.clipsToBounds = true
         iv.image = UIImage(systemName: "person.crop.circle")
         iv.isUserInteractionEnabled = true
         iv.translatesAutoresizingMaskIntoConstraints = false
@@ -31,6 +41,7 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         let btn = UIButton(type: .system)
         btn.setTitle("Next", for: .normal)
         btn.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
+        btn.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.isEnabled = false
         btn.backgroundColor = .lightGray
@@ -46,29 +57,50 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         setupUI()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
+    }
+    
     private func setupUI() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectAvatarImage))
         avatarImageView.addGestureRecognizer(tapGesture)
         
-        view.addSubview(avatarImageView)
-        view.addSubview(nameTextField)
-        view.addSubview(nextButton)
+        let leftPaddingView = UIView()
+        leftPaddingView.backgroundColor = .clear
+        leftPaddingView.translatesAutoresizingMaskIntoConstraints = false
+        let rightPaddingView = UIView()
+        rightPaddingView.backgroundColor = .clear
+        rightPaddingView.translatesAutoresizingMaskIntoConstraints = false
+
+        let avatarContainer = UIStackView(arrangedSubviews: [leftPaddingView, avatarImageView, rightPaddingView])
+        avatarContainer.axis = .horizontal
+        avatarContainer.spacing = 0
+        avatarContainer.distribution = .fill
+
+        NSLayoutConstraint.activate([
+            leftPaddingView.widthAnchor.constraint(equalToConstant: 30),
+            rightPaddingView.widthAnchor.constraint(equalToConstant: 30)
+        ])
+        
+        let mainStackView = UIStackView(arrangedSubviews: [titleLabel, avatarContainer, nameTextField, nextButton])
+        mainStackView.axis = .vertical
+        mainStackView.spacing = 40
+        mainStackView.alignment = .fill
+        mainStackView.distribution = .fill
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(mainStackView)
         
         NSLayoutConstraint.activate([
-            avatarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 80),
-            avatarImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -80),
-            avatarImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 120),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+            mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
+            
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
-            
-            nameTextField.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 40),
-            nameTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            nameTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             nameTextField.heightAnchor.constraint(equalToConstant: 50),
-            
-            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+            nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
