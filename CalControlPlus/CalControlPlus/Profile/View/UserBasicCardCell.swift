@@ -27,14 +27,14 @@ class UserBasicCardCell: BaseCardTableViewCell {
     }()
     
     private let weightOptions: [Double] = Array(stride(from: 30.0, to: 150.1, by: 0.1))
-    let yearOptions = Array(1900...Calendar.current.component(.year, from: Date()))
-    let monthOptions = Array(1...12)
-    var dayOptions = Array(1...31)
     
     var currentPickerType: PickerType?
-    var selectedYearIndex = 0
-    var selectedMonthIndex = 0
-    var selectedDayIndex = 0
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -57,55 +57,72 @@ class UserBasicCardCell: BaseCardTableViewCell {
         ])
         
         addRow(leftText: "性別",
-               rightView: createTitleAndArrowStack(title: viewModel.user.gender.description()))
+               rightView: createTitleAndArrowStack(
+                title: viewModel.user.gender.description()
+               ))
         addRow(leftText: "身高",
-               rightView: createTitleAndArrowStack(title: "\(viewModel.user.height) cm"))
+               rightView: createTitleAndArrowStack(
+                title: "\(viewModel.user.height) cm"
+               ))
         addRow(leftText: "生日",
-               rightView: createTitleAndArrowStack(title: "\(viewModel.user.birthday)"))
-        addRow(leftText: "體重",
-               rightView: createTitleAndArrowStack(title: "\(String(format: "%.1f", viewModel.user.weightRecord.last!.weight)) kg"))
+               rightView: createTitleAndArrowStack(
+                title: "\(viewModel.user.birthday)"
+               ))
+        if let weight = viewModel.user.weightRecord.last?.weight {
+            addRow(leftText: "體重",
+                   rightView: createTitleAndArrowStack(
+                    title: "\(String(format: "%.1f", weight)) kg"))
+        } else {
+            addRow(leftText: "體重",
+                   rightView: createTitleAndArrowStack(title: "N/A"))
+        }
         addRow(leftText: "日常活動量",
-               rightView: createTitleAndArrowStack(title: viewModel.user.activity.description()))
+               rightView: createTitleAndArrowStack(
+                title: viewModel.user.activity.description()
+               ))
         addRow(leftText: "目標",
-               rightView: createTitleAndArrowStack(title: viewModel.user.target.description()))
+               rightView: createTitleAndArrowStack(
+                title: viewModel.user.target.description()
+               ))
     }
     
     private func addBindings() {
         viewModel.$user
+            .removeDuplicates()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] user in
-                
-                if let genderStack = self?.verticalStackView.arrangedSubviews[0] as? UIStackView,
+                guard let self = self else { return }
+                if let genderStack = self.verticalStackView.arrangedSubviews[0] as? UIStackView,
                    let rightStack = genderStack.arrangedSubviews[1] as? UIStackView,
                    let genderLabel = rightStack.arrangedSubviews[0] as? UILabel {
                     genderLabel.text = user.gender.description()
                 }
                 
-                if let heightStack = self?.verticalStackView.arrangedSubviews[1] as? UIStackView,
+                if let heightStack = self.verticalStackView.arrangedSubviews[1] as? UIStackView,
                    let rightStack = heightStack.arrangedSubviews[1] as? UIStackView,
                    let heightLabel = rightStack.arrangedSubviews[0] as? UILabel {
                     heightLabel.text = "\(String(format: "%.0f", user.height)) cm"
                 }
                 
-                if let birthdayStack = self?.verticalStackView.arrangedSubviews[2] as? UIStackView,
+                if let birthdayStack = self.verticalStackView.arrangedSubviews[2] as? UIStackView,
                    let rightStack = birthdayStack.arrangedSubviews[1] as? UIStackView,
                    let birthdayLabel = rightStack.arrangedSubviews[0] as? UILabel {
                     birthdayLabel.text = user.birthday
                 }
                 
-                if let weightStack = self?.verticalStackView.arrangedSubviews[3] as? UIStackView,
+                if let weightStack = self.verticalStackView.arrangedSubviews[3] as? UIStackView,
                    let rightStack = weightStack.arrangedSubviews[1] as? UIStackView,
                    let weightLabel = rightStack.arrangedSubviews[0] as? UILabel {
                     weightLabel.text = "\(String(format: "%.1f", user.weightRecord.last!.weight)) kg"
                 }
                 
-                if let activityStack = self?.verticalStackView.arrangedSubviews[4] as? UIStackView,
+                if let activityStack = self.verticalStackView.arrangedSubviews[4] as? UIStackView,
                    let rightStack = activityStack.arrangedSubviews[1] as? UIStackView,
                    let activityLabel = rightStack.arrangedSubviews[0] as? UILabel {
                     activityLabel.text = user.activity.description()
                 }
                 
-                if let targetStack = self?.verticalStackView.arrangedSubviews[5] as? UIStackView,
+                if let targetStack = self.verticalStackView.arrangedSubviews[5] as? UIStackView,
                    let rightStack = targetStack.arrangedSubviews[1] as? UIStackView,
                    let targetLabel = rightStack.arrangedSubviews[0] as? UILabel {
                     targetLabel.text = user.target.description()
@@ -160,9 +177,11 @@ class UserBasicCardCell: BaseCardTableViewCell {
         case 1:
             showPicker(for: .height)
         case 2:
-            showPicker(for: .birthday)
+            showDatePicker()
         case 3:
-            showPicker(for: .weight)
+            if let vc = self.findViewController() {
+                vc.performSegue(withIdentifier: "showWeightRecordDetailFromProfile", sender: self)
+            }
         case 4:
             showPicker(for: .activityLevel)
         case 5:
@@ -176,58 +195,20 @@ class UserBasicCardCell: BaseCardTableViewCell {
 // MARK: - UIPickerViewDelegate and UIPickerViewDataSource Methods
 extension UserBasicCardCell: UIPickerViewDataSource, UIPickerViewDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        switch currentPickerType {
-        case .birthday:
-            return 3
-        default:
-            return 1
-        }
+        return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch currentPickerType {
-        case .birthday:
-            switch component {
-            case 0: return yearOptions.count
-            case 1: return monthOptions.count
-            case 2: return dayOptions.count
-            default: return 0
-            }
-        default:
-            return createPickerData(for: currentPickerType ?? .gender).options.count
-        }
+        return createPickerData(for: currentPickerType ?? .gender).options.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch currentPickerType {
-        case .birthday:
-            switch component {
-            case 0: return "\(yearOptions[row])"
-            case 1: return "\(monthOptions[row])"
-            case 2: return "\(dayOptions[row])"
-            default: return nil
-            }
-        default:
-            let pickerData = createPickerData(for: currentPickerType ?? .gender)
-            return pickerData.options[row]
-        }
+        let pickerData = createPickerData(for: currentPickerType ?? .gender)
+        return pickerData.options[row]
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if currentPickerType == .birthday {
-            switch component {
-            case 0:
-                selectedYearIndex = row
-            case 1:
-                selectedMonthIndex = row
-                updateDayOptions()
-                pickerView.reloadComponent(2)
-            case 2:
-                selectedDayIndex = row
-            default:
-                break
-            }
-        }
+    func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
+        return 40
     }
 }
 
@@ -235,34 +216,61 @@ extension UserBasicCardCell: UIPickerViewDataSource, UIPickerViewDelegate {
 extension UserBasicCardCell {
     private func showPicker(for pickerType: PickerType) {
         let modalVC = ModalVC()
+        let pickerViewModal = PickerViewModal()
         
-        let pickerData = createPickerData(for: pickerType)
         currentPickerType = pickerType
         
-        modalVC.pickerViewModal.pickerView.delegate = self
-        modalVC.pickerViewModal.pickerView.dataSource = self
+        let pickerData = createPickerData(for: pickerType)
+        pickerViewModal.pickerView.delegate = self
+        pickerViewModal.pickerView.dataSource = self
+        pickerViewModal.pickerView.selectRow(pickerData.selectedIndex, inComponent: 0, animated: false)
         
-        if pickerType == .birthday {
-            setupBirthdayPickerDefaults()
-            modalVC.pickerViewModal.pickerView.selectRow(selectedYearIndex, inComponent: 0, animated: false)
-            modalVC.pickerViewModal.pickerView.selectRow(selectedMonthIndex, inComponent: 1, animated: false)
-            modalVC.pickerViewModal.pickerView.selectRow(selectedDayIndex, inComponent: 2, animated: false)
-        } else {
-            modalVC.pickerViewModal.pickerView.selectRow(pickerData.selectedIndex, inComponent: 0, animated: false)
-        }
-        
-        modalVC.pickerViewModal.confirmAction = { [weak self] in
+        pickerViewModal.confirmAction = { [weak self] in
             guard let self = self else { return }
-            let selectedRow = modalVC.pickerViewModal.pickerView.selectedRow(inComponent: 0)
-            
+            let selectedRow = pickerViewModal.pickerView.selectedRow(inComponent: 0)
             self.handlePickerSelection(for: pickerType, selectedIndex: selectedRow)
             modalVC.dismissModal()
         }
         
-        modalVC.pickerViewModal.cancelAction = {
+        pickerViewModal.cancelAction = {
             modalVC.dismissModal()
         }
         
+        modalVC.pickerViewModal = pickerViewModal
+        modalVC.modalPresentationStyle = .overFullScreen
+        modalVC.modalTransitionStyle = .crossDissolve
+        
+        if let viewController = self.findViewController() {
+            viewController.present(modalVC, animated: false) {
+                modalVC.presentModal()
+            }
+        }
+    }
+    
+    private func showDatePicker() {
+        let modalVC = ModalVC()
+        let datePickerModal = DatePickerModal()
+        
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if let savedBirthday = dateFormatter.date(from: viewModel.user.birthday) {
+            datePickerModal.datePicker.date = savedBirthday
+        } else {
+            datePickerModal.datePicker.date = Date()
+        }
+        
+        datePickerModal.confirmAction = { [weak self] in
+            guard let self = self else { return }
+            let selectedDate = datePickerModal.datePicker.date
+            self.handleDatePickerSelection(selectedDate)
+            modalVC.dismissModal()
+        }
+        
+        datePickerModal.cancelAction = {
+            modalVC.dismissModal()
+        }
+        
+        modalVC.pickerViewModal = datePickerModal
         modalVC.modalPresentationStyle = .overFullScreen
         modalVC.modalTransitionStyle = .crossDissolve
         
@@ -283,12 +291,6 @@ extension UserBasicCardCell {
             let options = (140...210).map { "\($0) cm" }
             let selectedIndex = options.firstIndex(of: "\(Int(viewModel.user.height)) cm") ?? 0
             return PickerData(type: .height, options: options, selectedIndex: selectedIndex)
-        case .birthday:
-            return PickerData(type: .birthday, options: [], selectedIndex: 0)
-        case .weight:
-            let options = weightOptions.map { String(format: "%.1f", $0) + " kg" }
-            let selectedIndex = weightOptions.firstIndex(of: viewModel.user.weightRecord.last?.weight ?? 0.0) ?? 0
-            return PickerData(type: .weight, options: options, selectedIndex: selectedIndex)
         case .activityLevel:
             let options = ActivityLevel.allCases.map { $0.description() }
             let selectedIndex = ActivityLevel.allCases.firstIndex(of: viewModel.user.activity) ?? 0
@@ -308,22 +310,6 @@ extension UserBasicCardCell {
         case .height:
             self.viewModel.user.height = Double(140 + selectedIndex)
             uploadToFirebase(data: ["height": Double(140 + selectedIndex)])
-        case .birthday:
-            let selectedYear = yearOptions[selectedYearIndex]
-            let selectedMonth = monthOptions[selectedMonthIndex]
-            let selectedDay = dayOptions[selectedDayIndex]
-            let dateString = "\(selectedYear)-\(String(format: "%02d", selectedMonth))-\(String(format: "%02d", selectedDay))"
-            self.viewModel.user.birthday = dateString
-            uploadToFirebase(data: ["birthday": dateString])
-        case .weight:
-            let selectedWeight = weightOptions[selectedIndex]
-            self.viewModel.user.weightRecord.append(WeightRecord(date: Timestamp(date: Date()), weight: selectedWeight))
-            let docRef = FirestoreEndpoint.users.ref.document(UserProfileViewModel.shared.user.id)
-            FirebaseManager.shared.setData(
-                ["weightRecord": self.viewModel.user.weightRecord],
-                at: docRef,
-                merge: true
-            )
         case .activityLevel:
             self.viewModel.user.activity = ActivityLevel.allCases[selectedIndex]
             uploadToFirebase(data: ["activity": ActivityLevel.allCases[selectedIndex].rawValue])
@@ -333,53 +319,25 @@ extension UserBasicCardCell {
         }
     }
     
+    private func handleDatePickerSelection(_ selectedDate: Date) {
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let dateString = dateFormatter.string(from: selectedDate)
+        
+        self.viewModel.user.birthday = dateString
+        
+        uploadToFirebase(data: ["birthday": dateString])
+    }
+    
     private func uploadToFirebase(data: [String: Any]) {
         FirebaseManager.shared.updateDocument(
             from: .users,
             documentID: UserProfileViewModel.shared.user.id,
             data: data) { result in
-            if result == true {
-                print("Success upload to firebase")
-            } else {
-                print("Error: Failed to upload to firebase")
+                if result == true {
+                    print("Success upload to firebase")
+                } else {
+                    print("Error: Failed to upload to firebase")
+                }
             }
-        }
-    }
-    
-    private func setupBirthdayPickerDefaults() {
-        let birthdayString = viewModel.user.birthday
-        
-        let dateComponents = birthdayString.split(separator: "-")
-        
-        if dateComponents.count == 3 {
-            if let year = Int(dateComponents[0]), let month = Int(dateComponents[1]), let day = Int(dateComponents[2]) {
-                selectedYearIndex = yearOptions.firstIndex(of: year) ?? 0
-                selectedMonthIndex = monthOptions.firstIndex(of: month) ?? 0
-                selectedDayIndex = dayOptions.firstIndex(of: day) ?? 0
-                
-                updateDayOptions()
-            }
-        }
-    }
-    
-    private func updateDayOptions() {
-        let selectedYear = yearOptions[selectedYearIndex]
-        let selectedMonth = monthOptions[selectedMonthIndex]
-        
-        let isLeapYear = (selectedYear % 4 == 0 && selectedYear % 100 != 0) || (selectedYear % 400 == 0)
-        let daysInMonth: Int
-        
-        switch selectedMonth {
-        case 1, 3, 5, 7, 8, 10, 12:
-            daysInMonth = 31
-        case 4, 6, 9, 11:
-            daysInMonth = 30
-        case 2:
-            daysInMonth = isLeapYear ? 29 : 28
-        default:
-            daysInMonth = 30
-        }
-        
-        dayOptions = Array(1...daysInMonth)
     }
 }

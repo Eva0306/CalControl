@@ -7,11 +7,9 @@
 
 import Foundation
 
-enum PickerType {
+enum PickerType: CaseIterable {
     case gender
     case height
-    case birthday
-    case weight
     case activityLevel
     case target
 }

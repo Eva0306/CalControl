@@ -83,7 +83,7 @@ extension ProfileCell: UIImagePickerControllerDelegate, UINavigationControllerDe
         if let selectedImage = info[.editedImage] as? UIImage {
             avatarImageView.image = selectedImage
             FirebaseManager.shared.uploadImage(image: selectedImage) { [weak self] url in
-                guard let self = self else { return }
+                guard self != nil else { return }
                 if let url = url {
                     FirebaseManager.shared.updateDocument(
                         from: .users,

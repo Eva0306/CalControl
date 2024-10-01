@@ -111,6 +111,7 @@
 		B3FA11A72CAA925C001A3805 /* CalControlWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B3FA11982CAA925A001A3805 /* CalControlWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B3FA11B32CAA9E27001A3805 /* DailyProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */; };
 		B3FA11B42CAA9E27001A3805 /* DailyProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */; };
+		B3FA11B72CABB8F9001A3805 /* DatePickerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B62CABB8F9001A3805 /* DatePickerModal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +241,7 @@
 		B3FA11A42CAA925C001A3805 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3FA11AC2CAA9761001A3805 /* CalControlWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalControlWidgetExtension.entitlements; sourceTree = "<group>"; };
 		B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgressView.swift; sourceTree = "<group>"; };
+		B3FA11B62CABB8F9001A3805 /* DatePickerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerModal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -582,6 +584,7 @@
 		B387D9872CA0FAEB00CCC311 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B3FA11B62CABB8F9001A3805 /* DatePickerModal.swift */,
 				B387D9982CA27AB000CCC311 /* PickerViewModal.swift */,
 				B387D99A2CA27CB000CCC311 /* ModalVC.swift */,
 				B387D9892CA0FB0F00CCC311 /* ProfileCell.swift */,
@@ -885,6 +888,7 @@
 				B387D98E2CA1483100CCC311 /* FriendViewModel.swift in Sources */,
 				B313846E2CA55B5E008272B0 /* DeleteButtonCell.swift in Sources */,
 				B36C18F22C99D96700D9D1CC /* UIColorExtension.swift in Sources */,
+				B3FA11B72CABB8F9001A3805 /* DatePickerModal.swift in Sources */,
 				B36C18E52C99D96700D9D1CC /* TranslationAPI.swift in Sources */,
 				B3FA117E2CA804EA001A3805 /* InfoActivityVC.swift in Sources */,
 				B387D98C2CA0FB1A00CCC311 /* SettingCardCell.swift in Sources */,

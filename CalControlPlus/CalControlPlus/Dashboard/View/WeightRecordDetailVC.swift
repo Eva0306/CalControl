@@ -26,7 +26,12 @@ class WeightRecordDetailVC: UIViewController {
         super.viewDidLoad()
         
         setupView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "編輯", style: .plain, target: self, action: #selector(toggleEditing))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "編輯",
+            style: .plain,
+            target: self,
+            action: #selector(toggleEditing)
+        )
     }
     
     override func viewWillAppear(_ animated: Bool) {

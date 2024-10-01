@@ -108,6 +108,9 @@
                         <color key="backgroundColor" name="background"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="na8-Yb-BUR"/>
+                    <connections>
+                        <segue destination="FoG-jR-uwU" kind="show" identifier="showWeightRecordDetailFromProfile" id="tkF-8O-YWw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Af-cU-1GC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -254,6 +257,9 @@
             <point key="canvasLocation" x="826.71755725190837" y="1243.661971830986"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="tkF-8O-YWw"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="chart.bar.xaxis" catalog="system" width="128" height="97"/>
         <image name="heart.circle" catalog="system" width="128" height="123"/>
@@ -261,7 +267,7 @@
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
         <namedColor name="background">
-            <color red="0.95300000905990601" green="0.9649999737739563" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.95294117647058818" green="0.96470588235294119" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="mainGreen">
             <color red="0.42399999499320984" green="0.54100000858306885" blue="0.53299999237060547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

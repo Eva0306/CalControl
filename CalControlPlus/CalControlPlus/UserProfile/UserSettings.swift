@@ -15,7 +15,7 @@ struct UserSettings {
     var fatTotal: Double = 0
 }
 
-struct User: Codable {
+struct User: Codable, Equatable {
     let id: String
     let createdTime: Timestamp
     let email: String?
@@ -31,7 +31,7 @@ struct User: Codable {
     var friends: [Friend]?
 }
 
-enum Gender: Int, Codable, CaseIterable {
+enum Gender: Int, Codable, CaseIterable, Equatable {
     case male = 0
     case female = 1
     
@@ -45,7 +45,7 @@ enum Gender: Int, Codable, CaseIterable {
     }
 }
 
-enum ActivityLevel: Int, Codable, CaseIterable {
+enum ActivityLevel: Int, Codable, CaseIterable, Equatable {
     case sedentary = 0
     case light = 1
     case moderate = 2
@@ -68,7 +68,7 @@ enum ActivityLevel: Int, Codable, CaseIterable {
     }
 }
 
-enum Target: Int, Codable, CaseIterable {
+enum Target: Int, Codable, CaseIterable, Equatable {
     case loseWeight = 0
     case maintainWeight = 1
     case gainWeight = 2
@@ -85,12 +85,12 @@ enum Target: Int, Codable, CaseIterable {
     }
 }
 
-struct WeightRecord: Codable {
+struct WeightRecord: Codable, Equatable {
     var date: Timestamp
     var weight: Double
 }
 
-struct TotalNutrition: Codable {
+struct TotalNutrition: Codable, Equatable {
     let date: Timestamp
     var totalCalories: Double
     var totalCarbs: Double // g
@@ -108,7 +108,7 @@ struct TotalNutrition: Codable {
     }
 }
 
-struct Friend: Codable {
+struct Friend: Codable, Equatable {
     let userID: String
     let addedAt: Timestamp
     let status: String

@@ -196,7 +196,7 @@ struct CalControlWidget: Widget {
     }
 }
 
-#Preview(as: .systemSmall) {
+#Preview(as: .systemMedium) {
     CalControlWidget()
 } timeline: {
     SimpleEntry(

@@ -21,7 +21,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         if let currentUser = Auth.auth().currentUser {
-            // 使用者已經登入，跳轉到主頁
             print("User is already logged in: \(currentUser.uid)")
             fetchUser(userID: currentUser.uid) { result in
                 switch result {

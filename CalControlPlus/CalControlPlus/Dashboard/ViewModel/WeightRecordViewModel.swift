@@ -60,7 +60,9 @@ class WeightRecordViewModel: ObservableObject {
     }
     
     func checkIfRecordExists(for date: Date) -> RecordCheckResult? {
-        if let index = weightRecords.firstIndex(where: { Calendar.current.isDate($0.date.dateValue(), inSameDayAs: date) }) {
+        if let index = weightRecords.firstIndex(
+            where: { Calendar.current.isDate($0.date.dateValue(), inSameDayAs: date) }
+        ) {
             return RecordCheckResult(index: index, weight: weightRecords[index].weight)
         }
         return nil
