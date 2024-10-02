@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import Lottie
 
 class InfoStartVC: UIViewController {
     
@@ -26,28 +27,98 @@ class InfoStartVC: UIViewController {
         btn.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.layer.cornerRadius = 8
-        btn.layer.borderWidth = 1
-        btn.layer.borderColor = UIColor.lightGreen.cgColor
-        btn.backgroundColor = .lightGreen
+        btn.backgroundColor = .clear
         btn.tintColor = .white
         return btn
     }()
+    
+    private var ribbonAnimationView: LottieAnimationView?
+    private var buttonAnimationView: LottieAnimationView?
+    private var foodAnimationView: LottieAnimationView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
         setupUI()
+        setupLottieAnimation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setupRibbonAnimation()
     }
     
     private func setupUI() {
+        view.addSubview(titleLabel)
         view.addSubview(confirmButton)
         
         NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            
             confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            confirmButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            confirmButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100),
             confirmButton.heightAnchor.constraint(equalToConstant: 50),
-            confirmButton.widthAnchor.constraint(equalToConstant: 200)
+            confirmButton.widthAnchor.constraint(equalToConstant: 250)
         ])
+    }
+    
+    private func setupRibbonAnimation() {
+        ribbonAnimationView = LottieAnimationView(name: "RibbonAnimation")
+        guard let ribbonAnimationView = ribbonAnimationView else { return }
+        
+        ribbonAnimationView.translatesAutoresizingMaskIntoConstraints = false
+        ribbonAnimationView.contentMode = .scaleAspectFill
+        ribbonAnimationView.loopMode = .playOnce
+        ribbonAnimationView.isUserInteractionEnabled = false
+        
+        view.addSubview(ribbonAnimationView)
+        
+        NSLayoutConstraint.activate([
+            ribbonAnimationView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            ribbonAnimationView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            ribbonAnimationView.topAnchor.constraint(equalTo: view.topAnchor),
+            ribbonAnimationView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+        
+        ribbonAnimationView.play()
+    }
+    
+    private func setupLottieAnimation() {
+        buttonAnimationView = LottieAnimationView(name: "ButtonAnimation")
+        foodAnimationView = LottieAnimationView(name: " FoodCarouselAnimation")
+        guard let buttonAnimationView = buttonAnimationView,
+              let foodAnimationView = foodAnimationView else { return }
+        
+        buttonAnimationView.translatesAutoresizingMaskIntoConstraints = false
+        buttonAnimationView.contentMode = .scaleAspectFill
+        buttonAnimationView.loopMode = .loop
+        buttonAnimationView.isUserInteractionEnabled = false
+        
+        foodAnimationView.translatesAutoresizingMaskIntoConstraints = false
+        foodAnimationView.contentMode = .scaleAspectFit
+        foodAnimationView.loopMode = .loop
+        foodAnimationView.isUserInteractionEnabled = false
+        
+        view.addSubview(foodAnimationView)
+        
+        confirmButton.addSubview(buttonAnimationView)
+        confirmButton.sendSubviewToBack(buttonAnimationView)
+        
+        NSLayoutConstraint.activate([
+            foodAnimationView.widthAnchor.constraint(equalToConstant: 150),
+            foodAnimationView.heightAnchor.constraint(equalToConstant: 150),
+            foodAnimationView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            foodAnimationView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
+            
+            buttonAnimationView.leadingAnchor.constraint(equalTo: confirmButton.leadingAnchor),
+            buttonAnimationView.trailingAnchor.constraint(equalTo: confirmButton.trailingAnchor),
+            buttonAnimationView.topAnchor.constraint(equalTo: confirmButton.topAnchor),
+            buttonAnimationView.bottomAnchor.constraint(equalTo: confirmButton.bottomAnchor)
+        ])
+        
+        foodAnimationView.play()
+        buttonAnimationView.play()
     }
     
     @objc private func confirmButtonTapped() {

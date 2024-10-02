@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class InfoTargetVC: UIViewController {
     
@@ -29,16 +30,20 @@ class InfoTargetVC: UIViewController {
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.isEnabled = false
         btn.backgroundColor = .lightGray
+        btn.tintColor = .white
         btn.layer.cornerRadius = 8
         return btn
     }()
     
     var nextPage: (() -> Void)?
     
+    private var lottieAnimationView: LottieAnimationView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
         setupUI()
+        setupLottieAnimation()
     }
     
     private func setupUI() {
@@ -86,6 +91,29 @@ class InfoTargetVC: UIViewController {
         ])
     }
     
+    private func setupLottieAnimation() {
+        lottieAnimationView = LottieAnimationView(name: "ButtonAnimation")
+        guard let lottieAnimationView = lottieAnimationView else { return }
+        
+        lottieAnimationView.translatesAutoresizingMaskIntoConstraints = false
+        lottieAnimationView.contentMode = .scaleAspectFill
+        lottieAnimationView.loopMode = .loop
+        lottieAnimationView.isUserInteractionEnabled = false
+        
+        nextButton.addSubview(lottieAnimationView)
+        nextButton.sendSubviewToBack(lottieAnimationView)
+        
+        NSLayoutConstraint.activate([
+            lottieAnimationView.leadingAnchor.constraint(equalTo: nextButton.leadingAnchor),
+            lottieAnimationView.trailingAnchor.constraint(equalTo: nextButton.trailingAnchor),
+            lottieAnimationView.topAnchor.constraint(equalTo: nextButton.topAnchor),
+            lottieAnimationView.bottomAnchor.constraint(equalTo: nextButton.bottomAnchor)
+        ])
+        
+        lottieAnimationView.stop()
+        lottieAnimationView.isHidden = true
+    }
+    
     @objc private func targetButtonTapped(_ sender: UIButton) {
         if let target = Target(rawValue: sender.tag) {
             selectedTarget = target
@@ -96,8 +124,10 @@ class InfoTargetVC: UIViewController {
             sender.tintColor = .white
             
             nextButton.isEnabled = true
-            nextButton.backgroundColor = .lightGreen
-            nextButton.tintColor = .white
+            nextButton.backgroundColor = .clear
+            
+            lottieAnimationView?.isHidden = false
+            lottieAnimationView?.play()
         }
     }
     
@@ -107,7 +137,5 @@ class InfoTargetVC: UIViewController {
         UserInfoCollector.shared.target = target
         
         nextPage?()
-//        let startVC = InfoStartVC()
-//        self.navigationController?.pushViewController(startVC, animated: true)
     }
 }

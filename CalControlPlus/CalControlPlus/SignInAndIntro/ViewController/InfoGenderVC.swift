@@ -6,13 +6,12 @@
 //
 
 import UIKit
+import Lottie
 
 class InfoGenderVC: UIViewController {
     
     private var buttons: [UIButton] = []
     private var selectedGender: Gender?
-    
-    var nextPage: (() -> Void)?
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -40,15 +39,21 @@ class InfoGenderVC: UIViewController {
         btn.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.isEnabled = false
+        btn.tintColor = .white
         btn.backgroundColor = .lightGray
         btn.layer.cornerRadius = 8
         return btn
     }()
     
+    var nextPage: (() -> Void)?
+    
+    private var lottieAnimationView: LottieAnimationView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
         setupUI()
+        setupLottieAnimation()
     }
     
     private func setupUI() {
@@ -93,6 +98,29 @@ class InfoGenderVC: UIViewController {
         ])
     }
     
+    private func setupLottieAnimation() {
+        lottieAnimationView = LottieAnimationView(name: "ButtonAnimation")
+        guard let lottieAnimationView = lottieAnimationView else { return }
+        
+        lottieAnimationView.translatesAutoresizingMaskIntoConstraints = false
+        lottieAnimationView.contentMode = .scaleAspectFill
+        lottieAnimationView.loopMode = .loop
+        lottieAnimationView.isUserInteractionEnabled = false
+        
+        nextButton.addSubview(lottieAnimationView)
+        nextButton.sendSubviewToBack(lottieAnimationView)
+        
+        NSLayoutConstraint.activate([
+            lottieAnimationView.leadingAnchor.constraint(equalTo: nextButton.leadingAnchor),
+            lottieAnimationView.trailingAnchor.constraint(equalTo: nextButton.trailingAnchor),
+            lottieAnimationView.topAnchor.constraint(equalTo: nextButton.topAnchor),
+            lottieAnimationView.bottomAnchor.constraint(equalTo: nextButton.bottomAnchor)
+        ])
+        
+        lottieAnimationView.stop()
+        lottieAnimationView.isHidden = true
+    }
+    
     @objc private func genderButtonTapped(_ sender: UIButton) {
         if let gender = Gender(rawValue: sender.tag) {
             selectedGender = gender
@@ -103,8 +131,9 @@ class InfoGenderVC: UIViewController {
             sender.tintColor = .white
             
             nextButton.isEnabled = true
-            nextButton.backgroundColor = .lightGreen
-            nextButton.tintColor = .white
+            nextButton.backgroundColor = .clear
+            lottieAnimationView?.isHidden = false
+            lottieAnimationView?.play()
         }
     }
     
@@ -114,8 +143,5 @@ class InfoGenderVC: UIViewController {
         UserInfoCollector.shared.gender = gender
         
         nextPage?()
-        
-//        let birthdayVC = InfoBirthdayVC()
-//        self.navigationController?.pushViewController(birthdayVC, animated: true)
     }
 }

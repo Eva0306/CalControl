@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -59,11 +60,14 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     var nextPage: (() -> Void)?
     
+    private var lottieAnimationView: LottieAnimationView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
         
         setupUI()
+        setupLottieAnimation()
     }
     
     override func viewDidLayoutSubviews() {
@@ -123,6 +127,29 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         ])
     }
     
+    private func setupLottieAnimation() {
+        lottieAnimationView = LottieAnimationView(name: "ButtonAnimation")
+        guard let lottieAnimationView = lottieAnimationView else { return }
+        
+        lottieAnimationView.translatesAutoresizingMaskIntoConstraints = false
+        lottieAnimationView.contentMode = .scaleAspectFill
+        lottieAnimationView.loopMode = .loop
+        lottieAnimationView.isUserInteractionEnabled = false
+        
+        nextButton.addSubview(lottieAnimationView)
+        nextButton.sendSubviewToBack(lottieAnimationView)
+        
+        NSLayoutConstraint.activate([
+            lottieAnimationView.leadingAnchor.constraint(equalTo: nextButton.leadingAnchor),
+            lottieAnimationView.trailingAnchor.constraint(equalTo: nextButton.trailingAnchor),
+            lottieAnimationView.topAnchor.constraint(equalTo: nextButton.topAnchor),
+            lottieAnimationView.bottomAnchor.constraint(equalTo: nextButton.bottomAnchor)
+        ])
+        
+        lottieAnimationView.stop()
+        lottieAnimationView.isHidden = true
+    }
+    
     @objc private func selectAvatarImage() {
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
@@ -133,7 +160,7 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     
     func imagePickerController(
         _ picker: UIImagePickerController,
-        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
     ) {
         if let selectedImage = info[.originalImage] as? UIImage {
             avatarImageView.image = selectedImage
@@ -180,7 +207,18 @@ extension InfoNameVC: UITextFieldDelegate {
     ) -> Bool {
         let currentText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
         nextButton.isEnabled = !currentText.trimmingCharacters(in: .whitespaces).isEmpty
-        nextButton.backgroundColor = nextButton.isEnabled ? .lightGreen : .lightGray
+        
+        if nextButton.isEnabled {
+            nextButton.backgroundColor = .clear
+            // 播放動畫
+            lottieAnimationView?.isHidden = false
+            lottieAnimationView?.play()
+        } else {
+            nextButton.backgroundColor = .lightGray
+            // 停止動畫，並隱藏
+            lottieAnimationView?.stop()
+            lottieAnimationView?.isHidden = true
+        }
         
         return true
     }

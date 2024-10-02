@@ -20,22 +20,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        testShowInfoVC()
+//        testShowInfoVC()
         
-//        if let currentUser = Auth.auth().currentUser {
-//            print("User is already logged in: \(currentUser.uid)")
-//            fetchUser(userID: currentUser.uid) { result in
-//                switch result {
-//                case .success(let user):
-//                    self.showHomeScreen(for: user)
-//                case .failure(let error):
-//                    print("Error: \(error.localizedDescription)")
-//                    self.showSingnInVC()
-//                }
-//            }
-//        } else {
-//            showSingnInVC()
-//        }
+        if let currentUser = Auth.auth().currentUser {
+            print("User is already logged in: \(currentUser.uid)")
+            fetchUser(userID: currentUser.uid) { result in
+                switch result {
+                case .success(let user):
+                    self.showHomeScreen(for: user)
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                    self.showSingnInVC()
+                }
+            }
+        } else {
+            showSingnInVC()
+        }
     }
     
     private func testShowInfoVC() {

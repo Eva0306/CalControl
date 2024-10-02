@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class InfoBirthdayVC: UIViewController {
     
@@ -31,7 +32,7 @@ class InfoBirthdayVC: UIViewController {
     private lazy var nextButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Next", for: .normal)
-        btn.backgroundColor = .lightGreen
+        btn.backgroundColor = .clear
         btn.tintColor = .white
         btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
@@ -41,11 +42,14 @@ class InfoBirthdayVC: UIViewController {
     
     var nextPage: (() -> Void)?
     
+    private var lottieAnimationView: LottieAnimationView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
         
         setupUI()
+        setupLottieAnimation()
     }
     
     private func setupUI() {
@@ -68,6 +72,28 @@ class InfoBirthdayVC: UIViewController {
         ])
     }
     
+    private func setupLottieAnimation() {
+        lottieAnimationView = LottieAnimationView(name: "ButtonAnimation")
+        guard let lottieAnimationView = lottieAnimationView else { return }
+        
+        lottieAnimationView.translatesAutoresizingMaskIntoConstraints = false
+        lottieAnimationView.contentMode = .scaleAspectFill
+        lottieAnimationView.loopMode = .loop
+        lottieAnimationView.isUserInteractionEnabled = false
+        
+        nextButton.addSubview(lottieAnimationView)
+        nextButton.sendSubviewToBack(lottieAnimationView)
+        
+        NSLayoutConstraint.activate([
+            lottieAnimationView.leadingAnchor.constraint(equalTo: nextButton.leadingAnchor),
+            lottieAnimationView.trailingAnchor.constraint(equalTo: nextButton.trailingAnchor),
+            lottieAnimationView.topAnchor.constraint(equalTo: nextButton.topAnchor),
+            lottieAnimationView.bottomAnchor.constraint(equalTo: nextButton.bottomAnchor)
+        ])
+        
+        lottieAnimationView.play()
+    }
+    
     @objc private func nextButtonTapped() {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
@@ -76,7 +102,5 @@ class InfoBirthdayVC: UIViewController {
         UserInfoCollector.shared.birthday = birthdayString
         
         nextPage?()
-//        let heightVC = InfoHeightVC()
-//        self.navigationController?.pushViewController(heightVC, animated: true)
     }
 }

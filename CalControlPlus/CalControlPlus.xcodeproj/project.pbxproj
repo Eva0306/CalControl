@@ -113,6 +113,13 @@
 		B3FA11B42CAA9E27001A3805 /* DailyProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */; };
 		B3FA11B72CABB8F9001A3805 /* DatePickerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B62CABB8F9001A3805 /* DatePickerModal.swift */; };
 		B3FA11B92CAD0FED001A3805 /* DataCollectionContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B82CAD0FED001A3805 /* DataCollectionContainerVC.swift */; };
+		B3FA11BE2CAD9D40001A3805 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B3FA11BD2CAD9D40001A3805 /* Lottie */; };
+		B3FA11C32CAD9E31001A3805 /* PlusToXAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11C02CAD9E31001A3805 /* PlusToXAnimation.json */; };
+		B3FA11C42CAD9E31001A3805 /* ButtonAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11C12CAD9E31001A3805 /* ButtonAnimation.json */; };
+		B3FA11C52CAD9E31001A3805 /* PawLoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11C22CAD9E31001A3805 /* PawLoadingAnimation.json */; };
+		B3FA11C82CADA535001A3805 /* FoodLoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11C62CADA535001A3805 /* FoodLoadingAnimation.json */; };
+		B3FA11C92CADA535001A3805 /* RibbonAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11C72CADA535001A3805 /* RibbonAnimation.json */; };
+		B3FA11CB2CADA9C4001A3805 /*  FoodCarouselAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11CA2CADA9C4001A3805 /*  FoodCarouselAnimation.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -244,6 +251,12 @@
 		B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgressView.swift; sourceTree = "<group>"; };
 		B3FA11B62CABB8F9001A3805 /* DatePickerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerModal.swift; sourceTree = "<group>"; };
 		B3FA11B82CAD0FED001A3805 /* DataCollectionContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCollectionContainerVC.swift; sourceTree = "<group>"; };
+		B3FA11C02CAD9E31001A3805 /* PlusToXAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PlusToXAnimation.json; sourceTree = "<group>"; };
+		B3FA11C12CAD9E31001A3805 /* ButtonAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = ButtonAnimation.json; sourceTree = "<group>"; };
+		B3FA11C22CAD9E31001A3805 /* PawLoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PawLoadingAnimation.json; sourceTree = "<group>"; };
+		B3FA11C62CADA535001A3805 /* FoodLoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FoodLoadingAnimation.json; sourceTree = "<group>"; };
+		B3FA11C72CADA535001A3805 /* RibbonAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RibbonAnimation.json; sourceTree = "<group>"; };
+		B3FA11CA2CADA9C4001A3805 /*  FoodCarouselAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " FoodCarouselAnimation.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -252,6 +265,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */,
+				B3FA11BE2CAD9D40001A3805 /* Lottie in Frameworks */,
 				B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */,
 				B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */,
 				B32CDD882C9C4DFE00F92244 /* Kingfisher in Frameworks */,
@@ -391,6 +405,7 @@
 				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
 				B3FA116E2CA6925D001A3805 /* SignInAndIntro */,
 				B387D9702C9D242500CCC311 /* UserProfile */,
+				B3FA11BF2CAD9DEF001A3805 /* Animation */,
 				B36C19022C9A97E500D9D1CC /* Extension */,
 				B36C18C12C99D96700D9D1CC /* Manager */,
 				B387D9952CA14E6F00CCC311 /* Calculator */,
@@ -678,6 +693,19 @@
 			path = CalControlWidget;
 			sourceTree = "<group>";
 		};
+		B3FA11BF2CAD9DEF001A3805 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				B3FA11C12CAD9E31001A3805 /* ButtonAnimation.json */,
+				B3FA11C22CAD9E31001A3805 /* PawLoadingAnimation.json */,
+				B3FA11C02CAD9E31001A3805 /* PlusToXAnimation.json */,
+				B3FA11C62CADA535001A3805 /* FoodLoadingAnimation.json */,
+				B3FA11C72CADA535001A3805 /* RibbonAnimation.json */,
+				B3FA11CA2CADA9C4001A3805 /*  FoodCarouselAnimation.json */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -704,6 +732,7 @@
 				B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */,
 				B32CDD722C9BF02000F92244 /* FirebaseStorage */,
 				B32CDD872C9C4DFE00F92244 /* Kingfisher */,
+				B3FA11BD2CAD9D40001A3805 /* Lottie */,
 			);
 			productName = "CalControl+";
 			productReference = B3B512852C91682700E02A43 /* CalControlPlus.app */;
@@ -757,6 +786,7 @@
 				B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B370A3782C96CAD900CDBF44 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				B32CDD862C9C4DFE00F92244 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				B3FA11BC2CAD9D40001A3805 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = B3B512862C91682700E02A43 /* Products */;
 			projectDirPath = "";
@@ -773,11 +803,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3FA11CB2CADA9C4001A3805 /*  FoodCarouselAnimation.json in Resources */,
 				B36C18EC2C99D96700D9D1CC /* GoogleService-Info.plist in Resources */,
 				B36C18EE2C99D96700D9D1CC /* LaunchScreen.storyboard in Resources */,
+				B3FA11C32CAD9E31001A3805 /* PlusToXAnimation.json in Resources */,
 				B36C18EF2C99D96700D9D1CC /* Main.storyboard in Resources */,
+				B3FA11C92CADA535001A3805 /* RibbonAnimation.json in Resources */,
 				B36C18EA2C99D96700D9D1CC /* DietRecord.storyboard in Resources */,
 				B36C18E82C99D96700D9D1CC /* Assets.xcassets in Resources */,
+				B3FA11C52CAD9E31001A3805 /* PawLoadingAnimation.json in Resources */,
+				B3FA11C42CAD9E31001A3805 /* ButtonAnimation.json in Resources */,
+				B3FA11C82CADA535001A3805 /* FoodLoadingAnimation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1249,6 +1285,14 @@
 				minimumVersion = 11.2.0;
 			};
 		};
+		B3FA11BC2CAD9D40001A3805 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1281,6 +1325,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		B3FA11BD2CAD9D40001A3805 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3FA11BC2CAD9D40001A3805 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Lottie
 
 class InfoWeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -33,7 +34,7 @@ class InfoWeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     private lazy var nextButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Next", for: .normal)
-        btn.backgroundColor = .lightGreen
+        btn.backgroundColor = .clear
         btn.tintColor = .white
         btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
@@ -45,12 +46,15 @@ class InfoWeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     private var selectedDecimal: Int = 0
     
     var nextPage: (() -> Void)?
+    
+    private var lottieAnimationView: LottieAnimationView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
         
         setupUI()
+        setupLottieAnimation()
     }
     
     private func setupUI() {
@@ -74,6 +78,28 @@ class InfoWeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
             nextButton.heightAnchor.constraint(equalToConstant: 50),
             nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+    }
+    
+    private func setupLottieAnimation() {
+        lottieAnimationView = LottieAnimationView(name: "ButtonAnimation")
+        guard let lottieAnimationView = lottieAnimationView else { return }
+        
+        lottieAnimationView.translatesAutoresizingMaskIntoConstraints = false
+        lottieAnimationView.contentMode = .scaleAspectFill
+        lottieAnimationView.loopMode = .loop
+        lottieAnimationView.isUserInteractionEnabled = false
+        
+        nextButton.addSubview(lottieAnimationView)
+        nextButton.sendSubviewToBack(lottieAnimationView)
+        
+        NSLayoutConstraint.activate([
+            lottieAnimationView.leadingAnchor.constraint(equalTo: nextButton.leadingAnchor),
+            lottieAnimationView.trailingAnchor.constraint(equalTo: nextButton.trailingAnchor),
+            lottieAnimationView.topAnchor.constraint(equalTo: nextButton.topAnchor),
+            lottieAnimationView.bottomAnchor.constraint(equalTo: nextButton.bottomAnchor)
+        ])
+        
+        lottieAnimationView.play()
     }
     
     // MARK: - UIPickerViewDataSource
@@ -111,7 +137,5 @@ class InfoWeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         UserInfoCollector.shared.weight = weight
         
         nextPage?()
-//        let activityVC = InfoActivityVC()
-//        self.navigationController?.pushViewController(activityVC, animated: true)
     }
 }
