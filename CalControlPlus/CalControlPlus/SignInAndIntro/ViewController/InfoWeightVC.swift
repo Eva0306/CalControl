@@ -10,6 +10,17 @@ import UIKit
 class InfoWeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     private let weightIntegerRange = Array(30...200)
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "您的體重是..."
+        label.textAlignment = .center
+        label.textColor = .darkGreen
+        label.font = .systemFont(ofSize: 24, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let weightDecimalRange = Array(0...9)
     private lazy var weightPickerView: UIPickerView = {
         let picker = UIPickerView()
@@ -32,6 +43,8 @@ class InfoWeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     
     private var selectedInteger: Int = 60
     private var selectedDecimal: Int = 0
+    
+    var nextPage: (() -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,16 +58,21 @@ class InfoWeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         weightPickerView.selectRow(selectedDecimal, inComponent: 1, animated: true)
         
         view.addSubview(weightPickerView)
+        view.addSubview(titleLabel)
         view.addSubview(nextButton)
         
         NSLayoutConstraint.activate([
             weightPickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             weightPickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            
             nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -92,7 +110,8 @@ class InfoWeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         let weight = Double(selectedInteger) + Double(selectedDecimal) / 10.0
         UserInfoCollector.shared.weight = weight
         
-        let activityVC = InfoActivityVC()
-        self.navigationController?.pushViewController(activityVC, animated: true)
+        nextPage?()
+//        let activityVC = InfoActivityVC()
+//        self.navigationController?.pushViewController(activityVC, animated: true)
     }
 }

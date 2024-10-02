@@ -39,8 +39,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func testShowInfoVC() {
-        let InfoNameVC = InfoNameVC()
-        window?.rootViewController = UINavigationController(rootViewController: InfoNameVC)
+        let initialVC = DataCollectionContainerVC()
+        window?.rootViewController = UINavigationController(rootViewController: initialVC)
         window?.makeKeyAndVisible()
     }
     

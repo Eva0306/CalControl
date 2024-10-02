@@ -10,6 +10,16 @@ import FirebaseFirestore
 
 class InfoStartVC: UIViewController {
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "開始你的健康之旅吧"
+        label.textAlignment = .center
+        label.textColor = .darkGreen
+        label.font = .systemFont(ofSize: 24, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var confirmButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setTitle("Confirm", for: .normal)
@@ -25,11 +35,11 @@ class InfoStartVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .background
         setupUI()
     }
     
     private func setupUI() {
-        view.backgroundColor = .white
         view.addSubview(confirmButton)
         
         NSLayoutConstraint.activate([
@@ -71,7 +81,6 @@ class InfoStartVC: UIViewController {
                 )
             }
         } else {
-            // 沒有圖片時直接上傳資料
             saveUserData(
                 userID: userID,
                 name: name,

@@ -112,6 +112,7 @@
 		B3FA11B32CAA9E27001A3805 /* DailyProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */; };
 		B3FA11B42CAA9E27001A3805 /* DailyProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */; };
 		B3FA11B72CABB8F9001A3805 /* DatePickerModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B62CABB8F9001A3805 /* DatePickerModal.swift */; };
+		B3FA11B92CAD0FED001A3805 /* DataCollectionContainerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11B82CAD0FED001A3805 /* DataCollectionContainerVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -242,6 +243,7 @@
 		B3FA11AC2CAA9761001A3805 /* CalControlWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalControlWidgetExtension.entitlements; sourceTree = "<group>"; };
 		B3FA11B22CAA9E27001A3805 /* DailyProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyProgressView.swift; sourceTree = "<group>"; };
 		B3FA11B62CABB8F9001A3805 /* DatePickerModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerModal.swift; sourceTree = "<group>"; };
+		B3FA11B82CAD0FED001A3805 /* DataCollectionContainerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCollectionContainerVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -636,15 +638,6 @@
 			children = (
 				B3FA11832CA85597001A3805 /* Model */,
 				B3FA11862CA855D6001A3805 /* ViewController */,
-				B3FA116F2CA69283001A3805 /* SignInVC.swift */,
-				B3FA11732CA80488001A3805 /* InfoNameVC.swift */,
-				B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */,
-				B3FA11772CA804B9001A3805 /* InfoBirthdayVC.swift */,
-				B3FA11792CA804CE001A3805 /* InfoHeightVC.swift */,
-				B3FA117B2CA804D8001A3805 /* InfoWeightVC.swift */,
-				B3FA117D2CA804EA001A3805 /* InfoActivityVC.swift */,
-				B3FA117F2CA804F6001A3805 /* InfoTargetVC.swift */,
-				B3FA11812CA8050A001A3805 /* InfoStartVC.swift */,
 			);
 			path = SignInAndIntro;
 			sourceTree = "<group>";
@@ -660,6 +653,16 @@
 		B3FA11862CA855D6001A3805 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B3FA116F2CA69283001A3805 /* SignInVC.swift */,
+				B3FA11B82CAD0FED001A3805 /* DataCollectionContainerVC.swift */,
+				B3FA11732CA80488001A3805 /* InfoNameVC.swift */,
+				B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */,
+				B3FA11772CA804B9001A3805 /* InfoBirthdayVC.swift */,
+				B3FA11792CA804CE001A3805 /* InfoHeightVC.swift */,
+				B3FA117B2CA804D8001A3805 /* InfoWeightVC.swift */,
+				B3FA117D2CA804EA001A3805 /* InfoActivityVC.swift */,
+				B3FA117F2CA804F6001A3805 /* InfoTargetVC.swift */,
+				B3FA11812CA8050A001A3805 /* InfoStartVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -851,6 +854,7 @@
 				B36C18D82C99D96700D9D1CC /* TextViewCell.swift in Sources */,
 				B387D96B2C9C811200CCC311 /* DashboardViewModel.swift in Sources */,
 				B31384662CA50C98008272B0 /* WeightRecordDetailVC.swift in Sources */,
+				B3FA11B92CAD0FED001A3805 /* DataCollectionContainerVC.swift in Sources */,
 				B387D9682C9C7C7400CCC311 /* UserSettings.swift in Sources */,
 				B3FA117A2CA804CE001A3805 /* InfoHeightVC.swift in Sources */,
 				B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */,

@@ -12,6 +12,18 @@ class InfoGenderVC: UIViewController {
     private var buttons: [UIButton] = []
     private var selectedGender: Gender?
     
+    var nextPage: (() -> Void)?
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "您的性別是..."
+        label.textAlignment = .center
+        label.textColor = .darkGreen
+        label.font = .systemFont(ofSize: 24, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var stackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
@@ -66,12 +78,18 @@ class InfoGenderVC: UIViewController {
             $0.heightAnchor.constraint(equalToConstant: 50).isActive = true
         }
         
+        view.addSubview(titleLabel)
         view.addSubview(nextButton)
+        
         NSLayoutConstraint.activate([
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            
             nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -95,7 +113,9 @@ class InfoGenderVC: UIViewController {
         
         UserInfoCollector.shared.gender = gender
         
-        let birthdayVC = InfoBirthdayVC()
-        self.navigationController?.pushViewController(birthdayVC, animated: true)
+        nextPage?()
+        
+//        let birthdayVC = InfoBirthdayVC()
+//        self.navigationController?.pushViewController(birthdayVC, animated: true)
     }
 }

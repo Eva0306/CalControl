@@ -6,7 +6,7 @@
 //
 
 import UIKit
-// TODO: - Title!! button使用比例對齊
+
 class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private lazy var titleLabel: UILabel = {
@@ -30,11 +30,18 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     private lazy var avatarImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
         iv.image = UIImage(systemName: "person.crop.circle")
         iv.isUserInteractionEnabled = true
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
+    }()
+    
+    private let plusImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "plus.circle.fill"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.tintColor = .lightGreen
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
     
     private lazy var nextButton: UIButton = {
@@ -49,6 +56,8 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         btn.layer.cornerRadius = 8
         return btn
     }()
+    
+    var nextPage: (() -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +92,7 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
             rightPaddingView.widthAnchor.constraint(equalToConstant: 30)
         ])
         
-        let mainStackView = UIStackView(arrangedSubviews: [titleLabel, avatarContainer, nameTextField, nextButton])
+        let mainStackView = UIStackView(arrangedSubviews: [titleLabel, avatarContainer, nameTextField])
         mainStackView.axis = .vertical
         mainStackView.spacing = 40
         mainStackView.alignment = .fill
@@ -91,15 +100,25 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(mainStackView)
+        view.addSubview(nextButton)
+        avatarImageView.addSubview(plusImageView)
         
         NSLayoutConstraint.activate([
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
-            mainStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100),
+            mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
             
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
             nameTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            plusImageView.heightAnchor.constraint(equalToConstant: 70),
+            plusImageView.widthAnchor.constraint(equalToConstant: 70),
+            plusImageView.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: -20),
+            plusImageView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: -20),
+            
+            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
@@ -136,8 +155,7 @@ extension InfoNameVC {
         
         UserInfoCollector.shared.name = name
         
-        let genderVC = InfoGenderVC()
-        self.navigationController?.pushViewController(genderVC, animated: true)
+        nextPage?()
     }
     
     private func isValidName(_ name: String) -> Bool {
@@ -163,6 +181,7 @@ extension InfoNameVC: UITextFieldDelegate {
         let currentText = (textField.text as NSString?)?.replacingCharacters(in: range, with: string) ?? string
         nextButton.isEnabled = !currentText.trimmingCharacters(in: .whitespaces).isEmpty
         nextButton.backgroundColor = nextButton.isEnabled ? .lightGreen : .lightGray
+        
         return true
     }
 }

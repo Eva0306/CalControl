@@ -94,8 +94,8 @@ extension SignInVC: ASAuthorizationControllerDelegate {
                         UserInfoCollector.shared.userID = user.uid
                         UserInfoCollector.shared.name = name
                         UserInfoCollector.shared.email = email
-                        let InfoNameVC = InfoNameVC()
-                        self.navigationController?.pushViewController(InfoNameVC, animated: true)
+                        let dataCollectionContainerVC = DataCollectionContainerVC()
+                        self.navigationController?.pushViewController(dataCollectionContainerVC, animated: true)
                     }
                 }
             }

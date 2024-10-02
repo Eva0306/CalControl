@@ -9,6 +9,16 @@ import UIKit
 
 class InfoBirthdayVC: UIViewController {
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "您的生日是..."
+        label.textAlignment = .center
+        label.textColor = .darkGreen
+        label.font = .systemFont(ofSize: 24, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var birthdayDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
@@ -29,6 +39,8 @@ class InfoBirthdayVC: UIViewController {
         return btn
     }()
     
+    var nextPage: (() -> Void)?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
@@ -38,16 +50,21 @@ class InfoBirthdayVC: UIViewController {
     
     private func setupUI() {
         view.addSubview(birthdayDatePicker)
+        view.addSubview(titleLabel)
         view.addSubview(nextButton)
         
         NSLayoutConstraint.activate([
             birthdayDatePicker.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             birthdayDatePicker.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            
             nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -58,7 +75,8 @@ class InfoBirthdayVC: UIViewController {
         
         UserInfoCollector.shared.birthday = birthdayString
         
-        let heightVC = InfoHeightVC()
-        self.navigationController?.pushViewController(heightVC, animated: true)
+        nextPage?()
+//        let heightVC = InfoHeightVC()
+//        self.navigationController?.pushViewController(heightVC, animated: true)
     }
 }

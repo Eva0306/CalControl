@@ -10,6 +10,17 @@ import UIKit
 class InfoHeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     private let heightRange = Array(100...250)
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "您的身高是..."
+        label.textAlignment = .center
+        label.textColor = .darkGreen
+        label.font = .systemFont(ofSize: 24, weight: .semibold)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var heightPickerView: UIPickerView = {
         let picker = UIPickerView()
         picker.delegate = self
@@ -30,6 +41,8 @@ class InfoHeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     }()
     
     private var selectedHeight: Int = 160
+    
+    var nextPage: (() -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,16 +55,21 @@ class InfoHeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
         heightPickerView.selectRow(selectedHeight - 100, inComponent: 0, animated: true)
         
         view.addSubview(heightPickerView)
+        view.addSubview(titleLabel)
         view.addSubview(nextButton)
         
         NSLayoutConstraint.activate([
             heightPickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             heightPickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            
             nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -76,7 +94,8 @@ class InfoHeightVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSour
     @objc private func nextButtonTapped() {
         UserInfoCollector.shared.height = Double(selectedHeight)
         
-        let weightVC = InfoWeightVC()
-        self.navigationController?.pushViewController(weightVC, animated: true)
+        nextPage?()
+//        let weightVC = InfoWeightVC()
+//        self.navigationController?.pushViewController(weightVC, animated: true)
     }
 }
