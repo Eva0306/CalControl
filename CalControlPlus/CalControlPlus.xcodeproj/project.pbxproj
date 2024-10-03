@@ -20,6 +20,7 @@
 		B323DC712CAE997E006C35AC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B323DC702CAE997E006C35AC /* LoadingView.swift */; };
 		B323DC732CAEEE34006C35AC /* toggleDayNightAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B323DC722CAEEE34006C35AC /* toggleDayNightAnimation.json */; };
 		B323DC752CAEF1FD006C35AC /* FriendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B323DC742CAEF1FD006C35AC /* FriendListVC.swift */; };
+		B323DC772CAEF2B6006C35AC /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B323DC762CAEF2B6006C35AC /* FriendListCell.swift */; };
 		B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */; };
 		B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */; };
 		B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */; };
@@ -163,6 +164,7 @@
 		B323DC702CAE997E006C35AC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B323DC722CAEEE34006C35AC /* toggleDayNightAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = toggleDayNightAnimation.json; sourceTree = "<group>"; };
 		B323DC742CAEF1FD006C35AC /* FriendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListVC.swift; sourceTree = "<group>"; };
+		B323DC762CAEF2B6006C35AC /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
 		B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisView.swift; sourceTree = "<group>"; };
 		B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisCell.swift; sourceTree = "<group>"; };
 		B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriModel.swift; sourceTree = "<group>"; };
@@ -600,6 +602,7 @@
 		B387D9862CA0FAE500CCC311 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B323DC742CAEF1FD006C35AC /* FriendListVC.swift */,
 				B36C19002C9A979800D9D1CC /* ProfileVC.swift */,
 			);
 			path = ViewController;
@@ -614,7 +617,7 @@
 				B387D9892CA0FB0F00CCC311 /* ProfileCell.swift */,
 				B387D9962CA1B34100CCC311 /* UserBasicCardCell.swift */,
 				B387D98B2CA0FB1A00CCC311 /* SettingCardCell.swift */,
-				B323DC742CAEF1FD006C35AC /* FriendListVC.swift */,
+				B323DC762CAEF2B6006C35AC /* FriendListCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -907,6 +910,7 @@
 				B387D97E2CA07A8200CCC311 /* WeightRecordViewModel.swift in Sources */,
 				B387D96F2C9D231900CCC311 /* UserProfileViewModel.swift in Sources */,
 				B36C18D52C99D96700D9D1CC /* NutritionImageCell.swift in Sources */,
+				B323DC772CAEF2B6006C35AC /* FriendListCell.swift in Sources */,
 				B36C18F02C99D96700D9D1CC /* MainTabBarController.swift in Sources */,
 				B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */,
 				B31384742CA5ACB3008272B0 /* ShowQRCodeVC.swift in Sources */,

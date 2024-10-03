@@ -69,6 +69,11 @@ extension SettingCardCell {
         horizontalStackView.addArrangedSubview(rightView)
         
         verticalStackView.addArrangedSubview(horizontalStackView)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(rowTappedAction(_:)))
+        horizontalStackView.addGestureRecognizer(tapGesture)
+        horizontalStackView.isUserInteractionEnabled = true
+        horizontalStackView.tag = verticalStackView.arrangedSubviews.count - 1
     }
     
     private func createArrowImageView() -> UIImageView {
@@ -89,6 +94,35 @@ extension SettingCardCell {
         stackView.axis = .horizontal
         stackView.spacing = 8
         return stackView
+    }
+}
+
+// MARK: - Tap Event
+extension SettingCardCell {
+    @objc private func rowTappedAction(_ sender: UITapGestureRecognizer) {
+        guard let tappedRow = sender.view?.tag else { return }
+        
+        switch tappedRow {
+        case 0:
+            return
+        case 1:
+            if let vc = self.findViewController() {
+                let friendListVC = FriendListVC()
+                vc.navigationController?.pushViewController(friendListVC, animated: true)
+            }
+        case 2:
+            if let vc = self.findViewController() {
+                let privacyVC = UIViewController()
+                vc.navigationController?.pushViewController(privacyVC, animated: true)
+            }
+        case 3:
+            if let vc = self.findViewController() {
+                let reportVC = UIViewController()
+                vc.navigationController?.pushViewController(reportVC, animated: true)
+            }
+        default:
+            return
+        }
     }
 }
 

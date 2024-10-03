@@ -167,7 +167,9 @@ extension WeightRecordDetailVC: UITableViewDelegate {
         }
         
         let recordToRemove = sortedWeightRecords[indexPath.row]
-        if let originalIndex = UserProfileViewModel.shared.user.weightRecord.firstIndex(where: { $0.date == recordToRemove.date }) {
+        if let originalIndex = UserProfileViewModel.shared.user.weightRecord.firstIndex(
+            where: { $0.date == recordToRemove.date }
+        ) {
             UserProfileViewModel.shared.user.weightRecord.remove(at: originalIndex)
         }
         

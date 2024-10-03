@@ -33,8 +33,8 @@ struct User: Codable, Equatable {
 }
 
 enum UserStatus: String, Codable, Equatable {
-    case active = "active"
-    case deleted = "deleted"
+    case active
+    case deleted
 }
 
 enum Gender: Int, Codable, CaseIterable, Equatable {
@@ -117,6 +117,6 @@ struct TotalNutrition: Codable, Equatable {
 struct Friend: Codable, Equatable {
     let userID: String
     let addedAt: Timestamp
-    let status: String
+    var status: String
     var isFavorite: Bool
 }

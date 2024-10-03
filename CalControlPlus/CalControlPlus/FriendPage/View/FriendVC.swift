@@ -47,9 +47,12 @@ class FriendVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        friendViewModel.fetchFriendData()
-        friendViewModel.addObserver()
         addBindings()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        friendViewModel.fetchFriendData()
     }
     
     private func setupView() {

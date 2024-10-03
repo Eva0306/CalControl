@@ -77,6 +77,9 @@ class FriendCardCell: BaseCardTableViewCell {
         self.friend = friend
         self.viewModel.fetchFriendData(friendID: friend.userID)
         
+        let imageName = friend.isFavorite ? "heart.fill" : "heart"
+        heartButton.setImage(UIImage(systemName: imageName), for: .normal)
+        
         self.viewModel.didToggleFavorite = { [weak viewModel] in
             guard let viewModel = viewModel else { return }
             viewModel.toggleFavorite(for: friend)
