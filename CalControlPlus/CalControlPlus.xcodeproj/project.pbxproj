@@ -18,6 +18,8 @@
 		B31384742CA5ACB3008272B0 /* ShowQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384732CA5ACB3008272B0 /* ShowQRCodeVC.swift */; };
 		B31384762CA5ACBD008272B0 /* ScanQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384752CA5ACBD008272B0 /* ScanQRCodeVC.swift */; };
 		B323DC712CAE997E006C35AC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B323DC702CAE997E006C35AC /* LoadingView.swift */; };
+		B323DC732CAEEE34006C35AC /* toggleDayNightAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B323DC722CAEEE34006C35AC /* toggleDayNightAnimation.json */; };
+		B323DC752CAEF1FD006C35AC /* FriendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B323DC742CAEF1FD006C35AC /* FriendListVC.swift */; };
 		B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */; };
 		B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */; };
 		B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */; };
@@ -159,6 +161,8 @@
 		B31384732CA5ACB3008272B0 /* ShowQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowQRCodeVC.swift; sourceTree = "<group>"; };
 		B31384752CA5ACBD008272B0 /* ScanQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRCodeVC.swift; sourceTree = "<group>"; };
 		B323DC702CAE997E006C35AC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		B323DC722CAEEE34006C35AC /* toggleDayNightAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = toggleDayNightAnimation.json; sourceTree = "<group>"; };
+		B323DC742CAEF1FD006C35AC /* FriendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListVC.swift; sourceTree = "<group>"; };
 		B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisView.swift; sourceTree = "<group>"; };
 		B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisCell.swift; sourceTree = "<group>"; };
 		B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriModel.swift; sourceTree = "<group>"; };
@@ -610,6 +614,7 @@
 				B387D9892CA0FB0F00CCC311 /* ProfileCell.swift */,
 				B387D9962CA1B34100CCC311 /* UserBasicCardCell.swift */,
 				B387D98B2CA0FB1A00CCC311 /* SettingCardCell.swift */,
+				B323DC742CAEF1FD006C35AC /* FriendListVC.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -705,6 +710,7 @@
 				B3FA11C62CADA535001A3805 /* FoodLoadingAnimation.json */,
 				B3FA11C72CADA535001A3805 /* RibbonAnimation.json */,
 				B3FA11CA2CADA9C4001A3805 /* FoodCarouselAnimation.json */,
+				B323DC722CAEEE34006C35AC /* toggleDayNightAnimation.json */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -812,6 +818,7 @@
 				B3FA11C32CAD9E31001A3805 /* PlusToXAnimation.json in Resources */,
 				B36C18EF2C99D96700D9D1CC /* Main.storyboard in Resources */,
 				B3FA11C92CADA535001A3805 /* RibbonAnimation.json in Resources */,
+				B323DC732CAEEE34006C35AC /* toggleDayNightAnimation.json in Resources */,
 				B36C18EA2C99D96700D9D1CC /* DietRecord.storyboard in Resources */,
 				B36C18E82C99D96700D9D1CC /* Assets.xcassets in Resources */,
 				B3FA11C52CAD9E31001A3805 /* PawLoadingAnimation.json in Resources */,
@@ -937,6 +944,7 @@
 				B3FA117E2CA804EA001A3805 /* InfoActivityVC.swift in Sources */,
 				B387D98C2CA0FB1A00CCC311 /* SettingCardCell.swift in Sources */,
 				B387D9742C9F269900CCC311 /* WeeklyAnalysisViewModel.swift in Sources */,
+				B323DC752CAEF1FD006C35AC /* FriendListVC.swift in Sources */,
 				B36C18DC2C99D96700D9D1CC /* NutritionVC.swift in Sources */,
 				B36C18D92C99D96700D9D1CC /* CameraVC.swift in Sources */,
 				B36C19182C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift in Sources */,

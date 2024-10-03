@@ -37,6 +37,7 @@ class UserInfoCollector {
         
         return User(
             id: userID,
+            status: .active,
             createdTime: Timestamp(date: Date()),
             email: email,
             name: name,

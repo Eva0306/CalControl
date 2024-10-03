@@ -171,6 +171,7 @@ class InfoStartVC: UIViewController {
         // swiftlint:enable function_parameter_count line_length
         let userData: User = User(
             id: userID,
+            status: .active,
             createdTime: Timestamp(date: Date()),
             email: email,
             name: name,

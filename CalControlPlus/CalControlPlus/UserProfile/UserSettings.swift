@@ -17,6 +17,7 @@ struct UserSettings {
 
 struct User: Codable, Equatable {
     let id: String
+    var status: UserStatus
     let createdTime: Timestamp
     let email: String?
     var name: String
@@ -29,6 +30,11 @@ struct User: Codable, Equatable {
     var target: Target
     var totalNutrition: [TotalNutrition] // MAX item: 7
     var friends: [Friend]?
+}
+
+enum UserStatus: String, Codable, Equatable {
+    case active = "active"
+    case deleted = "deleted"
 }
 
 enum Gender: Int, Codable, CaseIterable, Equatable {
