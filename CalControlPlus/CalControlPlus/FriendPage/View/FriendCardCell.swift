@@ -12,6 +12,8 @@ class FriendCardCell: BaseCardTableViewCell {
     
     static let identifier = "FriendCardCell"
     
+    private var friend: Friend?
+    
     var viewModel = FriendCardViewModel()
     private var subscriptions = Set<AnyCancellable>()
     
@@ -37,11 +39,12 @@ class FriendCardCell: BaseCardTableViewCell {
     
     lazy var heartButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        button.setImage(UIImage(systemName: "heart"), for: .normal)
         button.tintColor = .mainRed
         button.contentHorizontalAlignment = .fill
         button.contentVerticalAlignment = .fill
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(heartButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -70,8 +73,14 @@ class FriendCardCell: BaseCardTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with friend: Friend) {
-        viewModel.fetchFriendData(friendID: friend.userID)
+    func configure(with friend: Friend, viewModel: FriendViewModel) {
+        self.friend = friend
+        self.viewModel.fetchFriendData(friendID: friend.userID)
+        
+        self.viewModel.didToggleFavorite = { [weak viewModel] in
+            guard let viewModel = viewModel else { return }
+            viewModel.toggleFavorite(for: friend)
+        }
     }
     
     private func addBindings() {
@@ -121,52 +130,63 @@ class FriendCardCell: BaseCardTableViewCell {
             .store(in: &subscriptions)
     }
     
+    @objc private func heartButtonTapped() {
+        guard let friend = friend else { return }
+        viewModel.toggleFavoriteStatus()
+        let newHeartImage = friend.isFavorite ? "heart" : "heart.fill"
+        heartButton.setImage(UIImage(systemName: newHeartImage), for: .normal)
+    }
+    
     private func setupView() {
-        let labelStackView: UIStackView = createStackView(
-            for: [carbsLabel, fatsLabel, proteinLabel],
-            spacing: 10,
-            axis: .vertical
-        )
-        let progressBarStackView: UIStackView = createStackView(
-            for: [carbsProgressView, fatsProgressView, proteinProgressView],
-            spacing: 15,
-            axis: .vertical
-        )
-        progressBarStackView.isLayoutMarginsRelativeArrangement = true
-        progressBarStackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
-        
-        let nutrientsStackView: UIStackView = createStackView(
-            for: [labelStackView, progressBarStackView],
-            spacing: 10,
-            axis: .horizontal
-        )
-        nutrientsStackView.distribution = .fill
-        
-        let combineStackView: UIStackView = createStackView(
-            for: [nutrientsStackView, chartContainer],
-            spacing: 30,
-            axis: .horizontal)
-        combineStackView.distribution = .fillProportionally
-        
-        innerContentView.addSubview(avatarImageView)
-        innerContentView.addSubview(nameLabel)
-        innerContentView.addSubview(heartButton)
-        innerContentView.addSubview(combineStackView)
+        setupAvatarImageView()
+        setupNameLabel()
+        setupHeartButton()
+        setupCombineStackView()
+        setupChartContainer()
+    }
 
+    private func setupAvatarImageView() {
+        innerContentView.addSubview(avatarImageView)
         NSLayoutConstraint.activate([
             avatarImageView.leadingAnchor.constraint(equalTo: innerContentView.leadingAnchor, constant: 10),
             avatarImageView.topAnchor.constraint(equalTo: innerContentView.topAnchor, constant: 10),
             avatarImageView.widthAnchor.constraint(equalToConstant: 50),
-            avatarImageView.heightAnchor.constraint(equalToConstant: 50),
+            avatarImageView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
 
+    private func setupNameLabel() {
+        innerContentView.addSubview(nameLabel)
+        NSLayoutConstraint.activate([
             nameLabel.leadingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: 10),
-            nameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor),
+            nameLabel.centerYAnchor.constraint(equalTo: avatarImageView.centerYAnchor)
+        ])
+    }
 
+    private func setupHeartButton() {
+        innerContentView.addSubview(heartButton)
+        NSLayoutConstraint.activate([
             heartButton.widthAnchor.constraint(equalToConstant: 30),
             heartButton.heightAnchor.constraint(equalToConstant: 25),
             heartButton.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor, constant: -20),
-            heartButton.topAnchor.constraint(equalTo: innerContentView.topAnchor, constant: 20),
-            
+            heartButton.topAnchor.constraint(equalTo: innerContentView.topAnchor, constant: 20)
+        ])
+    }
+
+    private func setupCombineStackView() {
+        let labelStackView = createStackView(for: [carbsLabel, fatsLabel, proteinLabel], spacing: 10, axis: .vertical)
+        let progressBarStackView = createStackView(for: [carbsProgressView, fatsProgressView, proteinProgressView], spacing: 15, axis: .vertical)
+        progressBarStackView.isLayoutMarginsRelativeArrangement = true
+        progressBarStackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
+        
+        let nutrientsStackView = createStackView(for: [labelStackView, progressBarStackView], spacing: 10, axis: .horizontal)
+        nutrientsStackView.distribution = .fill
+        
+        let combineStackView = createStackView(for: [nutrientsStackView, chartContainer], spacing: 30, axis: .horizontal)
+        combineStackView.distribution = .fillProportionally
+        
+        innerContentView.addSubview(combineStackView)
+        NSLayoutConstraint.activate([
             combineStackView.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: 20),
             combineStackView.leadingAnchor.constraint(equalTo: innerContentView.leadingAnchor, constant: 20),
             combineStackView.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor, constant: -10),
@@ -175,9 +195,21 @@ class FriendCardCell: BaseCardTableViewCell {
             chartContainer.widthAnchor.constraint(equalToConstant: 100),
             chartContainer.heightAnchor.constraint(equalToConstant: 100)
         ])
-
     }
-    
+
+    private func setupChartContainer() {
+        let remainingLabel = UILabel()
+        remainingLabel.text = "剩餘"
+        remainingLabel.font = .systemFont(ofSize: 12)
+        remainingLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        chartContainer.addSubview(remainingLabel)
+        NSLayoutConstraint.activate([
+            remainingLabel.centerXAnchor.constraint(equalTo: chartContainer.centerXAnchor),
+            remainingLabel.centerYAnchor.constraint(equalTo: chartContainer.centerYAnchor)
+        ])
+    }
+
     private func setupCircularChart() {
         let backgroundCircle = CAShapeLayer()
 

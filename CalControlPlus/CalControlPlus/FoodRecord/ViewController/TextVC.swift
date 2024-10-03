@@ -189,5 +189,4 @@ extension TextVC {
         nutritionVC.modalPresentationStyle = .fullScreen
         self.present(nutritionVC, animated: true, completion: nil)
     }
-    
 }

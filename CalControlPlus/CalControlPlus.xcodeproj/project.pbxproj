@@ -17,6 +17,7 @@
 		B31384722CA5ACA4008272B0 /* InputFriendIDVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384712CA5ACA4008272B0 /* InputFriendIDVC.swift */; };
 		B31384742CA5ACB3008272B0 /* ShowQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384732CA5ACB3008272B0 /* ShowQRCodeVC.swift */; };
 		B31384762CA5ACBD008272B0 /* ScanQRCodeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31384752CA5ACBD008272B0 /* ScanQRCodeVC.swift */; };
+		B323DC712CAE997E006C35AC /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B323DC702CAE997E006C35AC /* LoadingView.swift */; };
 		B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */; };
 		B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */; };
 		B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */; };
@@ -119,7 +120,7 @@
 		B3FA11C52CAD9E31001A3805 /* PawLoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11C22CAD9E31001A3805 /* PawLoadingAnimation.json */; };
 		B3FA11C82CADA535001A3805 /* FoodLoadingAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11C62CADA535001A3805 /* FoodLoadingAnimation.json */; };
 		B3FA11C92CADA535001A3805 /* RibbonAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11C72CADA535001A3805 /* RibbonAnimation.json */; };
-		B3FA11CB2CADA9C4001A3805 /*  FoodCarouselAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11CA2CADA9C4001A3805 /*  FoodCarouselAnimation.json */; };
+		B3FA11CB2CADA9C4001A3805 /* FoodCarouselAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B3FA11CA2CADA9C4001A3805 /* FoodCarouselAnimation.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +158,7 @@
 		B31384712CA5ACA4008272B0 /* InputFriendIDVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputFriendIDVC.swift; sourceTree = "<group>"; };
 		B31384732CA5ACB3008272B0 /* ShowQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowQRCodeVC.swift; sourceTree = "<group>"; };
 		B31384752CA5ACBD008272B0 /* ScanQRCodeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanQRCodeVC.swift; sourceTree = "<group>"; };
+		B323DC702CAE997E006C35AC /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisView.swift; sourceTree = "<group>"; };
 		B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisCell.swift; sourceTree = "<group>"; };
 		B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriModel.swift; sourceTree = "<group>"; };
@@ -256,7 +258,7 @@
 		B3FA11C22CAD9E31001A3805 /* PawLoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = PawLoadingAnimation.json; sourceTree = "<group>"; };
 		B3FA11C62CADA535001A3805 /* FoodLoadingAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FoodLoadingAnimation.json; sourceTree = "<group>"; };
 		B3FA11C72CADA535001A3805 /* RibbonAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = RibbonAnimation.json; sourceTree = "<group>"; };
-		B3FA11CA2CADA9C4001A3805 /*  FoodCarouselAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = " FoodCarouselAnimation.json"; sourceTree = "<group>"; };
+		B3FA11CA2CADA9C4001A3805 /* FoodCarouselAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FoodCarouselAnimation.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -403,6 +405,7 @@
 				B36C18CE2C99D96700D9D1CC /* SceneDelegate.swift */,
 				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
 				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
+				B323DC702CAE997E006C35AC /* LoadingView.swift */,
 				B3FA116E2CA6925D001A3805 /* SignInAndIntro */,
 				B387D9702C9D242500CCC311 /* UserProfile */,
 				B3FA11BF2CAD9DEF001A3805 /* Animation */,
@@ -701,7 +704,7 @@
 				B3FA11C02CAD9E31001A3805 /* PlusToXAnimation.json */,
 				B3FA11C62CADA535001A3805 /* FoodLoadingAnimation.json */,
 				B3FA11C72CADA535001A3805 /* RibbonAnimation.json */,
-				B3FA11CA2CADA9C4001A3805 /*  FoodCarouselAnimation.json */,
+				B3FA11CA2CADA9C4001A3805 /* FoodCarouselAnimation.json */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -803,7 +806,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3FA11CB2CADA9C4001A3805 /*  FoodCarouselAnimation.json in Resources */,
+				B3FA11CB2CADA9C4001A3805 /* FoodCarouselAnimation.json in Resources */,
 				B36C18EC2C99D96700D9D1CC /* GoogleService-Info.plist in Resources */,
 				B36C18EE2C99D96700D9D1CC /* LaunchScreen.storyboard in Resources */,
 				B3FA11C32CAD9E31001A3805 /* PlusToXAnimation.json in Resources */,
@@ -916,6 +919,7 @@
 				B31384702CA59847008272B0 /* AddFriendVC.swift in Sources */,
 				B36C18DA2C99D96700D9D1CC /* CheckVC.swift in Sources */,
 				B36C18EB2C99D96700D9D1CC /* DoubleExtension.swift in Sources */,
+				B323DC712CAE997E006C35AC /* LoadingView.swift in Sources */,
 				B36C18D72C99D96700D9D1CC /* RecordTabBarController.swift in Sources */,
 				B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */,
 				B387D9722C9EC09E00CCC311 /* MealTitleView.swift in Sources */,

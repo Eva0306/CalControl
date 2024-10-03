@@ -71,20 +71,26 @@ class FriendViewModel: ObservableObject {
             let friendData: [String: Any] = [
                 "userID": friendID,
                 "addedAt": timestamp,
-                "status": "accepted"
+                "status": "accepted",
+                "isFavorite": false
             ]
             
-            self?.updateFriendsList(for: currentUserID, friendData: friendData) { success in
+            self?.addNewFriend(for: currentUserID, friendData: friendData, viewController: viewController) { success in
                 if success {
                     let currentUserData: [String: Any] = [
                         "userID": currentUserID,
                         "addedAt": timestamp,
-                        "status": "accepted"
+                        "status": "accepted",
+                        "isFavorite": false
                     ]
                     
-                    self?.updateFriendsList(for: friendID, friendData: currentUserData) { success in
+                    self?.addNewFriend(for: friendID, friendData: currentUserData, viewController: viewController) { success in
                         if success {
                             print("DEBUG: Successfully added friend both ways")
+                            self?.showTemporaryAlert(
+                                in: viewController,
+                                message: "已成功添加好友"
+                            )
                             self?.fetchFriendData()
                         }
                     }
@@ -94,8 +100,7 @@ class FriendViewModel: ObservableObject {
             }
         }
     }
-
-
+    
     private func showAlert(in viewController: UIViewController, message: String) {
         let alert = UIAlertController(title: "錯誤", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
@@ -106,9 +111,19 @@ class FriendViewModel: ObservableObject {
         }
     }
     
-    private func updateFriendsList(
+    private func showTemporaryAlert(in viewController: UIViewController,message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        viewController.present(alertController, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            alertController.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    private func addNewFriend(
         for userID: String,
         friendData: [String: Any],
+        viewController: UIViewController,
         completion: @escaping (Bool) -> Void
     ) {
         let collection = FirestoreEndpoint.users
@@ -120,17 +135,17 @@ class FriendViewModel: ObservableObject {
                 return
             }
             
-            let data = document.data() ?? [:]
-            var friends = data["friends"] as? [[String: Any]] ?? []
+            var friends = document.data()?["friends"] as? [[String: Any]] ?? []
             
-            if !friends.contains(where: { $0["userID"] as? String == friendData["userID"] as? String }) {
-                print("DEBUG: Adding friend: \(friendData)")
-                friends.append(friendData)
-            } else {
+            if friends.contains(where: { $0["userID"] as? String == friendData["userID"] as? String }) {
                 print("DEBUG: Friend already exists")
-                completion(true)
+                self.showTemporaryAlert(in: viewController, message: "該好友已存在")
+                completion(false)
                 return
             }
+            
+            print("DEBUG: Adding new friend: \(friendData)")
+            friends.append(friendData)
             
             FirebaseManager.shared.updateDocument(
                 from: collection,
@@ -138,15 +153,15 @@ class FriendViewModel: ObservableObject {
                 data: ["friends": friends]
             ) { success in
                 if success {
-                    print("DEBUG: Successfully updated friends list for user: \(userID)")
+                    print("DEBUG: Successfully added new friend for user: \(userID)")
                 } else {
-                    print("DEBUG: Failed to update friends list for user: \(userID)")
+                    print("DEBUG: Failed to add new friend for user: \(userID)")
                 }
                 completion(success)
             }
         }
     }
-
+    
     private func parseFriends(from friendsData: [[String: Any]]) -> [Friend] {
         var friendsList: [Friend] = []
         
@@ -154,16 +169,36 @@ class FriendViewModel: ObservableObject {
             guard
                 let userID = friendDict["userID"] as? String,
                 let addedAt = friendDict["addedAt"] as? Timestamp,
-                let status = friendDict["status"] as? String
+                let status = friendDict["status"] as? String,
+                let isFavorite = friendDict["isFavorite"] as? Bool
             else {
                 print("DEBUG: Invalid friend data format")
                 continue
             }
             
-            let friend = Friend(userID: userID, addedAt: addedAt, status: status)
+            let friend = Friend(userID: userID, addedAt: addedAt, status: status, isFavorite: isFavorite)
             friendsList.append(friend)
         }
         
         return friendsList
+    }
+    
+    // MARK: - Favorite Status
+    func toggleFavorite(for friend: Friend) {
+        guard let index = friends.firstIndex(where: { $0.userID == friend.userID }) else { return }
+        friends[index].isFavorite.toggle()
+        
+        friends.sort { $0.isFavorite && !$1.isFavorite }
+        
+        updateFriendList()
+    }
+    
+    private func updateFriendList() {
+        let docRef = FirestoreEndpoint.users.ref.document(UserProfileViewModel.shared.user.id)
+        FirebaseManager.shared.setData(
+            ["friends": self.friends],
+            at: docRef,
+            merge: true
+        )
     }
 }

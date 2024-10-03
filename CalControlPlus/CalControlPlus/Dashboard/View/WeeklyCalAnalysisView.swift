@@ -84,7 +84,8 @@ struct WeeklyCalAnalysisView: View {
                                     remainingValue: remainingValue,
                                     basicGoal: viewModel.basicGoal,
                                     valueSize: .title2,
-                                    textSize: .caption)
+                                    textSize: .caption,
+                                    isWidget: false)
                     .frame(width: 80)
                     
                     VStack(alignment: .leading) {

@@ -25,7 +25,7 @@ class FriendVC: UIViewController {
     private lazy var friendImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
-        iv.image = UIImage(systemName: "person.3")
+        iv.image = UIImage(systemName: "person.2")
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
@@ -113,7 +113,7 @@ extension FriendVC: UITableViewDataSource {
         // swiftlint:disable force_cast line_length
         let cell = tableView.dequeueReusableCell(withIdentifier: FriendCardCell.identifier, for: indexPath) as! FriendCardCell
         // swiftlint:enable force_cast line_length
-        cell.configure(with: friendViewModel.friends[indexPath.row])
+        cell.configure(with: friendViewModel.friends[indexPath.row], viewModel: friendViewModel)
         return cell
     }
 }

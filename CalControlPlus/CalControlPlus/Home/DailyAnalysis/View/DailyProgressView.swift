@@ -16,10 +16,10 @@ struct ProgressBarView: View {
     var valueSize: Font
     var textSize: Font
     
-    @Environment(\.widgetFamily) var widgetFamily
+    var isWidget: Bool
     
     var body: some View {
-        if widgetFamily == .systemSmall || widgetFamily == .systemMedium {
+        if isWidget {
             ZStack {
                 Circle()
                     .stroke(lineWidth: 8)
@@ -77,10 +77,10 @@ struct DataItemView: View {
     var icon: String
     var unit: String?
     
-    @Environment(\.widgetFamily) var widgetFamily
+    var isWidget: Bool
     
     var body: some View {
-        if widgetFamily == .systemSmall || widgetFamily == .systemMedium {
+        if isWidget {
             HStack {
                 Image(systemName: icon)
                     .foregroundColor(.orange)

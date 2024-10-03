@@ -87,13 +87,14 @@ struct SmallWidgetView: View {
                             remainingValue: entry.remainingValue,
                             basicGoal: entry.basicGoal,
                             valueSize: .subheadline,
-                            textSize: .caption2)
-                .frame(width: 50, height: 50)
-                .padding(.bottom, 5)
+                            textSize: .caption2,
+                            isWidget: true)
+            .frame(width: 50, height: 50)
+            .padding(.bottom, 5)
             VStack(alignment: .leading, spacing: 4) {
-                DataItemView(title: "基本目標", value: entry.basicGoal, icon: "pencil")
-                DataItemView(title: "食物", value: entry.foodValue, icon: "fork.knife")
-                DataItemView(title: "運動", value: entry.exerciseValue, icon: "flame")
+                DataItemView(title: "基本目標", value: entry.basicGoal, icon: "flag", isWidget: true)
+                DataItemView(title: "食物", value: entry.foodValue, icon: "fork.knife", isWidget: true)
+                DataItemView(title: "運動", value: entry.exerciseValue, icon: "flame", isWidget: true)
             }
             .padding(.leading, 5)
             .padding(.trailing, 5)
@@ -114,14 +115,15 @@ struct MediumWidgetView: View {
                                 remainingValue: entry.remainingValue,
                                 basicGoal: entry.basicGoal,
                                 valueSize: .subheadline,
-                                textSize: .caption)
-                    .frame(width: 60, height: 60)
+                                textSize: .caption,
+                                isWidget: true)
+                .frame(width: 60, height: 60)
                     .padding(.leading, 30)
                 Spacer()
                 VStack(alignment: .leading, spacing: 4) {
-                    DataItemView(title: "基本目標", value: entry.basicGoal, icon: "pencil")
-                    DataItemView(title: "食物", value: entry.foodValue, icon: "fork.knife")
-                    DataItemView(title: "運動", value: entry.exerciseValue, icon: "flame")
+                    DataItemView(title: "基本目標", value: entry.basicGoal, icon: "flag", isWidget: true)
+                    DataItemView(title: "食物", value: entry.foodValue, icon: "fork.knife", isWidget: true)
+                    DataItemView(title: "運動", value: entry.exerciseValue, icon: "flame", isWidget: true)
                 }
                 .padding(.leading, 60)
             }

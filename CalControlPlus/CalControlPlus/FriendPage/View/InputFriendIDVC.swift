@@ -58,9 +58,37 @@ class InputFriendIDVC: UIViewController {
     
     @objc private func addFriendButtonTapped() {
         guard let friendID = friendIDTextField.text, !friendID.isEmpty else {
-            print("請輸入好友ID")
+            showTemporaryAlert(message: "請輸入好友 ID")
             return
         }
-        viewModel?.addFriend(self, with: friendID)
+        showAddFriendAlert(friendID: friendID)
+    }
+    
+    private func showAddFriendAlert(friendID: String) {
+        let alertController = UIAlertController(
+            title: "添加好友",
+            message: "是否要添加此ID為好友：\(friendID)",
+            preferredStyle: .alert
+        )
+        
+        let confirmAction = UIAlertAction(title: "確認", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            self.viewModel?.addFriend(self, with: friendID)
+        }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in }
+        
+        alertController.addAction(confirmAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func showTemporaryAlert(message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        present(alertController, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            alertController.dismiss(animated: true, completion: nil)
+        }
     }
 }

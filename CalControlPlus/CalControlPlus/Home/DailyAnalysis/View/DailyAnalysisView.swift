@@ -39,15 +39,16 @@ struct DailyAnalysisView: View {
                                 remainingValue: viewModel.remainingValue,
                                 basicGoal: viewModel.basicGoal,
                                 valueSize: .largeTitle,
-                                textSize: .body)
+                                textSize: .body,
+                                isWidget: false)
                 .frame(width: 150, height: 150)
                 .padding(.leading, 40)
                 .padding(.trailing, 40)
                 
                 VStack(alignment: .leading, spacing: 16) {
-                    DataItemView(title: "基本目標", value: viewModel.basicGoal, icon: "pencil")
-                    DataItemView(title: "食物", value: viewModel.foodValue, icon: "fork.knife")
-                    DataItemView(title: "運動", value: viewModel.exerciseValue, icon: "flame")
+                    DataItemView(title: "基本目標", value: viewModel.basicGoal, icon: "flag", isWidget: false)
+                    DataItemView(title: "食物", value: viewModel.foodValue, icon: "fork.knife", isWidget: false)
+                    DataItemView(title: "運動", value: viewModel.exerciseValue, icon: "flame", isWidget: false)
                 }
                 Spacer()
             }

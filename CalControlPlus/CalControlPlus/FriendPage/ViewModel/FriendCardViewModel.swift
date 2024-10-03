@@ -16,6 +16,8 @@ class FriendCardViewModel: ObservableObject {
     @Published var proteinProgress: Double = 0.6
     
     var friend: User?
+    
+    var didToggleFavorite: (() -> Void)?
 
     func fetchFriendData(friendID: String) {
         let condition = [FirestoreCondition(field: "id", comparison: .isEqualTo, value: friendID)]
@@ -45,5 +47,9 @@ class FriendCardViewModel: ObservableObject {
             self.fatsProgress = data.totalFats / userSettings.fatTotal
             self.proteinProgress = data.totalProtein / userSettings.proteinTotal
         }
+    }
+    
+    func toggleFavoriteStatus() {
+        didToggleFavorite?()
     }
 }

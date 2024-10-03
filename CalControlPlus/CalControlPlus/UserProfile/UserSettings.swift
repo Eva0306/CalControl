@@ -112,4 +112,5 @@ struct Friend: Codable, Equatable {
     let userID: String
     let addedAt: Timestamp
     let status: String
+    var isFavorite: Bool
 }
