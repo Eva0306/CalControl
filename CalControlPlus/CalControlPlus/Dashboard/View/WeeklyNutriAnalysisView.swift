@@ -101,10 +101,6 @@ struct StackedBarChartView: View {
 struct WeeklyNutriAnalysisView: View {
     @ObservedObject var viewModel: WeeklyAnalysisViewModel
     
-//    var weeklyNutritionData: [WANutriData]
-//    var todayNutrition: [Double]
-//    var nutritionColors: [Color] = [.orange, .yellow, .blue]
-    
     var body: some View {
         HStack(alignment: .bottom, spacing: 20) {
             VStack(alignment: .leading, spacing: 10) {

@@ -72,7 +72,7 @@ class HomeVC: UIViewController {
         
         NSLayoutConstraint.activate([
             homeTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            homeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight-20),
+            homeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight-5),
             homeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             homeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])

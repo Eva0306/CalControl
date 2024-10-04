@@ -53,7 +53,7 @@ class DashboardVC: UIViewController {
         
         NSLayoutConstraint.activate([
             dashboardTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            dashboardTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight-20),
+            dashboardTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight),
             dashboardTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dashboardTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])

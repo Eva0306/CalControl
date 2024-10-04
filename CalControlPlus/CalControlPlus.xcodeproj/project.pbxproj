@@ -21,6 +21,7 @@
 		B323DC732CAEEE34006C35AC /* toggleDayNightAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B323DC722CAEEE34006C35AC /* toggleDayNightAnimation.json */; };
 		B323DC752CAEF1FD006C35AC /* FriendListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B323DC742CAEF1FD006C35AC /* FriendListVC.swift */; };
 		B323DC772CAEF2B6006C35AC /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B323DC762CAEF2B6006C35AC /* FriendListCell.swift */; };
+		B323DC792CAF0F51006C35AC /* BlockListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B323DC782CAF0F51006C35AC /* BlockListVC.swift */; };
 		B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */; };
 		B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */; };
 		B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */; };
@@ -165,6 +166,7 @@
 		B323DC722CAEEE34006C35AC /* toggleDayNightAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = toggleDayNightAnimation.json; sourceTree = "<group>"; };
 		B323DC742CAEF1FD006C35AC /* FriendListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListVC.swift; sourceTree = "<group>"; };
 		B323DC762CAEF2B6006C35AC /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
+		B323DC782CAF0F51006C35AC /* BlockListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockListVC.swift; sourceTree = "<group>"; };
 		B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisView.swift; sourceTree = "<group>"; };
 		B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisCell.swift; sourceTree = "<group>"; };
 		B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriModel.swift; sourceTree = "<group>"; };
@@ -582,8 +584,8 @@
 		B387D9822CA0FA9D00CCC311 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B387D97F2CA0FA7600CCC311 /* FriendCardCell.swift */,
 				B36C18FE2C9A974600D9D1CC /* FriendVC.swift */,
+				B387D97F2CA0FA7600CCC311 /* FriendCardCell.swift */,
 				B313846F2CA59847008272B0 /* AddFriendVC.swift */,
 				B31384712CA5ACA4008272B0 /* InputFriendIDVC.swift */,
 				B31384732CA5ACB3008272B0 /* ShowQRCodeVC.swift */,
@@ -602,8 +604,9 @@
 		B387D9862CA0FAE500CCC311 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B323DC742CAEF1FD006C35AC /* FriendListVC.swift */,
 				B36C19002C9A979800D9D1CC /* ProfileVC.swift */,
+				B323DC742CAEF1FD006C35AC /* FriendListVC.swift */,
+				B323DC782CAF0F51006C35AC /* BlockListVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -895,6 +898,7 @@
 				B36C19122C9AD60B00D9D1CC /* DailyAnalysisCell.swift in Sources */,
 				B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */,
 				B36C18D62C99D96700D9D1CC /* NutritionTitleCell.swift in Sources */,
+				B323DC792CAF0F51006C35AC /* BlockListVC.swift in Sources */,
 				B36C19092C9A99A800D9D1CC /* WaterRecordModel.swift in Sources */,
 				B387D98A2CA0FB0F00CCC311 /* ProfileCell.swift in Sources */,
 				B36C18E12C99D96700D9D1CC /* WaterCupCell.swift in Sources */,

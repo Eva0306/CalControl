@@ -82,10 +82,7 @@ struct WeeklyCalAnalysisView: View {
                 VStack(alignment: .center, spacing: 20) {
                     ProgressBarView(progress: progress,
                                     remainingValue: remainingValue,
-                                    basicGoal: viewModel.basicGoal,
-                                    valueSize: .title2,
-                                    textSize: .caption,
-                                    isWidget: false)
+                                    basicGoal: viewModel.basicGoal)
                     .frame(width: 80)
                     
                     VStack(alignment: .leading) {

@@ -182,7 +182,8 @@ class InfoStartVC: UIViewController {
             weightRecord: [WeightRecord(date: Timestamp(date: Date()), weight: weight)],
             activity: activity,
             target: target,
-            totalNutrition: self.generateBlankNutriData()
+            totalNutrition: self.generateBlankNutriData(),
+            friends: []
         )
         
         let userRef = FirebaseManager.shared.newDocument(of: .users, documentID: userID)

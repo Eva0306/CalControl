@@ -13,56 +13,30 @@ struct ProgressBarView: View {
     var remainingValue: Int
     var basicGoal: Int
     
-    var valueSize: Font
-    var textSize: Font
-    
-    var isWidget: Bool
-    
     var body: some View {
-        if isWidget {
+        GeometryReader { geometry in
+            let diameter = min(geometry.size.width, geometry.size.height)
+            let lineWidth = diameter * 0.1
+            
             ZStack {
                 Circle()
-                    .stroke(lineWidth: 8)
+                    .stroke(lineWidth: lineWidth)
                     .opacity(0.3)
                     .foregroundColor(.gray)
                 
                 Circle()
                     .trim(from: remainingValue > basicGoal ? (1 - abs(progress)) : 0,
                           to: remainingValue > basicGoal ? 1 : abs(progress))
-                    .stroke(style: StrokeStyle(lineWidth: 8, lineCap: .round, lineJoin: .round))
+                    .stroke(style: StrokeStyle(lineWidth: lineWidth, lineCap: .round, lineJoin: .round))
                     .foregroundColor(remainingValue < 0 ? .red : .orange)
                     .rotationEffect(Angle(degrees: 270))
                 
                 VStack {
                     Text("\(remainingValue)")
-                        .font(valueSize)
+                        .font(.system(size: diameter * 0.2))
                         .fontWeight(.semibold)
                     Text("剩餘")
-                        .font(textSize)
-                        .foregroundColor(.gray)
-                }
-            }
-            .aspectRatio(1, contentMode: .fit)
-        } else {
-            ZStack {
-                Circle()
-                    .stroke(lineWidth: 12)
-                    .opacity(0.3)
-                    .foregroundColor(.gray)
-                
-                Circle()
-                    .trim(from: remainingValue > basicGoal ? (1 - abs(progress)) : 0,
-                          to: remainingValue > basicGoal ? 1 : abs(progress))
-                    .stroke(style: StrokeStyle(lineWidth: 12, lineCap: .round, lineJoin: .round))
-                    .foregroundColor(remainingValue < 0 ? .red : .orange)
-                    .rotationEffect(Angle(degrees: 270))
-                
-                VStack {
-                    Text("\(remainingValue)")
-                        .font(valueSize)
-                        .fontWeight(.semibold)
-                    Text("剩餘")
-                        .font(textSize)
+                        .font(.system(size: diameter * 0.12))
                         .foregroundColor(.gray)
                 }
             }

@@ -87,7 +87,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let condition = [
             FirestoreCondition(field: "id", comparison: .isEqualTo, value: userID)]
         
-        FirebaseManager.shared.getDocuments(from: .users, where: condition) { (users: [User]) in
+        FirebaseManager.shared.getDocuments(
+            from: .users, where: condition
+        ) { [weak self] (users: [User]) in
+            guard let self = self else { return }
             if let user = users.first {
                 print("INFO: User found")
                 completion(.success(user))

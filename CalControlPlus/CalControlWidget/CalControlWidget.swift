@@ -85,10 +85,7 @@ struct SmallWidgetView: View {
         VStack(alignment: .center) {
             ProgressBarView(progress: entry.progress,
                             remainingValue: entry.remainingValue,
-                            basicGoal: entry.basicGoal,
-                            valueSize: .subheadline,
-                            textSize: .caption2,
-                            isWidget: true)
+                            basicGoal: entry.basicGoal)
             .frame(width: 50, height: 50)
             .padding(.bottom, 5)
             VStack(alignment: .leading, spacing: 4) {
@@ -113,10 +110,7 @@ struct MediumWidgetView: View {
             HStack {
                 ProgressBarView(progress: entry.progress,
                                 remainingValue: entry.remainingValue,
-                                basicGoal: entry.basicGoal,
-                                valueSize: .subheadline,
-                                textSize: .caption,
-                                isWidget: true)
+                                basicGoal: entry.basicGoal)
                 .frame(width: 60, height: 60)
                     .padding(.leading, 30)
                 Spacer()

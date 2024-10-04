@@ -22,6 +22,17 @@ class FriendListVC: UIViewController {
         return tv
     }()
     
+    private lazy var hintLabel: UILabel = {
+        let label = UILabel()
+        label.text = "目前尚無好友\n\n至好友頁新增好友吧！"
+        label.font = .systemFont(ofSize: 28, weight: .semibold)
+        label.textAlignment = .center
+        label.textColor = .mainGreen.withAlphaComponent(0.6)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     var friendViewModel = FriendViewModel()
     private var subscriptions = Set<AnyCancellable>()
     
@@ -30,12 +41,12 @@ class FriendListVC: UIViewController {
         view.backgroundColor = .background
         
         setupView()
-        friendViewModel.fetchFriendData()
         addBindings()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        friendViewModel.fetchFriendData()
         self.tabBarController?.tabBar.isHidden = true
     }
     
@@ -45,6 +56,13 @@ class FriendListVC: UIViewController {
     }
     
     private func setupView() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(
+            title: "封鎖名單",
+            style: .plain,
+            target: self,
+            action: #selector(goToBlockList)
+        )
+        
         let titleLabel = UILabel()
         titleLabel.text = "好友名單"
         titleLabel.textAlignment = .center
@@ -53,11 +71,15 @@ class FriendListVC: UIViewController {
         
         view.addSubview(titleLabel)
         view.addSubview(friendListTableView)
+        view.addSubview(hintLabel)
         
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            hintLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            hintLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             
             friendListTableView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             friendListTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
@@ -69,10 +91,18 @@ class FriendListVC: UIViewController {
     private func addBindings() {
         friendViewModel.$friends
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
+            .sink { [weak self] friends in
                 self?.friendListTableView.reloadData()
+                self?.friendListTableView.isHidden = friends.isEmpty
+                self?.hintLabel.isHidden = !friends.isEmpty
             }
             .store(in: &subscriptions)
+    }
+    
+    @objc private func goToBlockList() {
+        let blockListVC = BlockListVC()
+        blockListVC.friendViewModel = self.friendViewModel
+        self.navigationController?.pushViewController(blockListVC, animated: true)
     }
 }
 
@@ -92,6 +122,7 @@ extension FriendListVC: UITableViewDataSource {
             return cell
         } else {
             let cell = UITableViewCell()
+            cell.selectionStyle = .none
             cell.backgroundColor = .clear
             cell.textLabel?.text = "向左滑可封鎖或刪除好友"
             cell.textLabel?.textColor = .gray
@@ -131,7 +162,7 @@ extension FriendListVC: UITableViewDelegate {
     private func showBlockFriendAlert(for friend: Friend) {
         let alertController = UIAlertController(
             title: "封鎖好友",
-            message: "封鎖後會從好友雙方名單中移除",
+            message: "封鎖後會從好友雙方名單中移除\n並需要解除封鎖才能重新加入",
             preferredStyle: .alert
         )
         let confirmAction = UIAlertAction(title: "確認", style: .default) { [weak self] _ in
@@ -166,7 +197,10 @@ extension FriendListVC: UITableViewDelegate {
         friendViewModel.updateFriendStatus(friendID: friend.userID, status: "blocked") { success in
             if success {
                 print("Successfully blocked friend locally.")
-                self.friendViewModel.updateFriendStatusOnRemote(friendID: friend.userID, status: "blocked") { success in
+                self.friendViewModel.updateFriendStatusFromFriend(
+                    friendID: friend.userID,
+                    status: "blocked"
+                ) { success in
                     if success {
                         print("Successfully blocked friend remotely.")
                     }
@@ -176,10 +210,8 @@ extension FriendListVC: UITableViewDelegate {
     }
     
     private func deleteFriend(_ friend: Friend) {
-        friendViewModel.removeFriend(friendID: friend.userID) { success in
-            if success {
-                print("Successfully deleted friend.")
-            }
+        friendViewModel.removeFriend(friendID: friend.userID) { [weak self] in
+            print("Successfully deleted friend.")
         }
     }
 }

@@ -35,7 +35,7 @@ class ProfileVC: UIViewController {
         
         NSLayoutConstraint.activate([
             profileTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            profileTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight-20),
+            profileTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight),
             profileTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             profileTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])

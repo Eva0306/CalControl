@@ -37,10 +37,7 @@ struct DailyAnalysisView: View {
             HStack {
                 ProgressBarView(progress: viewModel.progress,
                                 remainingValue: viewModel.remainingValue,
-                                basicGoal: viewModel.basicGoal,
-                                valueSize: .largeTitle,
-                                textSize: .body,
-                                isWidget: false)
+                                basicGoal: viewModel.basicGoal)
                 .frame(width: 150, height: 150)
                 .padding(.leading, 40)
                 .padding(.trailing, 40)

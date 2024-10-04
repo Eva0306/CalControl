@@ -83,7 +83,7 @@ class FriendVC: UIViewController {
             hintLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             
             friendTableView.topAnchor.constraint(equalTo: view.topAnchor),
-            friendTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight-20),
+            friendTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -tabBarHeight),
             friendTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             friendTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])

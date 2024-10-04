@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 class FriendViewModel: ObservableObject {
     @Published var friends: [Friend] = []
+    @Published var blockFriends: [Friend] = []
     
     func fetchFriendData() {
         let condition = [
@@ -22,29 +23,13 @@ class FriendViewModel: ObservableObject {
                 return
             }
             
-            if let friendsList = user.friends?.filter({ $0.status == "accepted" }) {
-                DispatchQueue.main.async { [weak self] in
-                    self?.friends = friendsList
-                    print("DEBUG: Successfully fetched accepted friends")
-                }
-            } else {
-                print("DEBUG: No accepted friends found for user")
+            DispatchQueue.main.async { [weak self] in
+                self?.friends = user.friends?.filter { $0.status == "accepted" } ?? []
+                self?.blockFriends = user.friends?.filter { $0.status == "blocked" } ?? []
+                print("DEBUG: Successfully fetched friends and blocked friends.")
             }
         }
     }
-    
-//    func addObserver() {
-//        let condition = [
-//            FirestoreCondition(field: "user", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id)
-//        ]
-//        FirebaseManager.shared.addObserver(
-//            on: .users,
-//            where: condition
-//        ) { [weak self] (_: DocumentChangeType, _: FoodRecord) in
-//            guard let self = self else { return }
-//            self.fetchFriendData()
-//        }
-//    }
     
     func addFriend(_ viewController: UIViewController, with friendID: String) {
         guard let currentUserID = UserProfileViewModel.shared?.user.id else { return }
@@ -65,7 +50,6 @@ class FriendViewModel: ObservableObject {
             }
             
             let timestamp = Timestamp(date: Date())
-            
             let friendData: [String: Any] = [
                 "userID": friendID,
                 "addedAt": timestamp,
@@ -73,7 +57,11 @@ class FriendViewModel: ObservableObject {
                 "isFavorite": false
             ]
             
-            self?.addNewFriend(for: currentUserID, friendData: friendData, viewController: viewController) { success in
+            self?.addNewFriend(
+                for: currentUserID,
+                friendData: friendData,
+                viewController: viewController
+            ) { success in
                 if success {
                     let currentUserData: [String: Any] = [
                         "userID": currentUserID,
@@ -86,18 +74,13 @@ class FriendViewModel: ObservableObject {
                         for: friendID,
                         friendData: currentUserData,
                         viewController: viewController
-                    ) { success in
+                    ) { [weak self] success in
+                        guard let self = self else { return }
                         if success {
-                            print("DEBUG: Successfully added friend both ways")
-                            self?.showTemporaryAlert(
-                                in: viewController,
-                                message: "已成功添加好友"
-                            )
-                            self?.fetchFriendData()
+                            self.showTemporaryAlert(in: viewController, message: "已成功添加好友")
+                            self.fetchFriendData()
                         }
                     }
-                } else {
-                    print("DEBUG: Failed to add friend")
                 }
             }
         }
@@ -132,7 +115,6 @@ class FriendViewModel: ObservableObject {
         
         collection.ref.document(userID).getDocument { document, error in
             guard let document = document, document.exists else {
-                print("DEBUG: Failed to fetch document - \(error?.localizedDescription ?? "Unknown error")")
                 completion(false)
                 return
             }
@@ -140,13 +122,11 @@ class FriendViewModel: ObservableObject {
             var friends = document.data()?["friends"] as? [[String: Any]] ?? []
             
             if friends.contains(where: { $0["userID"] as? String == friendData["userID"] as? String }) {
-                print("DEBUG: Friend already exists")
                 self.showTemporaryAlert(in: viewController, message: "該好友已存在")
                 completion(false)
                 return
             }
             
-            print("DEBUG: Adding new friend: \(friendData)")
             friends.append(friendData)
             
             FirebaseManager.shared.updateDocument(
@@ -154,11 +134,6 @@ class FriendViewModel: ObservableObject {
                 documentID: userID,
                 data: ["friends": friends]
             ) { success in
-                if success {
-                    print("DEBUG: Successfully added new friend for user: \(userID)")
-                } else {
-                    print("DEBUG: Failed to add new friend for user: \(userID)")
-                }
                 completion(success)
             }
         }
@@ -170,16 +145,17 @@ extension FriendViewModel {
     func toggleFavorite(for friend: Friend) {
         guard let index = friends.firstIndex(where: { $0.userID == friend.userID }) else { return }
         friends[index].isFavorite.toggle()
-        
         friends.sort { $0.isFavorite && !$1.isFavorite }
-        
         updateFriendList()
     }
     
     private func updateFriendList() {
         let docRef = FirestoreEndpoint.users.ref.document(UserProfileViewModel.shared.user.id)
+        
+        let combinedFriends = friends + blockFriends
+        
         FirebaseManager.shared.setData(
-            ["friends": self.friends],
+            ["friends": combinedFriends],
             at: docRef,
             merge: true
         )
@@ -192,13 +168,14 @@ extension FriendViewModel {
         if let index = friends.firstIndex(where: { $0.userID == friendID }) {
             friends[index].status = status
             updateFriendList()
+            fetchFriendData()
             completion(true)
         } else {
             completion(false)
         }
     }
     
-    func updateFriendStatusOnRemote(friendID: String, status: String, completion: @escaping (Bool) -> Void) {
+    func updateFriendStatusFromFriend(friendID: String, status: String, completion: @escaping (Bool) -> Void) {
         let userRef = FirestoreEndpoint.users.ref.document(friendID)
         let currentUserID = UserProfileViewModel.shared.user.id
         
@@ -209,7 +186,7 @@ extension FriendViewModel {
                 return
             }
             
-            var data = document.data() ?? [:]
+            let data = document.data() ?? [:]
             var friends = data["friends"] as? [[String: Any]] ?? []
             
             if let index = friends.firstIndex(where: { $0["userID"] as? String == currentUserID }) {
@@ -234,9 +211,39 @@ extension FriendViewModel {
             }
         }
     }
-
-    func removeFriend(friendID: String, completion: @escaping (Bool) -> Void) {
+    
+    func removeFriend(friendID: String, completion: @escaping () -> Void) {
         friends.removeAll { $0.userID == friendID }
+        blockFriends.removeAll { $0.userID == friendID }
+        
         updateFriendList()
+        completion()
+    }
+    
+    func removeCurrentUserFromFriend(friendID: String, completion: @escaping (Bool) -> Void) {
+        let currentUserID = UserProfileViewModel.shared.user.id
+        let friendDocRef = FirestoreEndpoint.users.ref.document(friendID)
+        
+        friendDocRef.getDocument { document, error in
+            guard let document = document, document.exists, var data = document.data() else {
+                print("Failed to fetch friend's document.")
+                completion(false)
+                return
+            }
+            
+            var friends = data["friends"] as? [[String: Any]] ?? []
+            friends.removeAll { $0["userID"] as? String == currentUserID }
+            
+            data["friends"] = friends
+            friendDocRef.setData(data) { error in
+                if let error = error {
+                    print("Failed to update friend's document: \(error.localizedDescription)")
+                    completion(false)
+                } else {
+                    print("Successfully deleted current user from friend's list.")
+                    completion(true)
+                }
+            }
+        }
     }
 }

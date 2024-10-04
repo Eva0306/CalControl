@@ -129,7 +129,10 @@ extension WeightRecordDetailVC: UITableViewDataSource {
 
 // MARK: - TableView Delegate
 extension WeightRecordDetailVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         if indexPath.row == 0 {
             return nil
         }
