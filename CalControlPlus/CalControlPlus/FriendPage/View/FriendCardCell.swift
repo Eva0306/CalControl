@@ -203,6 +203,7 @@ class FriendCardCell: BaseCardTableViewCell {
     private func setupChartContainer() {
         let remainingLabel = UILabel()
         remainingLabel.text = "剩餘"
+        remainingLabel.textColor = .darkGray
         remainingLabel.font = .systemFont(ofSize: 12)
         remainingLabel.translatesAutoresizingMaskIntoConstraints = false
         

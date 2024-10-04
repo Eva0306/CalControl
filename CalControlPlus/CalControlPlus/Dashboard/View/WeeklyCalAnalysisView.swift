@@ -71,7 +71,7 @@ struct WeeklyCalAnalysisView: View {
     }
     
     var body: some View {
-        HStack(alignment: .top, spacing: 30) {
+        HStack(alignment: .bottom, spacing: 30) {
             
             VStack(alignment: .leading, spacing: 10) {
                 Text("卡路里")
@@ -85,16 +85,14 @@ struct WeeklyCalAnalysisView: View {
                                     basicGoal: viewModel.basicGoal)
                     .frame(width: 80)
                     
-                    VStack(alignment: .leading) {
-                        Text("淨卡路里:")
+                    VStack(alignment: .center) {
+                        Text("淨卡路里 :")
                             .fixedSize()
                             .font(.system(size: 14))
                             .foregroundColor(.gray)
                         
                         Text("\(netCalories) 卡路里")
                             .font(.system(size: 14))
-                            .bold()
-//                            .foregroundColor(netCalories < 0 ? .mainRed : Color(uiColor: .darkGray))
                     }
                 }
             }
@@ -106,8 +104,7 @@ struct WeeklyCalAnalysisView: View {
                     .font(.body)
                     .foregroundColor(.gray)
             }
-            .padding(.vertical)
-            .padding(.trailing, 10)
+            .padding(.top, 40)
             
         }
         .padding()

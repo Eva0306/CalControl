@@ -17,14 +17,15 @@ struct PieSlice: Identifiable {
 
 struct PieChartView: View {
     var slices: [PieSlice]
+    var lineSpacing: CGFloat = 1
     
     var body: some View {
         GeometryReader { geometry in
             let width = geometry.size.width
             let height = geometry.size.height
-            let radius = min(width, height) / 2
+            let radius = min(width, height) / 2 - lineSpacing
             let center = CGPoint(x: width / 2, y: height / 2)
-            let spacingAngle = Angle(degrees: 2)
+            let spacingAngle = Angle(degrees: 360 * Double(lineSpacing / (2 * .pi * radius)))
             
             ZStack {
                 ForEach(slices) { slice in
@@ -43,6 +44,28 @@ struct PieChartView: View {
                         path.closeSubpath()
                     }
                     .fill(slice.color)
+                }
+                
+                ForEach(slices) { slice in
+                    Path { path in
+                        let startLineAngle = slice.startAngle
+                        let endLineAngle = slice.endAngle
+                        
+                        let startPoint = CGPoint(
+                            x: center.x + radius * CGFloat(cos(startLineAngle.radians)),
+                            y: center.y + radius * CGFloat(sin(startLineAngle.radians))
+                        )
+                        let endPoint = CGPoint(
+                            x: center.x + radius * CGFloat(cos(endLineAngle.radians)),
+                            y: center.y + radius * CGFloat(sin(endLineAngle.radians))
+                        )
+                        
+                        path.move(to: center)
+                        path.addLine(to: startPoint)
+                        path.move(to: center)
+                        path.addLine(to: endPoint)
+                    }
+                    .stroke(Color.white, lineWidth: lineSpacing)
                 }
             }
             .aspectRatio(1, contentMode: .fit)
@@ -107,36 +130,33 @@ struct WeeklyNutriAnalysisView: View {
                 Text("營養成分")
                     .font(.title3)
                     .fontWeight(.bold)
-                    .padding(.bottom, 5)
-                
-                PieChartView(slices: calculateSlices(for: viewModel.todayNutrition, colors: viewModel.nutritionColors))
-                    .frame(width: 100)
-                
-                VStack(alignment: .leading) {
-                    HStack {
-                        Circle().fill(.mainOrg).frame(width: 10, height: 10)
-                        Text("碳水化合物 \(String(format: "%.1f", viewModel.todayNutrition[0] * 100))%")
+                VStack(alignment: .center) {
+                    PieChartView(slices: calculateSlices(
+                        for: viewModel.todayNutrition,
+                        colors: viewModel.nutritionColors)
+                    )
+                        .frame(width: 70, height: 70)
+                    
+                    VStack(alignment: .leading) {
+                        HStack {
+                            Circle().fill(.mainOrg).frame(width: 10, height: 10)
+                            Text("碳水化合物 \(String(format: "%.1f", viewModel.todayNutrition[0] * 100))%")
+                        }
+                        HStack {
+                            Circle().fill(.mainBlue).frame(width: 10, height: 10)
+                            Text("蛋白質 \(String(format: "%.1f", viewModel.todayNutrition[1] * 100))%")
+                        }
+                        HStack {
+                            Circle().fill(.mainYellow).frame(width: 10, height: 10)
+                            Text("脂肪 \(String(format: "%.1f", viewModel.todayNutrition[2] * 100))%")
+                        }
                     }
-                    HStack {
-                        Circle().fill(.mainBlue).frame(width: 10, height: 10)
-                        Text("蛋白質 \(String(format: "%.1f", viewModel.todayNutrition[1] * 100))%")
-                    }
-                    HStack {
-                        Circle().fill(.mainYellow).frame(width: 10, height: 10)
-                        Text("脂肪 \(String(format: "%.1f", viewModel.todayNutrition[2] * 100))%")
-                    }
+                    .font(.caption)
                 }
-                .font(.caption)
             }
             
-            VStack(alignment: .center) {
-                StackedBarChartView(data: viewModel.weeklyNutritionData)
-                
-                Text("攝取均衡！繼續保持！")
-                    .font(.body)
-                    .foregroundColor(.gray)
-            }
-            .padding(.top, 30)
+            StackedBarChartView(data: viewModel.weeklyNutritionData)
+                .padding(.top, 40)
         }
         .padding()
     }
