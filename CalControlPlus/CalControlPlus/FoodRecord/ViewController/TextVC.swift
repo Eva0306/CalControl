@@ -9,22 +9,75 @@ import UIKit
 
 class TextVC: UIViewController {
     
-    private lazy var closeButton: UIButton = {
+    private lazy var navigationBar: UINavigationBar = {
+        let navBar = UINavigationBar()
+        navBar.isTranslucent = true
+        navBar.setBackgroundImage(UIImage(), for: .default)
+        navBar.shadowImage = UIImage()
+        navBar.backgroundColor = .clear
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        return navBar
+    }()
+    
+    private lazy var closeButton: UIBarButtonItem = {
         let btn = UIButton()
         btn.setImage(UIImage(systemName: "xmark"), for: .normal)
         btn.imageView?.contentMode = .scaleAspectFit
         btn.contentHorizontalAlignment = .fill
         btn.contentVerticalAlignment = .fill
-        btn.tintColor = .darkGray
-        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.tintColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .white
+            default:
+                return .darkGray
+            }
+        }
         btn.addTarget(self, action: #selector(closeVC), for: .touchUpInside)
-        return btn
+        return UIBarButtonItem(customView: btn)
+    }()
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "輸入食物"
+        label.textColor = .darkGreen
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var storedFoodButton: UIBarButtonItem = {
+        let btn = UIButton()
+        btn.setImage(UIImage(systemName: "takeoutbag.and.cup.and.straw"), for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
+        btn.contentHorizontalAlignment = .fill
+        btn.contentVerticalAlignment = .fill
+        btn.tintColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .white
+            default:
+                return .darkGray
+            }
+        }
+        btn.addTarget(self, action: #selector(storedFoodTapped), for: .touchUpInside)
+        return UIBarButtonItem(customView: btn)
+    }()
+    
+    private lazy var portionTextField: UITextField = {
+        let tf = UITextField()
+        tf.delegate = self
+        tf.backgroundColor = .cellBackground
+        tf.layer.cornerRadius = 10
+        tf.text = "一個"
+        tf.placeholder = "輸入份量"
+        tf.translatesAutoresizingMaskIntoConstraints = false
+        return tf
     }()
     
     private lazy var foodTextField: UITextField = {
         let tf = UITextField()
         tf.delegate = self
-        tf.backgroundColor = .white
+        tf.backgroundColor = .cellBackground
         tf.layer.cornerRadius = 10
         tf.placeholder = "輸入食物種類"
         tf.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +87,7 @@ class TextVC: UIViewController {
     lazy var addButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("新增", for: .normal)
-        btn.tintColor = .white
+        btn.setTitleColor(.lightGray, for: .normal)
         btn.backgroundColor = .mainGreen.withAlphaComponent(0.6)
         btn.layer.cornerRadius = 10
         btn.translatesAutoresizingMaskIntoConstraints = false
@@ -46,7 +99,7 @@ class TextVC: UIViewController {
     private lazy var textTableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
-        // tv.delegate = self
+        tv.delegate = self
         tv.backgroundColor = .clear
         tv.separatorStyle = .none
         tv.showsVerticalScrollIndicator = false
@@ -55,15 +108,46 @@ class TextVC: UIViewController {
         return tv
     }()
     
-    private var recordFood: String? // From user texting
+    private lazy var hintLabel: UILabel = {
+        let label = UILabel()
+        label.text = "尚無儲存食物\n\n點擊右上角新增常用食物吧！"
+        label.font = .systemFont(ofSize: 20, weight: .semibold)
+        label.textAlignment = .center
+        label.textColor = .mainGreen
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
-    private var foodList: [[String]] = [["荷包蛋", "一顆"], ["白飯", "一碗"], ["雞胸肉", "一片, 150g"],
-                                        ["青菜", "一份, 100g"], ["雞胸肉", "一片, 150g"]]
+    private let enabledButtonColor = UIColor.mainGreen
+    private var foodPortion: String = "一個"
+    private var foodRecord: String = ""
+    
+    private var foodList: [FoodItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.background
+        setupNavigationBar()
         setupView()
+        loadData()
+    }
+    
+    private func setupNavigationBar() {
+        let navItem = UINavigationItem()
+        navItem.leftBarButtonItem = closeButton
+        navItem.rightBarButtonItem = storedFoodButton
+        navItem.titleView = titleLabel
+        
+        navigationBar.setItems([navItem], animated: false)
+        
+        view.addSubview(navigationBar)
+        
+        NSLayoutConstraint.activate([
+            navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
     }
     
     private func setupView() {
@@ -71,17 +155,18 @@ class TextVC: UIViewController {
         let tabBarHeight = tabBarController?.tabBar.frame.size.height
         
         view.addSubview(textTableView)
-        view.addSubview(closeButton)
+        view.addSubview(hintLabel)
+        view.addSubview(portionTextField)
         view.addSubview(foodTextField)
         view.addSubview(addButton)
         
         NSLayoutConstraint.activate([
-            closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            closeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            closeButton.widthAnchor.constraint(equalToConstant: 20),
-            closeButton.heightAnchor.constraint(equalToConstant: 20),
+            portionTextField.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 10),
+            portionTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            portionTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            portionTextField.heightAnchor.constraint(equalToConstant: 60),
             
-            foodTextField.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 30),
+            foodTextField.topAnchor.constraint(equalTo: portionTextField.bottomAnchor, constant: 10),
             foodTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             foodTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             foodTextField.heightAnchor.constraint(equalToConstant: 60),
@@ -94,7 +179,11 @@ class TextVC: UIViewController {
             textTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             textTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             textTableView.topAnchor.constraint(equalTo: addButton.bottomAnchor, constant: 10),
-            textTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(tabBarHeight ?? 80))
+            textTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -(tabBarHeight ?? 80)),
+            
+            hintLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            hintLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            hintLabel.centerYAnchor.constraint(equalTo: textTableView.centerYAnchor)
         ])
     }
     
@@ -102,29 +191,65 @@ class TextVC: UIViewController {
         self.tabBarController?.dismiss(animated: true, completion: nil)
     }
     
-    @objc private func addFoodByText() {
-        if let recordFood = recordFood {
-            TranslationManager.shared.detectAndTranslateText(recordFood, completion: { translatedText in
-                
-                if let translatedText = translatedText {
-                    
-                    DispatchQueue.main.async {
-                        if let recordTabBarController = self.tabBarController as? RecordTabBarController {
-                            if let mealType = recordTabBarController.selectedMealType {
-                                NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { foodRecord in
-                                    
-                                    self.goToNutritionVC(image: nil, foodRecord: foodRecord)
-                                }
-                            }
-                        } else {
-                            print("Tab bar controller is not of type RecordTabBarController")
-                        }
-                    }
-                } else {
-                    self.showAlert()
-                }
-            })
+    // MARK: - Stored Food Item
+    private func loadData() {
+        let foodItems = CoreDataManager.shared.fetchAllFoods()
+        self.foodList = foodItems
+        self.textTableView.reloadData()
+        hintLabel.isHidden = !foodList.isEmpty
+    }
+    
+    @objc private func storedFoodTapped() {
+        let inputViewController = InputViewController()
+        
+        let alert = UIAlertController(title: "新增食物", message: nil, preferredStyle: .actionSheet)
+        alert.setValue(inputViewController, forKey: "contentViewController")
+        
+        let saveAction = UIAlertAction(title: "儲存", style: .default) { [weak self] _ in
+            guard let self = self else { return }
+            
+            let name = inputViewController.nameTextField.text ?? ""
+            let portion = inputViewController.portionTextField.text ?? ""
+            
+            if !name.isEmpty, !portion.isEmpty {
+                CoreDataManager.shared.saveFood(name: name, portion: portion)
+                self.loadData()
+            }
         }
+        
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        alert.addAction(saveAction)
+        alert.addAction(cancelAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    @objc private func addFoodByText() {
+        guard foodPortion != "", foodRecord != "" else { return }
+        
+        let fullText = "\(foodPortion) \(foodRecord)"
+        
+        TranslationManager.shared.detectAndTranslateText(fullText, completion: { translatedText in
+            
+            if let translatedText = translatedText {
+                
+                DispatchQueue.main.async {
+                    if let recordTabBarController = self.tabBarController as? RecordTabBarController {
+                        if let mealType = recordTabBarController.selectedMealType {
+                            NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { foodRecord in
+                                
+                                self.goToNutritionVC(image: nil, foodRecord: foodRecord)
+                            }
+                        }
+                    } else {
+                        print("Tab bar controller is not of type RecordTabBarController")
+                    }
+                }
+            } else {
+                self.showAlert()
+            }
+        })
     }
 }
 
@@ -135,33 +260,85 @@ extension TextVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let food = foodList[indexPath.row]
+        let foodItem = foodList[indexPath.row]
         // swiftlint:disable force_cast
         let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
         // swiftlint:enable force_cast
-        cell.configureCell(food: food)
+        cell.configureCell(food: foodItem)
+        cell.addStoredFood = { [weak self] food, portion in
+            guard let self = self else { return }
+            self.foodTextField.text = food
+            self.portionTextField.text = portion
+            self.foodRecord = food
+            self.foodPortion = portion
+            self.updateAddButtonState()
+        }
         return cell
+    }
+}
+
+// MARK: - Table View Delegate
+extension TextVC: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] _, _, completionHandler in
+            guard let self = self else { return }
+            let foodItemToDelete = self.foodList[indexPath.row]
+            let alertController = UIAlertController(title: "確定刪除？", message: "是否要刪除此食物項目？", preferredStyle: .alert)
+            
+            let confirmAction = UIAlertAction(title: "刪除", style: .destructive) { _ in
+                CoreDataManager.shared.deleteFood(foodItemToDelete)
+                self.foodList.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                completionHandler(true)
+            }
+            
+            let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
+                completionHandler(false)
+            }
+            
+            alertController.addAction(confirmAction)
+            alertController.addAction(cancelAction)
+            
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+        return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
 
 // MARK: - TextField Delegate
 extension TextVC: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
         
         let currentText = textField.text ?? ""
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
         
-        recordFood = updatedText
-        
-        if !updatedText.isEmpty {
-            addButton.isEnabled = true
-            addButton.backgroundColor = addButton.backgroundColor?.withAlphaComponent(1.0)
-        } else {
-            addButton.isEnabled = false
-            addButton.backgroundColor = addButton.backgroundColor?.withAlphaComponent(0.6)
+        if textField == foodTextField {
+            foodRecord = updatedText
+        } else if textField == portionTextField {
+            foodPortion = updatedText
         }
         
+        updateAddButtonState()
+        
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateAddButtonState()
+    }
+    
+    private func updateAddButtonState() {
+        let isBothTextFieldsNotEmpty = !foodPortion.isEmpty && !foodRecord.isEmpty
+        addButton.isEnabled = isBothTextFieldsNotEmpty
+        addButton.backgroundColor = isBothTextFieldsNotEmpty ? enabledButtonColor : enabledButtonColor.withAlphaComponent(0.6)
+        addButton.setTitleColor(isBothTextFieldsNotEmpty ? .white : .lightGray, for: .normal)
     }
 }
 

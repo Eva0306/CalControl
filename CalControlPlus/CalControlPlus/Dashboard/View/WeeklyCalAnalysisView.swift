@@ -108,6 +108,7 @@ struct WeeklyCalAnalysisView: View {
             
         }
         .padding()
+        .background(Color.clear)
     }
 }
 //

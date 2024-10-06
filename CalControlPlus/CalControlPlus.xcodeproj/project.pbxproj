@@ -31,6 +31,9 @@
 		B32CDD7E2C9C492A00F92244 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD7D2C9C492A00F92244 /* HomeViewModel.swift */; };
 		B32CDD882C9C4DFE00F92244 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B32CDD872C9C4DFE00F92244 /* Kingfisher */; };
 		B32CDD8A2C9C4E4500F92244 /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */; };
+		B3366C432CB13ABC00C14D7F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C422CB13ABC00C14D7F /* CoreDataManager.swift */; };
+		B3366C462CB13AEC00C14D7F /* FoodItem.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3366C442CB13AEC00C14D7F /* FoodItem.xcdatamodeld */; };
+		B3366C4C2CB1404D00C14D7F /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C4B2CB1404D00C14D7F /* InputViewController.swift */; };
 		B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A52C99D96700D9D1CC /* DashboardVC.swift */; };
 		B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */; };
 		B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */; };
@@ -174,6 +177,9 @@
 		B32CDD772C9BF61100F92244 /* FoodRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRecordCell.swift; sourceTree = "<group>"; };
 		B32CDD7D2C9C492A00F92244 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		B3366C422CB13ABC00C14D7F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		B3366C452CB13AEC00C14D7F /* FoodItem.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FoodItem.xcdatamodel; sourceTree = "<group>"; };
+		B3366C4B2CB1404D00C14D7F /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		B36C18A52C99D96700D9D1CC /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodImageClassifier.mlmodel; sourceTree = "<group>"; };
 		B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodRecordModel.swift; sourceTree = "<group>"; };
@@ -343,6 +349,7 @@
 			children = (
 				B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */,
 				B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */,
+				B3366C442CB13AEC00C14D7F /* FoodItem.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -355,6 +362,7 @@
 				B36C18AC2C99D96700D9D1CC /* NutritionTitleCell.swift */,
 				B36C18AD2C99D96700D9D1CC /* RecordTabBarController.swift */,
 				B36C18AE2C99D96700D9D1CC /* TextViewCell.swift */,
+				B3366C4B2CB1404D00C14D7F /* InputViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -401,6 +409,7 @@
 				B36C18BE2C99D96700D9D1CC /* NutritionManager.swift */,
 				B36C18BF2C99D96700D9D1CC /* TranslationAPI.swift */,
 				B36C18C02C99D96700D9D1CC /* TranslationManager.swift */,
+				B3366C422CB13ABC00C14D7F /* CoreDataManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -912,7 +921,9 @@
 				B3FA117A2CA804CE001A3805 /* InfoHeightVC.swift in Sources */,
 				B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */,
 				B387D97E2CA07A8200CCC311 /* WeightRecordViewModel.swift in Sources */,
+				B3366C432CB13ABC00C14D7F /* CoreDataManager.swift in Sources */,
 				B387D96F2C9D231900CCC311 /* UserProfileViewModel.swift in Sources */,
+				B3366C462CB13AEC00C14D7F /* FoodItem.xcdatamodeld in Sources */,
 				B36C18D52C99D96700D9D1CC /* NutritionImageCell.swift in Sources */,
 				B323DC772CAEF2B6006C35AC /* FriendListCell.swift in Sources */,
 				B36C18F02C99D96700D9D1CC /* MainTabBarController.swift in Sources */,
@@ -959,6 +970,7 @@
 				B31384762CA5ACBD008272B0 /* ScanQRCodeVC.swift in Sources */,
 				B32CDD762C9BF3E700F92244 /* MealRecordCell.swift in Sources */,
 				B36C18E32C99D96700D9D1CC /* FirebaseManager.swift in Sources */,
+				B3366C4C2CB1404D00C14D7F /* InputViewController.swift in Sources */,
 				B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */,
 				B387D97A2CA0741A00CCC311 /* WeightRecordCell.swift in Sources */,
 				B31384682CA50D38008272B0 /* WeightRecordDetailCell.swift in Sources */,
@@ -1352,6 +1364,19 @@
 			productName = Lottie;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		B3366C442CB13AEC00C14D7F /* FoodItem.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B3366C452CB13AEC00C14D7F /* FoodItem.xcdatamodel */,
+			);
+			currentVersion = B3366C452CB13AEC00C14D7F /* FoodItem.xcdatamodel */;
+			path = FoodItem.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B3B5127D2C91682600E02A43 /* Project object */;
 }

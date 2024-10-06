@@ -19,6 +19,10 @@ struct PieChartView: View {
     var slices: [PieSlice]
     var lineSpacing: CGFloat = 1
     
+    let lineColor = Color(UIColor { traitCollection in
+        traitCollection.userInterfaceStyle == .dark ? .lightGray : .white
+    })
+    
     var body: some View {
         GeometryReader { geometry in
             let width = geometry.size.width
@@ -65,7 +69,7 @@ struct PieChartView: View {
                         path.move(to: center)
                         path.addLine(to: endPoint)
                     }
-                    .stroke(Color.white, lineWidth: lineSpacing)
+                    .stroke(lineColor, lineWidth: lineSpacing)
                 }
             }
             .aspectRatio(1, contentMode: .fit)
@@ -159,6 +163,7 @@ struct WeeklyNutriAnalysisView: View {
                 .padding(.top, 40)
         }
         .padding()
+        .background(Color.clear)
     }
 }
 

@@ -12,9 +12,16 @@ class TextViewCell: BaseCardTableViewCell {
     private lazy var foodLabel: UILabel = {
         let label = UILabel()
         label.text = "Food"
-        label.textColor = .darkGray
+        label.textColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .white
+            default:
+                return .darkGray
+            }
+        }
         label.textAlignment = .left
-        label.font = UIFont(name: "Helvetica Neue", size: 16)
+        label.font = .systemFont(ofSize: 16)
         label.numberOfLines = 1
         label.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return label
@@ -23,7 +30,14 @@ class TextViewCell: BaseCardTableViewCell {
     private lazy var portionLabel: UILabel = {
         let label = UILabel()
         label.text = "one"
-        label.textColor = .darkGray
+        label.textColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .white
+            default:
+                return .darkGray
+            }
+        }
         label.textAlignment = .center
         label.font = UIFont(name: "Helvetica Neue", size: 16)
         label.numberOfLines = 1
@@ -41,6 +55,8 @@ class TextViewCell: BaseCardTableViewCell {
         return btn
     }()
     
+    var addStoredFood: ((_ food: String, _ portion: String) -> Void)?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -50,10 +66,9 @@ class TextViewCell: BaseCardTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureCell(food: [String]) {
-        guard food.count > 1 else { return }
-        self.foodLabel.text = food[0]
-        self.portionLabel.text = food[1]
+    func configureCell(food: FoodItem) {
+        self.foodLabel.text = food.name
+        self.portionLabel.text = food.portion
     }
     
     private func setupView() {
@@ -78,6 +93,7 @@ class TextViewCell: BaseCardTableViewCell {
     }
     
     @objc private func addFood() {
-        print("Add Food")
+        guard let food = foodLabel.text, let portion = portionLabel.text else { return }
+        addStoredFood?(food, portion)
     }
 }

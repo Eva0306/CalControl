@@ -11,7 +11,7 @@ class BaseCardTableViewCell: UITableViewCell {
     
     let innerContentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .cellBackground
         view.layer.cornerRadius = 10
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false

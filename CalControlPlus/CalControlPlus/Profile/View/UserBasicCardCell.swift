@@ -135,7 +135,14 @@ class UserBasicCardCell: BaseCardTableViewCell {
         let titleLabel = UILabel()
         titleLabel.text = title
         titleLabel.font = UIFont.systemFont(ofSize: 16)
-        titleLabel.textColor = .darkGray
+        titleLabel.textColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .lightGray
+            default:
+                return .darkGray
+            }
+        }
         
         let arrowImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
         arrowImageView.tintColor = .lightGray

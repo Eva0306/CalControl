@@ -23,14 +23,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        //        testShowInfoVC()
+//        testShowInfoVC()
         let loadingVC = UIViewController()
         loadingVC.view.backgroundColor = .background
         window?.rootViewController = loadingVC
         window?.makeKeyAndVisible()
         
         let loadingView = LoadingView()
-        loadingView.show(in: loadingVC.view)
+        loadingView.show(in: loadingVC.view, withBackground: false)
         
         if let currentUser = Auth.auth().currentUser {
             print("INFO: User is already logged in: \(currentUser.uid)")
@@ -56,7 +56,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func testShowInfoVC() {
-        let initialVC = DataCollectionContainerVC()
+        let initialVC = SignInVC()
         window?.rootViewController = UINavigationController(rootViewController: initialVC)
         window?.makeKeyAndVisible()
     }
@@ -128,8 +128,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
-    }
-    
-    
+    }   
 }
-

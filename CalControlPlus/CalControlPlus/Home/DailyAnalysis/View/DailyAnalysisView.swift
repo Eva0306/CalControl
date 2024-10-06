@@ -20,7 +20,7 @@ struct DailyAnalysisView: View {
                 Text(UserProfileViewModel.shared.user.target.description())
                     .font(.caption)
                     .padding(8)
-                    .background(Color.orange)
+                    .background(Color.mainOrg)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
@@ -72,6 +72,7 @@ struct DailyAnalysisView: View {
             .padding(.horizontal)
             .padding(.bottom, 10)
         }
+        .background(Color.clear)
     }
 }
 

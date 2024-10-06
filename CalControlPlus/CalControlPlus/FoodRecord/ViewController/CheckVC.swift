@@ -25,6 +25,7 @@ class CheckVC: UIViewController {
         let btn = UIButton()
         btn.setTitle("食物", for: .normal)
         btn.setTitleColor(.mainGreen, for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         btn.isSelected = true
         btn.addTarget(self, action: #selector(toggleButtonSelection(_:)), for: .touchUpInside)
         return btn
@@ -34,6 +35,7 @@ class CheckVC: UIViewController {
         let btn = UIButton()
         btn.setTitle("營養標示", for: .normal)
         btn.setTitleColor(.lightGray, for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         btn.isSelected = false
         btn.addTarget(self, action: #selector(toggleButtonSelection(_:)), for: .touchUpInside)
         return btn
@@ -41,24 +43,39 @@ class CheckVC: UIViewController {
     
     private lazy var homeButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Home", for: .normal)
+        btn.backgroundColor = .mainGreen
+        let boldConfig = UIImage.SymbolConfiguration(weight: .semibold)
+        let homeImage = UIImage(systemName: "house", withConfiguration: boldConfig)
+        btn.setImage(homeImage, for: .normal)
+        btn.tintColor = .white
+        btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
         return btn
     }()
     
     private lazy var reselectButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Reselect", for: .normal)
+        btn.backgroundColor = .mainGreen
+        btn.setTitle("重新選擇", for: .normal)
+        btn.tintColor = .white
+        btn.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(reselectPhoto), for: .touchUpInside)
         return btn
     }()
     
     private lazy var analysisButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Analysis", for: .normal)
+        btn.backgroundColor = .mainGreen
+        btn.setTitle("開始分析", for: .normal)
+        btn.tintColor = .white
+        btn.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(analysisPhoto), for: .touchUpInside)
         return btn
     }()
+    
+    private let loadingView = LoadingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,7 +105,7 @@ class CheckVC: UIViewController {
     
     private func setupButtons() {
         
-        let buttonStackView = UIStackView(arrangedSubviews: [homeButton, reselectButton, analysisButton])
+        let buttonStackView = UIStackView(arrangedSubviews: [reselectButton, analysisButton])
         buttonStackView.axis = .horizontal
         buttonStackView.alignment = .center
         buttonStackView.distribution = .fillEqually
@@ -96,6 +113,15 @@ class CheckVC: UIViewController {
         buttonStackView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(buttonStackView)
+        
+        let homeStackView = UIStackView(arrangedSubviews: [homeButton, buttonStackView])
+        homeStackView.axis = .horizontal
+        homeStackView.alignment = .center
+        homeStackView.distribution = .fill
+        homeStackView.spacing = 20
+        homeStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(homeStackView)
         
         let typeButtonStackView = UIStackView(arrangedSubviews: [foodButton, nutritionButton])
         typeButtonStackView.axis = .horizontal
@@ -107,13 +133,19 @@ class CheckVC: UIViewController {
         view.addSubview(typeButtonStackView)
         
         NSLayoutConstraint.activate([
-            buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            buttonStackView.heightAnchor.constraint(equalToConstant: 50),
+            homeButton.heightAnchor.constraint(equalToConstant: 50),
+            homeButton.widthAnchor.constraint(equalToConstant: 50),
+            reselectButton.heightAnchor.constraint(equalToConstant: 50),
+            analysisButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            homeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            homeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            homeStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            homeStackView.heightAnchor.constraint(equalToConstant: 50),
+            
             typeButtonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             typeButtonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            typeButtonStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -130),
+            typeButtonStackView.bottomAnchor.constraint(equalTo: buttonStackView.topAnchor, constant: -50),
             typeButtonStackView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
@@ -158,14 +190,14 @@ class CheckVC: UIViewController {
     }
     
     @objc private func analysisPhoto() {
-        if let checkPhoto = checkPhoto {
-            
-            if classifyType == .food {
-                classifyImage(checkPhoto)
-                
-            } else if classifyType == .nutritionFact {
-                recognizeNutritionFacts(checkPhoto)
-            }
+        guard let checkPhoto = checkPhoto else { return }
+        
+        loadingView.show(in: view, withBackground: true)
+        
+        if classifyType == .food {
+            classifyImage(checkPhoto)
+        } else if classifyType == .nutritionFact {
+            recognizeNutritionFacts(checkPhoto)
         }
     }
 }
@@ -173,16 +205,21 @@ class CheckVC: UIViewController {
 // MARK: - Classify Image
 extension CheckVC {
     
-    func classifyImage(_ image: UIImage) {
-        
+    private func classifyImage(_ image: UIImage) {
         let configuration = MLModelConfiguration()
         
         guard let model = try? FoodImageClassifier(configuration: configuration).model,
               let visionModel = try? VNCoreMLModel(for: model) else {
             print("Failed to load model")
+            loadingView.hide()
             return
         }
+        
         let request = VNCoreMLRequest(model: visionModel) { (request, error) in
+            
+            DispatchQueue.main.async {
+                self.loadingView.hide()
+            }
             
             guard let results = request.results as? [VNClassificationObservation], let firstResult = results.first else {
                 print("Couldn't classify the image")
@@ -191,17 +228,18 @@ extension CheckVC {
             
             print("\(firstResult.identifier)\nConfidence: \(String(format: "%.2f", firstResult.confidence * 100))%")
             if firstResult.confidence * 100 >= 70 {
-                
                 NutritionManager.shared.fetchNutritionFacts(self, mealType: self.mealType ?? 0, ingredient: "one " + firstResult.identifier) { foodRecord in
-                    
                     self.goToNutritionVC(image: image, foodRecord: foodRecord)
                 }
+            } else {
+                self.showTemporaryAlert(message: "信心度 < 70%\n換張圖片試試")
             }
         }
         
         guard let ciImage = CIImage(image: image) else {
             DispatchQueue.main.async {
                 print("Couldn't transform UIImage to CIImage")
+                self.loadingView.hide()
             }
             return
         }
@@ -217,6 +255,7 @@ extension CheckVC {
             } catch {
                 DispatchQueue.main.async {
                     print("Vision request failed with error: \(error)")
+                    self.loadingView.hide()
                 }
             }
         }
@@ -226,8 +265,11 @@ extension CheckVC {
 // MARK: - Recognize Nutrition Facts
 extension CheckVC {
     
-    func recognizeNutritionFacts(_ image: UIImage) {
-        guard let cgImage = image.cgImage else { return }
+    private func recognizeNutritionFacts(_ image: UIImage) {
+        guard let cgImage = image.cgImage else {
+            self.loadingView.hide()
+            return
+        }
 
         let requestHandler = VNImageRequestHandler(cgImage: cgImage)
 
@@ -240,10 +282,15 @@ extension CheckVC {
             try requestHandler.perform([request])
         } catch {
             print("Unable to perform the requests: \(error).")
+            self.loadingView.hide()
         }
     }
     
-    func recognizeTextHandler(request: VNRequest, error: Error?) {
+    private func recognizeTextHandler(request: VNRequest, error: Error?) {
+        
+        DispatchQueue.main.async {
+            self.loadingView.hide()
+        }
         
         if let error = error {
             print("Error during text recognition: \(error.localizedDescription)")
@@ -289,17 +336,14 @@ extension CheckVC {
                 currentRow = [(text, boundingBox)]
             }
             
-            // 更新上一個 y 座標
             previousY = currentY
         }
         
-        // 處理最後一行
         if !currentRow.isEmpty {
             let sortedRow = currentRow.sorted { $0.1.origin.x < $1.1.origin.x }
             nutritionFactsArray.append(sortedRow.map { $0.0 })
         }
-        print(nutritionFactsArray)
-        print("Recognize Text ======================")
+        
         if let nutritionFacts = parseNutritionData(from: nutritionFactsArray) {
             let foodRecord = FoodRecord(
                 mealType: mealType ?? 0,
@@ -308,11 +352,10 @@ extension CheckVC {
                 nutritionFacts: nutritionFacts, imageUrl: nil
             )
             goToNutritionVC(image: checkPhoto, foodRecord: foodRecord)
-            print(nutritionFacts, "\n==============")
         }
     }
     
-    func showNoTextAlert() {
+    private func showNoTextAlert() {
         let alert = UIAlertController(
             title: "No Text Found",
             message: "The image does not contain recognizable text. Please try again with a different image.",
@@ -324,6 +367,15 @@ extension CheckVC {
         }))
         
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func showTemporaryAlert(message: String) {
+        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        present(alertController, animated: true, completion: nil)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            alertController.dismiss(animated: true, completion: nil)
+        }
     }
 }
 
@@ -373,7 +425,6 @@ extension CheckVC {
             }
         }
         
-        // 使用乘積來計算最終值
         let finalWeight = Nutrient(value: weight.value * servings, unit: weight.unit)
         let finalCalories = Nutrient(value: calories.value * servings, unit: calories.unit)
         let finalCarbs = Nutrient(value: carbs.value * servings, unit: carbs.unit)

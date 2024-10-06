@@ -24,7 +24,6 @@ class MealTitleView: UITableViewHeaderFooterView {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
-        label.textColor = .darkGray
         label.text = "food name"
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +40,7 @@ class MealTitleView: UITableViewHeaderFooterView {
     
     let innerContentView: UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .cellBackground
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false

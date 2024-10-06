@@ -25,33 +25,45 @@ class NutritionVC: UIViewController {
     
     private lazy var homeButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Home", for: .normal)
+        btn.backgroundColor = .mainGreen
+        let boldConfig = UIImage.SymbolConfiguration(weight: .semibold)
+        let homeImage = UIImage(systemName: "house", withConfiguration: boldConfig)
+        btn.setImage(homeImage, for: .normal)
+        btn.tintColor = .white
+        btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(backToHome), for: .touchUpInside)
         return btn
     }()
     
     private lazy var reselectButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Reselect", for: .normal)
+        btn.backgroundColor = .mainGreen
+        btn.setTitle("重新選擇", for: .normal)
+        btn.tintColor = .white
+        btn.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(reselectPhoto), for: .touchUpInside)
         return btn
     }()
     
     private lazy var recordButton: UIButton = {
         let btn = UIButton(type: .system)
-        btn.setTitle("Record", for: .normal)
+        btn.backgroundColor = .mainGreen
+        btn.setTitle("紀錄此筆", for: .normal)
+        btn.tintColor = .white
+        btn.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
+        btn.layer.cornerRadius = 8
         btn.addTarget(self, action: #selector(addRecord), for: .touchUpInside)
         return btn
     }()
     
     var checkPhoto: UIImage?
-    
     var foodRecord: FoodRecord?
-    
     var currentDate: Date?
-//    var currentDate = Calendar.current.startOfDay(for: Date())
     
     var isFromText: Bool = true
+    
+    private var loadingView = LoadingView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,12 +85,12 @@ class NutritionVC: UIViewController {
             nutritionTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             nutritionTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             nutritionTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            nutritionTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+            nutritionTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
         ])
     }
     
     private func setupButtons() {
-        let buttonStackView = UIStackView(arrangedSubviews: [homeButton, reselectButton, recordButton])
+        let buttonStackView = UIStackView(arrangedSubviews: [reselectButton, recordButton])
         buttonStackView.axis = .horizontal
         buttonStackView.alignment = .center
         buttonStackView.distribution = .fillEqually
@@ -87,11 +99,25 @@ class NutritionVC: UIViewController {
         
         view.addSubview(buttonStackView)
         
+        let homeStackView = UIStackView(arrangedSubviews: [homeButton, buttonStackView])
+        homeStackView.axis = .horizontal
+        homeStackView.alignment = .center
+        homeStackView.distribution = .fill
+        homeStackView.spacing = 20
+        homeStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(homeStackView)
+        
         NSLayoutConstraint.activate([
-            buttonStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            buttonStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            buttonStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            buttonStackView.heightAnchor.constraint(equalToConstant: 50)
+            homeButton.heightAnchor.constraint(equalToConstant: 50),
+            homeButton.widthAnchor.constraint(equalToConstant: 50),
+            reselectButton.heightAnchor.constraint(equalToConstant: 50),
+            recordButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            homeStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            homeStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            homeStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -30),
+            homeStackView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -126,20 +152,24 @@ class NutritionVC: UIViewController {
             showAlert()
             return
         }
-
+        
+        loadingView.show(in: view, withBackground: true)
+        
         let docRef = FirebaseManager.shared.newDocument(of: FirestoreEndpoint.foodRecord)
-
+        
         var updatedFoodRecord = foodRecord
         updatedFoodRecord.id = docRef.documentID
         updatedFoodRecord.date = Timestamp(date: currentDate!)
-
+        
         if let checkPhoto = checkPhoto {
             
             FirebaseManager.shared.uploadImage(image: checkPhoto) { [weak self] url in
-                guard let self = self else { return }
+                guard let self = self else {
+                    self?.showErrorAlert()
+                    return
+                }
                 
                 if let url = url {
-                    
                     updatedFoodRecord.imageUrl = url.absoluteString
                 }
                 self.saveRecord(updatedFoodRecord, to: docRef)
@@ -214,14 +244,25 @@ extension NutritionVC {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true, completion: nil)
     }
+    
+    func showErrorAlert() {
+        let alert = UIAlertController(title: "錯誤", message: "儲存失敗，請稍後再試。", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+        
+        loadingView.hide()
+    }
 }
 
 // MARK: - Save Record To Firebase
 extension NutritionVC {
     private func saveRecord(_ foodRecord: FoodRecord, to docRef: DocumentReference) {
+        FirebaseManager.shared.setData(foodRecord, at: docRef)
+        
+        loadingView.hide()
+        
         let alert = UIAlertController(title: "儲存成功！", message: nil, preferredStyle: .alert)
         present(alert, animated: true)
-        FirebaseManager.shared.setData(foodRecord, at: docRef)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             alert.dismiss(animated: true) {
                 self.backToHome()

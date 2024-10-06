@@ -10,6 +10,7 @@ import Lottie
 
 class LoadingView {
     private var animationView: LottieAnimationView?
+    private var backgroundView: UIView?
     
     init(animationName: String = "FoodLoadingAnimation") {
         setupAnimation(animationName: animationName)
@@ -22,8 +23,22 @@ class LoadingView {
         animationView?.loopMode = .loop
     }
     
-    func show(in view: UIView) {
+    func show(in view: UIView, withBackground: Bool = false) {
         guard let animationView = animationView else { return }
+        
+        if withBackground {
+            backgroundView = UIView(frame: view.bounds)
+            backgroundView?.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            backgroundView?.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(backgroundView!)
+            
+            NSLayoutConstraint.activate([
+                backgroundView!.topAnchor.constraint(equalTo: view.topAnchor),
+                backgroundView!.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                backgroundView!.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                backgroundView!.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
+        }
         
         view.addSubview(animationView)
         
@@ -40,5 +55,6 @@ class LoadingView {
     func hide() {
         animationView?.stop()
         animationView?.removeFromSuperview()
+        backgroundView?.removeFromSuperview()
     }
 }

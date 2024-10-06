@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseAuth
 import Lottie
+import MessageUI
+import SafariServices
 
 class SettingCardCell: BaseCardTableViewCell {
     
@@ -112,13 +114,26 @@ extension SettingCardCell {
             }
         case 2:
             if let vc = self.findViewController() {
-                let privacyVC = UIViewController()
-                vc.navigationController?.pushViewController(privacyVC, animated: true)
+                if let url = URL(string: "https://www.privacypolicies.com/live/ae31cb2d-1c2d-494f-a0b0-9bd828ea47fa") {
+                    let safariVC = SFSafariViewController(url: url)
+                    vc.present(safariVC, animated: true, completion: nil)
+                }
             }
         case 3:
             if let vc = self.findViewController() {
-                let reportVC = UIViewController()
-                vc.navigationController?.pushViewController(reportVC, animated: true)
+                if MFMailComposeViewController.canSendMail() {
+                    let mailComposeVC = MFMailComposeViewController()
+                    mailComposeVC.mailComposeDelegate = self
+                    mailComposeVC.setToRecipients(["eva890306@gmail.com"])
+                    mailComposeVC.setSubject("問題回報")
+                    mailComposeVC.setMessageBody("你好，我想要回報以下問題：", isHTML: false)
+                    
+                    vc.present(mailComposeVC, animated: true, completion: nil)
+                } else {
+                    let alert = UIAlertController(title: "無法發送郵件", message: "您的設備無法發送電子郵件，請檢查郵件設置後重試", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    vc.present(alert, animated: true, completion: nil)
+                }
             }
         default:
             return
@@ -276,5 +291,24 @@ extension SettingCardCell {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             alertController.dismiss(animated: true, completion: nil)
         }
+    }
+}
+
+extension SettingCardCell: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        switch result {
+        case .cancelled:
+            print("郵件已取消")
+        case .saved:
+            print("郵件已保存")
+        case .sent:
+            print("郵件已發送")
+        case .failed:
+            print("郵件發送失敗: \(error?.localizedDescription ?? "未知錯誤")")
+        @unknown default:
+            break
+        }
+        
+        controller.dismiss(animated: true, completion: nil)
     }
 }

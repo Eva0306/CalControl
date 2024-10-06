@@ -107,6 +107,7 @@ struct WeightRecordView: View {
             }
         }
         .padding()
+        .background(Color.clear)
     }
 }
 

@@ -19,9 +19,17 @@ class CameraVC: UIViewController {
     private lazy var closeButton: UIButton = {
         let btn = UIButton()
         btn.setImage(UIImage(systemName: "xmark"), for: .normal)
-        btn.imageView?.contentMode = .scaleToFill
-        btn.tintColor = .white
-        btn.contentMode = .scaleToFill
+        btn.imageView?.contentMode = .scaleAspectFit
+        btn.contentHorizontalAlignment = .fill
+        btn.contentVerticalAlignment = .fill
+        btn.tintColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .white
+            default:
+                return .darkGray
+            }
+        }
         btn.translatesAutoresizingMaskIntoConstraints = false
         btn.addTarget(self, action: #selector(closeVC), for: .touchUpInside)
         return btn
@@ -124,8 +132,8 @@ class CameraVC: UIViewController {
         NSLayoutConstraint.activate([
             closeButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             closeButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
-            closeButton.widthAnchor.constraint(equalToConstant: 50),
-            closeButton.heightAnchor.constraint(equalToConstant: 50)
+            closeButton.widthAnchor.constraint(equalToConstant: 20),
+            closeButton.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
     

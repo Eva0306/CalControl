@@ -12,7 +12,6 @@ class FoodDetailVC: UIViewController {
     private lazy var foodDetailTableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
-        //        tv.delegate = self
         tv.backgroundColor = .clear
         tv.separatorStyle = .none
         tv.showsVerticalScrollIndicator = false
@@ -180,7 +179,8 @@ extension FoodDetailVC {
                     "unit": updatedFoodRecord.nutritionFacts.weight.unit
                 ],
                 "calories": [
-                    "value": updatedFoodRecord.nutritionFacts.calories.value, "unit": updatedFoodRecord.nutritionFacts.calories.unit
+                    "value": updatedFoodRecord.nutritionFacts.calories.value,
+                    "unit": updatedFoodRecord.nutritionFacts.calories.unit
                 ],
                 "carbs": [
                     "value": updatedFoodRecord.nutritionFacts.carbs.value,
@@ -197,7 +197,6 @@ extension FoodDetailVC {
             ]
         ]
         
-        // 提交更新到 Firebase，只更新特定欄位
         FirebaseManager.shared.updateDocument(
             from: .foodRecord,
             documentID: foodRecordID,

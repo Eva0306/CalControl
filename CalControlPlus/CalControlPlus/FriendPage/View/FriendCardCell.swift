@@ -203,7 +203,14 @@ class FriendCardCell: BaseCardTableViewCell {
     private func setupChartContainer() {
         let remainingLabel = UILabel()
         remainingLabel.text = "剩餘"
-        remainingLabel.textColor = .darkGray
+        remainingLabel.textColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .white
+            default:
+                return .darkGray
+            }
+        }
         remainingLabel.font = .systemFont(ofSize: 12)
         remainingLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -226,7 +233,14 @@ class FriendCardCell: BaseCardTableViewCell {
 
         backgroundCircle.path = circularPath.cgPath
         backgroundCircle.fillColor = UIColor.clear.cgColor
-        backgroundCircle.strokeColor = UIColor.systemGray5.cgColor
+        backgroundCircle.strokeColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .darkGray
+            default:
+                return .systemGray5
+            }
+        }.cgColor
         backgroundCircle.lineWidth = 10
         chartContainer.layer.addSublayer(backgroundCircle)
 
@@ -254,7 +268,14 @@ class FriendCardCell: BaseCardTableViewCell {
         label.text = text
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .left
-        label.textColor = .darkGray
+        label.textColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .white
+            default:
+                return .darkGray
+            }
+        }
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
@@ -262,7 +283,14 @@ class FriendCardCell: BaseCardTableViewCell {
     private func createProgressView(progress: Double, color: UIColor) -> UIProgressView {
         let progressView = UIProgressView(progressViewStyle: .default)
         progressView.progress = Float(progress)
-        progressView.trackTintColor = .systemGray5
+        progressView.trackTintColor = UIColor { traitCollection in
+            switch traitCollection.userInterfaceStyle {
+            case .dark:
+                return .darkGray
+            default:
+                return .systemGray5
+            }
+        }
         progressView.progressTintColor = color
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.layer.cornerRadius = 10

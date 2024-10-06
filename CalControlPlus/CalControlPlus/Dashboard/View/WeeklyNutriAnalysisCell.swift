@@ -33,6 +33,7 @@ class WeeklyNutriAnalysisCell: BaseCardTableViewCell {
         
         if let hostingController = hostingController {
             hostingController.view.translatesAutoresizingMaskIntoConstraints = false
+            hostingController.view.backgroundColor = .clear
             innerContentView.addSubview(hostingController.view)
             
             NSLayoutConstraint.activate([

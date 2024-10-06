@@ -6,8 +6,17 @@
 //
 
 import UIKit
+import Lottie
 
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
+    
+    private var plusButtonAnimationView: LottieAnimationView = {
+        let animationView = LottieAnimationView(name: "PlusToXAnimation")
+        animationView.contentMode = .scaleAspectFit
+        animationView.loopMode = .playOnce
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        return animationView
+    }()
     
     override func viewDidLoad() {
         

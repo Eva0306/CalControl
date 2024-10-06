@@ -32,7 +32,7 @@ class HomeVC: UIViewController {
     lazy var titleButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("今天", for: .normal)
-        btn.setTitleColor(.black, for: .normal)
+        btn.setTitleColor(.label, for: .normal)
         btn.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         btn.addTarget(self, action: #selector(titleButtonTapped), for: .touchUpInside)
         return btn
@@ -131,13 +131,13 @@ class HomeVC: UIViewController {
         pickerView.preferredContentSize = pickerSize
         alert.setValue(pickerView, forKey: "contentViewController")
         
-        let selectAction = UIAlertAction(title: "Select", style: .default) { [weak self] _ in
+        let selectAction = UIAlertAction(title: "選擇", style: .default) { [weak self] _ in
             guard let self = self else { return }
             self.homeViewModel.changeDate(to: datePicker.date)
         }
         
         alert.addAction(selectAction)
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
         
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = titleButton

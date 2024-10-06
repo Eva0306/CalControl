@@ -12,11 +12,31 @@ import AuthenticationServices
 
 class SignInVC: UIViewController {
     
+    let backgroundView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "SignInBackground")
+        iv.contentMode = .scaleAspectFit
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
         
+        setupBackground()
         setupSignInWithAppleButton()
+    }
+    
+    private func setupBackground() {
+        view.addSubview(backgroundView)
+        
+        NSLayoutConstraint.activate([
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
     
     private func setupSignInWithAppleButton() {
