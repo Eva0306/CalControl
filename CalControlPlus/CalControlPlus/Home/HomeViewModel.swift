@@ -142,7 +142,9 @@ class HomeViewModel: ObservableObject {
             guard let self = self else { return }
             switch changeType {
             case .added:
-                self.foodRecords.append(foodRecord)
+                if !self.foodRecords.contains(where: { $0.id == foodRecord.id }) {
+                    self.foodRecords.append(foodRecord)
+                }
                 
             case .modified:
                 if let index = self.foodRecords.firstIndex(where: { $0.id == foodRecord.id }) {
