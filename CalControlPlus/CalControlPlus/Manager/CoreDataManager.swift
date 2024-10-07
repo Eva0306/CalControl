@@ -6,6 +6,7 @@
 //
 
 import CoreData
+import UIKit
 
 class CoreDataManager {
     static let shared = CoreDataManager()
@@ -15,7 +16,7 @@ class CoreDataManager {
         persistentContainer = NSPersistentContainer(name: "FoodItem")
         persistentContainer.loadPersistentStores { _, error in
             if let error = error {
-                fatalError("Failed to load Core Data stack: \(error)")
+                debugLog("Failed to load Core Data stack: \(error)")
             }
         }
     }
@@ -29,7 +30,7 @@ class CoreDataManager {
         do {
             try context.save()
         } catch {
-            print("Failed to save food item: \(error)")
+            debugLog("Failed to save food item - \(error)")
         }
     }
     
@@ -40,7 +41,7 @@ class CoreDataManager {
         do {
             return try context.fetch(fetchRequest)
         } catch {
-            print("Failed to fetch food items: \(error)")
+            debugLog("Failed to fetch food items - \(error)")
             return []
         }
     }
@@ -52,7 +53,7 @@ class CoreDataManager {
         do {
             try context.save()
         } catch {
-            print("Failed to delete food item: \(error)")
+            debugLog("Failed to delete food item - \(error)")
         }
     }
 }

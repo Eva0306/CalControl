@@ -243,7 +243,7 @@ class TextVC: UIViewController {
                             }
                         }
                     } else {
-                        print("Tab bar controller is not of type RecordTabBarController")
+                        debugLog("Tab bar controller is not of type RecordTabBarController")
                     }
                 }
             } else {

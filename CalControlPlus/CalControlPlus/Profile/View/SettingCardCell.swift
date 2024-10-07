@@ -280,7 +280,7 @@ extension SettingCardCell {
             }
             
         } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError.localizedDescription)
+            debugLog("Error signing out: %@ \(signOutError.localizedDescription)")
         }
     }
     
@@ -298,13 +298,13 @@ extension SettingCardCell: MFMailComposeViewControllerDelegate {
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch result {
         case .cancelled:
-            print("郵件已取消")
+            debugLog("Email has been canceled")
         case .saved:
-            print("郵件已保存")
+            debugLog("Email has been saved")
         case .sent:
-            print("郵件已發送")
+            debugLog("Email has been sented")
         case .failed:
-            print("郵件發送失敗: \(error?.localizedDescription ?? "未知錯誤")")
+            debugLog("Failed to sent email - \(error?.localizedDescription ?? "Unknown error")")
         @unknown default:
             break
         }

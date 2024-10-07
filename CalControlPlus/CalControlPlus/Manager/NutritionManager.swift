@@ -46,7 +46,7 @@ class NutritionManager: NSObject {
                 } catch {
                     DispatchQueue.main.async {
                         completion(.failure(error))
-                        print("Decoding error: \(error)")
+                        debugLog("Decoding error - \(error)")
                     }
                 }
             }
@@ -63,7 +63,7 @@ class NutritionManager: NSObject {
                       let proteinData = nutritionData.totalNutrients["PROCNT"],
                       let carbsData = nutritionData.totalNutrients["CHOCDF"],
                       let fatsData = nutritionData.totalNutrients["FAT"] else {
-                    print("Lose Data")
+                    debugLog("Lose data")
                     self.showAlert(on: viewController)
                     completion(nil)
                     return
@@ -90,7 +90,7 @@ class NutritionManager: NSObject {
                 completion(foodRecord)
                 
             case .failure(let error):
-                print("Failed to fetch product data: \(error)")
+                debugLog("Failed to fetch product data - \(error)")
                 completion(nil)
             }
         }

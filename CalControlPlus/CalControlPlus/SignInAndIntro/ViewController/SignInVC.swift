@@ -73,13 +73,12 @@ extension SignInVC: ASAuthorizationControllerDelegate {
     ) {
         if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
             
-            let userIdentifier = appleIDCredential.user
             let fullName = appleIDCredential.fullName
             let email = appleIDCredential.email
             
             guard let identityTokenData = appleIDCredential.identityToken,
                   let identityTokenString = String(data: identityTokenData, encoding: .utf8) else {
-                print("Unable to fetch identity token")
+                debugLog("Unable to fetch identity token")
                 return
             }
             
@@ -90,7 +89,7 @@ extension SignInVC: ASAuthorizationControllerDelegate {
             
             Auth.auth().signIn(with: credential) { authResult, error in
                 if let error = error {
-                    print("Firebase Auth Sign in failed: \(error.localizedDescription)")
+                    debugLog("Firebase Auth Sign in failed - \(error.localizedDescription)")
                     return
                 }
                 
@@ -123,7 +122,7 @@ extension SignInVC: ASAuthorizationControllerDelegate {
     }
     
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-        print("Sign in with Apple failed: \(error.localizedDescription)")
+        debugLog("Sign in with Apple failed - \(error.localizedDescription)")
     }
 }
 

@@ -153,6 +153,10 @@ class FriendCardCell: BaseCardTableViewCell {
         heartButton.setImage(UIImage(systemName: newHeartImage), for: .normal)
     }
     
+}
+
+// MARK: - Setup View
+extension FriendCardCell {
     private func setupView() {
         setupAvatarImageView()
         setupNameLabel()

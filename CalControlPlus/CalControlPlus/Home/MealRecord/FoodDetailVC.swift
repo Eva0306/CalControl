@@ -204,10 +204,10 @@ extension FoodDetailVC {
             merge: true
         ) { result in
             if result == true {
-                print("Successfully updated food record in firebase")
+                debugLog("Successfully updated food record in firebase")
                 completion(true)
             } else {
-                print("Error: Failed to update food record in firebase")
+                debugLog("Error - Failed to update food record in firebase")
                 completion(false)
             }
         }
@@ -237,10 +237,10 @@ extension FoodDetailVC {
             from: .foodRecord, documentID: foodRecordID
         ) { result in
             if result == true {
-                print("Successfully deleted food record from firebase")
+                debugLog("Successfully deleted food record from firebase")
                 self.navigationController?.popViewController(animated: true)
             } else {
-                print("Error: Failed to delete food record from firebase")
+                debugLog("Error - Failed to delete food record from firebase")
             }
         }
     }

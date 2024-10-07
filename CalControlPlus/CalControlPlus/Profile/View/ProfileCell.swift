@@ -51,7 +51,7 @@ class ProfileCell: UITableViewCell {
         if let viewController = self.findViewController() {
             viewController.present(imagePicker, animated: true, completion: nil)
         } else {
-            print("Error: Could not find view controller.")
+            debugLog("Error - Could not find view controller.")
         }
     }
     
@@ -93,9 +93,9 @@ extension ProfileCell: UIImagePickerControllerDelegate, UINavigationControllerDe
                         documentID: UserProfileViewModel.shared.user.id,
                         data: ["avatarUrl": url.absoluteString]) { result in
                             if result == true {
-                                print("Successed saving image to firebase")
+                                debugLog("Successed saving image to firebase")
                             } else {
-                                print("Failed saving image to firebase")
+                                debugLog("Failed saving image to firebase")
                             }
                         }
                 }

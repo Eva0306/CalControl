@@ -158,13 +158,13 @@ extension BlockListVC: UITableViewDelegate {
     private func deleteFriendBothSide(_ friend: Friend) {
         friendViewModel.removeFriend(friendID: friend.userID) { [weak self] in
             
-            print("Successfully deleted friend from current user.")
+            debugLog("Successfully deleted friend from current user.")
             
             self?.friendViewModel.removeCurrentUserFromFriend(friendID: friend.userID) { success in
                 if success {
-                    print("Successfully deleted current user from friend's list.")
+                    debugLog("Successfully deleted current user from friend's list.")
                 } else {
-                    print("Failed to delete current user from friend's list.")
+                    debugLog("Failed to delete current user from friend's list.")
                 }
             }
         }

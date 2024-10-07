@@ -21,7 +21,7 @@ class HomeViewModel: ObservableObject {
     @Published var currentDate: Date {
         didSet {
             globalCurrentDate = Calendar.current.startOfDay(for: currentDate)
-            print("==== globalCurrentDate: ", globalCurrentDate)
+            debugLog("globalCurrentDate: \(globalCurrentDate)")
             fetchFoodRecord(for: currentDate)
             addObserver(for: currentDate)
             fetchActiveEnergyBurned(for: currentDate)
@@ -62,7 +62,7 @@ class HomeViewModel: ObservableObject {
     // MARK: - HealthKit Authorization
     func requestHealthKitAuthorization() {
         guard HKHealthStore.isHealthDataAvailable() else {
-            print("Health data not available on this device.")
+            debugLog("Health data not available on this device.")
             return
         }
         
@@ -71,11 +71,11 @@ class HomeViewModel: ObservableObject {
         healthStore.requestAuthorization(toShare: nil, read: [energyType]) { success, error in
             DispatchQueue.main.async {
                 if success {
-                    print("HealthKit authorization succeeded.")
+                    debugLog("HealthKit authorization succeeded.")
                     self.fetchActiveEnergyBurned(for: self.currentDate)
                 } else {
                     if let error = error {
-                        print("HealthKit authorization failed: \(error.localizedDescription)")
+                        debugLog("HealthKit authorization failed - \(error.localizedDescription)")
                     }
                 }
             }

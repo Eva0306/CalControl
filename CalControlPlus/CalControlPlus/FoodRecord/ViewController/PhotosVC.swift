@@ -125,10 +125,9 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
         if let recordTabBarController = self.tabBarController as? RecordTabBarController {
             checkVC.mealType = recordTabBarController.selectedMealType
         } else {
-            print("Tab bar controller is not of type RecordTabBarController")
+            debugLog("Tab bar controller is not of type RecordTabBarController")
         }
         checkVC.modalPresentationStyle = .fullScreen
         self.present(checkVC, animated: true, completion: nil)
     }
 }
-

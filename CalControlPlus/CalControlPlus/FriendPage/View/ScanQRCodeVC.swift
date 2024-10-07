@@ -51,7 +51,7 @@ class ScanQRCodeVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         captureSession = AVCaptureSession()
         
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else {
-            print("Failed to access camera")
+            debugLog("Failed to access camera")
             return
         }
         
@@ -60,11 +60,11 @@ class ScanQRCodeVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             if captureSession.canAddInput(videoInput) {
                 captureSession.addInput(videoInput)
             } else {
-                print("Failed to add video input to session")
+                debugLog("Failed to add video input to session")
                 return
             }
         } catch {
-            print("Error setting up video input: \(error)")
+            debugLog("Error setting up video input - \(error)")
             return
         }
         
@@ -75,7 +75,7 @@ class ScanQRCodeVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             metadataOutput.metadataObjectTypes = [.qr]
         } else {
-            print("Failed to add metadata output to session")
+            debugLog("Failed to add metadata output to session")
             return
         }
         

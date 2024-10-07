@@ -13,19 +13,15 @@ class MealRecordCell: BaseCardTableViewCell {
     
     private var isExpanded: Bool = false {
         didSet {
-            print("====isExpanded: ", isExpanded)
             updateTableViewHeight()
         }
     }
-    
-//    private var tableViewHeightConstraint: NSLayoutConstraint!
     
     private var foodRecords: [FoodRecord] = []
     
     private lazy var mealRecordTableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
-//        tv.delegate = self
         tv.backgroundColor = .clear
         tv.separatorStyle = .none
         tv.isScrollEnabled = false
@@ -70,8 +66,6 @@ class MealRecordCell: BaseCardTableViewCell {
             mealRecordTableView.leadingAnchor.constraint(equalTo: innerContentView.leadingAnchor, constant: 20),
             mealRecordTableView.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor, constant: -10)
         ])
-//        tableViewHeightConstraint = mealRecordTableView.heightAnchor.constraint(equalToConstant: 0)
-//        tableViewHeightConstraint.isActive = true
     }
     
     private func addTapGesture() {
@@ -84,13 +78,8 @@ class MealRecordCell: BaseCardTableViewCell {
     }
     
     private func updateTableViewHeight() {
-        // 根据 isExpanded 修改 mealRecordTableView 的高度
-//        let newHeight = isExpanded ? mealRecordTableView.contentSize.height : 0
-//        tableViewHeightConstraint.constant = newHeight
-//        print(tableViewHeightConstraint.constant)
         mealRecordTableView.layoutIfNeeded()
         
-        // 通知外层的 UITableView 更新行高
         guard let tableView = superview as? UITableView else { return }
         
         UIView.animate(withDuration: 0.3) {
@@ -101,7 +90,6 @@ class MealRecordCell: BaseCardTableViewCell {
     
     func configure(foodRecords: [FoodRecord]) {
         self.foodRecords = foodRecords
-//        mealRecordTableView.reloadData()
     }
 }
 

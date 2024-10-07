@@ -210,8 +210,9 @@ extension CheckVC {
         
         guard let model = try? FoodImageClassifier(configuration: configuration).model,
               let visionModel = try? VNCoreMLModel(for: model) else {
-            print("Failed to load model")
+            debugLog("Failed to load model")
             loadingView.hide()
+            showTemporaryAlert(message: "無法載入模型，請稍後再試")
             return
         }
         
@@ -222,31 +223,35 @@ extension CheckVC {
             }
             
             guard let results = request.results as? [VNClassificationObservation], let firstResult = results.first else {
-                print("Couldn't classify the image")
+                debugLog("Couldn't classify the image")
                 return
             }
             
-            print("\(firstResult.identifier)\nConfidence: \(String(format: "%.2f", firstResult.confidence * 100))%")
+            debugLog("\(firstResult.identifier)\nConfidence: \(String(format: "%.2f", firstResult.confidence * 100))%")
             if firstResult.confidence * 100 >= 70 {
                 NutritionManager.shared.fetchNutritionFacts(self, mealType: self.mealType ?? 0, ingredient: "one " + firstResult.identifier) { foodRecord in
                     self.goToNutritionVC(image: image, foodRecord: foodRecord)
                 }
             } else {
-                self.showTemporaryAlert(message: "信心度 < 70%\n換張圖片試試")
+                DispatchQueue.main.async {
+                    self.loadingView.hide()
+                    self.showTemporaryAlert(message: "信心度 < 70%\n換張圖片試試")
+                }
             }
         }
         
         guard let ciImage = CIImage(image: image) else {
             DispatchQueue.main.async {
-                print("DEBUG: Couldn't transform UIImage to CIImage")
+                debugLog("Couldn't transform UIImage to CIImage")
                 self.loadingView.hide()
+                self.showTemporaryAlert(message: "無法處理圖片格式，請更換圖片")
             }
             return
         }
         
-        #if targetEnvironment(simulator)
+#if targetEnvironment(simulator)
         request.usesCPUOnly = true
-        #endif
+#endif
         
         let handler = VNImageRequestHandler(ciImage: ciImage)
         DispatchQueue.global(qos: .userInteractive).async {
@@ -254,8 +259,9 @@ extension CheckVC {
                 try handler.perform([request])
             } catch {
                 DispatchQueue.main.async {
-                    print("DEBUG: Vision request failed with error: \(error)")
+                    debugLog("Vision request failed with error - \(error)")
                     self.loadingView.hide()
+                    self.showTemporaryAlert(message: "分析圖片發生錯誤，請稍後再試")
                 }
             }
         }
@@ -270,18 +276,18 @@ extension CheckVC {
             self.loadingView.hide()
             return
         }
-
+        
         let requestHandler = VNImageRequestHandler(cgImage: cgImage)
-
+        
         let request = VNRecognizeTextRequest(completionHandler: recognizeTextHandler)
         
         request.usesLanguageCorrection = true
         request.recognitionLanguages = ["zh-Hant", "en"]
-
+        
         do {
             try requestHandler.perform([request])
         } catch {
-            print("Unable to perform the requests: \(error).")
+            debugLog("Unable to perform the requests - \(error)")
             self.loadingView.hide()
         }
     }
@@ -293,37 +299,38 @@ extension CheckVC {
         }
         
         if let error = error {
-            print("Error during text recognition: \(error.localizedDescription)")
+            debugLog("Error during text recognition - \(error.localizedDescription)")
+            showTemporaryAlert(message: "無法識別文字，請重試或更換圖片")
             return
         }
         
         guard let observations = request.results as? [VNRecognizedTextObservation], !observations.isEmpty else {
-            print("No text recognized.")
+            debugLog("No text recognized.")
             showNoTextAlert()
             return
         }
-
+        
         // 儲存每一行的文字和其 boundingBox 的資料
         var lineData: [(String, CGRect)] = []
-
+        
         // 將每個觀察到的文字與 boundingBox 一起儲存
         for observation in observations {
             if let topCandidate = observation.topCandidates(1).first {
                 lineData.append((topCandidate.string, observation.boundingBox))
             }
         }
-
+        
         // 依照 boundingBox 的 y 座標進行排序，確保從上到下處理每行
         lineData.sort { $0.1.origin.y > $1.1.origin.y }
-
+        
         // 根據 y 座標的相似性來分組（每一行的文字）
         var currentRow: [(String, CGRect)] = []
         var previousY: CGFloat = -1.0
-
+        
         for (text, boundingBox) in lineData {
             // 當前文字的 y 座標
             let currentY = boundingBox.origin.y
-
+            
             // 如果是同一行 (y 座標接近)，就加入到當前行
             if previousY == -1.0 || abs(previousY - currentY) < 0.03 {
                 currentRow.append((text, boundingBox))
@@ -357,8 +364,8 @@ extension CheckVC {
     
     private func showNoTextAlert() {
         let alert = UIAlertController(
-            title: "No Text Found",
-            message: "The image does not contain recognizable text. Please try again with a different image.",
+            title: "找不到文字",
+            message: "請試試其他照片，或使用文字輸入",
             preferredStyle: .alert
         )
         
@@ -373,7 +380,7 @@ extension CheckVC {
         let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         present(alertController, animated: true, completion: nil)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             alertController.dismiss(animated: true, completion: nil)
         }
     }
@@ -382,18 +389,39 @@ extension CheckVC {
 // MARK: - Parse Nutrition Data
 extension CheckVC {
     func parseNutritionData(from nutritionFactsArray: [[String]]) -> NutritionFacts? {
+        let (weight, servings) = parseWeightAndServings(from: nutritionFactsArray)
+        let nutritionValues = parseNutritionalValues(from: nutritionFactsArray)
+        
+        // 計算總營養成分
+        let finalWeight = Nutrient(value: weight.value * servings, unit: weight.unit)
+        let finalCalories = Nutrient(
+            value: (nutritionValues["calories"]?.value ?? 0) * servings,
+            unit: nutritionValues["calories"]?.unit ?? "大卡"
+        )
+        let finalCarbs = Nutrient(
+            value: (nutritionValues["carbs"]?.value ?? 0) * servings,
+            unit: nutritionValues["carbs"]?.unit ?? "公克"
+        )
+        let finalFats = Nutrient(
+            value: (nutritionValues["fats"]?.value ?? 0) * servings,
+            unit: nutritionValues["fats"]?.unit ?? "公克"
+        )
+        let finalProtein = Nutrient(
+            value: (nutritionValues["protein"]?.value ?? 0) * servings,
+            unit: nutritionValues["protein"]?.unit ?? "公克"
+        )
+        
+        return NutritionFacts(weight: finalWeight, calories: finalCalories,
+                              carbs: finalCarbs, fats: finalFats, protein: finalProtein)
+    }
+    
+    private func parseWeightAndServings(from nutritionFactsArray: [[String]]) -> (weight: Nutrient, servings: Double) {
         var weight = Nutrient(value: 0, unit: "毫升")
         var servings: Double = 1
         
-        var calories = Nutrient(value: 0, unit: "大卡")
-        var carbs = Nutrient(value: 0, unit: "公克")
-        var fats = Nutrient(value: 0, unit: "公克")
-        var protein = Nutrient(value: 0, unit: "公克")
-        
-        // 提取重量和份量
         for array in nutritionFactsArray {
+            guard !array.isEmpty else { continue }
             if array[0].contains("每一份量") {
-                // 提取份量的重量，假設格式為 "每一份量400毫升"
                 let unit = array[0].contains("公克") ? "公克" : "毫升"
                 if let weightValue = Double(array[0].components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
                     weight = Nutrient(value: weightValue, unit: unit)
@@ -401,44 +429,42 @@ extension CheckVC {
             }
             
             if array[0].contains("本包裝含") {
-                // 提取包裝份量，假設格式為 "本包裝含1份"
                 if let servingsValue = Double(array[0].components(separatedBy: CharacterSet.decimalDigits.inverted).joined()) {
                     servings = servingsValue
                 }
             }
         }
         
-        // 解析營養數據
+        return (weight, servings)
+    }
+    
+    private func parseNutritionalValues(from nutritionFactsArray: [[String]]) -> [String: Nutrient] {
+        var nutritionValues: [String: Nutrient] = [:]
+        
         for array in nutritionFactsArray {
-            if array[0] == "熱量" {
-                let caloriesValue = Double(array[1].components(separatedBy: CharacterSet(charactersIn: "0123456789.").inverted).joined()) ?? 0
-                calories = Nutrient(value: caloriesValue, unit: "大卡")
-            } else if array[0] == "蛋白質" {
-                let proteinValue = Double(array[1].components(separatedBy: CharacterSet(charactersIn: "0123456789.").inverted).joined()) ?? 0
-                protein = Nutrient(value: proteinValue, unit: "公克")
-            } else if array[0] == "碳水化合物" {
-                let carbsValue = Double(array[1].components(separatedBy: CharacterSet(charactersIn: "0123456789.").inverted).joined()) ?? 0
-                carbs = Nutrient(value: carbsValue, unit: "公克")
-            } else if array[0] == "脂肪" {
-                let fatsValue = Double(array[1].components(separatedBy: CharacterSet(charactersIn: "0123456789.").inverted).joined()) ?? 0
-                fats = Nutrient(value: fatsValue, unit: "公克")
+            guard array.count > 1 else { continue }
+            let value = Double(array[1].components(separatedBy: CharacterSet(charactersIn: "0123456789.").inverted).joined()) ?? 0
+            switch array[0] {
+            case "熱量":
+                nutritionValues["calories"] = Nutrient(value: value, unit: "大卡")
+            case "蛋白質":
+                nutritionValues["protein"] = Nutrient(value: value, unit: "公克")
+            case "碳水化合物":
+                nutritionValues["carbs"] = Nutrient(value: value, unit: "公克")
+            case "脂肪":
+                nutritionValues["fats"] = Nutrient(value: value, unit: "公克")
+            default:
+                break
             }
         }
-        
-        let finalWeight = Nutrient(value: weight.value * servings, unit: weight.unit)
-        let finalCalories = Nutrient(value: calories.value * servings, unit: calories.unit)
-        let finalCarbs = Nutrient(value: carbs.value * servings, unit: carbs.unit)
-        let finalFats = Nutrient(value: fats.value * servings, unit: fats.unit)
-        let finalProtein = Nutrient(value: protein.value * servings, unit: protein.unit)
-        
-        return NutritionFacts(weight: finalWeight, calories: finalCalories,
-                              carbs: finalCarbs, fats: finalFats, protein: finalProtein)
+        return nutritionValues
     }
 }
 
 // MARK: - Go To Nutrition VC
 extension CheckVC {
     func goToNutritionVC(image: UIImage?, foodRecord: FoodRecord?) {
+        loadingView.hide()
         let nutritionVC = NutritionVC()
         nutritionVC.isFromText = false
         nutritionVC.checkPhoto = image

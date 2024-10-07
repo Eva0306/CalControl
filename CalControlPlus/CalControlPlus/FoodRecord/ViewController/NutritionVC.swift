@@ -15,7 +15,6 @@ class NutritionVC: UIViewController {
         tv.dataSource = self
         tv.backgroundColor = .clear
         tv.separatorStyle = .none
-        // tv.delegate = self
         
         tv.register(NutritionImageCell.self, forCellReuseIdentifier: NutritionImageCell.identifier)
         tv.register(NutritionTitleCell.self, forCellReuseIdentifier: NutritionTitleCell.identifier)
@@ -148,7 +147,7 @@ class NutritionVC: UIViewController {
     }
     
     @objc private func addRecord() {
-        guard let foodRecord = foodRecord else {
+        guard let foodRecord = foodRecord, let title = foodRecord.title else {
             showAlert()
             return
         }

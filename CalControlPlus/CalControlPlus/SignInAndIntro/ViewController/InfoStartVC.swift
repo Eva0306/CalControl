@@ -132,7 +132,7 @@ class InfoStartVC: UIViewController {
               let weight = viewModel.weight,
               let activity = viewModel.activity,
               let target = viewModel.target else {
-            print("Please fill in all required fields.")
+            debugLog("Missing user data, check and try again")
             return
         }
         
