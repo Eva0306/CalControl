@@ -19,14 +19,14 @@ class FriendViewModel: ObservableObject {
         
         FirebaseManager.shared.getDocuments(from: .users, where: condition) { (users: [User]) in
             guard let user = users.first else {
-                print("DEBUG: No user data found")
+                debugLog("No user data found")
                 return
             }
             
             DispatchQueue.main.async { [weak self] in
                 self?.friends = user.friends?.filter { $0.status == "accepted" } ?? []
                 self?.blockFriends = user.friends?.filter { $0.status == "blocked" } ?? []
-                print("DEBUG: Successfully fetched friends and blocked friends.")
+                debugLog("Successfully fetched friends and blocked friends.")
             }
         }
     }
@@ -38,13 +38,13 @@ class FriendViewModel: ObservableObject {
         
         usersCollection.document(friendID).getDocument { [weak self] document, error in
             if let error = error {
-                print("DEBUG: Error fetching friend document - \(error.localizedDescription)")
+                debugLog("Error fetching friend document - \(error.localizedDescription)")
                 self?.showAlert(in: viewController, message: "發生錯誤，請稍後再試。")
                 return
             }
             
             guard let document = document, document.exists else {
-                print("DEBUG: Friend ID does not exist")
+                debugLog("Friend ID does not exist")
                 self?.showAlert(in: viewController, message: "查無此 ID，請確認後再試。")
                 return
             }
@@ -186,7 +186,7 @@ extension FriendViewModel {
         
         userRef.getDocument { document, error in
             guard let document = document, document.exists else {
-                print("DEBUG: Failed to fetch remote user data.")
+                debugLog("Failed to fetch remote user data.")
                 completion(false)
                 return
             }
@@ -197,7 +197,7 @@ extension FriendViewModel {
             if let index = friends.firstIndex(where: { $0["userID"] as? String == currentUserID }) {
                 friends[index]["status"] = status
             } else {
-                print("DEBUG: Current user not found in the friend's list")
+                debugLog("Current user not found in the friend's list")
                 completion(false)
                 return
             }
@@ -208,9 +208,9 @@ extension FriendViewModel {
                 data: ["friends": friends]
             ) { success in
                 if success {
-                    print("DEBUG: Successfully updated friend's status on remote")
+                    debugLog("Successfully updated friend's status on remote")
                 } else {
-                    print("DEBUG: Failed to update friend's status on remote")
+                    debugLog("Failed to update friend's status on remote")
                 }
                 completion(success)
             }
@@ -231,7 +231,7 @@ extension FriendViewModel {
         
         friendDocRef.getDocument { document, error in
             guard let document = document, document.exists, var data = document.data() else {
-                print("DEBUG: Failed to fetch friend's document.")
+                debugLog("Failed to fetch friend's document.")
                 completion(false)
                 return
             }
@@ -242,10 +242,10 @@ extension FriendViewModel {
             data["friends"] = friends
             friendDocRef.setData(data) { error in
                 if let error = error {
-                    print("DEBUG: Failed to update friend's document: \(error.localizedDescription)")
+                    debugLog("Failed to update friend's document: \(error.localizedDescription)")
                     completion(false)
                 } else {
-                    print("DEBUG: Successfully deleted current user from friend's list.")
+                    debugLog("Successfully deleted current user from friend's list.")
                     completion(true)
                 }
             }

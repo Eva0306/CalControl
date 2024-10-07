@@ -58,7 +58,7 @@ class FriendListCell: BaseCardTableViewCell {
                 }
                 nameLabel.text = self.friend?.name
             } else {
-                print("Error: Unable to fetch friend's data")
+                debugLog("Error - Unable to fetch friend's data")
             }
         }
     }

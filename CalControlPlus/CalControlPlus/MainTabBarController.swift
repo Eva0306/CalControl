@@ -63,7 +63,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
             present(popupTabBarController, animated: true, completion: nil)
             
         } else {
-            print("Cannot Find RecordTabBarController")
+            debugLog("Cannot Find RecordTabBarController")
         }
     }
 }

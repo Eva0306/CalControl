@@ -107,11 +107,11 @@ final class FirebaseManager {
                     let item = try document.data(as: T.self)
                     completion(item)
                 } catch {
-                    print("DEBUG: Error decoding \(T.self) data -", error.localizedDescription)
+                    debugLog("Error decoding \(T.self) data - \(error.localizedDescription)")
                     completion(nil)
                 }
             } else {
-                print("DEBUG: Document does not exist or error occurred -", error?.localizedDescription ?? "")
+                debugLog("Document does not exist or error occurred - \(String(describing: error?.localizedDescription))")
                 completion(nil)
             }
         }
@@ -122,7 +122,7 @@ final class FirebaseManager {
         do {
             try docRef.setData(from: data, merge: merge)
         } catch {
-            print("DEBUG: Error encoding \(data.self) data -", error.localizedDescription)
+            debugLog("Error encoding \(data.self) data - \(error.localizedDescription)")
         }
     }
     
@@ -139,7 +139,7 @@ final class FirebaseManager {
     private func parseDocuments<T: Decodable>(snapshot: QuerySnapshot?, error: Error?) -> [T] {
         guard let snapshot = snapshot else {
             let errorMessage = error?.localizedDescription ?? ""
-            print("DEBUG: Error fetching snapshot -", errorMessage)
+            debugLog("Error fetching snapshot - \(errorMessage)")
             return []
         }
         
@@ -149,7 +149,7 @@ final class FirebaseManager {
                 let item = try document.data(as: T.self)
                 models.append(item)
             } catch {
-                print("DEBUG: Error decoding \(T.self) data -", error.localizedDescription)
+                debugLog("Error decoding \(T.self) data - \(error.localizedDescription)")
             }
         }
         return models
@@ -160,19 +160,12 @@ final class FirebaseManager {
         let docRef = collection.ref.document(documentID)
         docRef.delete { error in
             if let error = error {
-                print("DEBUG: Failed to delete document - \(error.localizedDescription)")
+                debugLog("Failed to delete document - \(error.localizedDescription)")
                 completion(false)
             } else {
                 completion(true)
             }
         }
-    }
-    
-    // DOING
-    func evaPrint(_ str: String) {
-        #if DEBUG
-            
-        #endif
     }
     
     // 通用的更新 document 方法，根據 Document ID 更新某些欄位
@@ -184,7 +177,7 @@ final class FirebaseManager {
         let docRef = collection.ref.document(documentID)
         docRef.updateData(data) { error in
             if let error = error {
-                print("DEBUG: Failed to update document - \(error.localizedDescription)")
+                debugLog("Failed to update document - \(error.localizedDescription)")
                 completion(false)
             } else {
                 completion(true)
@@ -201,7 +194,7 @@ final class FirebaseManager {
         let ref = collection.ref.document(documentID)
         ref.setData(data, merge: merge) { error in
             if let error = error {
-                print("Error updating document: \(error.localizedDescription)")
+                debugLog("Error updating document: \(error.localizedDescription)")
                 completion(false)
             } else {
                 completion(true)
@@ -217,13 +210,13 @@ final class FirebaseManager {
         let storageRef = folder.ref
         storageRef.putData(imageData, metadata: nil) { _, error in
             guard error == nil else {
-                print("Failed to upload image: \(error!.localizedDescription)")
+                debugLog("Failed to upload image: \(error!.localizedDescription)")
                 completion(nil)
                 return
             }
             storageRef.downloadURL { url, error in
                 guard let downloadURL = url, error == nil else {
-                    print("Failed to fetch imageUrl: \(error!.localizedDescription)")
+                    debugLog("Failed to fetch imageUrl: \(error!.localizedDescription)")
                     completion(nil)
                     return
                 }
@@ -250,10 +243,9 @@ final class FirebaseManager {
             }
         }
         
-        // 註冊監聽器，並保存它以便稍後可以移除
         let listener = query.addSnapshotListener { (snapshot, error) in
             if let error = error {
-                print("Error listening to changes in \(collection): \(error.localizedDescription)")
+                debugLog("Error listening to changes in \(collection): \(error.localizedDescription)")
                 return
             }
             
@@ -271,23 +263,19 @@ final class FirebaseManager {
                         completion(.removed, item)
                     }
                 } catch {
-                    print("Error decoding document as \(T.self): \(error.localizedDescription)")
+                    debugLog("Error decoding document as \(T.self): \(error.localizedDescription)")
                 }
             }
         }
-        
-        // 保存監聽器
         listeners[collection] = listener
     }
 
     private var listeners: [FirestoreEndpoint: ListenerRegistration] = [:]
     
     func removeObservers(on collection: FirestoreEndpoint) {
-        // 檢查並移除該集合的監聽器
         if let listener = listeners[collection] {
             listener.remove()
             listeners[collection] = nil
         }
     }
-    
 }

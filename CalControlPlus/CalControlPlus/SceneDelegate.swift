@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        print("INFO: scene(_:willConnectTo:) called")
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
@@ -33,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         loadingView.show(in: loadingVC.view, withBackground: false)
         
         if let currentUser = Auth.auth().currentUser {
-            print("INFO: User is already logged in: \(currentUser.uid)")
+            debugLog("User is already logged in: \(currentUser.uid)")
             
             fetchUser(userID: currentUser.uid) { result in
                 DispatchQueue.main.async {
@@ -44,13 +43,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     case .success(let user):
                         self.showHomeScreen(for: user)
                     case .failure(let error):
-                        print("Error: \(error.localizedDescription)")
+                        debugLog("Error - \(error.localizedDescription)")
                         self.showSignInVC()
                     }
                 }
             }
         } else {
-            print("INFO: No user logged in, showing sign-in screen.")
+            debugLog("No user logged in, showing sign-in screen.")
             showSignInVC()
         }
     }
@@ -62,7 +61,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func showHomeScreen(for user: User) {
-        print("INFO: Showing home screen for user: \(user.id)")
         UserProfileViewModel.shared = UserProfileViewModel(user: user)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -72,31 +70,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
-        print("INFO: Home screen is now visible.")
     }
     
     private func showSignInVC() {
-        print("INFO: Showing sign-in screen.")
         let signInVC = SignInVC()
         window?.rootViewController = UINavigationController(rootViewController: signInVC)
         window?.makeKeyAndVisible()
     }
     
     private func fetchUser(userID: String, completion: @escaping (Result<User, Error>) -> Void) {
-        print("INFO: Fetching user data for user ID: \(userID)")
         let condition = [
             FirestoreCondition(field: "id", comparison: .isEqualTo, value: userID)]
         
         FirebaseManager.shared.getDocuments(
             from: .users, where: condition
         ) { [weak self] (users: [User]) in
-            guard let self = self else { return }
             if let user = users.first {
-                print("INFO: User found")
+                debugLog("User found")
                 completion(.success(user))
             } else {
                 let error = NSError(domain: "", code: 404, userInfo: [NSLocalizedDescriptionKey: "User not found"])
-                print("ERROR: User not found for ID: \(userID)")
+                debugLog("ERROR - User not found for ID: \(userID)")
                 completion(.failure(error))
             }
         }

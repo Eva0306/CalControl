@@ -37,7 +37,7 @@ class DashboardVC: UIViewController {
             self.homeViewModel = homeVC.homeViewModel
             
         } else {
-            print("Failed to get HomeVC")
+            debugLog("Failed to get HomeVC")
         }
         
         addBindings()

@@ -49,7 +49,7 @@ class CameraVC: UIViewController {
         
         guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
             
-            print("Couldn't find the camera device")
+            debugLog("Couldn't find the camera device")
             
             let slashImage = UIImageView(image: UIImage(systemName: "video.slash"))
             slashImage.tintColor = UIColor.mainGreen.withAlphaComponent(0.6)
@@ -90,7 +90,7 @@ class CameraVC: UIViewController {
             setupCameraItems()
             
         } catch {
-            print("Couldn't capture the photo: \(error)")
+            debugLog("Couldn't capture the photo: \(error)")
         }
     }
     
@@ -149,7 +149,7 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
         
         guard let photoData = photo.fileDataRepresentation(),
               let image = UIImage(data: photoData) else {
-            print("Couldn't fetch the photo")
+            debugLog("Couldn't fetch the photo")
             return
         }
         
@@ -162,7 +162,7 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
         if let recordTabBarController = self.tabBarController as? RecordTabBarController {
             checkVC.mealType = recordTabBarController.selectedMealType
         } else {
-            print("Tab bar controller is not of type RecordTabBarController")
+            debugLog("Tab bar controller is not of type RecordTabBarController")
         }
         checkVC.modalPresentationStyle = .fullScreen
         self.present(checkVC, animated: true, completion: nil)

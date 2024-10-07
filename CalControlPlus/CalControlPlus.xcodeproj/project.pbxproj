@@ -34,6 +34,7 @@
 		B3366C432CB13ABC00C14D7F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C422CB13ABC00C14D7F /* CoreDataManager.swift */; };
 		B3366C462CB13AEC00C14D7F /* FoodItem.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3366C442CB13AEC00C14D7F /* FoodItem.xcdatamodeld */; };
 		B3366C4C2CB1404D00C14D7F /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C4B2CB1404D00C14D7F /* InputViewController.swift */; };
+		B3366C502CB3D38200C14D7F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C4F2CB3D38200C14D7F /* Logger.swift */; };
 		B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A52C99D96700D9D1CC /* DashboardVC.swift */; };
 		B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */; };
 		B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */; };
@@ -180,6 +181,7 @@
 		B3366C422CB13ABC00C14D7F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		B3366C452CB13AEC00C14D7F /* FoodItem.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FoodItem.xcdatamodel; sourceTree = "<group>"; };
 		B3366C4B2CB1404D00C14D7F /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
+		B3366C4F2CB3D38200C14D7F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B36C18A52C99D96700D9D1CC /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodImageClassifier.mlmodel; sourceTree = "<group>"; };
 		B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodRecordModel.swift; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
 				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
 				B323DC702CAE997E006C35AC /* LoadingView.swift */,
+				B3366C4F2CB3D38200C14D7F /* Logger.swift */,
 				B3FA116E2CA6925D001A3805 /* SignInAndIntro */,
 				B387D9702C9D242500CCC311 /* UserProfile */,
 				B3FA11BF2CAD9DEF001A3805 /* Animation */,
@@ -886,6 +889,7 @@
 				B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */,
 				B36C18E22C99D96700D9D1CC /* WaterRecordCell.swift in Sources */,
 				B32CDD7E2C9C492A00F92244 /* HomeViewModel.swift in Sources */,
+				B3366C502CB3D38200C14D7F /* Logger.swift in Sources */,
 				B387D97C2CA0743000CCC311 /* WeightRecordView.swift in Sources */,
 				B36C190B2C9A9BE400D9D1CC /* WaterRecordViewModel.swift in Sources */,
 				B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */,

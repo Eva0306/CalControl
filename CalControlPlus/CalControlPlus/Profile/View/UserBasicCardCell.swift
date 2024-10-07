@@ -341,9 +341,9 @@ extension UserBasicCardCell {
             documentID: UserProfileViewModel.shared.user.id,
             data: data) { result in
                 if result == true {
-                    print("Success upload to firebase")
+                    debugLog("Success upload to firebase")
                 } else {
-                    print("Error: Failed to upload to firebase")
+                    debugLog("Error - Failed to upload to firebase")
                 }
             }
     }
