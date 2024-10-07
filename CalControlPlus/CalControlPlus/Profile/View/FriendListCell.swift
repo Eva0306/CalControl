@@ -25,7 +25,7 @@ class FriendListCell: BaseCardTableViewCell {
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Friend name"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 24)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -45,7 +45,7 @@ class FriendListCell: BaseCardTableViewCell {
         super.prepareForReuse()
         
         friend = nil
-        nameLabel.text = "Friend name"
+        nameLabel.text = ""
         avatarImageView.image = UIImage(systemName: "person.crop.circle")
     }
     

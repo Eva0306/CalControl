@@ -60,7 +60,8 @@ class FriendViewModel: ObservableObject {
             self?.addNewFriend(
                 for: currentUserID,
                 friendData: friendData,
-                viewController: viewController
+                viewController: viewController,
+                isCurrentUser: true
             ) { success in
                 if success {
                     let currentUserData: [String: Any] = [
@@ -73,7 +74,8 @@ class FriendViewModel: ObservableObject {
                     self?.addNewFriend(
                         for: friendID,
                         friendData: currentUserData,
-                        viewController: viewController
+                        viewController: viewController,
+                        isCurrentUser: false
                     ) { [weak self] success in
                         guard let self = self else { return }
                         if success {
@@ -109,6 +111,7 @@ class FriendViewModel: ObservableObject {
         for userID: String,
         friendData: [String: Any],
         viewController: UIViewController,
+        isCurrentUser: Bool,
         completion: @escaping (Bool) -> Void
     ) {
         let collection = FirestoreEndpoint.users
@@ -122,7 +125,9 @@ class FriendViewModel: ObservableObject {
             var friends = document.data()?["friends"] as? [[String: Any]] ?? []
             
             if friends.contains(where: { $0["userID"] as? String == friendData["userID"] as? String }) {
-                self.showTemporaryAlert(in: viewController, message: "該好友已存在")
+                if isCurrentUser {
+                    self.showTemporaryAlert(in: viewController, message: "該好友已存在")
+                }
                 completion(false)
                 return
             }
@@ -181,7 +186,7 @@ extension FriendViewModel {
         
         userRef.getDocument { document, error in
             guard let document = document, document.exists else {
-                print("Failed to fetch remote user data.")
+                print("DEBUG: Failed to fetch remote user data.")
                 completion(false)
                 return
             }
@@ -192,7 +197,7 @@ extension FriendViewModel {
             if let index = friends.firstIndex(where: { $0["userID"] as? String == currentUserID }) {
                 friends[index]["status"] = status
             } else {
-                print("Current user not found in the friend's list")
+                print("DEBUG: Current user not found in the friend's list")
                 completion(false)
                 return
             }
@@ -203,9 +208,9 @@ extension FriendViewModel {
                 data: ["friends": friends]
             ) { success in
                 if success {
-                    print("Successfully updated friend's status on remote")
+                    print("DEBUG: Successfully updated friend's status on remote")
                 } else {
-                    print("Failed to update friend's status on remote")
+                    print("DEBUG: Failed to update friend's status on remote")
                 }
                 completion(success)
             }
@@ -240,7 +245,7 @@ extension FriendViewModel {
                     print("DEBUG: Failed to update friend's document: \(error.localizedDescription)")
                     completion(false)
                 } else {
-                    print("Successfully deleted current user from friend's list.")
+                    print("DEBUG: Successfully deleted current user from friend's list.")
                     completion(true)
                 }
             }

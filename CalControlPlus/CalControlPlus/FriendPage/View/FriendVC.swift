@@ -98,9 +98,12 @@ class FriendVC: UIViewController {
         friendViewModel.$friends
             .receive(on: DispatchQueue.main)
             .sink { [weak self] friends in
-                self?.friendTableView.reloadData()
-                self?.friendImageView.isHidden = !friends.isEmpty
-                self?.hintLabel.isHidden = !friends.isEmpty
+                guard let self = self else { return }
+                UIView.transition(with: self.friendTableView, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                    self.friendTableView.reloadData()
+                }, completion: nil)
+                self.friendImageView.isHidden = !friends.isEmpty
+                self.hintLabel.isHidden = !friends.isEmpty
             }
             .store(in: &subscriptions)
     }

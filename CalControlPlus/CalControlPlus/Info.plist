@@ -5,13 +5,13 @@
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>本應用程式需要將您的運動記錄上傳至健康數據中，以方便追蹤每日活動</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>本應用程式需要讀取您的運動與健康數據，以幫助您追蹤每日的卡路里消耗與活動情況。</string>
+	<string>本應用程式需要讀取您的運動與健康數據，以幫助您追蹤每日的卡路里消耗與活動情況</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>我們需要訪問您的照片來選擇圖片</string>
+	<string>本應用程式需要讀取您的照片來新增食物紀錄，分析並記錄飲食內容</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSCameraUsageDescription</key>
-	<string>使用相機以拍攝照片</string>
+	<string>本應用程式需要讀取您的相機拍攝食物照片進行分析紀錄，及掃描好友 QR Code 添加好友</string>
 	<key>CFBundleExecutable</key>
 	<string>CalControlPlus</string>
 	<key>CFBundleDisplayName</key>

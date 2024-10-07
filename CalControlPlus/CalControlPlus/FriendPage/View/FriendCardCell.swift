@@ -31,7 +31,7 @@ class FriendCardCell: BaseCardTableViewCell {
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Friend name"
+        label.text = ""
         label.font = UIFont.systemFont(ofSize: 24)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -77,16 +77,13 @@ class FriendCardCell: BaseCardTableViewCell {
         super.prepareForReuse()
         
         friend = nil
-        nameLabel.text = "Friend name"
+        nameLabel.text = ""
         avatarImageView.image = UIImage(systemName: "person.crop.circle")
         heartButton.setImage(UIImage(systemName: "heart"), for: .normal)
         circularLayer.strokeEnd = 0.0
         carbsProgressView.progress = 0.0
         fatsProgressView.progress = 0.0
         proteinProgressView.progress = 0.0
-        
-        subscriptions.forEach { $0.cancel() }
-        subscriptions.removeAll()
     }
     
     func configure(with friend: Friend, viewModel: FriendViewModel) {

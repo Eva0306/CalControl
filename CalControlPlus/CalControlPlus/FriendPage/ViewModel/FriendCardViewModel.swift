@@ -8,7 +8,7 @@
 import Foundation
 
 class FriendCardViewModel: ObservableObject {
-    @Published var friendName: String = "Friend name"
+    @Published var friendName: String = ""
     @Published var avatarUrl: String?
     @Published var calProgress: Double = 0.0
     @Published var carbsProgress: Double = 0.7
