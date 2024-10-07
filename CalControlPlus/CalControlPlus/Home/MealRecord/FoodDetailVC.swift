@@ -106,65 +106,64 @@ extension FoodDetailVC {
     @objc private func toggleEditing() {
         isEditingMode.toggle()
         
-        guard let foodDetailCell = foodDetailTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? FoodDetailCell,
+        foodDetailTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+        
+        guard !isEditingMode,
+              let foodDetailCell = foodDetailTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? FoodDetailCell,
               let originalFoodRecord = foodRecord else { return }
         
-        if !isEditingMode {
-            let updatedTitle = foodDetailCell.titleTextField.text ?? originalFoodRecord.title
-            
-            let updatedNutritionFacts = NutritionFacts(
-                weight: Nutrient(
-                    value: Double(
-                        foodDetailCell.valueTextFields["份量"]?.text ?? ""
-                    ) ?? originalFoodRecord.nutritionFacts.weight.value,
-                    unit: originalFoodRecord.nutritionFacts.weight.unit
-                ),
-                calories: Nutrient(
-                    value: Double(
-                        foodDetailCell.valueTextFields["熱量"]?.text ?? ""
-                    ) ?? originalFoodRecord.nutritionFacts.calories.value,
-                    unit: originalFoodRecord.nutritionFacts.calories.unit
-                ),
-                carbs: Nutrient(
-                    value: Double(
-                        foodDetailCell.valueTextFields["碳水化合物"]?.text ?? ""
-                    ) ?? originalFoodRecord.nutritionFacts.carbs.value,
-                    unit: originalFoodRecord.nutritionFacts.carbs.unit
-                ),
-                fats: Nutrient(
-                    value: Double(
-                        foodDetailCell.valueTextFields["脂質"]?.text ?? ""
-                    ) ?? originalFoodRecord.nutritionFacts.fats.value,
-                    unit: originalFoodRecord.nutritionFacts.fats.unit
-                ),
-                protein: Nutrient(
-                    value: Double(
-                        foodDetailCell.valueTextFields["蛋白質"]?.text ?? ""
-                    ) ?? originalFoodRecord.nutritionFacts.protein.value,
-                    unit: originalFoodRecord.nutritionFacts.protein.unit
-                )
+        let updatedTitle = foodDetailCell.titleTextField.text ?? originalFoodRecord.title
+        
+        let updatedNutritionFacts = NutritionFacts(
+            weight: Nutrient(
+                value: Double(
+                    foodDetailCell.valueTextFields["份量"]?.text ?? ""
+                ) ?? originalFoodRecord.nutritionFacts.weight.value,
+                unit: originalFoodRecord.nutritionFacts.weight.unit
+            ),
+            calories: Nutrient(
+                value: Double(
+                    foodDetailCell.valueTextFields["熱量"]?.text ?? ""
+                ) ?? originalFoodRecord.nutritionFacts.calories.value,
+                unit: originalFoodRecord.nutritionFacts.calories.unit
+            ),
+            carbs: Nutrient(
+                value: Double(
+                    foodDetailCell.valueTextFields["碳水化合物"]?.text ?? ""
+                ) ?? originalFoodRecord.nutritionFacts.carbs.value,
+                unit: originalFoodRecord.nutritionFacts.carbs.unit
+            ),
+            fats: Nutrient(
+                value: Double(
+                    foodDetailCell.valueTextFields["脂質"]?.text ?? ""
+                ) ?? originalFoodRecord.nutritionFacts.fats.value,
+                unit: originalFoodRecord.nutritionFacts.fats.unit
+            ),
+            protein: Nutrient(
+                value: Double(
+                    foodDetailCell.valueTextFields["蛋白質"]?.text ?? ""
+                ) ?? originalFoodRecord.nutritionFacts.protein.value,
+                unit: originalFoodRecord.nutritionFacts.protein.unit
+            )
+        )
+        
+        if updatedTitle != originalFoodRecord.title || updatedNutritionFacts != originalFoodRecord.nutritionFacts {
+            let updatedFoodRecord = FoodRecord(
+                title: updatedTitle,
+                mealType: originalFoodRecord.mealType,
+                id: originalFoodRecord.id,
+                userID: originalFoodRecord.userID,
+                date: originalFoodRecord.date,
+                nutritionFacts: updatedNutritionFacts,
+                imageUrl: originalFoodRecord.imageUrl
             )
             
-            if updatedTitle != originalFoodRecord.title || updatedNutritionFacts != originalFoodRecord.nutritionFacts {
-                let updatedFoodRecord = FoodRecord(
-                    title: updatedTitle,
-                    mealType: originalFoodRecord.mealType,
-                    id: originalFoodRecord.id,
-                    userID: originalFoodRecord.userID,
-                    date: originalFoodRecord.date,
-                    nutritionFacts: updatedNutritionFacts,
-                    imageUrl: originalFoodRecord.imageUrl
-                )
-                
-                updateFoodRecordInFirebase(updatedFoodRecord) { [weak self] success in
-                    if success {
-                        self?.foodRecord = updatedFoodRecord
-                        self?.foodDetailTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
-                    }
+            updateFoodRecordInFirebase(updatedFoodRecord) { [weak self] success in
+                if success {
+                    self?.foodRecord = updatedFoodRecord
+                    self?.foodDetailTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
                 }
             }
-        } else {
-            foodDetailTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
         }
     }
     
