@@ -163,7 +163,10 @@ class NutritionVC: UIViewController {
         
         if let checkPhoto = checkPhoto {
             
-            FirebaseManager.shared.uploadImage(image: checkPhoto) { [weak self] url in
+            FirebaseManager.shared.uploadImage(
+                image: checkPhoto,
+                folder: .FoodRecordImages
+            ) { [weak self] url in
                 guard let self = self else {
                     self?.showErrorAlert()
                     return

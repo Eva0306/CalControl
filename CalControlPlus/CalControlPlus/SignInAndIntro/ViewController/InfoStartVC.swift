@@ -137,7 +137,10 @@ class InfoStartVC: UIViewController {
         }
         
         if let avatarImage = viewModel.avatarImage {
-            FirebaseManager.shared.uploadImage(image: avatarImage) { url in
+            FirebaseManager.shared.uploadImage(
+                image: avatarImage,
+                folder: .UserAvatarImages
+            ) { url in
                 self.saveUserData(
                     userID: userID,
                     name: name,

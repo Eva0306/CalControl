@@ -226,7 +226,7 @@ extension FriendViewModel {
         
         friendDocRef.getDocument { document, error in
             guard let document = document, document.exists, var data = document.data() else {
-                print("Failed to fetch friend's document.")
+                print("DEBUG: Failed to fetch friend's document.")
                 completion(false)
                 return
             }
@@ -237,7 +237,7 @@ extension FriendViewModel {
             data["friends"] = friends
             friendDocRef.setData(data) { error in
                 if let error = error {
-                    print("Failed to update friend's document: \(error.localizedDescription)")
+                    print("DEBUG: Failed to update friend's document: \(error.localizedDescription)")
                     completion(false)
                 } else {
                     print("Successfully deleted current user from friend's list.")

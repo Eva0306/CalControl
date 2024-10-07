@@ -46,6 +46,21 @@ enum DocumentChangeType {
     case removed
 }
 
+enum StorageFolder {
+    case FoodRecordImages
+    case UserAvatarImages
+    
+    var ref: StorageReference {
+        let fireStorage = Storage.storage().reference()
+        switch self {
+        case .FoodRecordImages:
+            return fireStorage.child("FoodRecordImages/\(UUID().uuidString).jpg")
+        case .UserAvatarImages:
+            return fireStorage.child("UserAvatarImages/\(UUID().uuidString).jpg")
+        }
+    }
+}
+
 final class FirebaseManager {
     
     static let shared = FirebaseManager()
@@ -153,6 +168,13 @@ final class FirebaseManager {
         }
     }
     
+    // DOING
+    func evaPrint(_ str: String) {
+        #if DEBUG
+            
+        #endif
+    }
+    
     // 通用的更新 document 方法，根據 Document ID 更新某些欄位
     func updateDocument(
         from collection: FirestoreEndpoint,
@@ -187,12 +209,12 @@ final class FirebaseManager {
         }
     }
     
-    func uploadImage(image: UIImage, completion: @escaping (URL?) -> Void) {
+    func uploadImage(image: UIImage, folder: StorageFolder, completion: @escaping (URL?) -> Void) {
         guard let imageData = image.jpegData(compressionQuality: 0.8) else {
             completion(nil)
             return
         }
-        let storageRef = Storage.storage().reference().child("FoodRecordImages/\(UUID().uuidString).jpg")
+        let storageRef = folder.ref
         storageRef.putData(imageData, metadata: nil) { _, error in
             guard error == nil else {
                 print("Failed to upload image: \(error!.localizedDescription)")

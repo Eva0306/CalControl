@@ -238,7 +238,7 @@ extension CheckVC {
         
         guard let ciImage = CIImage(image: image) else {
             DispatchQueue.main.async {
-                print("Couldn't transform UIImage to CIImage")
+                print("DEBUG: Couldn't transform UIImage to CIImage")
                 self.loadingView.hide()
             }
             return
@@ -254,7 +254,7 @@ extension CheckVC {
                 try handler.perform([request])
             } catch {
                 DispatchQueue.main.async {
-                    print("Vision request failed with error: \(error)")
+                    print("DEBUG: Vision request failed with error: \(error)")
                     self.loadingView.hide()
                 }
             }

@@ -196,13 +196,13 @@ extension FriendListVC: UITableViewDelegate {
     private func blockFriend(_ friend: Friend) {
         friendViewModel.updateFriendStatus(friendID: friend.userID, status: "blocked") { success in
             if success {
-                print("Successfully blocked friend locally.")
+                print("DEBUG: Successfully blocked friend locally.")
                 self.friendViewModel.updateFriendStatusFromFriend(
                     friendID: friend.userID,
                     status: "blocked"
                 ) { success in
                     if success {
-                        print("Successfully blocked friend remotely.")
+                        print("DEBUG: Successfully blocked friend remotely.")
                     }
                 }
             }
@@ -211,7 +211,7 @@ extension FriendListVC: UITableViewDelegate {
     
     private func deleteFriend(_ friend: Friend) {
         friendViewModel.removeFriend(friendID: friend.userID) { [weak self] in
-            print("Successfully deleted friend.")
+            print("DEBUG: Successfully deleted friend.")
         }
     }
 }

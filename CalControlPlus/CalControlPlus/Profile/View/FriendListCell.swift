@@ -41,6 +41,14 @@ class FriendListCell: BaseCardTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        friend = nil
+        nameLabel.text = "Friend name"
+        avatarImageView.image = UIImage(systemName: "person.crop.circle")
+    }
+    
     func configure(with friend: Friend) {
         fetchFriendData(friendID: friend.userID) { [weak self] success in
             guard let self = self else { return }
