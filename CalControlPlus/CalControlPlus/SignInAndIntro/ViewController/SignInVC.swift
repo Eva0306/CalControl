@@ -15,7 +15,7 @@ class SignInVC: UIViewController {
     let backgroundView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "SignInBackground")
-        iv.contentMode = .scaleAspectFit
+        iv.contentMode = .scaleAspectFill
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
     }()
