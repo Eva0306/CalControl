@@ -131,6 +131,7 @@ class TextVC: UIViewController {
         setupNavigationBar()
         setupView()
         loadData()
+        KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [portionTextField, foodTextField])
     }
     
     private func setupNavigationBar() {

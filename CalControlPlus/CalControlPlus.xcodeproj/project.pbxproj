@@ -36,6 +36,7 @@
 		B3366C4C2CB1404D00C14D7F /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C4B2CB1404D00C14D7F /* InputViewController.swift */; };
 		B3366C502CB3D38200C14D7F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C4F2CB3D38200C14D7F /* Logger.swift */; };
 		B3366C582CB43BC800C14D7F /* CalControlPlusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */; };
+		B3366C5F2CB4C51500C14D7F /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */; };
 		B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A52C99D96700D9D1CC /* DashboardVC.swift */; };
 		B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */; };
 		B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */; };
@@ -192,6 +193,7 @@
 		B3366C4F2CB3D38200C14D7F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B3366C552CB43BC800C14D7F /* CalControlPlusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalControlPlusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControlPlusTests.swift; sourceTree = "<group>"; };
+		B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		B36C18A52C99D96700D9D1CC /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodImageClassifier.mlmodel; sourceTree = "<group>"; };
 		B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodRecordModel.swift; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 		B36C18C12C99D96700D9D1CC /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */,
 				B36C18BD2C99D96700D9D1CC /* FirebaseManager.swift */,
 				B36C18BE2C99D96700D9D1CC /* NutritionManager.swift */,
 				B36C18BF2C99D96700D9D1CC /* TranslationAPI.swift */,
@@ -979,6 +982,7 @@
 				B323DC792CAF0F51006C35AC /* BlockListVC.swift in Sources */,
 				B36C19092C9A99A800D9D1CC /* WaterRecordModel.swift in Sources */,
 				B387D98A2CA0FB0F00CCC311 /* ProfileCell.swift in Sources */,
+				B3366C5F2CB4C51500C14D7F /* KeyboardManager.swift in Sources */,
 				B36C18E12C99D96700D9D1CC /* WaterCupCell.swift in Sources */,
 				B36C18E72C99D96700D9D1CC /* AppDelegate.swift in Sources */,
 				B36C18FF2C9A974600D9D1CC /* FriendVC.swift in Sources */,

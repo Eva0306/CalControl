@@ -22,36 +22,36 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-//        testShowInfoVC()
-        let loadingVC = UIViewController()
-        loadingVC.view.backgroundColor = .background
-        window?.rootViewController = loadingVC
-        window?.makeKeyAndVisible()
-        
-        let loadingView = LoadingView()
-        loadingView.show(in: loadingVC.view, withBackground: false)
-        
-        if let currentUser = Auth.auth().currentUser {
-            debugLog("User is already logged in: \(currentUser.uid)")
-            
-            fetchUser(userID: currentUser.uid) { result in
-                DispatchQueue.main.async {
-                    
-                    loadingView.hide()
-                    
-                    switch result {
-                    case .success(let user):
-                        self.showHomeScreen(for: user)
-                    case .failure(let error):
-                        debugLog("Error - \(error.localizedDescription)")
-                        self.showSignInVC()
-                    }
-                }
-            }
-        } else {
-            debugLog("No user logged in, showing sign-in screen.")
-            showSignInVC()
-        }
+        testShowInfoVC()
+//        let loadingVC = UIViewController()
+//        loadingVC.view.backgroundColor = .background
+//        window?.rootViewController = loadingVC
+//        window?.makeKeyAndVisible()
+//        
+//        let loadingView = LoadingView()
+//        loadingView.show(in: loadingVC.view, withBackground: false)
+//        
+//        if let currentUser = Auth.auth().currentUser {
+//            debugLog("User is already logged in: \(currentUser.uid)")
+//            
+//            fetchUser(userID: currentUser.uid) { result in
+//                DispatchQueue.main.async {
+//                    
+//                    loadingView.hide()
+//                    
+//                    switch result {
+//                    case .success(let user):
+//                        self.showHomeScreen(for: user)
+//                    case .failure(let error):
+//                        debugLog("Error - \(error.localizedDescription)")
+//                        self.showSignInVC()
+//                    }
+//                }
+//            }
+//        } else {
+//            debugLog("No user logged in, showing sign-in screen.")
+//            showSignInVC()
+//        }
     }
     
     private func testShowInfoVC() {
