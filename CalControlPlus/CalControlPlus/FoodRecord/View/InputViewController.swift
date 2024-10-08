@@ -29,6 +29,7 @@ class InputViewController: UIViewController {
         super.viewDidLoad()
         setupView()
         preferredContentSize = CGSize(width: 270, height: 100)
+        KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [portionTextField, nameTextField])
     }
     
     private func setupView() {

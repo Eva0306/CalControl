@@ -47,50 +47,46 @@ class InfoTargetVC: UIViewController {
     }
     
     private func setupUI() {
+        let buttonStackView = UIStackView()
+        buttonStackView.axis = .vertical
+        buttonStackView.alignment = .fill
+        buttonStackView.distribution = .fillEqually
+        buttonStackView.spacing = 20
+        buttonStackView.translatesAutoresizingMaskIntoConstraints = false
+
         for target in Target.allCases {
             let button = UIButton(type: .system)
             button.setTitle(target.description(), for: .normal)
             button.tag = target.rawValue
             button.addTarget(self, action: #selector(targetButtonTapped(_:)), for: .touchUpInside)
-            button.translatesAutoresizingMaskIntoConstraints = false
             button.layer.cornerRadius = 8
             button.layer.borderWidth = 1
             button.layer.borderColor = UIColor.mainGreen.cgColor
             button.tintColor = .mainGreen
+            button.heightAnchor.constraint(equalToConstant: 50).isActive = true
             
             buttons.append(button)
-            view.addSubview(button)
+            buttonStackView.addArrangedSubview(button)
         }
         
-        for (index, button) in buttons.enumerated() {
-            NSLayoutConstraint.activate([
-                button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-                button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-                button.heightAnchor.constraint(equalToConstant: 50)
-            ])
-            
-            if index == 0 {
-                button.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 200).isActive = true
-            } else {
-                button.topAnchor.constraint(equalTo: buttons[index - 1].bottomAnchor, constant: 20).isActive = true
-            }
-        }
+        let mainStackView = UIStackView(arrangedSubviews: [titleLabel, buttonStackView, nextButton])
+        mainStackView.axis = .vertical
+        mainStackView.alignment = .fill
+        mainStackView.distribution = .equalSpacing
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(titleLabel)
-        view.addSubview(nextButton)
-        
+        view.addSubview(mainStackView)
+
         NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            mainStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
-    
+
     private func setupLottieAnimation() {
         lottieAnimationView = LottieAnimationView(name: "ButtonAnimation")
         guard let lottieAnimationView = lottieAnimationView else { return }

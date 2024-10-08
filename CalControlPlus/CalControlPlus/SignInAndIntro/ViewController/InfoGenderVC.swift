@@ -23,7 +23,7 @@ class InfoGenderVC: UIViewController {
         return label
     }()
     
-    private lazy var stackView: UIStackView = {
+    private lazy var buttonStackView: UIStackView = {
         let sv = UIStackView()
         sv.axis = .vertical
         sv.spacing = 20
@@ -66,35 +66,29 @@ class InfoGenderVC: UIViewController {
             button.layer.borderWidth = 1
             button.layer.borderColor = UIColor.mainGreen.cgColor
             button.tintColor = .mainGreen
+            button.heightAnchor.constraint(equalToConstant: 50).isActive = true
             button.translatesAutoresizingMaskIntoConstraints = false
             
             buttons.append(button)
-            stackView.addArrangedSubview(button)
+            buttonStackView.addArrangedSubview(button)
         }
         
-        view.addSubview(stackView)
+        let mainStackView = UIStackView(arrangedSubviews: [titleLabel, buttonStackView, nextButton])
+        mainStackView.axis = .vertical
+        mainStackView.alignment = .fill
+        mainStackView.distribution = .equalSpacing
+        mainStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(mainStackView)
+
         NSLayoutConstraint.activate([
-            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
-        ])
-        
-        buttons.forEach {
-            $0.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        }
-        
-        view.addSubview(titleLabel)
-        view.addSubview(nextButton)
-        
-        NSLayoutConstraint.activate([
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            mainStackView.leadingAnchor.constraint(
+                equalTo: view.leadingAnchor, constant: 40),
+            mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            mainStackView.topAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.topAnchor, constant: 40),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            nextButton.heightAnchor.constraint(equalToConstant: 50),
-            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     

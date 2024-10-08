@@ -35,6 +35,8 @@
 		B3366C462CB13AEC00C14D7F /* FoodItem.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3366C442CB13AEC00C14D7F /* FoodItem.xcdatamodeld */; };
 		B3366C4C2CB1404D00C14D7F /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C4B2CB1404D00C14D7F /* InputViewController.swift */; };
 		B3366C502CB3D38200C14D7F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C4F2CB3D38200C14D7F /* Logger.swift */; };
+		B3366C582CB43BC800C14D7F /* CalControlPlusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */; };
+		B3366C5F2CB4C51500C14D7F /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */; };
 		B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A52C99D96700D9D1CC /* DashboardVC.swift */; };
 		B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */; };
 		B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */; };
@@ -132,6 +134,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B3366C592CB43BC800C14D7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3B5127D2C91682600E02A43 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3B512842C91682700E02A43;
+			remoteInfo = CalControlPlus;
+		};
 		B3FA11A52CAA925C001A3805 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B3B5127D2C91682600E02A43 /* Project object */;
@@ -182,6 +191,9 @@
 		B3366C452CB13AEC00C14D7F /* FoodItem.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FoodItem.xcdatamodel; sourceTree = "<group>"; };
 		B3366C4B2CB1404D00C14D7F /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		B3366C4F2CB3D38200C14D7F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		B3366C552CB43BC800C14D7F /* CalControlPlusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalControlPlusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControlPlusTests.swift; sourceTree = "<group>"; };
+		B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		B36C18A52C99D96700D9D1CC /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodImageClassifier.mlmodel; sourceTree = "<group>"; };
 		B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodRecordModel.swift; sourceTree = "<group>"; };
@@ -278,6 +290,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B3366C522CB43BC800C14D7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3B512822C91682700E02A43 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -323,6 +342,14 @@
 				B31384692CA53A21008272B0 /* FoodDetailVC.swift */,
 			);
 			path = MealRecord;
+			sourceTree = "<group>";
+		};
+		B3366C562CB43BC800C14D7F /* CalControlPlusTests */ = {
+			isa = PBXGroup;
+			children = (
+				B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */,
+			);
+			path = CalControlPlusTests;
 			sourceTree = "<group>";
 		};
 		B3644C3F2C948EF5005195AA /* Frameworks */ = {
@@ -407,6 +434,7 @@
 		B36C18C12C99D96700D9D1CC /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */,
 				B36C18BD2C99D96700D9D1CC /* FirebaseManager.swift */,
 				B36C18BE2C99D96700D9D1CC /* NutritionManager.swift */,
 				B36C18BF2C99D96700D9D1CC /* TranslationAPI.swift */,
@@ -660,6 +688,7 @@
 				B3FA11AC2CAA9761001A3805 /* CalControlWidgetExtension.entitlements */,
 				B36C18D02C99D96700D9D1CC /* CalControlPlus */,
 				B3FA119D2CAA925A001A3805 /* CalControlWidget */,
+				B3366C562CB43BC800C14D7F /* CalControlPlusTests */,
 				B3B512862C91682700E02A43 /* Products */,
 				B3644C3F2C948EF5005195AA /* Frameworks */,
 			);
@@ -670,6 +699,7 @@
 			children = (
 				B3B512852C91682700E02A43 /* CalControlPlus.app */,
 				B3FA11982CAA925A001A3805 /* CalControlWidgetExtension.appex */,
+				B3366C552CB43BC800C14D7F /* CalControlPlusTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -736,6 +766,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B3366C542CB43BC800C14D7F /* CalControlPlusTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3366C5D2CB43BC800C14D7F /* Build configuration list for PBXNativeTarget "CalControlPlusTests" */;
+			buildPhases = (
+				B3366C512CB43BC800C14D7F /* Sources */,
+				B3366C522CB43BC800C14D7F /* Frameworks */,
+				B3366C532CB43BC800C14D7F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3366C5A2CB43BC800C14D7F /* PBXTargetDependency */,
+			);
+			name = CalControlPlusTests;
+			productName = CalControlPlusTests;
+			productReference = B3366C552CB43BC800C14D7F /* CalControlPlusTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		B3B512842C91682700E02A43 /* CalControlPlus */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3B512AF2C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControlPlus" */;
@@ -792,6 +840,10 @@
 				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
+					B3366C542CB43BC800C14D7F = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = B3B512842C91682700E02A43;
+					};
 					B3B512842C91682700E02A43 = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -821,11 +873,19 @@
 			targets = (
 				B3B512842C91682700E02A43 /* CalControlPlus */,
 				B3FA11972CAA925A001A3805 /* CalControlWidgetExtension */,
+				B3366C542CB43BC800C14D7F /* CalControlPlusTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B3366C532CB43BC800C14D7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3B512832C91682700E02A43 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -878,6 +938,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B3366C512CB43BC800C14D7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3366C582CB43BC800C14D7F /* CalControlPlusTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B3B512812C91682700E02A43 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -914,6 +982,7 @@
 				B323DC792CAF0F51006C35AC /* BlockListVC.swift in Sources */,
 				B36C19092C9A99A800D9D1CC /* WaterRecordModel.swift in Sources */,
 				B387D98A2CA0FB0F00CCC311 /* ProfileCell.swift in Sources */,
+				B3366C5F2CB4C51500C14D7F /* KeyboardManager.swift in Sources */,
 				B36C18E12C99D96700D9D1CC /* WaterCupCell.swift in Sources */,
 				B36C18E72C99D96700D9D1CC /* AppDelegate.swift in Sources */,
 				B36C18FF2C9A974600D9D1CC /* FriendVC.swift in Sources */,
@@ -994,6 +1063,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B3366C5A2CB43BC800C14D7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B3B512842C91682700E02A43 /* CalControlPlus */;
+			targetProxy = B3366C592CB43BC800C14D7F /* PBXContainerItemProxy */;
+		};
 		B3FA11A62CAA925C001A3805 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B3FA11972CAA925A001A3805 /* CalControlWidgetExtension */;
@@ -1021,6 +1095,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B3366C5B2CB43BC800C14D7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8MQ39JANS;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruiintelligence.CalControlPlusTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CalControlPlus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CalControlPlus";
+			};
+			name = Debug;
+		};
+		B3366C5C2CB43BC800C14D7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = V8MQ39JANS;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				MACOSX_DEPLOYMENT_TARGET = 14.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ruiintelligence.CalControlPlusTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CalControlPlus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/CalControlPlus";
+			};
+			name = Release;
+		};
 		B3B512AD2C91682800E02A43 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1275,6 +1395,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B3366C5D2CB43BC800C14D7F /* Build configuration list for PBXNativeTarget "CalControlPlusTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3366C5B2CB43BC800C14D7F /* Debug */,
+				B3366C5C2CB43BC800C14D7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B3B512802C91682600E02A43 /* Build configuration list for PBXProject "CalControlPlus" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

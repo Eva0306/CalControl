@@ -36,6 +36,7 @@ class InputFriendIDVC: UIViewController {
         view.backgroundColor = .background
         
         setupView()
+        KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [friendIDTextField])
     }
     
     private func setupView() {

@@ -218,6 +218,8 @@ extension NutritionVC: UITableViewDataSource {
                 strongSelf.nutritionTableView.reloadRows(at: [indexPathForImageCell], with: .automatic)
             }
             
+            KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [cell.titleTextField])
+            
             return cell
             
         } else if indexPath.row == 2 {

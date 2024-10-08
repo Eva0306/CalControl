@@ -86,6 +86,8 @@ extension FoodDetailVC: UITableViewDataSource {
             }
             if let foodRecord = foodRecord {
                 cell.configure(with: foodRecord)
+                let allTextFields = Array(cell.valueTextFields.values) + [cell.titleTextField]
+                KeyboardManager.shared.setupKeyboardManager(for: self, textFields: allTextFields)
             }
             cell.isEditingMode = isEditingMode
             return cell

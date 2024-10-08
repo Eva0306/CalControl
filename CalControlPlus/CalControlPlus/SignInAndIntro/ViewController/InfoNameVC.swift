@@ -31,18 +31,11 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
     private lazy var avatarImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFill
-        iv.image = UIImage(systemName: "person.crop.circle")
+        iv.image = UIImage(systemName: "person.crop.circle.fill.badge.plus")
+        iv.clipsToBounds = true
         iv.isUserInteractionEnabled = true
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
-    }()
-    
-    private let plusImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "plus.circle.fill"))
-        imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .lightGreen
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
     }()
     
     private lazy var nextButton: UIButton = {
@@ -68,6 +61,7 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         
         setupUI()
         setupLottieAnimation()
+        KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [nameTextField])
     }
     
     override func viewDidLayoutSubviews() {
@@ -93,36 +87,26 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
 
         NSLayoutConstraint.activate([
             leftPaddingView.widthAnchor.constraint(equalToConstant: 30),
-            rightPaddingView.widthAnchor.constraint(equalToConstant: 30)
+            rightPaddingView.widthAnchor.constraint(equalTo: leftPaddingView.widthAnchor),
+            avatarImageView.widthAnchor.constraint(greaterThanOrEqualToConstant: 100)
         ])
         
-        let mainStackView = UIStackView(arrangedSubviews: [titleLabel, avatarContainer, nameTextField])
+        let mainStackView = UIStackView(arrangedSubviews: [titleLabel, avatarContainer, nameTextField, nextButton])
         mainStackView.axis = .vertical
-        mainStackView.spacing = 40
         mainStackView.alignment = .fill
-        mainStackView.distribution = .fill
+        mainStackView.distribution = .equalSpacing
         mainStackView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(mainStackView)
-        view.addSubview(nextButton)
-        avatarImageView.addSubview(plusImageView)
         
         NSLayoutConstraint.activate([
             mainStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             mainStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             mainStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
+            mainStackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             
             avatarImageView.heightAnchor.constraint(equalTo: avatarImageView.widthAnchor),
             nameTextField.heightAnchor.constraint(equalToConstant: 50),
-            
-            plusImageView.heightAnchor.constraint(equalToConstant: 70),
-            plusImageView.widthAnchor.constraint(equalToConstant: 70),
-            plusImageView.trailingAnchor.constraint(equalTo: avatarImageView.trailingAnchor, constant: -20),
-            plusImageView.bottomAnchor.constraint(equalTo: avatarImageView.bottomAnchor, constant: -20),
-            
-            nextButton.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            nextButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            nextButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             nextButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
@@ -210,12 +194,12 @@ extension InfoNameVC: UITextFieldDelegate {
         
         if nextButton.isEnabled {
             nextButton.backgroundColor = .clear
-            // 播放動畫
+            
             lottieAnimationView?.isHidden = false
             lottieAnimationView?.play()
         } else {
             nextButton.backgroundColor = .lightGray
-            // 停止動畫，並隱藏
+            
             lottieAnimationView?.stop()
             lottieAnimationView?.isHidden = true
         }
