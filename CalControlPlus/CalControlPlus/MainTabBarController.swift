@@ -24,7 +24,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         
         self.delegate = self
         
-        tabBar.backgroundColor = .white.withAlphaComponent(0.8)
+        tabBar.backgroundColor = .cellBackground.withAlphaComponent(0.8)
         
         tabBar.layer.shadowColor = UIColor.gray.cgColor
         tabBar.layer.shadowOpacity = 0.3
