@@ -55,7 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func testShowInfoVC() {
-        let initialVC = SignInVC()
+        let initialVC = DataCollectionContainerVC()
         window?.rootViewController = UINavigationController(rootViewController: initialVC)
         window?.makeKeyAndVisible()
     }
