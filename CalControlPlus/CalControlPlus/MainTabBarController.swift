@@ -61,7 +61,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
             popupTabBarController.modalPresentationStyle = .fullScreen
             popupTabBarController.selectedMealType = mealType
             present(popupTabBarController, animated: true, completion: nil)
-            
         } else {
             debugLog("Cannot Find RecordTabBarController")
         }
