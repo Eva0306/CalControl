@@ -86,7 +86,7 @@ class InfoStartVC: UIViewController {
     
     private func setupLottieAnimation() {
         buttonAnimationView = LottieAnimationView(name: "ButtonAnimation")
-        foodAnimationView = LottieAnimationView(name: " FoodCarouselAnimation")
+        foodAnimationView = LottieAnimationView(name: "FoodCarouselAnimation")
         guard let buttonAnimationView = buttonAnimationView,
               let foodAnimationView = foodAnimationView else { return }
         

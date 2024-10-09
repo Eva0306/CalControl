@@ -78,7 +78,6 @@
 		B36C19142C9AD90000D9D1CC /* DailyAnalysisViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C19132C9AD90000D9D1CC /* DailyAnalysisViewModel.swift */; };
 		B36C19182C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C19172C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift */; };
 		B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C191C2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift */; };
-		B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */; };
 		B387D9682C9C7C7400CCC311 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D9672C9C7C7400CCC311 /* UserSettings.swift */; };
 		B387D96B2C9C811200CCC311 /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D96A2C9C811200CCC311 /* DashboardViewModel.swift */; };
 		B387D96F2C9D231900CCC311 /* UserProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B387D96E2C9D231900CCC311 /* UserProfileViewModel.swift */; };
@@ -102,6 +101,7 @@
 		B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */; };
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
+		B3C3457B2CB535E9001294AA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3C3457A2CB535E9001294AA /* FirebaseCrashlytics */; };
 		B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA116F2CA69283001A3805 /* SignInVC.swift */; };
 		B3FA11742CA80488001A3805 /* InfoNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11732CA80488001A3805 /* InfoNameVC.swift */; };
 		B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */; };
@@ -303,8 +303,8 @@
 			files = (
 				B3B512BC2C9185E700E02A43 /* FirebaseAnalytics in Frameworks */,
 				B3FA11BE2CAD9D40001A3805 /* Lottie in Frameworks */,
-				B370A37A2C96CAD900CDBF44 /* IQKeyboardManagerSwift in Frameworks */,
 				B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */,
+				B3C3457B2CB535E9001294AA /* FirebaseCrashlytics in Frameworks */,
 				B32CDD882C9C4DFE00F92244 /* Kingfisher in Frameworks */,
 				B32CDD732C9BF02000F92244 /* FirebaseStorage in Frameworks */,
 				B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */,
@@ -793,6 +793,7 @@
 				B3B512832C91682700E02A43 /* Resources */,
 				B3644C3E2C9445EB005195AA /* SwiftLint */,
 				B3FA11AB2CAA925C001A3805 /* Embed Foundation Extensions */,
+				B3C345792CB52E3D001294AA /* Firebase Crashlytics */,
 			);
 			buildRules = (
 			);
@@ -804,10 +805,10 @@
 				B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */,
 				B3B512BD2C9185E700E02A43 /* FirebaseAuth */,
 				B3B512BF2C9185E700E02A43 /* FirebaseFirestore */,
-				B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */,
 				B32CDD722C9BF02000F92244 /* FirebaseStorage */,
 				B32CDD872C9C4DFE00F92244 /* Kingfisher */,
 				B3FA11BD2CAD9D40001A3805 /* Lottie */,
+				B3C3457A2CB535E9001294AA /* FirebaseCrashlytics */,
 			);
 			productName = "CalControl+";
 			productReference = B3B512852C91682700E02A43 /* CalControlPlus.app */;
@@ -863,7 +864,6 @@
 			mainGroup = B3B5127C2C91682600E02A43;
 			packageReferences = (
 				B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				B370A3782C96CAD900CDBF44 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 				B32CDD862C9C4DFE00F92244 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				B3FA11BC2CAD9D40001A3805 /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
@@ -934,6 +934,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\n\n/opt/homebrew/bin/swiftlint\n";
+		};
+		B3C345792CB52E3D001294AA /* Firebase Crashlytics */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(TARGET_BUILD_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(TARGET_BUILD_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Firebase Crashlytics";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1269,6 +1292,7 @@
 				CODE_SIGN_ENTITLEMENTS = CalControlPlus/CalControlPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = V8MQ39JANS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CalControlPlus/Info.plist;
@@ -1282,7 +1306,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruiintelligence.CalControlPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1318,7 +1343,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruiintelligence.CalControlPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1442,14 +1468,6 @@
 				minimumVersion = 8.0.1;
 			};
 		};
-		B370A3782C96CAD900CDBF44 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 7.1.1;
-			};
-		};
 		B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
@@ -1479,11 +1497,6 @@
 			package = B32CDD862C9C4DFE00F92244 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
-		B370A3792C96CAD900CDBF44 /* IQKeyboardManagerSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B370A3782C96CAD900CDBF44 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
-			productName = IQKeyboardManagerSwift;
-		};
 		B3B512BB2C9185E700E02A43 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -1498,6 +1511,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		B3C3457A2CB535E9001294AA /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
 		};
 		B3FA11BD2CAD9D40001A3805 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
