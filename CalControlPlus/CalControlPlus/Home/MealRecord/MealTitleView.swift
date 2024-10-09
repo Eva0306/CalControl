@@ -94,4 +94,3 @@ class MealTitleView: UITableViewHeaderFooterView {
         arrowButton.setTitle(newTitle, for: .normal)
     }
 }
-
