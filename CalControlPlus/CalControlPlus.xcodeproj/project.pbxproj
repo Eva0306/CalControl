@@ -555,8 +555,8 @@
 			children = (
 				B3FA11902CAA66B4001A3805 /* FillWaterView.swift */,
 				B3FA11922CAA66CC001A3805 /* EmptyWaterView.swift */,
-				B36C18BB2C99D96700D9D1CC /* WaterRecordCell.swift */,
 				B36C18BA2C99D96700D9D1CC /* WaterCupCell.swift */,
+				B36C18BB2C99D96700D9D1CC /* WaterRecordCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";

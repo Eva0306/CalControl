@@ -120,7 +120,7 @@ struct AddWeightView: View {
     @State private var currentDate = Calendar.current.startOfDay(for: Date())
     @State private var isEditingWeight = false
     
-    @State private var alertType: AlertType? // 用於處理不同的警告類型
+    @State private var alertType: AlertType?
     @State private var replaceIndex: Int?
     
     var body: some View {

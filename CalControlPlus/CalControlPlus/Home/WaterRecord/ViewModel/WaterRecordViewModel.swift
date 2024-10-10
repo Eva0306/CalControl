@@ -80,7 +80,7 @@ class WaterRecordViewModel: ObservableObject {
             id: docRef.documentID,
             userID: UserProfileViewModel.shared.user.id,
             date: date,
-            totalWaterIntake: currentWaterIntake * cupSize
+            totalWaterIntake: 0
         )
         
         FirebaseManager.shared.setData(newRecord, at: docRef)
