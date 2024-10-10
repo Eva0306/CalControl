@@ -104,15 +104,18 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    // PHPickerViewControllerDelegate 方法，用來處理選擇的圖片
+    // PHPickerViewController Delegate
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        
-        // 處理選擇的結果
-        for result in results {
-            result.itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
-                if let image = object as? UIImage {
-                    DispatchQueue.main.async {
-                        self.goToCheckVC(with: image)
+        if results.isEmpty {
+            self.tabBarController?.dismiss(animated: true, completion: nil)
+        } else {
+            // 正常處理圖片選擇的邏輯
+            for result in results {
+                result.itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
+                    if let image = object as? UIImage {
+                        DispatchQueue.main.async {
+                            self.goToCheckVC(with: image)
+                        }
                     }
                 }
             }

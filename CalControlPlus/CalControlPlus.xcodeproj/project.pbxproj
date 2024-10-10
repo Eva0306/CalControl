@@ -47,7 +47,6 @@
 		B36C18D82C99D96700D9D1CC /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18AE2C99D96700D9D1CC /* TextViewCell.swift */; };
 		B36C18D92C99D96700D9D1CC /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B02C99D96700D9D1CC /* CameraVC.swift */; };
 		B36C18DA2C99D96700D9D1CC /* CheckVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B12C99D96700D9D1CC /* CheckVC.swift */; };
-		B36C18DB2C99D96700D9D1CC /* MealSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B22C99D96700D9D1CC /* MealSelectionVC.swift */; };
 		B36C18DC2C99D96700D9D1CC /* NutritionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B32C99D96700D9D1CC /* NutritionVC.swift */; };
 		B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B42C99D96700D9D1CC /* PhotosVC.swift */; };
 		B36C18DE2C99D96700D9D1CC /* TextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B52C99D96700D9D1CC /* TextVC.swift */; };
@@ -205,7 +204,6 @@
 		B36C18AE2C99D96700D9D1CC /* TextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		B36C18B02C99D96700D9D1CC /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		B36C18B12C99D96700D9D1CC /* CheckVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckVC.swift; sourceTree = "<group>"; };
-		B36C18B22C99D96700D9D1CC /* MealSelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealSelectionVC.swift; sourceTree = "<group>"; };
 		B36C18B32C99D96700D9D1CC /* NutritionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionVC.swift; sourceTree = "<group>"; };
 		B36C18B42C99D96700D9D1CC /* PhotosVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosVC.swift; sourceTree = "<group>"; };
 		B36C18B52C99D96700D9D1CC /* TextVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextVC.swift; sourceTree = "<group>"; };
@@ -401,7 +399,6 @@
 		B36C18B62C99D96700D9D1CC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B36C18B22C99D96700D9D1CC /* MealSelectionVC.swift */,
 				B36C18B02C99D96700D9D1CC /* CameraVC.swift */,
 				B36C18B42C99D96700D9D1CC /* PhotosVC.swift */,
 				B36C18B52C99D96700D9D1CC /* TextVC.swift */,
@@ -997,7 +994,6 @@
 				B387D99D2CA27DE400CCC311 /* UIViewExtension.swift in Sources */,
 				B3FA11822CA8050A001A3805 /* InfoStartVC.swift in Sources */,
 				B32CDD782C9BF61100F92244 /* FoodRecordCell.swift in Sources */,
-				B36C18DB2C99D96700D9D1CC /* MealSelectionVC.swift in Sources */,
 				B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */,
 				B387D9942CA14E6200CCC311 /* UserSettingsCalculator.swift in Sources */,
 				B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */,
