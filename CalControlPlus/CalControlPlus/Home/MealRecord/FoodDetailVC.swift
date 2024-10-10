@@ -40,12 +40,18 @@ class FoodDetailVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
+        super.viewWillAppear(animated)
+        if let mainTabBarController = self.tabBarController as? MainTabBarController {
+            mainTabBarController.plusButtonAnimationView.isHidden = true
+        }
         self.tabBarController?.tabBar.isHidden = true
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
+        if let mainTabBarController = self.tabBarController as? MainTabBarController {
+            mainTabBarController.plusButtonAnimationView.isHidden = false
+        }
         self.tabBarController?.tabBar.isHidden = false
     }
     

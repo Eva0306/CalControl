@@ -11,7 +11,7 @@ import Lottie
 class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private var isAddButtonExpanded = false
-    private var plusButtonAnimationView: LottieAnimationView = {
+    var plusButtonAnimationView: LottieAnimationView = {
         let animationView = LottieAnimationView(name: "PlusToXAnimation")
         animationView.contentMode = .scaleAspectFill
         animationView.loopMode = .playOnce
@@ -42,6 +42,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         sv.axis = .horizontal
         sv.alignment = .center
         sv.spacing = 20
+        sv.isHidden = true
         sv.translatesAutoresizingMaskIntoConstraints = false
         return sv
     }()
@@ -51,6 +52,7 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.alpha = 0
+        view.isHidden = true
         return view
     }()
     
@@ -157,10 +159,12 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
             self?.isAddButtonExpanded = true
         }
         
+        buttonStackView.isHidden = false
         animateMealButtons(shouldExpand: true)
         
         UIView.animate(withDuration: 0.3) {
             self.dimmingView.alpha = 1.0
+            self.dimmingView.isHidden = false
         }
     }
     
@@ -168,11 +172,17 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         plusButtonAnimationView.play(fromProgress: 0.065, toProgress: 0.0) { [weak self] _ in
             self?.isAddButtonExpanded = false
         }
+        
         animateMealButtons(shouldExpand: false)
         
-        UIView.animate(withDuration: 0.3) {
+        UIView.animate(withDuration: 0.3, animations: {
             self.dimmingView.alpha = 0
-        }
+        }, completion: { finished in
+            if finished {
+                self.dimmingView.isHidden = true
+                self.buttonStackView.isHidden = true
+            }
+        })
     }
     
     private func animateMealButtons(shouldExpand: Bool) {

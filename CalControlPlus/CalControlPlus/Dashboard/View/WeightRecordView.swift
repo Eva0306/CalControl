@@ -120,7 +120,7 @@ struct AddWeightView: View {
     @State private var currentDate = Calendar.current.startOfDay(for: Date())
     @State private var isEditingWeight = false
     
-    @State private var showAlert = false
+    @State private var alertType: AlertType? // 用於處理不同的警告類型
     @State private var replaceIndex: Int?
     
     var body: some View {
@@ -151,23 +151,34 @@ struct AddWeightView: View {
             .navigationBarItems(leading: Button("取消") {
                 dismiss()
             }, trailing: Button("儲存") {
-                if replaceIndex != nil {
-                    showAlert = true
+                if weight == 0 {
+                    alertType = .zeroWeight
+                } else if replaceIndex != nil {
+                    alertType = .replaceRecord
                 } else {
                     viewModel.saveOrReplaceRecord(for: currentDate, weight: weight)
                     dismiss()
                 }
             })
-            .alert(isPresented: $showAlert) {
-                Alert(
-                    title: Text("該日期已有資料"),
-                    message: Text("要以此資料取代嗎？"),
-                    primaryButton: .destructive(Text("取代")) {
-                        viewModel.saveOrReplaceRecord(for: currentDate, weight: weight)
-                        dismiss()
-                    },
-                    secondaryButton: .cancel()
-                )
+            .alert(item: $alertType) { alertType in
+                switch alertType {
+                case .zeroWeight:
+                    return Alert(
+                        title: Text("無效的體重"),
+                        message: Text("體重不能為 0\n請輸入有效的體重"),
+                        dismissButton: .default(Text("確定"))
+                    )
+                case .replaceRecord:
+                    return Alert(
+                        title: Text("該日期已有資料"),
+                        message: Text("要以此資料取代嗎？"),
+                        primaryButton: .destructive(Text("取代")) {
+                            viewModel.saveOrReplaceRecord(for: currentDate, weight: weight)
+                            dismiss()
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
             }
         }
         .onAppear {
@@ -185,7 +196,20 @@ struct AddWeightView: View {
             weight = 50.0
         }
     }
+    
+    enum AlertType: Identifiable {
+        case zeroWeight
+        case replaceRecord
+        
+        var id: Int {
+            switch self {
+            case .zeroWeight: return 0
+            case .replaceRecord: return 1
+            }
+        }
+    }
 }
+
 
 // #Preview {
 //    WeightRecordView()

@@ -44,8 +44,4 @@ class WeightRecordCell: BaseCardTableViewCell {
             ])
         }
     }
-//    
-//    func configure() {
-//        viewModel.fetchWeightRecord()
-//    }
 }

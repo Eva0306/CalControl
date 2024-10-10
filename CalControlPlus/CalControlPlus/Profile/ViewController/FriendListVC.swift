@@ -45,13 +45,19 @@ class FriendListVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        friendViewModel.fetchFriendData()
+        super.viewWillAppear(animated)
+        if let mainTabBarController = self.tabBarController as? MainTabBarController {
+            mainTabBarController.plusButtonAnimationView.isHidden = true
+        }
         self.tabBarController?.tabBar.isHidden = true
+        friendViewModel.fetchFriendData()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
+        if let mainTabBarController = self.tabBarController as? MainTabBarController {
+            mainTabBarController.plusButtonAnimationView.isHidden = false
+        }
         self.tabBarController?.tabBar.isHidden = false
     }
     

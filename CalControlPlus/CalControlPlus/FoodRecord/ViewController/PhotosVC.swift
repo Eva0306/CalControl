@@ -109,7 +109,6 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
         if results.isEmpty {
             self.tabBarController?.dismiss(animated: true, completion: nil)
         } else {
-            // 正常處理圖片選擇的邏輯
             for result in results {
                 result.itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
                     if let image = object as? UIImage {
