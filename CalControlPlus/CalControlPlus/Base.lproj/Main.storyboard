@@ -54,7 +54,7 @@
                         <viewLayoutGuide key="safeArea" id="2XI-RS-YPd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="plus.viewfinder" catalog="system" selectedImage="plus.viewfinder" id="xzv-pj-PcR">
+                    <tabBarItem key="tabBarItem" title="" id="xzv-pj-PcR">
                         <color key="badgeColor" name="mainGreen"/>
                     </tabBarItem>
                 </viewController>
@@ -265,9 +265,8 @@
         <image name="heart.circle" catalog="system" width="128" height="123"/>
         <image name="note.text" catalog="system" width="128" height="107"/>
         <image name="person" catalog="system" width="128" height="121"/>
-        <image name="plus.viewfinder" catalog="system" width="128" height="115"/>
         <namedColor name="background">
-            <color red="0.95294117647058818" green="0.96470588235294119" blue="0.95686274509803915" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.95300000905990601" green="0.9649999737739563" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="mainGreen">
             <color red="0.42399999499320984" green="0.54100000858306885" blue="0.53299999237060547" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

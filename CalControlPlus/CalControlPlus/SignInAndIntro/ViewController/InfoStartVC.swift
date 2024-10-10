@@ -57,7 +57,7 @@ class InfoStartVC: UIViewController {
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40),
             
             confirmButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            confirmButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100),
+            confirmButton.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 150),
             confirmButton.heightAnchor.constraint(equalToConstant: 50),
             confirmButton.widthAnchor.constraint(equalToConstant: 250)
         ])

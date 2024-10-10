@@ -17,7 +17,7 @@ class FoodRecordCell: BaseCardTableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .regular)
         label.tintColor = .darkGray
-        label.text = "food name"
+        label.text = ""
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -25,8 +25,10 @@ class FoodRecordCell: BaseCardTableViewCell {
     
     private lazy var foodImage: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(systemName: "carrot")
+        iv.image = UIImage(systemName: "fork.knife.circle")
+        iv.alpha = 0.8
         iv.contentMode = .scaleAspectFill
+        iv.layer.cornerRadius = 8
         iv.clipsToBounds = true
         iv.translatesAutoresizingMaskIntoConstraints = false
         return iv
@@ -53,7 +55,8 @@ class FoodRecordCell: BaseCardTableViewCell {
     
     override func prepareForReuse() {
         foodTitleLabel.text = ""
-        foodImage.image = UIImage(systemName: "carrot")
+        foodImage.image = UIImage(systemName: "fork.knife.circle")
+        foodImage.alpha = 0.8
     }
     
     private func setupView() {
@@ -76,6 +79,7 @@ class FoodRecordCell: BaseCardTableViewCell {
         foodTitleLabel.text = foodRecord.title
         if let imageUrl = foodRecord.imageUrl {
             foodImage.loadImage(with: imageUrl)
+            foodImage.alpha = 1.0
         }
     }
 }

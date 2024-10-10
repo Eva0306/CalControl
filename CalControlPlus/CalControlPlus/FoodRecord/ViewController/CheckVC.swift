@@ -216,7 +216,8 @@ extension CheckVC {
             return
         }
         
-        let request = VNCoreMLRequest(model: visionModel) { (request, error) in
+        let request = VNCoreMLRequest(model: visionModel) { [weak self] (request, error) in
+            guard let self = self else { return }
             
             DispatchQueue.main.async {
                 self.loadingView.hide()

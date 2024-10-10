@@ -102,6 +102,7 @@
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
 		B3C3457B2CB535E9001294AA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3C3457A2CB535E9001294AA /* FirebaseCrashlytics */; };
+		B3C3457D2CB7E4E3001294AA /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */; };
 		B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA116F2CA69283001A3805 /* SignInVC.swift */; };
 		B3FA11742CA80488001A3805 /* InfoNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11732CA80488001A3805 /* InfoNameVC.swift */; };
 		B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */; };
@@ -257,6 +258,7 @@
 		B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		B387D99E2CA28B4E00CCC311 /* PickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerModel.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		B3FA116D2CA69202001A3805 /* CalControlPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalControlPlus.entitlements; sourceTree = "<group>"; };
 		B3FA116F2CA69283001A3805 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		B3FA11732CA80488001A3805 /* InfoNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoNameVC.swift; sourceTree = "<group>"; };
@@ -500,6 +502,7 @@
 			children = (
 				B36C18CF2C99D96700D9D1CC /* UIColorExtension.swift */,
 				B36C18C62C99D96700D9D1CC /* DoubleExtension.swift */,
+				B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */,
 				B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */,
 				B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */,
 				B309F9042CA3E2A300414F5B /* UITableViewExtension.swift */,
@@ -1066,6 +1069,7 @@
 				B31384762CA5ACBD008272B0 /* ScanQRCodeVC.swift in Sources */,
 				B32CDD762C9BF3E700F92244 /* MealRecordCell.swift in Sources */,
 				B36C18E32C99D96700D9D1CC /* FirebaseManager.swift in Sources */,
+				B3C3457D2CB7E4E3001294AA /* UIImageExtension.swift in Sources */,
 				B3366C4C2CB1404D00C14D7F /* InputViewController.swift in Sources */,
 				B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */,
 				B387D97A2CA0741A00CCC311 /* WeightRecordCell.swift in Sources */,

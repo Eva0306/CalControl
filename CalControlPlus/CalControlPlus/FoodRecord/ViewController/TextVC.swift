@@ -125,6 +125,8 @@ class TextVC: UIViewController {
     
     private var foodList: [FoodItem] = []
     
+    private let loadingView = LoadingView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.background
@@ -229,10 +231,12 @@ class TextVC: UIViewController {
     @objc private func addFoodByText() {
         guard foodPortion != "", foodRecord != "" else { return }
         
+        loadingView.show(in: view, withBackground: true)
+        
         let fullText = "\(foodPortion) \(foodRecord)"
         
-        TranslationManager.shared.detectAndTranslateText(fullText, completion: { translatedText in
-            
+        TranslationManager.shared.detectAndTranslateText(fullText, completion: { [weak self] translatedText in
+            guard let self = self else { return }
             if let translatedText = translatedText {
                 
                 DispatchQueue.main.async {
@@ -240,6 +244,9 @@ class TextVC: UIViewController {
                         if let mealType = recordTabBarController.selectedMealType {
                             NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { foodRecord in
                                 
+                                DispatchQueue.main.async {
+                                    self.loadingView.hide()
+                                }
                                 self.goToNutritionVC(image: nil, foodRecord: foodRecord)
                             }
                         }
@@ -251,6 +258,7 @@ class TextVC: UIViewController {
                 self.showAlert()
             }
         })
+        loadingView.hide()
     }
 }
 
