@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import TOCropViewController
 
 class CameraVC: UIViewController {
     
@@ -213,7 +214,7 @@ extension CameraVC {
 }
 
 // MARK: - Photo Output
-extension CameraVC: AVCapturePhotoCaptureDelegate {
+extension CameraVC: AVCapturePhotoCaptureDelegate, TOCropViewControllerDelegate {
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         
@@ -223,7 +224,21 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
             return
         }
         
-        goToCheckVC(with: image)
+//        goToCheckVC(with: image)
+        let cropViewController = TOCropViewController(image: image)
+        cropViewController.delegate = self
+        present(cropViewController, animated: true, completion: nil)
+    }
+    
+    func cropViewController(
+        _ cropViewController: TOCropViewController,
+        didCropTo didCropToImage: UIImage,
+        with cropRect: CGRect,
+        angle: Int
+    ) {
+        cropViewController.dismiss(animated: true) {
+            self.goToCheckVC(with: didCropToImage)
+        }
     }
     
     func goToCheckVC(with image: UIImage) {

@@ -107,6 +107,7 @@
 		B3C345852CB93902001294AA /* APIKey-Sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C345842CB93902001294AA /* APIKey-Sample.plist */; };
 		B3C345882CB93A79001294AA /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C345872CB93A79001294AA /* APIKey.swift */; };
 		B3C3458C2CB98636001294AA /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C3458B2CB98635001294AA /* APIKey.plist */; };
+		B3C3458F2CB9926B001294AA /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = B3C3458E2CB9926B001294AA /* CropViewController */; };
 		B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA116F2CA69283001A3805 /* SignInVC.swift */; };
 		B3FA11742CA80488001A3805 /* InfoNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11732CA80488001A3805 /* InfoNameVC.swift */; };
 		B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */; };
@@ -316,6 +317,7 @@
 				B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */,
 				B3C3457B2CB535E9001294AA /* FirebaseCrashlytics in Frameworks */,
 				B32CDD882C9C4DFE00F92244 /* Kingfisher in Frameworks */,
+				B3C3458F2CB9926B001294AA /* CropViewController in Frameworks */,
 				B32CDD732C9BF02000F92244 /* FirebaseStorage in Frameworks */,
 				B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */,
 			);
@@ -841,6 +843,7 @@
 				B32CDD872C9C4DFE00F92244 /* Kingfisher */,
 				B3FA11BD2CAD9D40001A3805 /* Lottie */,
 				B3C3457A2CB535E9001294AA /* FirebaseCrashlytics */,
+				B3C3458E2CB9926B001294AA /* CropViewController */,
 			);
 			productName = "CalControl+";
 			productReference = B3B512852C91682700E02A43 /* CalControlPlus.app */;
@@ -898,6 +901,7 @@
 				B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B32CDD862C9C4DFE00F92244 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				B3FA11BC2CAD9D40001A3805 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				B3C3458D2CB9926B001294AA /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			productRefGroup = B3B512862C91682700E02A43 /* Products */;
 			projectDirPath = "";
@@ -1532,6 +1536,14 @@
 				minimumVersion = 11.2.0;
 			};
 		};
+		B3C3458D2CB9926B001294AA /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.4;
+			};
+		};
 		B3FA11BC2CAD9D40001A3805 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -1572,6 +1584,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		B3C3458E2CB9926B001294AA /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3C3458D2CB9926B001294AA /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
 		};
 		B3FA11BD2CAD9D40001A3805 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
