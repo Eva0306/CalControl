@@ -20,9 +20,9 @@ class NutritionManager: NSObject {
         
         let appId = "f1e74560"
         
-        let appKey = "69e1a9ce44414a206e36e8286b680ad7"
+        let apiKey = APIKey.default.nutritionApiKey
         
-        let urlString =  "https://api.edamam.com/api/nutrition-data?app_id=\(appId)&app_key=\(appKey)&ingr=\(ingredient)"
+        let urlString =  "https://api.edamam.com/api/nutrition-data?app_id=\(appId)&app_key=\(apiKey)&ingr=\(ingredient)"
         
         guard let url = URL(string: urlString) else { return }
         

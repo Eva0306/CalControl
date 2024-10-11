@@ -11,7 +11,7 @@ class TranslationManager: NSObject {
     
     static let shared = TranslationManager()
     
-    private let apiKey = "AIzaSyB7wa28UbtunfsZPiXE6LqAIUN9BxrtwRc"
+    private let apiKey = APIKey.default.translationApiKey
     
     var sourceLanguageCode: String?
     

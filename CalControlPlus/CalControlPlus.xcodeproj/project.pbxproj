@@ -104,6 +104,9 @@
 		B3C3457D2CB7E4E3001294AA /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */; };
 		B3C3457F2CB8D1A3001294AA /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */; };
 		B3C345822CB8FD6C001294AA /* TemporaryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */; };
+		B3C345852CB93902001294AA /* APIKey-Sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C345842CB93902001294AA /* APIKey-Sample.plist */; };
+		B3C345882CB93A79001294AA /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C345872CB93A79001294AA /* APIKey.swift */; };
+		B3C3458C2CB98636001294AA /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C3458B2CB98635001294AA /* APIKey.plist */; };
 		B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA116F2CA69283001A3805 /* SignInVC.swift */; };
 		B3FA11742CA80488001A3805 /* InfoNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11732CA80488001A3805 /* InfoNameVC.swift */; };
 		B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */; };
@@ -261,6 +264,9 @@
 		B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackHelper.swift; sourceTree = "<group>"; };
 		B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryAlert.swift; sourceTree = "<group>"; };
+		B3C345842CB93902001294AA /* APIKey-Sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "APIKey-Sample.plist"; sourceTree = "<group>"; };
+		B3C345872CB93A79001294AA /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		B3C3458B2CB98635001294AA /* APIKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
 		B3FA116D2CA69202001A3805 /* CalControlPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalControlPlus.entitlements; sourceTree = "<group>"; };
 		B3FA116F2CA69283001A3805 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		B3FA11732CA80488001A3805 /* InfoNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoNameVC.swift; sourceTree = "<group>"; };
@@ -687,6 +693,7 @@
 			isa = PBXGroup;
 			children = (
 				B3FA11AC2CAA9761001A3805 /* CalControlWidgetExtension.entitlements */,
+				B3C345832CB937F2001294AA /* APIKey */,
 				B36C18D02C99D96700D9D1CC /* CalControlPlus */,
 				B3FA119D2CAA925A001A3805 /* CalControlWidget */,
 				B3366C562CB43BC800C14D7F /* CalControlPlusTests */,
@@ -716,6 +723,16 @@
 				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		B3C345832CB937F2001294AA /* APIKey */ = {
+			isa = PBXGroup;
+			children = (
+				B3C345842CB93902001294AA /* APIKey-Sample.plist */,
+				B3C3458B2CB98635001294AA /* APIKey.plist */,
+				B3C345872CB93A79001294AA /* APIKey.swift */,
+			);
+			path = APIKey;
 			sourceTree = "<group>";
 		};
 		B3FA116E2CA6925D001A3805 /* SignInAndIntro */ = {
@@ -802,6 +819,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3B512AF2C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControlPlus" */;
 			buildPhases = (
+				B3C345862CB93920001294AA /* APIKey */,
 				B3B512812C91682700E02A43 /* Sources */,
 				B3B512822C91682700E02A43 /* Frameworks */,
 				B3B512832C91682700E02A43 /* Resources */,
@@ -907,6 +925,7 @@
 				B3FA11CB2CADA9C4001A3805 /* FoodCarouselAnimation.json in Resources */,
 				B36C18EC2C99D96700D9D1CC /* GoogleService-Info.plist in Resources */,
 				B36C18EE2C99D96700D9D1CC /* LaunchScreen.storyboard in Resources */,
+				B3C345852CB93902001294AA /* APIKey-Sample.plist in Resources */,
 				B3FA11C32CAD9E31001A3805 /* PlusToXAnimation.json in Resources */,
 				B36C18EF2C99D96700D9D1CC /* Main.storyboard in Resources */,
 				B3FA11C92CADA535001A3805 /* RibbonAnimation.json in Resources */,
@@ -914,6 +933,7 @@
 				B36C18EA2C99D96700D9D1CC /* DietRecord.storyboard in Resources */,
 				B36C18E82C99D96700D9D1CC /* Assets.xcassets in Resources */,
 				B3FA11C52CAD9E31001A3805 /* PawLoadingAnimation.json in Resources */,
+				B3C3458C2CB98636001294AA /* APIKey.plist in Resources */,
 				B3FA11C42CAD9E31001A3805 /* ButtonAnimation.json in Resources */,
 				B3FA11C82CADA535001A3805 /* FoodLoadingAnimation.json in Resources */,
 			);
@@ -971,6 +991,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+		B3C345862CB93920001294AA /* APIKey */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = APIKey;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/APIKey/APIKey.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nCONFIG_FILE_BASE_NAME=\"APIKey\"\n\nCONFIG_FILE_NAME=${CONFIG_FILE_BASE_NAME}.plist\nSAMPLE_CONFIG_FILE_NAME=${CONFIG_FILE_BASE_NAME}-Sample.plist\n\nCONFIG_FILE_PATH=$SRCROOT/APIKey/$CONFIG_FILE_NAME\nSAMPLE_CONFIG_FILE_PATH=$SRCROOT/APIKey/$SAMPLE_CONFIG_FILE_NAME\n\nif [ -f \"$CONFIG_FILE_PATH\" ]; then\n  echo \"$CONFIG_FILE_PATH exists.\"\nelse\n  echo \"$CONFIG_FILE_PATH does not exist, copying sample\"\n  cp -v \"${SAMPLE_CONFIG_FILE_PATH}\" \"${CONFIG_FILE_PATH}\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1081,6 +1120,7 @@
 				B31384762CA5ACBD008272B0 /* ScanQRCodeVC.swift in Sources */,
 				B32CDD762C9BF3E700F92244 /* MealRecordCell.swift in Sources */,
 				B36C18E32C99D96700D9D1CC /* FirebaseManager.swift in Sources */,
+				B3C345882CB93A79001294AA /* APIKey.swift in Sources */,
 				B3C3457D2CB7E4E3001294AA /* UIImageExtension.swift in Sources */,
 				B3366C4C2CB1404D00C14D7F /* InputViewController.swift in Sources */,
 				B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */,
