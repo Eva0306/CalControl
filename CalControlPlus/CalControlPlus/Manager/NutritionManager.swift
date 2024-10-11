@@ -55,7 +55,11 @@ class NutritionManager: NSObject {
         task.resume()
     }
     
-    func fetchNutritionFacts(_ viewController: UIViewController, mealType: Int, ingredient: String, completion: @escaping (FoodRecord?) -> Void) {
+    func fetchNutritionFacts(
+        _ viewController: UIViewController,
+        mealType: Int, ingredient: String,
+        completion: @escaping (FoodRecord?) -> Void
+    ) {
         fetchNutrition(ingredient: ingredient) { result in
             switch result {
             case .success(let nutritionData):

@@ -15,7 +15,10 @@ enum APIKey {
     }
     
     static var `default`: ApiKeyData = {
-        guard let fileURL = Bundle.main.url(forResource: "APIKey", withExtension: UTType.propertyList.preferredFilenameExtension) else {
+        guard let fileURL = Bundle.main.url(
+            forResource: "APIKey",
+            withExtension: UTType.propertyList.preferredFilenameExtension
+        ) else {
             fatalError("Couldn't find file APIKey.plist")
         }
         guard let data = try? Data(contentsOf: fileURL) else {

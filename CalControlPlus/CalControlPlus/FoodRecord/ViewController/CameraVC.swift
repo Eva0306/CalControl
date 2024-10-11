@@ -157,12 +157,18 @@ class CameraVC: UIViewController {
 // MARK: - Focus Function
 extension CameraVC {
     @objc private func focusAndExposeTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        let tapLocation = gestureRecognizer.location(in: view)
+        showFocusCircle(at: tapLocation)
+        
         let devicePoint = previewLayer.captureDevicePointConverted(fromLayerPoint: gestureRecognizer.location(in: view))
         focus(at: devicePoint)
     }
     
     private func focus(at point: CGPoint) {
-        guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else { return }
+        guard let camera = AVCaptureDevice.default(
+            .builtInWideAngleCamera,
+            for: .video, position: .back
+        ) else { return }
         
         do {
             try camera.lockForConfiguration()
@@ -196,13 +202,13 @@ extension CameraVC {
         
         UIView.animate(withDuration: 0.3, animations: {
             focusCircle.alpha = 1.0
-        }) { _ in
+        }, completion: { _ in
             UIView.animate(withDuration: 0.5, animations: {
                 focusCircle.alpha = 0.0
-            }) { _ in
+            }, completion: { _ in
                 focusCircle.removeFromSuperview()
-            }
-        }
+            })
+        })
     }
 }
 
