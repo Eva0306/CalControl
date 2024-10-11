@@ -204,6 +204,7 @@ class TextVC: UIViewController {
         self.foodList = foodItems
         self.textTableView.reloadData()
         hintLabel.isHidden = !foodList.isEmpty
+        textTableView.isHidden = foodList.isEmpty
     }
     
     @objc private func storedFoodTapped() {
@@ -270,24 +271,35 @@ class TextVC: UIViewController {
 // MARK: - TableView DataSource
 extension TextVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        foodList.count
+        foodList.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let foodItem = foodList[indexPath.row]
-        // swiftlint:disable force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
-        // swiftlint:enable force_cast
-        cell.configureCell(food: foodItem)
-        cell.addStoredFood = { [weak self] food, portion in
-            guard let self = self else { return }
-            self.foodTextField.text = food
-            self.portionTextField.text = portion
-            self.foodRecord = food
-            self.foodPortion = portion
-            self.updateAddButtonState()
+        if indexPath.row < foodList.count {
+            let foodItem = foodList[indexPath.row]
+            // swiftlint:disable force_cast
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
+            // swiftlint:enable force_cast
+            cell.configureCell(food: foodItem)
+            cell.addStoredFood = { [weak self] food, portion in
+                guard let self = self else { return }
+                self.foodTextField.text = food
+                self.portionTextField.text = portion
+                self.foodRecord = food
+                self.foodPortion = portion
+                self.updateAddButtonState()
+            }
+            return cell
+        } else {
+            let cell = UITableViewCell()
+            cell.selectionStyle = .none
+            cell.backgroundColor = .clear
+            cell.textLabel?.numberOfLines = 0
+            cell.textLabel?.text = "點擊右上角可新增常用食物"
+            cell.textLabel?.textColor = .gray
+            cell.textLabel?.textAlignment = .center
+            return cell
         }
-        return cell
     }
 }
 
