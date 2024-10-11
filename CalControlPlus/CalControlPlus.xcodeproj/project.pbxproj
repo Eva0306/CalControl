@@ -453,9 +453,6 @@
 				B3FA116D2CA69202001A3805 /* CalControlPlus.entitlements */,
 				B36C18C22C99D96700D9D1CC /* AppDelegate.swift */,
 				B36C18CE2C99D96700D9D1CC /* SceneDelegate.swift */,
-				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
-				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
-				B323DC702CAE997E006C35AC /* LoadingView.swift */,
 				B3FA116E2CA6925D001A3805 /* SignInAndIntro */,
 				B387D9702C9D242500CCC311 /* UserProfile */,
 				B3FA11BF2CAD9DEF001A3805 /* Animation */,
@@ -714,6 +711,9 @@
 				B3366C4F2CB3D38200C14D7F /* Logger.swift */,
 				B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */,
 				B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */,
+				B323DC702CAE997E006C35AC /* LoadingView.swift */,
+				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
+				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";

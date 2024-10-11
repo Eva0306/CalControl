@@ -7,7 +7,11 @@
 
 import UIKit
 
-func showTemporaryAlert(on viewController: UIViewController, message: String, feedbackType: UINotificationFeedbackGenerator.FeedbackType? = nil) {
+func showTemporaryAlert(
+    on viewController: UIViewController,
+    message: String,
+    feedbackType: UINotificationFeedbackGenerator.FeedbackType? = nil
+) {
     
     if let feedbackType = feedbackType {
         HapticFeedbackHelper.generateNotificationFeedback(type: feedbackType)
