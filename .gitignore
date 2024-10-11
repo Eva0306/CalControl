@@ -138,5 +138,8 @@ GoogleService-Info.plist
 # swiftlint
 .swiftlint.yml
 
+# APIKey
+APIKey.plist
+
 
 # End of https://www.toptal.com/developers/gitignore/api/swift,xcode,macos

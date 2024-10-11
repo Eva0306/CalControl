@@ -47,6 +47,11 @@ class CameraVC: UIViewController {
         captureSession = AVCaptureSession()
         captureSession.beginConfiguration()
         
+        let tapGesture = UITapGestureRecognizer(
+            target: self, action: #selector(focusAndExposeTap(_:))
+        )
+        view.addGestureRecognizer(tapGesture)
+        
         guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
             
             debugLog("Couldn't find the camera device")
@@ -65,6 +70,13 @@ class CameraVC: UIViewController {
             let input = try AVCaptureDeviceInput(device: camera)
             if captureSession.canAddInput(input) {
                 captureSession.addInput(input)
+            }
+            
+            // 設置自動對焦
+            if camera.isFocusModeSupported(.continuousAutoFocus) {
+                try camera.lockForConfiguration()
+                camera.focusMode = .continuousAutoFocus
+                camera.unlockForConfiguration()
             }
             
             // 設定相片輸出
@@ -95,9 +107,9 @@ class CameraVC: UIViewController {
     }
     
     @objc func capturePhoto() {
-            let settings = AVCapturePhotoSettings()
-            photoOutput.capturePhoto(with: settings, delegate: self)
-        }
+        let settings = AVCapturePhotoSettings()
+        photoOutput.capturePhoto(with: settings, delegate: self)
+    }
     
     private func setupCameraItems() {
         let overlayView = UIView()
@@ -139,6 +151,58 @@ class CameraVC: UIViewController {
     
     @objc func closeVC() {
         self.tabBarController?.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - Focus Function
+extension CameraVC {
+    @objc private func focusAndExposeTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        let devicePoint = previewLayer.captureDevicePointConverted(fromLayerPoint: gestureRecognizer.location(in: view))
+        focus(at: devicePoint)
+    }
+    
+    private func focus(at point: CGPoint) {
+        guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else { return }
+        
+        do {
+            try camera.lockForConfiguration()
+            
+            if camera.isFocusPointOfInterestSupported {
+                camera.focusPointOfInterest = point
+                camera.focusMode = .autoFocus
+            }
+            
+            if camera.isExposurePointOfInterestSupported {
+                camera.exposurePointOfInterest = point
+                camera.exposureMode = .autoExpose
+            }
+            
+            camera.unlockForConfiguration()
+            
+        } catch {
+            debugLog("Error focusing camera: \(error)")
+        }
+    }
+    
+    private func showFocusCircle(at point: CGPoint) {
+        let focusCircle = UIView()
+        focusCircle.layer.borderColor = UIColor.white.cgColor
+        focusCircle.layer.borderWidth = 2.0
+        focusCircle.layer.cornerRadius = 40
+        focusCircle.frame = CGRect(x: 0, y: 0, width: 80, height: 80)
+        focusCircle.center = point
+        focusCircle.alpha = 0.0
+        view.addSubview(focusCircle)
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            focusCircle.alpha = 1.0
+        }) { _ in
+            UIView.animate(withDuration: 0.5, animations: {
+                focusCircle.alpha = 0.0
+            }) { _ in
+                focusCircle.removeFromSuperview()
+            }
+        }
     }
 }
 

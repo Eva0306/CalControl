@@ -147,7 +147,7 @@ class NutritionVC: UIViewController {
     }
     
     @objc private func addRecord() {
-        guard let foodRecord = foodRecord, let title = foodRecord.title else {
+        guard let foodRecord = foodRecord, let _ = foodRecord.title else {
             showAlert()
             return
         }
@@ -201,7 +201,9 @@ extension NutritionVC: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: NutritionImageCell.identifier, for: indexPath) as! NutritionImageCell
             // swiftlint:enable force_cast line_length
             cell.configureCell(image: checkPhoto, name: foodRecord?.title)
-            
+            cell.didChangedPhoto = { [weak self] selectedImage in
+                self?.checkPhoto = selectedImage
+            }
             return cell
             
         } else if indexPath.row == 1 {
@@ -239,6 +241,7 @@ extension NutritionVC: UITableViewDataSource {
 // MARK: - Show Alert
 extension NutritionVC {
     func showAlert() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
         let alert = UIAlertController(
             title: "資料缺失",
             message: "請確認輸入食物名字",
@@ -250,6 +253,7 @@ extension NutritionVC {
     }
     
     func showErrorAlert() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
         let alert = UIAlertController(title: "錯誤", message: "儲存失敗，請稍後再試。", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
@@ -265,6 +269,7 @@ extension NutritionVC {
         
         loadingView.hide()
         
+        HapticFeedbackHelper.generateNotificationFeedback(type: .success)
         let alert = UIAlertController(title: "儲存成功！", message: nil, preferredStyle: .alert)
         present(alert, animated: true)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

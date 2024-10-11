@@ -97,7 +97,7 @@ struct SmallWidgetView: View {
             .padding(.trailing, 5)
         }
         .containerBackground(for: .widget) {
-            Color.init(uiColor: .widgetBackground)
+            Color.background
         }
     }
 }
@@ -142,7 +142,7 @@ struct MediumWidgetView: View {
             .padding(.horizontal)
         }
         .containerBackground(for: .widget) {
-            Color.init(uiColor: .widgetBackground)
+            Color.background
         }
     }
 }

@@ -32,7 +32,7 @@ class MealTitleView: UITableViewHeaderFooterView {
     
     private lazy var arrowButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("↑", for: .normal)
+        button.setImage(UIImage(systemName: "chevron.up"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(pressExpandButton(_:)), for: .touchUpInside)
         return button
@@ -79,9 +79,10 @@ class MealTitleView: UITableViewHeaderFooterView {
     }
     
     @objc private func pressExpandButton(_ sender: UIButton) {
+        HapticFeedbackHelper.generateImpactFeedback(style: .soft)
         isExpand.toggle()
-        let newTitle = isExpand ? "↓" : "↑"
-        arrowButton.setTitle(newTitle, for: .normal)
+        let newImage = isExpand ? "chevron.down" : "chevron.up"
+        arrowButton.setImage(UIImage(systemName: newImage), for: .normal)
         
         delegate?.mealTitleView(self, didPressTag: buttonTag, isExpand: isExpand)
     }
@@ -90,7 +91,7 @@ class MealTitleView: UITableViewHeaderFooterView {
         titleLabel.text = title
         buttonTag = tag
         isExpand = isExpanded
-        let newTitle = isExpand ? "↓" : "↑"
-        arrowButton.setTitle(newTitle, for: .normal)
+        let newImage = isExpand ? "chevron.down" : "chevron.up"
+        arrowButton.setImage(UIImage(systemName: newImage), for: .normal)
     }
 }

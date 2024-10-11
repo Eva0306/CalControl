@@ -125,12 +125,18 @@ class TextVC: UIViewController {
     
     private var foodList: [FoodItem] = []
     
+    private let loadingView = LoadingView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.background
         setupNavigationBar()
         setupView()
         loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [portionTextField, foodTextField])
     }
     
@@ -198,11 +204,13 @@ class TextVC: UIViewController {
         self.foodList = foodItems
         self.textTableView.reloadData()
         hintLabel.isHidden = !foodList.isEmpty
+        textTableView.isHidden = foodList.isEmpty
     }
     
     @objc private func storedFoodTapped() {
-        let inputViewController = InputViewController()
+        HapticFeedbackHelper.generateImpactFeedback()
         
+        let inputViewController = InputViewController()
         let alert = UIAlertController(title: "新增食物", message: nil, preferredStyle: .actionSheet)
         alert.setValue(inputViewController, forKey: "contentViewController")
         
@@ -229,10 +237,12 @@ class TextVC: UIViewController {
     @objc private func addFoodByText() {
         guard foodPortion != "", foodRecord != "" else { return }
         
+        loadingView.show(in: view, withBackground: true)
+        
         let fullText = "\(foodPortion) \(foodRecord)"
         
-        TranslationManager.shared.detectAndTranslateText(fullText, completion: { translatedText in
-            
+        TranslationManager.shared.detectAndTranslateText(fullText, completion: { [weak self] translatedText in
+            guard let self = self else { return }
             if let translatedText = translatedText {
                 
                 DispatchQueue.main.async {
@@ -240,6 +250,9 @@ class TextVC: UIViewController {
                         if let mealType = recordTabBarController.selectedMealType {
                             NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { foodRecord in
                                 
+                                DispatchQueue.main.async {
+                                    self.loadingView.hide()
+                                }
                                 self.goToNutritionVC(image: nil, foodRecord: foodRecord)
                             }
                         }
@@ -251,40 +264,57 @@ class TextVC: UIViewController {
                 self.showAlert()
             }
         })
+        loadingView.hide()
     }
 }
 
 // MARK: - TableView DataSource
 extension TextVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        foodList.count
+        foodList.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let foodItem = foodList[indexPath.row]
-        // swiftlint:disable force_cast
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
-        // swiftlint:enable force_cast
-        cell.configureCell(food: foodItem)
-        cell.addStoredFood = { [weak self] food, portion in
-            guard let self = self else { return }
-            self.foodTextField.text = food
-            self.portionTextField.text = portion
-            self.foodRecord = food
-            self.foodPortion = portion
-            self.updateAddButtonState()
+        if indexPath.row < foodList.count {
+            let foodItem = foodList[indexPath.row]
+            // swiftlint:disable force_cast
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
+            // swiftlint:enable force_cast
+            cell.configureCell(food: foodItem)
+            cell.addStoredFood = { [weak self] food, portion in
+                guard let self = self else { return }
+                self.foodTextField.text = food
+                self.portionTextField.text = portion
+                self.foodRecord = food
+                self.foodPortion = portion
+                self.updateAddButtonState()
+            }
+            return cell
+        } else {
+            let cell = UITableViewCell()
+            cell.selectionStyle = .none
+            cell.backgroundColor = .clear
+            cell.textLabel?.numberOfLines = 0
+            cell.textLabel?.text = "點擊右上角可新增常用食物"
+            cell.textLabel?.textColor = .gray
+            cell.textLabel?.textAlignment = .center
+            return cell
         }
-        return cell
     }
 }
 
 // MARK: - Table View Delegate
 extension TextVC: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] _, _, completionHandler in
             guard let self = self else { return }
+            HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
+            
             let foodItemToDelete = self.foodList[indexPath.row]
             let alertController = UIAlertController(title: "確定刪除？", message: "是否要刪除此食物項目？", preferredStyle: .alert)
             
@@ -294,17 +324,13 @@ extension TextVC: UITableViewDelegate {
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 completionHandler(true)
             }
-            
             let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
                 completionHandler(false)
             }
-            
             alertController.addAction(confirmAction)
             alertController.addAction(cancelAction)
-            
             self.present(alertController, animated: true, completion: nil)
         }
-        
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
@@ -316,7 +342,6 @@ extension TextVC: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        
         let currentText = textField.text ?? ""
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
         
@@ -325,9 +350,7 @@ extension TextVC: UITextFieldDelegate {
         } else if textField == portionTextField {
             foodPortion = updatedText
         }
-        
         updateAddButtonState()
-        
         return true
     }
     
@@ -338,7 +361,8 @@ extension TextVC: UITextFieldDelegate {
     private func updateAddButtonState() {
         let isBothTextFieldsNotEmpty = !foodPortion.isEmpty && !foodRecord.isEmpty
         addButton.isEnabled = isBothTextFieldsNotEmpty
-        addButton.backgroundColor = isBothTextFieldsNotEmpty ? enabledButtonColor : enabledButtonColor.withAlphaComponent(0.6)
+        addButton.backgroundColor = isBothTextFieldsNotEmpty ?
+        enabledButtonColor : enabledButtonColor.withAlphaComponent(0.6)
         addButton.setTitleColor(isBothTextFieldsNotEmpty ? .white : .lightGray, for: .normal)
     }
 }
@@ -346,6 +370,7 @@ extension TextVC: UITextFieldDelegate {
 // MARK: - Show Alert
 extension TextVC {
     func showAlert() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
         let alert = UIAlertController(
             title: "無法辨識資料",
             message: "試試其他說法或使用英文輸入",

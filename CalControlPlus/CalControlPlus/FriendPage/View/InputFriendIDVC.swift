@@ -59,13 +59,14 @@ class InputFriendIDVC: UIViewController {
     
     @objc private func addFriendButtonTapped() {
         guard let friendID = friendIDTextField.text, !friendID.isEmpty else {
-            showTemporaryAlert(message: "請輸入好友 ID")
+            showTemporaryAlert(on: self, message: "請輸入好友 ID", feedbackType: .warning)
             return
         }
         showAddFriendAlert(friendID: friendID)
     }
     
     private func showAddFriendAlert(friendID: String) {
+        HapticFeedbackHelper.generateImpactFeedback()
         let alertController = UIAlertController(
             title: "添加好友",
             message: "是否要添加此ID為好友：\(friendID)",
@@ -82,14 +83,5 @@ class InputFriendIDVC: UIViewController {
         alertController.addAction(confirmAction)
         alertController.addAction(cancelAction)
         present(alertController, animated: true, completion: nil)
-    }
-    
-    private func showTemporaryAlert(message: String) {
-        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        present(alertController, animated: true, completion: nil)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            alertController.dismiss(animated: true, completion: nil)
-        }
     }
 }

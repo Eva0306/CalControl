@@ -45,13 +45,19 @@ class FriendListVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        friendViewModel.fetchFriendData()
+        super.viewWillAppear(animated)
+        if let mainTabBarController = self.tabBarController as? MainTabBarController {
+            mainTabBarController.plusButtonAnimationView.isHidden = true
+        }
         self.tabBarController?.tabBar.isHidden = true
+        friendViewModel.fetchFriendData()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
+        if let mainTabBarController = self.tabBarController as? MainTabBarController {
+            mainTabBarController.plusButtonAnimationView.isHidden = false
+        }
         self.tabBarController?.tabBar.isHidden = false
     }
     
@@ -160,6 +166,8 @@ extension FriendListVC: UITableViewDelegate {
     }
     
     private func showBlockFriendAlert(for friend: Friend) {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
+        
         let alertController = UIAlertController(
             title: "封鎖好友",
             message: "封鎖後會從好友雙方名單中移除\n並需要解除封鎖才能重新加入",
@@ -177,6 +185,8 @@ extension FriendListVC: UITableViewDelegate {
     }
     
     private func showDeleteFriendAlert(for friend: Friend) {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
+        
         let alertController = UIAlertController(
             title: "刪除好友",
             message: "刪除好友僅會從個人好友名單中刪除",

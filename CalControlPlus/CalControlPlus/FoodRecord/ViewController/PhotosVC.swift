@@ -71,6 +71,7 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
     }
     
     private func presentLimitedAccessAlert() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
         let alert = UIAlertController(
             title: "有限照片訪問",
             message: "你目前僅限訪問部分照片。要選擇更多的照片或相簿，請更新訪問權限。",
@@ -87,6 +88,7 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
     }
     
     private func presentDeniedAccessAlert() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
         let alert = UIAlertController(
             title: "無法訪問照片",
             message: "應用無法訪問你的照片。請到「設置」中啟用照片訪問權限。",
@@ -104,15 +106,17 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    // PHPickerViewControllerDelegate 方法，用來處理選擇的圖片
+    // PHPickerViewController Delegate
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        
-        // 處理選擇的結果
-        for result in results {
-            result.itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
-                if let image = object as? UIImage {
-                    DispatchQueue.main.async {
-                        self.goToCheckVC(with: image)
+        if results.isEmpty {
+            self.tabBarController?.dismiss(animated: true, completion: nil)
+        } else {
+            for result in results {
+                result.itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
+                    if let image = object as? UIImage {
+                        DispatchQueue.main.async {
+                            self.goToCheckVC(with: image)
+                        }
                     }
                 }
             }

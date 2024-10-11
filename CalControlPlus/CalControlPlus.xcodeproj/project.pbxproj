@@ -47,7 +47,6 @@
 		B36C18D82C99D96700D9D1CC /* TextViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18AE2C99D96700D9D1CC /* TextViewCell.swift */; };
 		B36C18D92C99D96700D9D1CC /* CameraVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B02C99D96700D9D1CC /* CameraVC.swift */; };
 		B36C18DA2C99D96700D9D1CC /* CheckVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B12C99D96700D9D1CC /* CheckVC.swift */; };
-		B36C18DB2C99D96700D9D1CC /* MealSelectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B22C99D96700D9D1CC /* MealSelectionVC.swift */; };
 		B36C18DC2C99D96700D9D1CC /* NutritionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B32C99D96700D9D1CC /* NutritionVC.swift */; };
 		B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B42C99D96700D9D1CC /* PhotosVC.swift */; };
 		B36C18DE2C99D96700D9D1CC /* TextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18B52C99D96700D9D1CC /* TextVC.swift */; };
@@ -102,6 +101,12 @@
 		B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BD2C9185E700E02A43 /* FirebaseAuth */; };
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
 		B3C3457B2CB535E9001294AA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3C3457A2CB535E9001294AA /* FirebaseCrashlytics */; };
+		B3C3457D2CB7E4E3001294AA /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */; };
+		B3C3457F2CB8D1A3001294AA /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */; };
+		B3C345822CB8FD6C001294AA /* TemporaryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */; };
+		B3C345852CB93902001294AA /* APIKey-Sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C345842CB93902001294AA /* APIKey-Sample.plist */; };
+		B3C345882CB93A79001294AA /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C345872CB93A79001294AA /* APIKey.swift */; };
+		B3C3458C2CB98636001294AA /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C3458B2CB98635001294AA /* APIKey.plist */; };
 		B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA116F2CA69283001A3805 /* SignInVC.swift */; };
 		B3FA11742CA80488001A3805 /* InfoNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11732CA80488001A3805 /* InfoNameVC.swift */; };
 		B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */; };
@@ -204,7 +209,6 @@
 		B36C18AE2C99D96700D9D1CC /* TextViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextViewCell.swift; sourceTree = "<group>"; };
 		B36C18B02C99D96700D9D1CC /* CameraVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraVC.swift; sourceTree = "<group>"; };
 		B36C18B12C99D96700D9D1CC /* CheckVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckVC.swift; sourceTree = "<group>"; };
-		B36C18B22C99D96700D9D1CC /* MealSelectionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MealSelectionVC.swift; sourceTree = "<group>"; };
 		B36C18B32C99D96700D9D1CC /* NutritionVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionVC.swift; sourceTree = "<group>"; };
 		B36C18B42C99D96700D9D1CC /* PhotosVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosVC.swift; sourceTree = "<group>"; };
 		B36C18B52C99D96700D9D1CC /* TextVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextVC.swift; sourceTree = "<group>"; };
@@ -257,6 +261,12 @@
 		B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		B387D99E2CA28B4E00CCC311 /* PickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerModel.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackHelper.swift; sourceTree = "<group>"; };
+		B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryAlert.swift; sourceTree = "<group>"; };
+		B3C345842CB93902001294AA /* APIKey-Sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "APIKey-Sample.plist"; sourceTree = "<group>"; };
+		B3C345872CB93A79001294AA /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
+		B3C3458B2CB98635001294AA /* APIKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
 		B3FA116D2CA69202001A3805 /* CalControlPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalControlPlus.entitlements; sourceTree = "<group>"; };
 		B3FA116F2CA69283001A3805 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		B3FA11732CA80488001A3805 /* InfoNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoNameVC.swift; sourceTree = "<group>"; };
@@ -399,7 +409,6 @@
 		B36C18B62C99D96700D9D1CC /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				B36C18B22C99D96700D9D1CC /* MealSelectionVC.swift */,
 				B36C18B02C99D96700D9D1CC /* CameraVC.swift */,
 				B36C18B42C99D96700D9D1CC /* PhotosVC.swift */,
 				B36C18B52C99D96700D9D1CC /* TextVC.swift */,
@@ -450,14 +459,11 @@
 				B3FA116D2CA69202001A3805 /* CalControlPlus.entitlements */,
 				B36C18C22C99D96700D9D1CC /* AppDelegate.swift */,
 				B36C18CE2C99D96700D9D1CC /* SceneDelegate.swift */,
-				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
-				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
-				B323DC702CAE997E006C35AC /* LoadingView.swift */,
-				B3366C4F2CB3D38200C14D7F /* Logger.swift */,
 				B3FA116E2CA6925D001A3805 /* SignInAndIntro */,
 				B387D9702C9D242500CCC311 /* UserProfile */,
 				B3FA11BF2CAD9DEF001A3805 /* Animation */,
 				B36C19022C9A97E500D9D1CC /* Extension */,
+				B3C345802CB8D1B5001294AA /* Utilities */,
 				B36C18C12C99D96700D9D1CC /* Manager */,
 				B387D9952CA14E6F00CCC311 /* Calculator */,
 				B36C18BC2C99D96700D9D1CC /* Home */,
@@ -500,6 +506,7 @@
 			children = (
 				B36C18CF2C99D96700D9D1CC /* UIColorExtension.swift */,
 				B36C18C62C99D96700D9D1CC /* DoubleExtension.swift */,
+				B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */,
 				B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */,
 				B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */,
 				B309F9042CA3E2A300414F5B /* UITableViewExtension.swift */,
@@ -555,8 +562,8 @@
 			children = (
 				B3FA11902CAA66B4001A3805 /* FillWaterView.swift */,
 				B3FA11922CAA66CC001A3805 /* EmptyWaterView.swift */,
-				B36C18BB2C99D96700D9D1CC /* WaterRecordCell.swift */,
 				B36C18BA2C99D96700D9D1CC /* WaterCupCell.swift */,
+				B36C18BB2C99D96700D9D1CC /* WaterRecordCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -686,6 +693,7 @@
 			isa = PBXGroup;
 			children = (
 				B3FA11AC2CAA9761001A3805 /* CalControlWidgetExtension.entitlements */,
+				B3C345832CB937F2001294AA /* APIKey */,
 				B36C18D02C99D96700D9D1CC /* CalControlPlus */,
 				B3FA119D2CAA925A001A3805 /* CalControlWidget */,
 				B3366C562CB43BC800C14D7F /* CalControlPlusTests */,
@@ -702,6 +710,29 @@
 				B3366C552CB43BC800C14D7F /* CalControlPlusTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B3C345802CB8D1B5001294AA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B3366C4F2CB3D38200C14D7F /* Logger.swift */,
+				B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */,
+				B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */,
+				B323DC702CAE997E006C35AC /* LoadingView.swift */,
+				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
+				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		B3C345832CB937F2001294AA /* APIKey */ = {
+			isa = PBXGroup;
+			children = (
+				B3C345842CB93902001294AA /* APIKey-Sample.plist */,
+				B3C3458B2CB98635001294AA /* APIKey.plist */,
+				B3C345872CB93A79001294AA /* APIKey.swift */,
+			);
+			path = APIKey;
 			sourceTree = "<group>";
 		};
 		B3FA116E2CA6925D001A3805 /* SignInAndIntro */ = {
@@ -788,6 +819,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B3B512AF2C91682800E02A43 /* Build configuration list for PBXNativeTarget "CalControlPlus" */;
 			buildPhases = (
+				B3C345862CB93920001294AA /* APIKey */,
 				B3B512812C91682700E02A43 /* Sources */,
 				B3B512822C91682700E02A43 /* Frameworks */,
 				B3B512832C91682700E02A43 /* Resources */,
@@ -893,6 +925,7 @@
 				B3FA11CB2CADA9C4001A3805 /* FoodCarouselAnimation.json in Resources */,
 				B36C18EC2C99D96700D9D1CC /* GoogleService-Info.plist in Resources */,
 				B36C18EE2C99D96700D9D1CC /* LaunchScreen.storyboard in Resources */,
+				B3C345852CB93902001294AA /* APIKey-Sample.plist in Resources */,
 				B3FA11C32CAD9E31001A3805 /* PlusToXAnimation.json in Resources */,
 				B36C18EF2C99D96700D9D1CC /* Main.storyboard in Resources */,
 				B3FA11C92CADA535001A3805 /* RibbonAnimation.json in Resources */,
@@ -900,6 +933,7 @@
 				B36C18EA2C99D96700D9D1CC /* DietRecord.storyboard in Resources */,
 				B36C18E82C99D96700D9D1CC /* Assets.xcassets in Resources */,
 				B3FA11C52CAD9E31001A3805 /* PawLoadingAnimation.json in Resources */,
+				B3C3458C2CB98636001294AA /* APIKey.plist in Resources */,
 				B3FA11C42CAD9E31001A3805 /* ButtonAnimation.json in Resources */,
 				B3FA11C82CADA535001A3805 /* FoodLoadingAnimation.json in Resources */,
 			);
@@ -958,6 +992,25 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
 		};
+		B3C345862CB93920001294AA /* APIKey */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = APIKey;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/APIKey/APIKey.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nCONFIG_FILE_BASE_NAME=\"APIKey\"\n\nCONFIG_FILE_NAME=${CONFIG_FILE_BASE_NAME}.plist\nSAMPLE_CONFIG_FILE_NAME=${CONFIG_FILE_BASE_NAME}-Sample.plist\n\nCONFIG_FILE_PATH=$SRCROOT/APIKey/$CONFIG_FILE_NAME\nSAMPLE_CONFIG_FILE_PATH=$SRCROOT/APIKey/$SAMPLE_CONFIG_FILE_NAME\n\nif [ -f \"$CONFIG_FILE_PATH\" ]; then\n  echo \"$CONFIG_FILE_PATH exists.\"\nelse\n  echo \"$CONFIG_FILE_PATH does not exist, copying sample\"\n  cp -v \"${SAMPLE_CONFIG_FILE_PATH}\" \"${CONFIG_FILE_PATH}\"\nfi\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -978,6 +1031,7 @@
 				B387D9762CA0019C00CCC311 /* NutritionCalculator.swift in Sources */,
 				B36C19012C9A979800D9D1CC /* ProfileVC.swift in Sources */,
 				B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */,
+				B3C3457F2CB8D1A3001294AA /* HapticFeedbackHelper.swift in Sources */,
 				B36C18E22C99D96700D9D1CC /* WaterRecordCell.swift in Sources */,
 				B32CDD7E2C9C492A00F92244 /* HomeViewModel.swift in Sources */,
 				B3366C502CB3D38200C14D7F /* Logger.swift in Sources */,
@@ -994,7 +1048,6 @@
 				B387D99D2CA27DE400CCC311 /* UIViewExtension.swift in Sources */,
 				B3FA11822CA8050A001A3805 /* InfoStartVC.swift in Sources */,
 				B32CDD782C9BF61100F92244 /* FoodRecordCell.swift in Sources */,
-				B36C18DB2C99D96700D9D1CC /* MealSelectionVC.swift in Sources */,
 				B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */,
 				B387D9942CA14E6200CCC311 /* UserSettingsCalculator.swift in Sources */,
 				B32CDD6C2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift in Sources */,
@@ -1036,6 +1089,7 @@
 				B36C19142C9AD90000D9D1CC /* DailyAnalysisViewModel.swift in Sources */,
 				B387D9992CA27AB000CCC311 /* PickerViewModal.swift in Sources */,
 				B3FA11B32CAA9E27001A3805 /* DailyProgressView.swift in Sources */,
+				B3C345822CB8FD6C001294AA /* TemporaryAlert.swift in Sources */,
 				B3FA11912CAA66B4001A3805 /* FillWaterView.swift in Sources */,
 				B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */,
 				B31384702CA59847008272B0 /* AddFriendVC.swift in Sources */,
@@ -1066,6 +1120,8 @@
 				B31384762CA5ACBD008272B0 /* ScanQRCodeVC.swift in Sources */,
 				B32CDD762C9BF3E700F92244 /* MealRecordCell.swift in Sources */,
 				B36C18E32C99D96700D9D1CC /* FirebaseManager.swift in Sources */,
+				B3C345882CB93A79001294AA /* APIKey.swift in Sources */,
+				B3C3457D2CB7E4E3001294AA /* UIImageExtension.swift in Sources */,
 				B3366C4C2CB1404D00C14D7F /* InputViewController.swift in Sources */,
 				B36C191D2C9B31E500D9D1CC /* WeeklyCalAnalysisView.swift in Sources */,
 				B387D97A2CA0741A00CCC311 /* WeightRecordCell.swift in Sources */,

@@ -36,15 +36,21 @@ class WeightRecordDetailVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        if let mainTabBarController = self.tabBarController as? MainTabBarController {
+            mainTabBarController.plusButtonAnimationView.isHidden = true
+        }
         self.tabBarController?.tabBar.isHidden = true
         sortedWeightRecords = UserProfileViewModel.shared.user.weightRecord.sorted {
             $0.date.dateValue() > $1.date.dateValue()
         }
         weightRecordTableView.reloadData()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(true)
+        super.viewWillDisappear(animated)
+        if let mainTabBarController = self.tabBarController as? MainTabBarController {
+            mainTabBarController.plusButtonAnimationView.isHidden = false
+        }
         self.tabBarController?.tabBar.isHidden = false
     }
     
@@ -93,27 +99,6 @@ extension WeightRecordDetailVC: UITableViewDataSource {
         cell.configure(with: weightData)
         return cell
     }
-    
-    func tableView(_ tableView: UITableView,
-                   commit editingStyle: UITableViewCell.EditingStyle,
-                   forRowAt indexPath: IndexPath
-    ) {
-        if editingStyle == .delete && indexPath.row == 0 {
-            let alertController = UIAlertController(
-                title: "無法刪除",
-                message: "第一筆紀錄無法被刪除。",
-                preferredStyle: .alert
-            )
-            let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
-            return
-        }
-        
-        if editingStyle == .delete {
-            deleteWeightRecord(at: indexPath)
-        }
-    }
 
     private func updateWeightRecordsInFirebase() {
         let userID = UserProfileViewModel.shared.user.id
@@ -133,9 +118,6 @@ extension WeightRecordDetailVC: UITableViewDelegate {
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
     ) -> UISwipeActionsConfiguration? {
-        if indexPath.row == 0 {
-            return nil
-        }
         
         let editAction = UIContextualAction(
             style: .normal, title: "更改"
@@ -148,7 +130,7 @@ extension WeightRecordDetailVC: UITableViewDelegate {
         let deleteAction = UIContextualAction(
             style: .destructive, title: "刪除"
         ) { [weak self] (_, _, completionHandler) in
-            self?.deleteWeightRecord(at: indexPath)
+            self?.presentDeleteAlert(for: indexPath)
             completionHandler(true)
         }
         
@@ -157,10 +139,12 @@ extension WeightRecordDetailVC: UITableViewDelegate {
     }
     
     private func deleteWeightRecord(at indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        
+        if sortedWeightRecords.count <= 1 {
+            HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
             let alertController = UIAlertController(
                 title: "無法刪除",
-                message: "第一筆紀錄無法被刪除。",
+                message: "至少要需要有一筆紀錄",
                 preferredStyle: .alert
             )
             let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
@@ -182,7 +166,26 @@ extension WeightRecordDetailVC: UITableViewDelegate {
         weightRecordTableView.deleteRows(at: [indexPath], with: .automatic)
     }
     
+    private func presentDeleteAlert(for indexPath: IndexPath) {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
+        let alertController = UIAlertController(
+            title: "確認刪除",
+            message: "確定要刪除這筆紀錄嗎？",
+            preferredStyle: .alert
+        )
+        let deleteAction = UIAlertAction(title: "刪除", style: .destructive) { [weak self] _ in
+            self?.deleteWeightRecord(at: indexPath)
+        }
+        let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
+        
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+
     private func presentEditAlert(for indexPath: IndexPath) {
+        HapticFeedbackHelper.generateImpactFeedback()
         let weightData = sortedWeightRecords[indexPath.row]
         
         let alertController = UIAlertController(title: "更改體重", message: "請輸入新的體重", preferredStyle: .alert)

@@ -11,6 +11,8 @@ class NutritionImageCell: BaseCardTableViewCell {
     
     static let identifier = "NutritionImageCell"
     
+    var didChangedPhoto: ((UIImage) -> Void)?
+    
     private let foodImageView = UIImageView()
     
     private let colorView: UIView = {
@@ -18,6 +20,18 @@ class NutritionImageCell: BaseCardTableViewCell {
         view.backgroundColor = .lightOrg
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
+    }()
+    
+    private lazy var addPhotoButton: UIButton = {
+       let btn = UIButton()
+        btn.setImage(UIImage(systemName: "camera.circle.fill"), for: .normal)
+        btn.alpha = 0.8
+        btn.tintColor = .mainGreen
+        btn.contentVerticalAlignment = .fill
+        btn.contentHorizontalAlignment = .fill
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.addTarget(self, action: #selector(addPhoto), for: .touchUpInside)
+        return btn
     }()
     
     private let nameLabel: UILabel = {
@@ -65,6 +79,18 @@ class NutritionImageCell: BaseCardTableViewCell {
         }
     }
     
+    @objc private func addPhoto() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        if let viewController = self.findViewController() {
+            viewController.present(imagePicker, animated: true, completion: nil)
+        } else {
+            debugLog("Error - Could not find view controller.")
+        }
+    }
+    
     private func setupImageView() {
         foodImageView.contentMode = .scaleAspectFit
         foodImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -93,10 +119,16 @@ class NutritionImageCell: BaseCardTableViewCell {
         ])
         
         colorView.addSubview(nameLabel)
+        innerContentView.addSubview(addPhotoButton)
         
         NSLayoutConstraint.activate([
             nameLabel.centerXAnchor.constraint(equalTo: colorView.centerXAnchor),
-            nameLabel.centerYAnchor.constraint(equalTo: colorView.centerYAnchor)
+            nameLabel.centerYAnchor.constraint(equalTo: colorView.centerYAnchor),
+            
+            addPhotoButton.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor, constant: -10),
+            addPhotoButton.bottomAnchor.constraint(equalTo: innerContentView.bottomAnchor, constant: -10),
+            addPhotoButton.heightAnchor.constraint(equalToConstant: 50),
+            addPhotoButton.widthAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -108,5 +140,24 @@ class NutritionImageCell: BaseCardTableViewCell {
     private func showNameView() {
         foodImageView.isHidden = true
         colorView.isHidden = false
+    }
+}
+
+extension NutritionImageCell: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
+        if let selectedImage = info[.editedImage] as? UIImage {
+            colorView.isHidden = true
+            foodImageView.isHidden = false
+            foodImageView.image = selectedImage
+            didChangedPhoto?(selectedImage)
+        }
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
 }

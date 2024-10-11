@@ -212,17 +212,19 @@ extension CheckVC {
               let visionModel = try? VNCoreMLModel(for: model) else {
             debugLog("Failed to load model")
             loadingView.hide()
-            showTemporaryAlert(message: "無法載入模型，請稍後再試")
+            showTemporaryAlert(on: self, message: "無法載入模型，請稍後再試", feedbackType: .error)
             return
         }
         
-        let request = VNCoreMLRequest(model: visionModel) { (request, error) in
+        let request = VNCoreMLRequest(model: visionModel) { [weak self] (request, error) in
+            guard let self = self else { return }
             
             DispatchQueue.main.async {
                 self.loadingView.hide()
             }
             
-            guard let results = request.results as? [VNClassificationObservation], let firstResult = results.first else {
+            guard let results = request.results as? [VNClassificationObservation],
+                  let firstResult = results.first else {
                 debugLog("Couldn't classify the image")
                 return
             }
@@ -235,7 +237,7 @@ extension CheckVC {
             } else {
                 DispatchQueue.main.async {
                     self.loadingView.hide()
-                    self.showTemporaryAlert(message: "信心度 < 70%\n換張圖片試試")
+                    showTemporaryAlert(on: self, message: "信心度 < 70%\n換張圖片試試", feedbackType: .error)
                 }
             }
         }
@@ -244,7 +246,7 @@ extension CheckVC {
             DispatchQueue.main.async {
                 debugLog("Couldn't transform UIImage to CIImage")
                 self.loadingView.hide()
-                self.showTemporaryAlert(message: "無法處理圖片格式，請更換圖片")
+                showTemporaryAlert(on: self, message: "無法處理圖片格式，請更換圖片", feedbackType: .error)
             }
             return
         }
@@ -261,7 +263,7 @@ extension CheckVC {
                 DispatchQueue.main.async {
                     debugLog("Vision request failed with error - \(error)")
                     self.loadingView.hide()
-                    self.showTemporaryAlert(message: "分析圖片發生錯誤，請稍後再試")
+                    showTemporaryAlert(on: self, message: "分析圖片發生錯誤，請稍後再試", feedbackType: .error)
                 }
             }
         }
@@ -300,7 +302,7 @@ extension CheckVC {
         
         if let error = error {
             debugLog("Error during text recognition - \(error.localizedDescription)")
-            showTemporaryAlert(message: "無法識別文字，請重試或更換圖片")
+            showTemporaryAlert(on: self, message: "無法識別文字，請重試或更換圖片", feedbackType: .error)
             return
         }
         
@@ -363,26 +365,16 @@ extension CheckVC {
     }
     
     private func showNoTextAlert() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
         let alert = UIAlertController(
             title: "找不到文字",
             message: "請試試其他照片，或使用文字輸入",
             preferredStyle: .alert
         )
-        
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak self] _ in
             self?.dismiss(animated: true, completion: nil)
         }))
-        
         present(alert, animated: true, completion: nil)
-    }
-    
-    private func showTemporaryAlert(message: String) {
-        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        present(alertController, animated: true, completion: nil)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            alertController.dismiss(animated: true, completion: nil)
-        }
     }
 }
 
@@ -392,7 +384,6 @@ extension CheckVC {
         let (weight, servings) = parseWeightAndServings(from: nutritionFactsArray)
         let nutritionValues = parseNutritionalValues(from: nutritionFactsArray)
         
-        // 計算總營養成分
         let finalWeight = Nutrient(value: weight.value * servings, unit: weight.unit)
         let finalCalories = Nutrient(
             value: (nutritionValues["calories"]?.value ?? 0) * servings,

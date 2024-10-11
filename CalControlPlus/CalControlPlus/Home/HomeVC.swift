@@ -38,6 +38,13 @@ class HomeVC: UIViewController {
         return btn
     }()
     
+    lazy var leftButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.setImage(UIImage(systemName: "chevron.compact.left"), for: .normal)
+        btn.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
+        return btn
+    }()
+    
     lazy var rightButton: UIButton = {
         let btn = UIButton(type: .system)
         btn.setImage(UIImage(systemName: "chevron.compact.right"), for: .normal)
@@ -77,13 +84,12 @@ class HomeVC: UIViewController {
             homeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        let leftButton = UIButton(type: .system)
-        leftButton.setImage(UIImage(systemName: "chevron.compact.left"), for: .normal)
-        leftButton.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
+        leftButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        rightButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         
         let stackView = UIStackView(arrangedSubviews: [leftButton, titleButton, rightButton])
         stackView.axis = .horizontal
-        stackView.spacing = 30
+        stackView.spacing = 20
         stackView.alignment = .center
         stackView.distribution = .equalCentering
         
@@ -107,6 +113,7 @@ class HomeVC: UIViewController {
     }
     
     @objc func titleButtonTapped() {
+        HapticFeedbackHelper.generateImpactFeedback()
         let alert = UIAlertController(title: "選擇日期", message: nil, preferredStyle: .actionSheet)
         
         let datePicker = UIDatePicker()
@@ -148,12 +155,14 @@ class HomeVC: UIViewController {
     }
     
     @objc func leftButtonTapped() {
+        HapticFeedbackHelper.generateImpactFeedback()
         if let newDate = Calendar.current.date(byAdding: .day, value: -1, to: homeViewModel.currentDate) {
             homeViewModel.changeDate(to: newDate)
         }
     }
     
     @objc func rightButtonTapped() {
+        HapticFeedbackHelper.generateImpactFeedback()
         if let newDate = Calendar.current.date(byAdding: .day, value: 1, to: homeViewModel.currentDate) {
             homeViewModel.changeDate(to: newDate)
         }
