@@ -38,14 +38,24 @@ class FriendCardViewModel: ObservableObject {
     
     func updateCard() {
         guard let friend = self.friend else { return }
+        
         let userSettings = UserSettingsCalculator().setupUserSettings(user: friend)
         self.friendName = friend.name
         self.avatarUrl = friend.avatarUrl
-        if let data = friend.totalNutrition.last {
-            self.calProgress = data.totalCalories / Double(userSettings.basicGoal)
-            self.carbsProgress = data.totalCarbs / userSettings.carbohydrateTotal
-            self.fatsProgress = data.totalFats / userSettings.fatTotal
-            self.proteinProgress = data.totalProtein / userSettings.proteinTotal
+
+        let calendar = Calendar.current
+        let todayMidnight = Calendar.current.startOfDay(for: Date())
+
+        if let todayData = friend.totalNutrition.first(where: { calendar.startOfDay(for: $0.date.dateValue()) == todayMidnight }) {
+            self.calProgress = todayData.totalCalories / Double(userSettings.basicGoal)
+            self.carbsProgress = todayData.totalCarbs / userSettings.carbohydrateTotal
+            self.fatsProgress = todayData.totalFats / userSettings.fatTotal
+            self.proteinProgress = todayData.totalProtein / userSettings.proteinTotal
+        } else {
+            self.calProgress = 0
+            self.carbsProgress = 0
+            self.fatsProgress = 0
+            self.proteinProgress = 0
         }
     }
     
