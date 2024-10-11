@@ -133,6 +133,10 @@ class TextVC: UIViewController {
         setupNavigationBar()
         setupView()
         loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [portionTextField, foodTextField])
     }
     
@@ -203,8 +207,9 @@ class TextVC: UIViewController {
     }
     
     @objc private func storedFoodTapped() {
-        let inputViewController = InputViewController()
+        HapticFeedbackHelper.generateImpactFeedback()
         
+        let inputViewController = InputViewController()
         let alert = UIAlertController(title: "新增食物", message: nil, preferredStyle: .actionSheet)
         alert.setValue(inputViewController, forKey: "contentViewController")
         
@@ -289,10 +294,15 @@ extension TextVC: UITableViewDataSource {
 // MARK: - Table View Delegate
 extension TextVC: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    func tableView(
+        _ tableView: UITableView,
+        trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive, title: "刪除") { [weak self] _, _, completionHandler in
             guard let self = self else { return }
+            HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
+            
             let foodItemToDelete = self.foodList[indexPath.row]
             let alertController = UIAlertController(title: "確定刪除？", message: "是否要刪除此食物項目？", preferredStyle: .alert)
             
@@ -302,17 +312,13 @@ extension TextVC: UITableViewDelegate {
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 completionHandler(true)
             }
-            
             let cancelAction = UIAlertAction(title: "取消", style: .cancel) { _ in
                 completionHandler(false)
             }
-            
             alertController.addAction(confirmAction)
             alertController.addAction(cancelAction)
-            
             self.present(alertController, animated: true, completion: nil)
         }
-        
         return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }
@@ -324,7 +330,6 @@ extension TextVC: UITextFieldDelegate {
         shouldChangeCharactersIn range: NSRange,
         replacementString string: String
     ) -> Bool {
-        
         let currentText = textField.text ?? ""
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
         
@@ -333,9 +338,7 @@ extension TextVC: UITextFieldDelegate {
         } else if textField == portionTextField {
             foodPortion = updatedText
         }
-        
         updateAddButtonState()
-        
         return true
     }
     
@@ -346,7 +349,8 @@ extension TextVC: UITextFieldDelegate {
     private func updateAddButtonState() {
         let isBothTextFieldsNotEmpty = !foodPortion.isEmpty && !foodRecord.isEmpty
         addButton.isEnabled = isBothTextFieldsNotEmpty
-        addButton.backgroundColor = isBothTextFieldsNotEmpty ? enabledButtonColor : enabledButtonColor.withAlphaComponent(0.6)
+        addButton.backgroundColor = isBothTextFieldsNotEmpty ?
+        enabledButtonColor : enabledButtonColor.withAlphaComponent(0.6)
         addButton.setTitleColor(isBothTextFieldsNotEmpty ? .white : .lightGray, for: .normal)
     }
 }
@@ -354,6 +358,7 @@ extension TextVC: UITextFieldDelegate {
 // MARK: - Show Alert
 extension TextVC {
     func showAlert() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
         let alert = UIAlertController(
             title: "無法辨識資料",
             message: "試試其他說法或使用英文輸入",

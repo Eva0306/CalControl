@@ -79,6 +79,7 @@ class MealTitleView: UITableViewHeaderFooterView {
     }
     
     @objc private func pressExpandButton(_ sender: UIButton) {
+        HapticFeedbackHelper.generateImpactFeedback(style: .soft)
         isExpand.toggle()
         let newImage = isExpand ? "chevron.down" : "chevron.up"
         arrowButton.setImage(UIImage(systemName: newImage), for: .normal)

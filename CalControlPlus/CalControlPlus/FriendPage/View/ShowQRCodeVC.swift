@@ -74,6 +74,7 @@ class ShowQRCodeVC: UIViewController {
     // MARK: - Long Press Action
     @objc private func copyUserIDToClipboard() {
         UIPasteboard.general.string = userID
+        HapticFeedbackHelper.generateImpactFeedback()
         let alert = UIAlertController(title: "已複製", message: "您的 ID 已複製到剪貼板", preferredStyle: .alert)
         present(alert, animated: true, completion: nil)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

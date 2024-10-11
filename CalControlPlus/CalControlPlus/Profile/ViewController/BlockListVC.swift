@@ -145,6 +145,8 @@ extension BlockListVC: UITableViewDelegate {
     }
     
     private func showUnblockFriendAlert(for friend: Friend) {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
+        
         let alertController = UIAlertController(
             title: "解除封鎖好友",
             message: "解除封鎖後若需重新成為好友\n需重新加入好友",

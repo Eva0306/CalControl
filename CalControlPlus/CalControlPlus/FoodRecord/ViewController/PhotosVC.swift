@@ -71,6 +71,7 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
     }
     
     private func presentLimitedAccessAlert() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
         let alert = UIAlertController(
             title: "有限照片訪問",
             message: "你目前僅限訪問部分照片。要選擇更多的照片或相簿，請更新訪問權限。",
@@ -87,6 +88,7 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
     }
     
     private func presentDeniedAccessAlert() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
         let alert = UIAlertController(
             title: "無法訪問照片",
             message: "應用無法訪問你的照片。請到「設置」中啟用照片訪問權限。",

@@ -163,12 +163,14 @@ struct AddWeightView: View {
             .alert(item: $alertType) { alertType in
                 switch alertType {
                 case .zeroWeight:
+                    HapticFeedbackHelper.generateNotificationFeedback(type: .error)
                     return Alert(
                         title: Text("無效的體重"),
                         message: Text("體重不能為 0\n請輸入有效的體重"),
                         dismissButton: .default(Text("確定"))
                     )
                 case .replaceRecord:
+                    HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
                     return Alert(
                         title: Text("該日期已有資料"),
                         message: Text("要以此資料取代嗎？"),

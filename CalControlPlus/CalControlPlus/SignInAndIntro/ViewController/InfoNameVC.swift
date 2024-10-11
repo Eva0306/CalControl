@@ -61,6 +61,10 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         
         setupUI()
         setupLottieAnimation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [nameTextField])
     }
     
@@ -176,6 +180,7 @@ extension InfoNameVC {
     }
     
     private func showAlert(title: String, message: String) {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alertController, animated: true, completion: nil)

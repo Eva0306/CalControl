@@ -130,7 +130,12 @@ extension SettingCardCell {
                     
                     vc.present(mailComposeVC, animated: true, completion: nil)
                 } else {
-                    let alert = UIAlertController(title: "無法發送郵件", message: "您的設備無法發送電子郵件，請檢查郵件設置後重試", preferredStyle: .alert)
+                    HapticFeedbackHelper.generateNotificationFeedback(type: .error)
+                    let alert = UIAlertController(
+                        title: "無法發送郵件",
+                        message: "您的設備無法發送電子郵件，請檢查郵件設置後重試",
+                        preferredStyle: .alert
+                    )
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     vc.present(alert, animated: true, completion: nil)
                 }
@@ -165,6 +170,7 @@ extension SettingCardCell {
     }
     
     @objc private func toggleTheme(_ sender: UITapGestureRecognizer) {
+        HapticFeedbackHelper.generateImpactFeedback(style: .soft)
         guard let animationView = sender.view as? LottieAnimationView else { return }
         
         if traitCollection.userInterfaceStyle == .dark {
@@ -226,6 +232,7 @@ extension SettingCardCell {
     }
     
     @objc private func logout() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
         
         let alertController = UIAlertController(title: "登出", message: "您確定要登出嗎？", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
@@ -240,6 +247,7 @@ extension SettingCardCell {
     }
     
     @objc private func deleteAccount() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
         
         let alertController = UIAlertController(
             title: "刪除帳號",
@@ -253,10 +261,14 @@ extension SettingCardCell {
                 documentID: UserProfileViewModel.shared.user.id,
                 data: ["status": "deleted"]) { success in
                     if success {
-                        self.showTemporaryAlert(message: "已刪除帳號")
+                        if let vc = self.findViewController() {
+                            showTemporaryAlert(on: vc, message: "已刪除帳號", feedbackType: .success)
+                        }
                         self.logoutFromFirebase()
                     } else {
-                        self.showTemporaryAlert(message: "無法刪除帳號")
+                        if let vc = self.findViewController() {
+                            showTemporaryAlert(on: vc, message: "無法刪除帳號", feedbackType: .error)
+                        }
                     }
                 }
         }
@@ -283,19 +295,14 @@ extension SettingCardCell {
             debugLog("Error signing out: %@ \(signOutError.localizedDescription)")
         }
     }
-    
-    private func showTemporaryAlert(message: String) {
-        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        self.findViewController()?.present(alertController, animated: true, completion: nil)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            alertController.dismiss(animated: true, completion: nil)
-        }
-    }
 }
 
 extension SettingCardCell: MFMailComposeViewControllerDelegate {
-    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    func mailComposeController(
+        _ controller: MFMailComposeViewController,
+        didFinishWith result: MFMailComposeResult,
+        error: Error?
+    ) {
         switch result {
         case .cancelled:
             debugLog("Email has been canceled")
@@ -303,8 +310,14 @@ extension SettingCardCell: MFMailComposeViewControllerDelegate {
             debugLog("Email has been saved")
         case .sent:
             debugLog("Email has been sented")
+            if let vc = self.findViewController() {
+                showTemporaryAlert(on: vc, message: "郵件已傳送", feedbackType: .success)
+            }
         case .failed:
             debugLog("Failed to sent email - \(error?.localizedDescription ?? "Unknown error")")
+            if let vc = self.findViewController() {
+                showTemporaryAlert(on: vc, message: "傳送失敗，請重新發送", feedbackType: .error)
+            }
         @unknown default:
             break
         }

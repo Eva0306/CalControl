@@ -97,6 +97,7 @@ class NutritionManager: NSObject {
     }
 
     func showAlert(on viewController: UIViewController) {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
         let alert = UIAlertController(
             title: "獲取營養素失敗",
             message: "嘗試使用其他照片或文字輸入",

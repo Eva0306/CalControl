@@ -106,6 +106,7 @@ class ScanQRCodeVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
     
     // MARK: - Show Alert
     private func showAddFriendAlert(friendID: String) {
+        HapticFeedbackHelper.generateImpactFeedback()
         let alertController = UIAlertController(
             title: "添加好友",
             message: "是否要添加此ID為好友：\(friendID)",

@@ -141,6 +141,7 @@ extension WeightRecordDetailVC: UITableViewDelegate {
     private func deleteWeightRecord(at indexPath: IndexPath) {
         
         if sortedWeightRecords.count <= 1 {
+            HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
             let alertController = UIAlertController(
                 title: "無法刪除",
                 message: "至少要需要有一筆紀錄",
@@ -166,6 +167,7 @@ extension WeightRecordDetailVC: UITableViewDelegate {
     }
     
     private func presentDeleteAlert(for indexPath: IndexPath) {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
         let alertController = UIAlertController(
             title: "確認刪除",
             message: "確定要刪除這筆紀錄嗎？",
@@ -183,6 +185,7 @@ extension WeightRecordDetailVC: UITableViewDelegate {
     }
 
     private func presentEditAlert(for indexPath: IndexPath) {
+        HapticFeedbackHelper.generateImpactFeedback()
         let weightData = sortedWeightRecords[indexPath.row]
         
         let alertController = UIAlertController(title: "更改體重", message: "請輸入新的體重", preferredStyle: .alert)

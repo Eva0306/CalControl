@@ -102,6 +102,8 @@
 		B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B3B512BF2C9185E700E02A43 /* FirebaseFirestore */; };
 		B3C3457B2CB535E9001294AA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3C3457A2CB535E9001294AA /* FirebaseCrashlytics */; };
 		B3C3457D2CB7E4E3001294AA /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */; };
+		B3C3457F2CB8D1A3001294AA /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */; };
+		B3C345822CB8FD6C001294AA /* TemporaryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */; };
 		B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA116F2CA69283001A3805 /* SignInVC.swift */; };
 		B3FA11742CA80488001A3805 /* InfoNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11732CA80488001A3805 /* InfoNameVC.swift */; };
 		B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */; };
@@ -257,6 +259,8 @@
 		B387D99E2CA28B4E00CCC311 /* PickerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerModel.swift; sourceTree = "<group>"; };
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackHelper.swift; sourceTree = "<group>"; };
+		B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryAlert.swift; sourceTree = "<group>"; };
 		B3FA116D2CA69202001A3805 /* CalControlPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalControlPlus.entitlements; sourceTree = "<group>"; };
 		B3FA116F2CA69283001A3805 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		B3FA11732CA80488001A3805 /* InfoNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoNameVC.swift; sourceTree = "<group>"; };
@@ -452,11 +456,11 @@
 				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
 				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
 				B323DC702CAE997E006C35AC /* LoadingView.swift */,
-				B3366C4F2CB3D38200C14D7F /* Logger.swift */,
 				B3FA116E2CA6925D001A3805 /* SignInAndIntro */,
 				B387D9702C9D242500CCC311 /* UserProfile */,
 				B3FA11BF2CAD9DEF001A3805 /* Animation */,
 				B36C19022C9A97E500D9D1CC /* Extension */,
+				B3C345802CB8D1B5001294AA /* Utilities */,
 				B36C18C12C99D96700D9D1CC /* Manager */,
 				B387D9952CA14E6F00CCC311 /* Calculator */,
 				B36C18BC2C99D96700D9D1CC /* Home */,
@@ -702,6 +706,16 @@
 				B3366C552CB43BC800C14D7F /* CalControlPlusTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B3C345802CB8D1B5001294AA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B3366C4F2CB3D38200C14D7F /* Logger.swift */,
+				B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */,
+				B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		B3FA116E2CA6925D001A3805 /* SignInAndIntro */ = {
@@ -978,6 +992,7 @@
 				B387D9762CA0019C00CCC311 /* NutritionCalculator.swift in Sources */,
 				B36C19012C9A979800D9D1CC /* ProfileVC.swift in Sources */,
 				B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */,
+				B3C3457F2CB8D1A3001294AA /* HapticFeedbackHelper.swift in Sources */,
 				B36C18E22C99D96700D9D1CC /* WaterRecordCell.swift in Sources */,
 				B32CDD7E2C9C492A00F92244 /* HomeViewModel.swift in Sources */,
 				B3366C502CB3D38200C14D7F /* Logger.swift in Sources */,
@@ -1035,6 +1050,7 @@
 				B36C19142C9AD90000D9D1CC /* DailyAnalysisViewModel.swift in Sources */,
 				B387D9992CA27AB000CCC311 /* PickerViewModal.swift in Sources */,
 				B3FA11B32CAA9E27001A3805 /* DailyProgressView.swift in Sources */,
+				B3C345822CB8FD6C001294AA /* TemporaryAlert.swift in Sources */,
 				B3FA11912CAA66B4001A3805 /* FillWaterView.swift in Sources */,
 				B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */,
 				B31384702CA59847008272B0 /* AddFriendVC.swift in Sources */,

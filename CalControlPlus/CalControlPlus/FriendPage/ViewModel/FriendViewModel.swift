@@ -79,7 +79,7 @@ class FriendViewModel: ObservableObject {
                     ) { [weak self] success in
                         guard let self = self else { return }
                         if success {
-                            self.showTemporaryAlert(in: viewController, message: "已成功添加好友")
+                            showTemporaryAlert(on: viewController, message: "已成功添加好友", feedbackType: .success)
                             self.fetchFriendData()
                         }
                     }
@@ -89,21 +89,13 @@ class FriendViewModel: ObservableObject {
     }
     
     private func showAlert(in viewController: UIViewController, message: String) {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
         let alert = UIAlertController(title: "錯誤", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
         alert.addAction(okAction)
         
         DispatchQueue.main.async {
             viewController.present(alert, animated: true, completion: nil)
-        }
-    }
-    
-    private func showTemporaryAlert(in viewController: UIViewController,message: String) {
-        let alertController = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        viewController.present(alertController, animated: true, completion: nil)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            alertController.dismiss(animated: true, completion: nil)
         }
     }
     
@@ -126,7 +118,7 @@ class FriendViewModel: ObservableObject {
             
             if friends.contains(where: { $0["userID"] as? String == friendData["userID"] as? String }) {
                 if isCurrentUser {
-                    self.showTemporaryAlert(in: viewController, message: "該好友已存在")
+                    showTemporaryAlert(on: viewController, message: "該好友已存在", feedbackType: .error)
                 }
                 completion(false)
                 return

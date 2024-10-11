@@ -65,6 +65,24 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         setupMealButtons()
     }
     
+    // MARK: - TabBarController Delegate
+    func tabBarController(
+        _ tabBarController: UITabBarController,
+        shouldSelect viewController: UIViewController
+    ) -> Bool {
+        guard let viewControllers = tabBarController.viewControllers,
+              let index = viewControllers.firstIndex(of: viewController) else {
+            return true
+        }
+        if index == 2 {
+            return false
+        }
+        
+        HapticFeedbackHelper.generateImpactFeedback(style: .light)
+        return true
+    }
+    
+    // MARK: - Setup View
     private func setupAddButton() {
         view.addSubview(plusButtonAnimationView)
         NSLayoutConstraint.activate([
@@ -146,25 +164,19 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         tabBar.layer.shadowPath = UIBezierPath(rect: tabBar.bounds).cgPath
     }
     
+    // MARK: - Action
+    @objc private func mealButtonTapped(_ sender: UIButton) {
+        HapticFeedbackHelper.generateImpactFeedback()
+        closeMealButtons()
+        showRecordTabBar(for: sender.tag)
+    }
+    
     @objc private func addNewRecord() {
+        HapticFeedbackHelper.generateImpactFeedback()
         if isAddButtonExpanded {
             closeMealButtons()
         } else {
             expandMealButtons()
-        }
-    }
-    
-    private func expandMealButtons() {
-        plusButtonAnimationView.play(fromProgress: 0.0, toProgress: 0.065) { [weak self] _ in
-            self?.isAddButtonExpanded = true
-        }
-        
-        buttonStackView.isHidden = false
-        animateMealButtons(shouldExpand: true)
-        
-        UIView.animate(withDuration: 0.3) {
-            self.dimmingView.alpha = 1.0
-            self.dimmingView.isHidden = false
         }
     }
     
@@ -183,6 +195,21 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
                 self.buttonStackView.isHidden = true
             }
         })
+    }
+    
+    // MARK: - Private function
+    private func expandMealButtons() {
+        plusButtonAnimationView.play(fromProgress: 0.0, toProgress: 0.065) { [weak self] _ in
+            self?.isAddButtonExpanded = true
+        }
+        
+        buttonStackView.isHidden = false
+        animateMealButtons(shouldExpand: true)
+        
+        UIView.animate(withDuration: 0.3) {
+            self.dimmingView.alpha = 1.0
+            self.dimmingView.isHidden = false
+        }
     }
     
     private func animateMealButtons(shouldExpand: Bool) {
@@ -217,25 +244,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
                 }
             }
         }, completion: nil)
-    }
-    
-    @objc private func mealButtonTapped(_ sender: UIButton) {
-        closeMealButtons()
-        showRecordTabBar(for: sender.tag)
-    }
-    
-    func tabBarController(
-        _ tabBarController: UITabBarController,
-        shouldSelect viewController: UIViewController
-    ) -> Bool {
-        guard let viewControllers = tabBarController.viewControllers,
-              let index = viewControllers.firstIndex(of: viewController) else {
-            return true
-        }
-        if index == 2 {
-            return false
-        }
-        return true
     }
     
     private func showRecordTabBar(for mealType: Int) {

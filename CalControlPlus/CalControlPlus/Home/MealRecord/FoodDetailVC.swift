@@ -224,6 +224,7 @@ extension FoodDetailVC {
 // MARK: - Delete Data
 extension FoodDetailVC {
     @objc private func deleteFoodRecord() {
+        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
         let alertController = UIAlertController(
             title: "確認刪除",
             message: "您確定要刪除此食物紀錄嗎？",

@@ -58,12 +58,6 @@ class WaterRecordCell: BaseCardTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-//    override func systemLayoutSizeFitting(_ targetSize: CGSize, withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority, verticalFittingPriority: UILayoutPriority) -> CGSize {
-//        collectionView.layoutIfNeeded()
-//        let height = collectionView.contentSize.height
-//        return CGSize(width: targetSize.width, height: height)
-//    }
-    
     private func setupLayout() {
         let separatorLine = UIView()
         separatorLine.backgroundColor = .systemGray5
@@ -101,7 +95,6 @@ class WaterRecordCell: BaseCardTableViewCell {
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        // Ensure correct width per item
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
             heightDimension: .fractionalWidth(0.2)
