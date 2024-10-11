@@ -201,7 +201,9 @@ extension NutritionVC: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: NutritionImageCell.identifier, for: indexPath) as! NutritionImageCell
             // swiftlint:enable force_cast line_length
             cell.configureCell(image: checkPhoto, name: foodRecord?.title)
-            
+            cell.didChangedPhoto = { [weak self] selectedImage in
+                self?.checkPhoto = selectedImage
+            }
             return cell
             
         } else if indexPath.row == 1 {
