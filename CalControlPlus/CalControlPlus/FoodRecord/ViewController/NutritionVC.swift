@@ -10,6 +10,26 @@ import FirebaseFirestore
 
 class NutritionVC: UIViewController {
     
+    private lazy var navigationBar: UINavigationBar = {
+        let navBar = UINavigationBar()
+        navBar.isTranslucent = true
+        navBar.setBackgroundImage(UIImage(), for: .default)
+        navBar.shadowImage = UIImage()
+        navBar.backgroundColor = .clear
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        return navBar
+    }()
+    
+    private let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 20)
+        label.text = "分析結果"
+        label.numberOfLines = 0
+        label.textColor = .darkGreen
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var nutritionTableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
@@ -67,6 +87,7 @@ class NutritionVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .background
+        setupNavigationBar()
         setupTableView()
         setupButtons()
     }
@@ -76,6 +97,21 @@ class NutritionVC: UIViewController {
         currentDate = globalCurrentDate
     }
     
+    private func setupNavigationBar() {
+        let navItem = UINavigationItem()
+        navItem.titleView = titleLabel
+        
+        navigationBar.setItems([navItem], animated: false)
+        
+        view.addSubview(navigationBar)
+        
+        NSLayoutConstraint.activate([
+            navigationBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            navigationBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navigationBar.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+    }
+    
     private func setupTableView() {
         nutritionTableView.showsVerticalScrollIndicator = false
         nutritionTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -83,7 +119,7 @@ class NutritionVC: UIViewController {
         NSLayoutConstraint.activate([
             nutritionTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             nutritionTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            nutritionTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            nutritionTableView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor),
             nutritionTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
         ])
     }

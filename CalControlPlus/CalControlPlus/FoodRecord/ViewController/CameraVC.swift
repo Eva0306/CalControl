@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import TOCropViewController
 
 class CameraVC: UIViewController {
     
@@ -157,12 +158,18 @@ class CameraVC: UIViewController {
 // MARK: - Focus Function
 extension CameraVC {
     @objc private func focusAndExposeTap(_ gestureRecognizer: UITapGestureRecognizer) {
+        let tapLocation = gestureRecognizer.location(in: view)
+        showFocusCircle(at: tapLocation)
+        
         let devicePoint = previewLayer.captureDevicePointConverted(fromLayerPoint: gestureRecognizer.location(in: view))
         focus(at: devicePoint)
     }
     
     private func focus(at point: CGPoint) {
-        guard let camera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else { return }
+        guard let camera = AVCaptureDevice.default(
+            .builtInWideAngleCamera,
+            for: .video, position: .back
+        ) else { return }
         
         do {
             try camera.lockForConfiguration()
@@ -196,18 +203,18 @@ extension CameraVC {
         
         UIView.animate(withDuration: 0.3, animations: {
             focusCircle.alpha = 1.0
-        }) { _ in
+        }, completion: { _ in
             UIView.animate(withDuration: 0.5, animations: {
                 focusCircle.alpha = 0.0
-            }) { _ in
+            }, completion: { _ in
                 focusCircle.removeFromSuperview()
-            }
-        }
+            })
+        })
     }
 }
 
 // MARK: - Photo Output
-extension CameraVC: AVCapturePhotoCaptureDelegate {
+extension CameraVC: AVCapturePhotoCaptureDelegate, TOCropViewControllerDelegate {
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         
@@ -217,7 +224,21 @@ extension CameraVC: AVCapturePhotoCaptureDelegate {
             return
         }
         
-        goToCheckVC(with: image)
+//        goToCheckVC(with: image)
+        let cropViewController = TOCropViewController(image: image)
+        cropViewController.delegate = self
+        present(cropViewController, animated: true, completion: nil)
+    }
+    
+    func cropViewController(
+        _ cropViewController: TOCropViewController,
+        didCropTo didCropToImage: UIImage,
+        with cropRect: CGRect,
+        angle: Int
+    ) {
+        cropViewController.dismiss(animated: true) {
+            self.goToCheckVC(with: didCropToImage)
+        }
     }
     
     func goToCheckVC(with image: UIImage) {

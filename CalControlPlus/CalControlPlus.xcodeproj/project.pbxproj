@@ -107,6 +107,9 @@
 		B3C345852CB93902001294AA /* APIKey-Sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C345842CB93902001294AA /* APIKey-Sample.plist */; };
 		B3C345882CB93A79001294AA /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C345872CB93A79001294AA /* APIKey.swift */; };
 		B3C3458C2CB98636001294AA /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C3458B2CB98635001294AA /* APIKey.plist */; };
+		B3C3458F2CB9926B001294AA /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = B3C3458E2CB9926B001294AA /* CropViewController */; };
+		B3D423F12CBCE96200A26A4D /* NutritionFactsParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D423F02CBCE96200A26A4D /* NutritionFactsParser.swift */; };
+		B3D423F32CBCEAD500A26A4D /* ImageClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D423F22CBCEAD500A26A4D /* ImageClassifier.swift */; };
 		B3FA11702CA69283001A3805 /* SignInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA116F2CA69283001A3805 /* SignInVC.swift */; };
 		B3FA11742CA80488001A3805 /* InfoNameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11732CA80488001A3805 /* InfoNameVC.swift */; };
 		B3FA11762CA8049C001A3805 /* InfoGenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3FA11752CA8049C001A3805 /* InfoGenderVC.swift */; };
@@ -267,6 +270,8 @@
 		B3C345842CB93902001294AA /* APIKey-Sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "APIKey-Sample.plist"; sourceTree = "<group>"; };
 		B3C345872CB93A79001294AA /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		B3C3458B2CB98635001294AA /* APIKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
+		B3D423F02CBCE96200A26A4D /* NutritionFactsParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionFactsParser.swift; sourceTree = "<group>"; };
+		B3D423F22CBCEAD500A26A4D /* ImageClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassifier.swift; sourceTree = "<group>"; };
 		B3FA116D2CA69202001A3805 /* CalControlPlus.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalControlPlus.entitlements; sourceTree = "<group>"; };
 		B3FA116F2CA69283001A3805 /* SignInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInVC.swift; sourceTree = "<group>"; };
 		B3FA11732CA80488001A3805 /* InfoNameVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoNameVC.swift; sourceTree = "<group>"; };
@@ -316,6 +321,7 @@
 				B3B512BE2C9185E700E02A43 /* FirebaseAuth in Frameworks */,
 				B3C3457B2CB535E9001294AA /* FirebaseCrashlytics in Frameworks */,
 				B32CDD882C9C4DFE00F92244 /* Kingfisher in Frameworks */,
+				B3C3458F2CB9926B001294AA /* CropViewController in Frameworks */,
 				B32CDD732C9BF02000F92244 /* FirebaseStorage in Frameworks */,
 				B3B512C02C9185E700E02A43 /* FirebaseFirestore in Frameworks */,
 			);
@@ -421,6 +427,7 @@
 		B36C18B72C99D96700D9D1CC /* FoodRecord */ = {
 			isa = PBXGroup;
 			children = (
+				B3D423EF2CBCE94C00A26A4D /* Helper */,
 				B36C18A92C99D96700D9D1CC /* Model */,
 				B36C18AF2C99D96700D9D1CC /* View */,
 				B36C18B62C99D96700D9D1CC /* ViewController */,
@@ -735,6 +742,15 @@
 			path = APIKey;
 			sourceTree = "<group>";
 		};
+		B3D423EF2CBCE94C00A26A4D /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B3D423F02CBCE96200A26A4D /* NutritionFactsParser.swift */,
+				B3D423F22CBCEAD500A26A4D /* ImageClassifier.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		B3FA116E2CA6925D001A3805 /* SignInAndIntro */ = {
 			isa = PBXGroup;
 			children = (
@@ -841,6 +857,7 @@
 				B32CDD872C9C4DFE00F92244 /* Kingfisher */,
 				B3FA11BD2CAD9D40001A3805 /* Lottie */,
 				B3C3457A2CB535E9001294AA /* FirebaseCrashlytics */,
+				B3C3458E2CB9926B001294AA /* CropViewController */,
 			);
 			productName = "CalControl+";
 			productReference = B3B512852C91682700E02A43 /* CalControlPlus.app */;
@@ -898,6 +915,7 @@
 				B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				B32CDD862C9C4DFE00F92244 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				B3FA11BC2CAD9D40001A3805 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				B3C3458D2CB9926B001294AA /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			productRefGroup = B3B512862C91682700E02A43 /* Products */;
 			projectDirPath = "";
@@ -1031,6 +1049,7 @@
 				B387D9762CA0019C00CCC311 /* NutritionCalculator.swift in Sources */,
 				B36C19012C9A979800D9D1CC /* ProfileVC.swift in Sources */,
 				B36C18DD2C99D96700D9D1CC /* PhotosVC.swift in Sources */,
+				B3D423F12CBCE96200A26A4D /* NutritionFactsParser.swift in Sources */,
 				B3C3457F2CB8D1A3001294AA /* HapticFeedbackHelper.swift in Sources */,
 				B36C18E22C99D96700D9D1CC /* WaterRecordCell.swift in Sources */,
 				B32CDD7E2C9C492A00F92244 /* HomeViewModel.swift in Sources */,
@@ -1107,6 +1126,7 @@
 				B387D99B2CA27CB000CCC311 /* ModalVC.swift in Sources */,
 				B387D98E2CA1483100CCC311 /* FriendViewModel.swift in Sources */,
 				B313846E2CA55B5E008272B0 /* DeleteButtonCell.swift in Sources */,
+				B3D423F32CBCEAD500A26A4D /* ImageClassifier.swift in Sources */,
 				B36C18F22C99D96700D9D1CC /* UIColorExtension.swift in Sources */,
 				B3FA11B72CABB8F9001A3805 /* DatePickerModal.swift in Sources */,
 				B36C18E52C99D96700D9D1CC /* TranslationAPI.swift in Sources */,
@@ -1532,6 +1552,14 @@
 				minimumVersion = 11.2.0;
 			};
 		};
+		B3C3458D2CB9926B001294AA /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.4;
+			};
+		};
 		B3FA11BC2CAD9D40001A3805 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/airbnb/lottie-ios";
@@ -1572,6 +1600,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B3B512BA2C9185E700E02A43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		B3C3458E2CB9926B001294AA /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B3C3458D2CB9926B001294AA /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
 		};
 		B3FA11BD2CAD9D40001A3805 /* Lottie */ = {
 			isa = XCSwiftPackageProductDependency;
