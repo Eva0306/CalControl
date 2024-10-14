@@ -78,7 +78,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
             return false
         }
         
-        HapticFeedbackHelper.generateImpactFeedback(style: .light)
         return true
     }
     

@@ -7,7 +7,9 @@
 	<key>NSHealthShareUsageDescription</key>
 	<string>本應用程式需要讀取您的運動與健康數據，以幫助您追蹤每日的卡路里消耗與活動情況</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>本應用程式需要讀取您的照片來新增食物紀錄，分析並記錄飲食內容</string>
+	<string>本應用程式需要讀取您的照片以新增食物紀錄，分析並記錄飲食內容</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>本應用程式需要存取您的相簿以儲存圖片，將您拍攝的照片儲存至相簿</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSCameraUsageDescription</key>
