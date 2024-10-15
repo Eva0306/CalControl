@@ -228,6 +228,7 @@ final class FirebaseManager {
     func addObserver<T: Decodable>(
         on collection: FirestoreEndpoint,
         where conditions: [FirestoreCondition],
+        listenerKey: String,
         completion: @escaping (_ changeType: DocumentChangeType, _ data: T) -> Void
     ) {
         var query: Query = collection.ref
@@ -267,15 +268,15 @@ final class FirebaseManager {
                 }
             }
         }
-        listeners[collection] = listener
+        listeners[listenerKey] = listener
     }
 
-    private var listeners: [FirestoreEndpoint: ListenerRegistration] = [:]
+    private var listeners: [String: ListenerRegistration] = [:]
     
-    func removeObservers(on collection: FirestoreEndpoint) {
-        if let listener = listeners[collection] {
+    func removeObservers(withKey listenerKey: String) {
+        if let listener = listeners[listenerKey] {
             listener.remove()
-            listeners[collection] = nil
+            listeners[listenerKey] = nil
         }
     }
 }

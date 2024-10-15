@@ -18,6 +18,8 @@ class DashboardViewModel: ObservableObject {
     
     let today = Calendar.current.startOfDay(for: Date())
     
+    private let dashboardListenerKey = "dashboardObserver"
+    
     var todayTotalNutrition: [Double] {
         let todayString = dateFormatter.string(from: today)
         if let todayData = weeklyNutritionData.first(where: { $0.day == todayString }) {
@@ -59,7 +61,8 @@ class DashboardViewModel: ObservableObject {
         
         FirebaseManager.shared.addObserver(
             on: .foodRecord,
-            where: conditions
+            where: conditions,
+            listenerKey: dashboardListenerKey
         ) { [weak self] (_: DocumentChangeType, _: FoodRecord) in
             guard let self = self else { return }
             self.fetchWeeklyFoodRecords()

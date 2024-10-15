@@ -29,19 +29,15 @@ struct PieChartView: View {
             let height = geometry.size.height
             let radius = min(width, height) / 2 - lineSpacing
             let center = CGPoint(x: width / 2, y: height / 2)
-            let spacingAngle = Angle(degrees: 360 * Double(lineSpacing / (2 * .pi * radius)))
             
             ZStack {
                 ForEach(slices) { slice in
                     Path { path in
-                        let adjustedStartAngle = slice.startAngle + spacingAngle / 2
-                        let adjustedEndAngle = slice.endAngle - spacingAngle / 2
-                        
                         path.addArc(
                             center: center,
                             radius: radius,
-                            startAngle: adjustedStartAngle,
-                            endAngle: adjustedEndAngle,
+                            startAngle: slice.startAngle,
+                            endAngle: slice.endAngle,
                             clockwise: false
                         )
                         path.addLine(to: center)
@@ -52,16 +48,13 @@ struct PieChartView: View {
                 
                 ForEach(slices) { slice in
                     Path { path in
-                        let startLineAngle = slice.startAngle
-                        let endLineAngle = slice.endAngle
-                        
                         let startPoint = CGPoint(
-                            x: center.x + radius * CGFloat(cos(startLineAngle.radians)),
-                            y: center.y + radius * CGFloat(sin(startLineAngle.radians))
+                            x: center.x + radius * CGFloat(cos(slice.startAngle.radians)),
+                            y: center.y + radius * CGFloat(sin(slice.startAngle.radians))
                         )
                         let endPoint = CGPoint(
-                            x: center.x + radius * CGFloat(cos(endLineAngle.radians)),
-                            y: center.y + radius * CGFloat(sin(endLineAngle.radians))
+                            x: center.x + radius * CGFloat(cos(slice.endAngle.radians)),
+                            y: center.y + radius * CGFloat(sin(slice.endAngle.radians))
                         )
                         
                         path.move(to: center)
@@ -77,21 +70,21 @@ struct PieChartView: View {
     }
 }
 
-func calculateSlices(for values: [Double], colors: [Color]) -> [PieSlice] {
+func calculateSlices(for values: [Double]) -> [PieSlice] {
     var slices = [PieSlice]()
     var startAngle = Angle(degrees: 270)
-    
+
     let allZero = values.allSatisfy { $0 == 0 }
     let finalValues = allZero ? [0.33, 0.33, 0.34] : values
-    let sliceColors = allZero ? [Color.gray.opacity(0.3)] : colors
     
     for (index, value) in finalValues.enumerated() {
         let endAngle = startAngle + Angle(degrees: value * 360)
-        let slice = PieSlice(startAngle: startAngle, endAngle: endAngle, color: sliceColors[index % sliceColors.count])
+        let nutritionType = NutritionType.allCases[index % NutritionType.allCases.count]
+        let slice = PieSlice(startAngle: startAngle, endAngle: endAngle, color: nutritionType.color)
         slices.append(slice)
         startAngle = endAngle
     }
-    
+
     return slices
 }
 
@@ -127,7 +120,7 @@ struct StackedBarChartView: View {
 
 struct WeeklyNutriAnalysisView: View {
     @ObservedObject var viewModel: WeeklyAnalysisViewModel
-    
+
     var body: some View {
         HStack(alignment: .bottom, spacing: 20) {
             VStack(alignment: .leading, spacing: 10) {
@@ -135,24 +128,16 @@ struct WeeklyNutriAnalysisView: View {
                     .font(.title3)
                     .fontWeight(.bold)
                 VStack(alignment: .center) {
-                    PieChartView(slices: calculateSlices(
-                        for: viewModel.todayNutrition,
-                        colors: viewModel.nutritionColors)
-                    )
+                    PieChartView(slices: calculateSlices(for: viewModel.todayNutrition))
                         .frame(width: 70, height: 70)
                     
                     VStack(alignment: .leading) {
-                        HStack {
-                            Circle().fill(.mainOrg).frame(width: 10, height: 10)
-                            Text("碳水化合物 \(String(format: "%.1f", viewModel.todayNutrition[0] * 100))%")
-                        }
-                        HStack {
-                            Circle().fill(.mainBlue).frame(width: 10, height: 10)
-                            Text("蛋白質 \(String(format: "%.1f", viewModel.todayNutrition[1] * 100))%")
-                        }
-                        HStack {
-                            Circle().fill(.mainYellow).frame(width: 10, height: 10)
-                            Text("脂肪 \(String(format: "%.1f", viewModel.todayNutrition[2] * 100))%")
+                        ForEach(NutritionType.allCases, id: \.self) { nutrition in
+                            HStack {
+                                Circle().fill(nutrition.color).frame(width: 10, height: 10)
+                                let index = NutritionType.allCases.firstIndex(of: nutrition) ?? 0
+                                Text("\(nutrition.displayName) \(String(format: "%.1f", viewModel.todayNutrition[index] * 100))%")
+                            }
                         }
                     }
                     .font(.caption)

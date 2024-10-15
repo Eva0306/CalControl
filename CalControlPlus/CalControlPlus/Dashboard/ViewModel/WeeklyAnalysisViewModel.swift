@@ -19,7 +19,6 @@ class WeeklyAnalysisViewModel: ObservableObject {
     
     @Published var weeklyNutritionData: [WANutriData] = []
     @Published var todayNutrition: [Double] = []
-    @Published var nutritionColors: [Color] = [.mainOrg, .mainBlue, .mainYellow]
     
     func update(from dashboardViewModel: DashboardViewModel, _ homeViewModel: HomeViewModel) {
         if let totalNutrition = homeViewModel.totalNutrition {
