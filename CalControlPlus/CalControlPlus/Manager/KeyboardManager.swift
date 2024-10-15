@@ -14,6 +14,8 @@ class KeyboardManager: NSObject, UITextFieldDelegate {
     private var viewOriginalY: CGFloat = 0
     private var originalContentOffset: CGPoint = .zero
     
+    private var originalDelegates: [UITextField: UITextFieldDelegate?] = [:]
+    
     weak var viewControllerDelegate: UITextFieldDelegate?
     
     private override init() {
@@ -36,11 +38,16 @@ class KeyboardManager: NSObject, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func setupKeyboardManager(for viewController: UIViewController, textFields: [UITextField], doneTitle: String = "Done") {
+    func setupKeyboardManager(
+        for viewController: UIViewController,
+        textFields: [UITextField],
+        doneTitle: String = "Done"
+    ) {
         setupKeyboardDismissGesture(for: viewController)
         addToolbar(to: textFields, doneTitle: doneTitle, for: viewController)
         viewControllerDelegate = viewController as? UITextFieldDelegate
         for textField in textFields {
+            originalDelegates[textField] = textField.delegate
             textField.delegate = self
         }
     }
@@ -61,7 +68,11 @@ class KeyboardManager: NSObject, UITextFieldDelegate {
             toolbar.sizeToFit()
             
             let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-            let doneButton = UIBarButtonItem(title: doneTitle, style: .done, target: KeyboardManager.shared, action: #selector(dismissKeyboard))
+            let doneButton = UIBarButtonItem(
+                title: doneTitle, style: .done,
+                target: KeyboardManager.shared,
+                action: #selector(dismissKeyboard)
+            )
             
             var items: [UIBarButtonItem] = []
             
@@ -90,21 +101,31 @@ class KeyboardManager: NSObject, UITextFieldDelegate {
     // MARK: - UITextFieldDelegate
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        return viewControllerDelegate?.textFieldShouldReturn?(textField) ?? true
+        return originalDelegates[textField]??.textFieldShouldReturn?(textField) ?? true
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         activeTextField = textField
         viewControllerDelegate?.textFieldDidBeginEditing?(textField)
+        
+        originalDelegates[textField]??.textFieldDidBeginEditing?(textField)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         activeTextField = nil
         viewControllerDelegate?.textFieldDidEndEditing?(textField)
+        
+        originalDelegates[textField]??.textFieldDidEndEditing?(textField)
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return viewControllerDelegate?.textField?(textField, shouldChangeCharactersIn: range, replacementString: string) ?? true
+    func textField(
+        _ textField: UITextField,
+        shouldChangeCharactersIn range: NSRange,
+        replacementString string: String
+    ) -> Bool {
+        return originalDelegates[textField]??.textField?(
+            textField, shouldChangeCharactersIn: range, replacementString: string
+        ) ?? true
     }
     
     @objc private func dismissKeyboard() {
@@ -160,10 +181,11 @@ class KeyboardManager: NSObject, UITextFieldDelegate {
     // MARK: - Private Helper Methods
     private func findVerticalScrollView(in view: UIView) -> UIScrollView? {
         if let scrollView = view.superview as? UIScrollView {
-            if scrollView.contentSize.height > scrollView.frame.size.height && scrollView.contentSize.width <= scrollView.frame.size.width {
+            if scrollView.contentSize.width <= scrollView.frame.size.width {
                 return scrollView
             }
-        } else if let superview = view.superview {
+        }
+        if let superview = view.superview {
             return findVerticalScrollView(in: superview)
         }
         return nil

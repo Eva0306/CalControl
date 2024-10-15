@@ -241,30 +241,52 @@ class TextVC: UIViewController {
         
         let fullText = "\(foodPortion) \(foodRecord)"
         
-        TranslationManager.shared.detectAndTranslateText(fullText, completion: { [weak self] translatedText in
-            guard let self = self else { return }
-            if let translatedText = translatedText {
+        let dispatchGroup = DispatchGroup()
+        var translatedText: String?
+        var finalFoodRecord: FoodRecord?
+        
+        dispatchGroup.enter()
+        DispatchQueue.global(qos: .userInitiated).async {
+            TranslationManager.shared.detectAndTranslateText(fullText) { result in
+                if let result = result {
+                    translatedText = result
+                } else {
+                    DispatchQueue.main.async {
+                        self.showAlert()
+                    }
+                }
+                dispatchGroup.leave()
+            }
+        }
+        
+        dispatchGroup.notify(queue: DispatchQueue.main) { [weak self] in
+            guard let self = self, let translatedText = translatedText else {
+                self?.loadingView.hide()
+                return
+            }
+            
+            if let recordTabBarController = self.tabBarController as? RecordTabBarController,
+               let mealType = recordTabBarController.selectedMealType {
                 
-                DispatchQueue.main.async {
-                    if let recordTabBarController = self.tabBarController as? RecordTabBarController {
-                        if let mealType = recordTabBarController.selectedMealType {
-                            NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { foodRecord in
-                                
-                                DispatchQueue.main.async {
-                                    self.loadingView.hide()
-                                }
-                                self.goToNutritionVC(image: nil, foodRecord: foodRecord)
-                            }
-                        }
-                    } else {
-                        debugLog("Tab bar controller is not of type RecordTabBarController")
+                dispatchGroup.enter()
+                DispatchQueue.global(qos: .userInitiated).async {
+                    NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { result in
+                        finalFoodRecord = result
+                        dispatchGroup.leave()
                     }
                 }
             } else {
-                self.showAlert()
+                debugLog("Tab bar controller is not of type RecordTabBarController")
+                self.loadingView.hide()
             }
-        })
-        loadingView.hide()
+            
+            dispatchGroup.notify(queue: DispatchQueue.main) {
+                self.loadingView.hide()
+                if let finalFoodRecord = finalFoodRecord {
+                    self.goToNutritionVC(image: nil, foodRecord: finalFoodRecord)
+                }
+            }
+        }
     }
 }
 
