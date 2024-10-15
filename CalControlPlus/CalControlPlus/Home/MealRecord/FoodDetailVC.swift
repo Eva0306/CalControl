@@ -46,7 +46,7 @@ class FoodDetailVC: UIViewController {
         }
         self.tabBarController?.tabBar.isHidden = true
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if let mainTabBarController = self.tabBarController as? MainTabBarController {
@@ -114,63 +114,77 @@ extension FoodDetailVC {
     @objc private func toggleEditing() {
         isEditingMode.toggle()
         
-        foodDetailTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
+        guard let foodDetailCell = foodDetailTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? FoodDetailCell,
+              let originalFoodRecord = foodRecord else {
+            return
+        }
         
-        guard !isEditingMode,
-              let foodDetailCell = foodDetailTableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? FoodDetailCell,
-              let originalFoodRecord = foodRecord else { return }
+        if isEditingMode == false {
+            handleSaveChanges(from: foodDetailCell, originalRecord: originalFoodRecord)
+        } else {
+            refreshCell(at: IndexPath(row: 1, section: 0))
+        }
+    }
+    
+    private func handleSaveChanges(from cell: FoodDetailCell, originalRecord: FoodRecord) {
+        let updatedTitle = getUpdatedTitle(from: cell, originalTitle: originalRecord.title)
+        let updatedNutritionFacts = getUpdatedNutritionFacts(from: cell, originalFacts: originalRecord.nutritionFacts)
         
-        let updatedTitle = foodDetailCell.titleTextField.text ?? originalFoodRecord.title
+        refreshCell(at: IndexPath(row: 1, section: 0))
         
-        let updatedNutritionFacts = NutritionFacts(
+        if updatedTitle != originalRecord.title || updatedNutritionFacts != originalRecord.nutritionFacts {
+            saveUpdatedRecord(title: updatedTitle, nutritionFacts: updatedNutritionFacts, originalRecord: originalRecord)
+        }
+    }
+    
+    private func getUpdatedTitle(from cell: FoodDetailCell, originalTitle: String?) -> String {
+        return cell.titleTextField.text ?? originalTitle ?? "Unknown"
+    }
+    
+    private func getUpdatedNutritionFacts(from cell: FoodDetailCell, originalFacts: NutritionFacts) -> NutritionFacts {
+        return NutritionFacts(
             weight: Nutrient(
-                value: Double(
-                    foodDetailCell.valueTextFields["份量"]?.text ?? ""
-                ) ?? originalFoodRecord.nutritionFacts.weight.value,
-                unit: originalFoodRecord.nutritionFacts.weight.unit
+                value: Double(cell.valueTextFields["份量"]?.text ?? "") ?? originalFacts.weight.value,
+                unit: originalFacts.weight.unit
             ),
             calories: Nutrient(
-                value: Double(
-                    foodDetailCell.valueTextFields["熱量"]?.text ?? ""
-                ) ?? originalFoodRecord.nutritionFacts.calories.value,
-                unit: originalFoodRecord.nutritionFacts.calories.unit
+                value: Double(cell.valueTextFields["熱量"]?.text ?? "") ?? originalFacts.calories.value,
+                unit: originalFacts.calories.unit
             ),
             carbs: Nutrient(
-                value: Double(
-                    foodDetailCell.valueTextFields["碳水化合物"]?.text ?? ""
-                ) ?? originalFoodRecord.nutritionFacts.carbs.value,
-                unit: originalFoodRecord.nutritionFacts.carbs.unit
+                value: Double(cell.valueTextFields["碳水化合物"]?.text ?? "") ?? originalFacts.carbs.value,
+                unit: originalFacts.carbs.unit
             ),
             fats: Nutrient(
-                value: Double(
-                    foodDetailCell.valueTextFields["脂質"]?.text ?? ""
-                ) ?? originalFoodRecord.nutritionFacts.fats.value,
-                unit: originalFoodRecord.nutritionFacts.fats.unit
+                value: Double(cell.valueTextFields["脂質"]?.text ?? "") ?? originalFacts.fats.value,
+                unit: originalFacts.fats.unit
             ),
             protein: Nutrient(
-                value: Double(
-                    foodDetailCell.valueTextFields["蛋白質"]?.text ?? ""
-                ) ?? originalFoodRecord.nutritionFacts.protein.value,
-                unit: originalFoodRecord.nutritionFacts.protein.unit
+                value: Double(cell.valueTextFields["蛋白質"]?.text ?? "") ?? originalFacts.protein.value,
+                unit: originalFacts.protein.unit
             )
         )
+    }
+    
+    private func refreshCell(at indexPath: IndexPath) {
+        foodDetailTableView.reloadRows(at: [indexPath], with: .automatic)
+    }
+    
+    private func saveUpdatedRecord(title: String, nutritionFacts: NutritionFacts, originalRecord: FoodRecord) {
+        let updatedFoodRecord = FoodRecord(
+            title: title,
+            mealType: originalRecord.mealType,
+            id: originalRecord.id,
+            userID: originalRecord.userID,
+            date: originalRecord.date,
+            nutritionFacts: nutritionFacts,
+            imageUrl: originalRecord.imageUrl
+        )
         
-        if updatedTitle != originalFoodRecord.title || updatedNutritionFacts != originalFoodRecord.nutritionFacts {
-            let updatedFoodRecord = FoodRecord(
-                title: updatedTitle,
-                mealType: originalFoodRecord.mealType,
-                id: originalFoodRecord.id,
-                userID: originalFoodRecord.userID,
-                date: originalFoodRecord.date,
-                nutritionFacts: updatedNutritionFacts,
-                imageUrl: originalFoodRecord.imageUrl
-            )
-            
-            updateFoodRecordInFirebase(updatedFoodRecord) { [weak self] success in
-                if success {
-                    self?.foodRecord = updatedFoodRecord
-                    self?.foodDetailTableView.reloadRows(at: [IndexPath(row: 1, section: 0)], with: .automatic)
-                }
+        updateFoodRecordInFirebase(updatedFoodRecord) { [weak self] success in
+            if success {
+                self?.foodRecord = updatedFoodRecord
+                self?.refreshCell(at: IndexPath(row: 1, section: 0))
             }
         }
     }
@@ -249,6 +263,7 @@ extension FoodDetailVC {
                 self.navigationController?.popViewController(animated: true)
             } else {
                 debugLog("Error - Failed to delete food record from firebase")
+                showTemporaryAlert(on: self, message: "無法刪除，請稍後再試")
             }
         }
     }
