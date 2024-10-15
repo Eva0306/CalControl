@@ -30,6 +30,8 @@ class HomeViewModel: ObservableObject {
     
     let mealCategories = ["早餐", "午餐", "晚餐", "點心"]
     
+    private let homeListenerKey = "homeObserver"
+    
     private var cancellables = Set<AnyCancellable>()
     
     private let healthStore = HKHealthStore()
@@ -131,13 +133,14 @@ class HomeViewModel: ObservableObject {
     
     func addObserver(for date: Date) {
         
-        FirebaseManager.shared.removeObservers(on: .foodRecord)
+        FirebaseManager.shared.removeObservers(withKey: homeListenerKey)
         
         let conditions = generateQueryConditions(for: date)
         
         FirebaseManager.shared.addObserver(
             on: .foodRecord,
-            where: conditions
+            where: conditions,
+            listenerKey: homeListenerKey
         ) { [weak self] (changeType: DocumentChangeType, foodRecord: FoodRecord) in
             guard let self = self else { return }
             switch changeType {
