@@ -37,6 +37,7 @@
 		B3366C502CB3D38200C14D7F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C4F2CB3D38200C14D7F /* Logger.swift */; };
 		B3366C582CB43BC800C14D7F /* CalControlPlusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */; };
 		B3366C5F2CB4C51500C14D7F /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */; };
+		B35E90F62CC0EEB5005D2070 /* NutritionCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E90F52CC0EEB5005D2070 /* NutritionCalculatorTests.swift */; };
 		B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A52C99D96700D9D1CC /* DashboardVC.swift */; };
 		B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */; };
 		B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */; };
@@ -202,6 +203,7 @@
 		B3366C552CB43BC800C14D7F /* CalControlPlusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalControlPlusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControlPlusTests.swift; sourceTree = "<group>"; };
 		B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
+		B35E90F52CC0EEB5005D2070 /* NutritionCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionCalculatorTests.swift; sourceTree = "<group>"; };
 		B36C18A52C99D96700D9D1CC /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodImageClassifier.mlmodel; sourceTree = "<group>"; };
 		B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodRecordModel.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */,
+				B35E90F52CC0EEB5005D2070 /* NutritionCalculatorTests.swift */,
 			);
 			path = CalControlPlusTests;
 			sourceTree = "<group>";
@@ -1036,6 +1039,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B35E90F62CC0EEB5005D2070 /* NutritionCalculatorTests.swift in Sources */,
 				B3366C582CB43BC800C14D7F /* CalControlPlusTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1367,7 +1371,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CalControlPlus/CalControlPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = V8MQ39JANS;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1382,7 +1386,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruiintelligence.CalControlPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1404,7 +1408,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CalControlPlus/CalControlPlus.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8MQ39JANS;
 				GCC_OPTIMIZATION_LEVEL = s;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -1419,7 +1423,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.1;
+				MARKETING_VERSION = 1.2.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.ruiintelligence.CalControlPlus;
 				PRODUCT_NAME = "$(TARGET_NAME)";

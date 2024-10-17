@@ -133,10 +133,6 @@ class TextVC: UIViewController {
         setupNavigationBar()
         setupView()
         loadData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [portionTextField, foodTextField])
     }
     

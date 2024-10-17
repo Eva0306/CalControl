@@ -61,10 +61,6 @@ class InfoNameVC: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         
         setupUI()
         setupLottieAnimation()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [nameTextField])
     }
     
