@@ -89,12 +89,9 @@ extension WeightRecordDetailVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(
+        let cell: WeightRecordDetailCell = tableView.dequeueReusableCell(
             withIdentifier: WeightRecordDetailCell.identifier, for: indexPath
-        ) as? WeightRecordDetailCell else {
-            return UITableViewCell()
-        }
-        
+        )
         let weightData = sortedWeightRecords[indexPath.row]
         cell.configure(with: weightData)
         return cell
@@ -200,7 +197,9 @@ extension WeightRecordDetailVC: UITableViewDelegate {
             guard let self = self, let textField = alertController?.textFields?.first,
                   let newWeightText = textField.text, let newWeight = Double(newWeightText) else { return }
             
-            if let originalIndex = UserProfileViewModel.shared.user.weightRecord.firstIndex(where: { $0.date == weightData.date }) {
+            if let originalIndex = UserProfileViewModel.shared.user.weightRecord.firstIndex(
+                where: { $0.date == weightData.date }
+            ) {
                 UserProfileViewModel.shared.user.weightRecord[originalIndex].weight = newWeight
             }
             
