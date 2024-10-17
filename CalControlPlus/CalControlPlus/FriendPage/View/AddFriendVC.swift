@@ -181,7 +181,10 @@ extension AddFriendVC: UIPageViewControllerDataSource, UIPageViewControllerDeleg
         return pages[nextIndex]
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController
+    ) -> UIViewController? {
         guard let index = pages.firstIndex(of: viewController), index < (pages.count - 1) else { return nil }
         nextIndex = index + 1
         return pages[nextIndex]
@@ -202,7 +205,9 @@ extension AddFriendVC: UIPageViewControllerDataSource, UIPageViewControllerDeleg
         previousViewControllers: [UIViewController],
         transitionCompleted completed: Bool
     ) {
-        if completed, let visibleVC = pageViewController.viewControllers?.first, let index = pages.firstIndex(of: visibleVC) {
+        if completed,
+           let visibleVC = pageViewController.viewControllers?.first,
+           let index = pages.firstIndex(of: visibleVC) {
             currentIndex = index
             isTabButtonPressed = false
         }

@@ -99,9 +99,13 @@ class FriendVC: UIViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] friends in
                 guard let self = self else { return }
-                UIView.transition(with: self.friendTableView, duration: 0.3, options: .transitionCrossDissolve, animations: {
-                    self.friendTableView.reloadData()
-                }, completion: nil)
+                UIView.transition(
+                    with: self.friendTableView,
+                    duration: 0.3,
+                    options: .transitionCrossDissolve,
+                    animations: {
+                        self.friendTableView.reloadData()
+                    }, completion: nil)
                 self.friendImageView.isHidden = !friends.isEmpty
                 self.hintLabel.isHidden = !friends.isEmpty
             }
@@ -116,9 +120,9 @@ extension FriendVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // swiftlint:disable force_cast line_length
-        let cell = tableView.dequeueReusableCell(withIdentifier: FriendCardCell.identifier, for: indexPath) as! FriendCardCell
-        // swiftlint:enable force_cast line_length
+        let cell: FriendCardCell = tableView.dequeueReusableCell(
+            withIdentifier: FriendCardCell.identifier, for: indexPath
+        )
         cell.configure(with: friendViewModel.friends[indexPath.row], viewModel: friendViewModel)
         return cell
     }

@@ -92,14 +92,18 @@ class ScanQRCodeVC: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     // MARK: - QR Code Detection
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+    func metadataOutput(
+        _ output: AVCaptureMetadataOutput,
+        didOutput metadataObjects: [AVMetadataObject],
+        from connection: AVCaptureConnection
+    ) {
         captureSession.stopRunning()
         
         if let metadataObject = metadataObjects.first {
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject,
                   let stringValue = readableObject.stringValue else { return }
             
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate)) // 播放震動提示
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             showAddFriendAlert(friendID: stringValue)
         }
     }
