@@ -104,7 +104,7 @@ class TextVC: UIViewController {
         tv.separatorStyle = .none
         tv.showsVerticalScrollIndicator = false
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.register(TextViewCell.self, forCellReuseIdentifier: "TextViewCell")
+        tv.register(TextViewCell.self, forCellReuseIdentifier: TextViewCell.identifier)
         return tv
     }()
     
@@ -266,7 +266,9 @@ class TextVC: UIViewController {
                 
                 dispatchGroup.enter()
                 DispatchQueue.global(qos: .userInitiated).async {
-                    NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { result in
+                    NutritionManager.shared.fetchNutritionFacts(
+                        self, mealType: mealType, ingredient: translatedText
+                    ) { result in
                         finalFoodRecord = result
                         dispatchGroup.leave()
                     }
@@ -295,9 +297,9 @@ extension TextVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row < foodList.count {
             let foodItem = foodList[indexPath.row]
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
-            // swiftlint:enable force_cast
+            let cell: TextViewCell = tableView.dequeueReusableCell(
+                withIdentifier: TextViewCell.identifier, for: indexPath
+            )
             cell.configureCell(food: foodItem)
             cell.addStoredFood = { [weak self] food, portion in
                 guard let self = self else { return }

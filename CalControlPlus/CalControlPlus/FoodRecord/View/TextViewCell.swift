@@ -9,6 +9,8 @@ import UIKit
 
 class TextViewCell: BaseCardTableViewCell {
     
+    static let identifier = "TextViewCell"
+    
     private lazy var foodLabel: UILabel = {
         let label = UILabel()
         label.text = "Food"
