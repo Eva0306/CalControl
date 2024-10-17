@@ -176,7 +176,11 @@ class NutritionFactsParser {
             }
             
             if let firstValuePart = allValues.first {
-                let numericValue = Double(firstValuePart.components(separatedBy: CharacterSet(charactersIn: "0123456789.").inverted).joined()) ?? 0
+                let numericValue = Double(
+                    firstValuePart
+                        .components(separatedBy: CharacterSet(charactersIn: "0123456789.").inverted)
+                        .joined()
+                ) ?? 0
                 let unit = firstValuePart.components(separatedBy: CharacterSet.decimalDigits).last ?? ""
                 
                 switch nutrientName {

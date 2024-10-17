@@ -45,7 +45,6 @@ class UserSettingsCalculator {
     }
     
     private func getActivityFactor(activity: Int) -> Double {
-        // 活動因子邏輯
         switch activity {
         case 0: return 1.2   // 靜止不動
         case 1: return 1.375 // 輕度活動
