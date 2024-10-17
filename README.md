@@ -1,5 +1,6 @@
 <div align="center">
-  <h1>CalControl+</h1>
+  <img src="https://github.com/user-attachments/assets/b48cb18b-049d-4fb5-b15d-e69e3202b5e9" alt="title">
+  <br><br>
   <a href="https://apps.apple.com/in/app/calcontrol/id6692630915"><img src="https://img.shields.io/badge/release-v1.1.1-blue" alt="App Release Version"></a>
   <a href="https://apps.apple.com/in/app/calcontrol/id6692630915"><img src="https://img.shields.io/badge/platform-iOS-green" alt="Platform iOS"></a>
   <a href="https://github.com/Eva0306/CalControl"><img src="https://img.shields.io/badge/language-Swift-orange" alt="Language Swift"></a>
