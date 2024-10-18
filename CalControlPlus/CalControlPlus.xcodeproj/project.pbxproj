@@ -26,7 +26,6 @@
 		B32CDD6E2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */; };
 		B32CDD712C9BCD7F00F92244 /* WeeklyNutriModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */; };
 		B32CDD732C9BF02000F92244 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B32CDD722C9BF02000F92244 /* FirebaseStorage */; };
-		B32CDD762C9BF3E700F92244 /* MealRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD752C9BF3E700F92244 /* MealRecordCell.swift */; };
 		B32CDD782C9BF61100F92244 /* FoodRecordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD772C9BF61100F92244 /* FoodRecordCell.swift */; };
 		B32CDD7E2C9C492A00F92244 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32CDD7D2C9C492A00F92244 /* HomeViewModel.swift */; };
 		B32CDD882C9C4DFE00F92244 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B32CDD872C9C4DFE00F92244 /* Kingfisher */; };
@@ -38,6 +37,7 @@
 		B3366C582CB43BC800C14D7F /* CalControlPlusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */; };
 		B3366C5F2CB4C51500C14D7F /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */; };
 		B35E90F62CC0EEB5005D2070 /* NutritionCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E90F52CC0EEB5005D2070 /* NutritionCalculatorTests.swift */; };
+		B35E90F82CC11673005D2070 /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E90F72CC11673005D2070 /* UICollectionViewExtension.swift */; };
 		B36C18D12C99D96700D9D1CC /* DashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A52C99D96700D9D1CC /* DashboardVC.swift */; };
 		B36C18D22C99D96700D9D1CC /* FoodImageClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */; };
 		B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */; };
@@ -192,7 +192,6 @@
 		B32CDD6B2C9BC8E000F92244 /* WeeklyNutriAnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisView.swift; sourceTree = "<group>"; };
 		B32CDD6D2C9BC8F400F92244 /* WeeklyNutriAnalysisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriAnalysisCell.swift; sourceTree = "<group>"; };
 		B32CDD702C9BCD7F00F92244 /* WeeklyNutriModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeeklyNutriModel.swift; sourceTree = "<group>"; };
-		B32CDD752C9BF3E700F92244 /* MealRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealRecordCell.swift; sourceTree = "<group>"; };
 		B32CDD772C9BF61100F92244 /* FoodRecordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodRecordCell.swift; sourceTree = "<group>"; };
 		B32CDD7D2C9C492A00F92244 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
@@ -204,6 +203,7 @@
 		B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControlPlusTests.swift; sourceTree = "<group>"; };
 		B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		B35E90F52CC0EEB5005D2070 /* NutritionCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionCalculatorTests.swift; sourceTree = "<group>"; };
+		B35E90F72CC11673005D2070 /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
 		B36C18A52C99D96700D9D1CC /* DashboardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardVC.swift; sourceTree = "<group>"; };
 		B36C18A72C99D96700D9D1CC /* FoodImageClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = FoodImageClassifier.mlmodel; sourceTree = "<group>"; };
 		B36C18A82C99D96700D9D1CC /* FoodRecordModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodRecordModel.swift; sourceTree = "<group>"; };
@@ -354,7 +354,6 @@
 			children = (
 				B32CDD772C9BF61100F92244 /* FoodRecordCell.swift */,
 				B387D9712C9EC09E00CCC311 /* MealTitleView.swift */,
-				B32CDD752C9BF3E700F92244 /* MealRecordCell.swift */,
 				B313846B2CA53B28008272B0 /* FoodDetailCell.swift */,
 				B313846D2CA55B5E008272B0 /* DeleteButtonCell.swift */,
 				B31384692CA53A21008272B0 /* FoodDetailVC.swift */,
@@ -520,6 +519,7 @@
 				B32CDD892C9C4E4500F92244 /* UIImageViewExtension.swift */,
 				B387D99C2CA27DE400CCC311 /* UIViewExtension.swift */,
 				B309F9042CA3E2A300414F5B /* UITableViewExtension.swift */,
+				B35E90F72CC11673005D2070 /* UICollectionViewExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -1124,6 +1124,7 @@
 				B387D9722C9EC09E00CCC311 /* MealTitleView.swift in Sources */,
 				B36C18F12C99D96700D9D1CC /* SceneDelegate.swift in Sources */,
 				B3FA11932CAA66CC001A3805 /* EmptyWaterView.swift in Sources */,
+				B35E90F82CC11673005D2070 /* UICollectionViewExtension.swift in Sources */,
 				B387D9802CA0FA7600CCC311 /* FriendCardCell.swift in Sources */,
 				B36C18E92C99D96700D9D1CC /* BaseCardTableViewCell.swift in Sources */,
 				B387D9972CA1B34100CCC311 /* UserBasicCardCell.swift in Sources */,
@@ -1142,7 +1143,6 @@
 				B36C18D92C99D96700D9D1CC /* CameraVC.swift in Sources */,
 				B36C19182C9B318600D9D1CC /* WeeklyCalAnalysisCell.swift in Sources */,
 				B31384762CA5ACBD008272B0 /* ScanQRCodeVC.swift in Sources */,
-				B32CDD762C9BF3E700F92244 /* MealRecordCell.swift in Sources */,
 				B36C18E32C99D96700D9D1CC /* FirebaseManager.swift in Sources */,
 				B3C345882CB93A79001294AA /* APIKey.swift in Sources */,
 				B3C3457D2CB7E4E3001294AA /* UIImageExtension.swift in Sources */,

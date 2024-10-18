@@ -16,9 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private var lottieAnimationView: LottieAnimationView?
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
@@ -64,10 +62,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UserProfileViewModel.shared = UserProfileViewModel(user: user)
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // swiftlint:disable force_cast
-        let tabBarController = storyboard.instantiateInitialViewController() as! MainTabBarController
-        // swiftlint:enable force_cast
-        
+        guard let tabBarController = storyboard.instantiateInitialViewController() as?
+                MainTabBarController else {
+            fatalError("Unable to instantiate MainTabBarController from storyboard.")
+        }
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
     }
@@ -84,7 +82,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         FirebaseManager.shared.getDocuments(
             from: .users, where: condition
-        ) { [weak self] (users: [User]) in
+        ) { (users: [User]) in
             if let user = users.first {
                 debugLog("User found")
                 completion(.success(user))

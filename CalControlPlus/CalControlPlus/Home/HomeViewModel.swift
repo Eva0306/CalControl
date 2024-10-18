@@ -100,17 +100,23 @@ class HomeViewModel: ObservableObject {
         ) { [weak self] (_, result, error) in
             guard let self = self else { return }
             
+            if let error = error {
+                debugLog("Error fetching active energy burned: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.exerciseValue = 0
+                }
+                return
+            }
+            
             var totalEnergyBurned: Double = 0
             
             if let sum = result?.sumQuantity() {
                 totalEnergyBurned = sum.doubleValue(for: HKUnit.kilocalorie())
             }
-            
             DispatchQueue.main.async {
                 self.exerciseValue = Int(totalEnergyBurned)
             }
         }
-        
         healthStore.execute(query)
     }
 

@@ -146,9 +146,9 @@ extension WaterRecordCell: UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        // swiftlint:disable force_cast line_length
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: WaterCupCell.identifier, for: indexPath) as! WaterCupCell
-        // swiftlint:enable force_cast line_length
+        let cell: WaterCupCell = collectionView.dequeueReusableCell(
+            withIdentifier: WaterCupCell.identifier, for: indexPath
+        )
         if indexPath.item < viewModel.currentWaterIntake {
             cell.configure(as: .filled)
         } else if indexPath.item == viewModel.currentWaterIntake {

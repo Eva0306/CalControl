@@ -98,7 +98,11 @@ final class FirebaseManager {
         }
     }
     
-    func getDocument<T: Decodable>(from collection: FirestoreEndpoint, documentID: String, completion: @escaping (T?) -> Void) {
+    func getDocument<T: Decodable>(
+        from collection: FirestoreEndpoint,
+        documentID: String,
+        completion: @escaping (T?) -> Void
+    ) {
         let docRef = collection.ref.document(documentID)
         
         docRef.getDocument { document, error in
@@ -111,7 +115,8 @@ final class FirebaseManager {
                     completion(nil)
                 }
             } else {
-                debugLog("Document does not exist or error occurred - \(String(describing: error?.localizedDescription))")
+                debugLog("Document does not exist or error occurred -" +
+                         " \(String(describing: error?.localizedDescription))")
                 completion(nil)
             }
         }

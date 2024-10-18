@@ -122,9 +122,7 @@ class TextVC: UIViewController {
     private let enabledButtonColor = UIColor.mainGreen
     private var foodPortion: String = "一個"
     private var foodRecord: String = ""
-    
     private var foodList: [FoodItem] = []
-    
     private let loadingView = LoadingView()
     
     override func viewDidLoad() {
@@ -154,7 +152,6 @@ class TextVC: UIViewController {
     }
     
     private func setupView() {
-        
         let tabBarHeight = tabBarController?.tabBar.frame.size.height
         
         view.addSubview(textTableView)
@@ -223,10 +220,8 @@ class TextVC: UIViewController {
         }
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
-        
         present(alert, animated: true, completion: nil)
     }
     
@@ -236,7 +231,6 @@ class TextVC: UIViewController {
         loadingView.show(in: view, withBackground: true)
         
         let fullText = "\(foodPortion) \(foodRecord)"
-        
         let dispatchGroup = DispatchGroup()
         var translatedText: String?
         var finalFoodRecord: FoodRecord?
@@ -248,7 +242,11 @@ class TextVC: UIViewController {
                     translatedText = result
                 } else {
                     DispatchQueue.main.async {
-                        self.showAlert()
+                        showOKAlert(
+                            on: self,
+                            title: "無法辨識資料",
+                            message: "試試其他說法或使用英文輸入"
+                        )
                     }
                 }
                 dispatchGroup.leave()
@@ -325,7 +323,6 @@ extension TextVC: UITableViewDataSource {
 
 // MARK: - Table View Delegate
 extension TextVC: UITableViewDelegate {
-    
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
@@ -384,21 +381,6 @@ extension TextVC: UITextFieldDelegate {
         addButton.backgroundColor = isBothTextFieldsNotEmpty ?
         enabledButtonColor : enabledButtonColor.withAlphaComponent(0.6)
         addButton.setTitleColor(isBothTextFieldsNotEmpty ? .white : .lightGray, for: .normal)
-    }
-}
-
-// MARK: - Show Alert
-extension TextVC {
-    func showAlert() {
-        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
-        let alert = UIAlertController(
-            title: "無法辨識資料",
-            message: "試試其他說法或使用英文輸入",
-            preferredStyle: .alert
-        )
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true, completion: nil)
     }
 }
 

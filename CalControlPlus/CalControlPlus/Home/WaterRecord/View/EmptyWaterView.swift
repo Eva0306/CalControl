@@ -63,11 +63,15 @@ class EmptyWaterView: UIView {
         path.addQuadCurve(to: CGPoint(x: cornerRadius, y: 0), controlPoint: CGPoint(x: 0, y: 0))
         path.addLine(to: CGPoint(x: width - cornerRadius, y: 0))
         path.addQuadCurve(to: CGPoint(x: width, y: cornerRadius), controlPoint: CGPoint(x: width, y: 0))
-        path.addQuadCurve(to: CGPoint(x: width * 0.85, y: height - cornerRadius), controlPoint: CGPoint(x: width, y: height * 0.5))
-        path.addQuadCurve(to: CGPoint(x: width * 0.85 - cornerRadius, y: height), controlPoint: CGPoint(x: width * 0.85, y: height))
+        path.addQuadCurve(to: CGPoint(x: width * 0.85, y: height - cornerRadius),
+                          controlPoint: CGPoint(x: width, y: height * 0.5))
+        path.addQuadCurve(to: CGPoint(x: width * 0.85 - cornerRadius, y: height),
+                          controlPoint: CGPoint(x: width * 0.85, y: height))
         path.addLine(to: CGPoint(x: width * 0.15 + cornerRadius, y: height))
-        path.addQuadCurve(to: CGPoint(x: width * 0.15, y: height - cornerRadius), controlPoint: CGPoint(x: width * 0.15, y: height))
-        path.addQuadCurve(to: CGPoint(x: 0, y: cornerRadius), controlPoint: CGPoint(x: 0, y: height * 0.5))
+        path.addQuadCurve(to: CGPoint(x: width * 0.15, y: height - cornerRadius),
+                          controlPoint: CGPoint(x: width * 0.15, y: height))
+        path.addQuadCurve(to: CGPoint(x: 0, y: cornerRadius),
+                          controlPoint: CGPoint(x: 0, y: height * 0.5))
         path.close()
         return path
     }
@@ -79,28 +83,21 @@ class EmptyWaterView: UIView {
         let cornerRadius: CGFloat = 5
         let waveHeightOffset: CGFloat = -(bounds.height * waveHeightRatio)
         
-        // Move to top-left without rounded corner
         path.move(to: CGPoint(x: inset, y: bounds.height - waveHeightOffset - height))
         
-        // Top horizontal line to top-right without rounded corner
         path.addLine(to: CGPoint(x: inset + width, y: bounds.height - waveHeightOffset - height))
         
-        // Right side curve (same as original)
         path.addQuadCurve(to: CGPoint(x: inset + width * 0.85, y: inset + height - cornerRadius),
                           controlPoint: CGPoint(x: inset + width, y: inset + height * 0.5))
         
-        // Bottom-right rounded corner
         path.addQuadCurve(to: CGPoint(x: inset + width * 0.85 - cornerRadius, y: inset + height),
                           controlPoint: CGPoint(x: inset + width * 0.85, y: inset + height))
         
-        // Bottom line to bottom-left
         path.addLine(to: CGPoint(x: inset + width * 0.15 + cornerRadius, y: inset + height))
         
-        // Bottom-left rounded corner
         path.addQuadCurve(to: CGPoint(x: inset + width * 0.15, y: inset + height - cornerRadius),
                           controlPoint: CGPoint(x: inset + width * 0.15, y: inset + height))
         
-        // Left side curve
         path.addQuadCurve(to: CGPoint(x: inset, y: bounds.height - waveHeightOffset - height),
                           controlPoint: CGPoint(x: inset, y: inset + height * 0.5))
         

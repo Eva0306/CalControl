@@ -121,24 +121,12 @@ extension SettingCardCell {
             }
         case 3:
             if let vc = self.findViewController() {
-                if MFMailComposeViewController.canSendMail() {
-                    let mailComposeVC = MFMailComposeViewController()
-                    mailComposeVC.mailComposeDelegate = self
-                    mailComposeVC.setToRecipients(["eva890306@gmail.com"])
-                    mailComposeVC.setSubject("問題回報")
-                    mailComposeVC.setMessageBody("你好，我想要回報以下問題：", isHTML: false)
-                    
-                    vc.present(mailComposeVC, animated: true, completion: nil)
-                } else {
-                    HapticFeedbackHelper.generateNotificationFeedback(type: .error)
-                    let alert = UIAlertController(
-                        title: "無法發送郵件",
-                        message: "您的設備無法發送電子郵件，請檢查郵件設置後重試",
-                        preferredStyle: .alert
-                    )
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    vc.present(alert, animated: true, completion: nil)
-                }
+                presentMailComposeViewController(
+                    from: vc,
+                    subject: "問題回報",
+                    body: "你好，我想要回報以下問題：",
+                    recipients: ["eva890306@gmail.com"]
+                )
             }
         default:
             return
@@ -297,7 +285,32 @@ extension SettingCardCell {
     }
 }
 
+// MARK: - Mail Compose
 extension SettingCardCell: MFMailComposeViewControllerDelegate {
+    private func presentMailComposeViewController(
+        from viewController: UIViewController,
+        subject: String, body: String, recipients: [String]
+    ) {
+        if MFMailComposeViewController.canSendMail() {
+            let mailComposeVC = MFMailComposeViewController()
+            mailComposeVC.mailComposeDelegate = self
+            mailComposeVC.setToRecipients(recipients)
+            mailComposeVC.setSubject(subject)
+            mailComposeVC.setMessageBody(body, isHTML: false)
+            
+            viewController.present(mailComposeVC, animated: true, completion: nil)
+        } else {
+            HapticFeedbackHelper.generateNotificationFeedback(type: .error)
+            let alert = UIAlertController(
+                title: "無法發送郵件",
+                message: "您的設備無法發送電子郵件，請檢查郵件設置後重試",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            viewController.present(alert, animated: true, completion: nil)
+        }
+    }
+    
     func mailComposeController(
         _ controller: MFMailComposeViewController,
         didFinishWith result: MFMailComposeResult,

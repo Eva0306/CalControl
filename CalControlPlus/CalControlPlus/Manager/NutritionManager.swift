@@ -22,11 +22,13 @@ class NutritionManager: NSObject {
         
         let apiKey = APIKey.default.nutritionApiKey
         
-        let urlString =  "https://api.edamam.com/api/nutrition-data?app_id=\(appId)&app_key=\(apiKey)&ingr=\(ingredient)"
-        
+        let urlString = "https://api.edamam.com/api/nutrition-data?app_id=\(appId)" +
+                        "&app_key=\(apiKey)" +
+                        "&ingr=\(ingredient)"
+
         guard let url = URL(string: urlString) else { return }
         
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
                 DispatchQueue.main.async {
                     completion(.failure(error))
@@ -68,7 +70,11 @@ class NutritionManager: NSObject {
                       let carbsData = nutritionData.totalNutrients["CHOCDF"],
                       let fatsData = nutritionData.totalNutrients["FAT"] else {
                     debugLog("Lose data")
-                    self.showAlert(on: viewController)
+                    showOKAlert(
+                        on: viewController,
+                        title: "獲取營養素失敗",
+                        message: "嘗試使用其他照片或文字輸入"
+                    )
                     completion(nil)
                     return
                 }
@@ -98,17 +104,5 @@ class NutritionManager: NSObject {
                 completion(nil)
             }
         }
-    }
-
-    func showAlert(on viewController: UIViewController) {
-        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
-        let alert = UIAlertController(
-            title: "獲取營養素失敗",
-            message: "嘗試使用其他照片或文字輸入",
-            preferredStyle: .alert
-        )
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        viewController.present(alert, animated: true, completion: nil)
     }
 }

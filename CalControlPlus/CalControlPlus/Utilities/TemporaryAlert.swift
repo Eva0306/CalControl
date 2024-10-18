@@ -24,3 +24,22 @@ func showTemporaryAlert(
         alertController.dismiss(animated: true, completion: nil)
     }
 }
+
+func showOKAlert(
+    on viewController: UIViewController,
+    title: String,
+    message: String,
+    feedbackType: UINotificationFeedbackGenerator.FeedbackType? = .error
+) {
+    if let feedbackType = feedbackType {
+        HapticFeedbackHelper.generateNotificationFeedback(type: feedbackType)
+    }
+    
+    let alertController = UIAlertController(
+        title: title,
+        message: message,
+        preferredStyle: .alert
+    )
+    alertController.addAction(UIAlertAction(title: "確認", style: .default, handler: nil))
+    viewController.present(alertController, animated: true, completion: nil)
+}

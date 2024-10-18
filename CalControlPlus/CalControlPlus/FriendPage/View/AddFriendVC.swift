@@ -98,7 +98,9 @@ class AddFriendVC: UIViewController {
         ])
         
         underlineLeadingConstraint = underlineView.leadingAnchor.constraint(equalTo: buttonStackView.leadingAnchor)
-        underlineWidthConstraint = underlineView.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 1/3)
+        underlineWidthConstraint = underlineView.widthAnchor.constraint(
+            equalTo: buttonStackView.widthAnchor, multiplier: 1/3
+        )
         
         underlineLeadingConstraint?.isActive = true
         underlineWidthConstraint?.isActive = true

@@ -160,7 +160,7 @@ extension InfoNameVC {
         guard let name = nameTextField.text,
               !name.isEmpty,
               isValidName(name) else {
-            showAlert(title: "請確認輸入", message: "名字不能包含空白或符號")
+            showOKAlert(on: self, title: "請確認輸入", message: "名字不能包含空白或符號")
             return
         }
         
@@ -173,13 +173,6 @@ extension InfoNameVC {
         let nameRegex = "^[a-zA-Z0-9\\u4e00-\\u9fa5]+$"
         let predicate = NSPredicate(format: "SELF MATCHES %@", nameRegex)
         return predicate.evaluate(with: name)
-    }
-    
-    private func showAlert(title: String, message: String) {
-        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alertController, animated: true, completion: nil)
     }
 }
 

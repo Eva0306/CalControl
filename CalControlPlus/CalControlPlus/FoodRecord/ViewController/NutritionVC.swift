@@ -184,7 +184,12 @@ class NutritionVC: UIViewController {
     
     @objc private func addRecord() {
         guard let foodRecord = foodRecord, foodRecord.title != nil else {
-            showAlert()
+            showOKAlert(
+                on: self,
+                title: "資料缺失",
+                message: "請確認輸入食物名字",
+                feedbackType: .warning
+            )
             return
         }
         
@@ -203,7 +208,13 @@ class NutritionVC: UIViewController {
                 folder: .FoodRecordImages
             ) { [weak self] url in
                 guard let self = self else {
-                    self?.showErrorAlert()
+                    showOKAlert(
+                        on: self ?? UIViewController(),
+                        title: "錯誤",
+                        message: "儲存失敗，請稍後再試。",
+                        feedbackType: .error
+                    )
+                    self?.loadingView.hide()
                     return
                 }
                 
@@ -267,29 +278,6 @@ extension NutritionVC: UITableViewDataSource {
             return cell
         }
         return UITableViewCell()
-    }
-}
-
-// MARK: - Show Alert
-extension NutritionVC {
-    func showAlert() {
-        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
-        let alert = UIAlertController(
-            title: "資料缺失",
-            message: "請確認輸入食物名字",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func showErrorAlert() {
-        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
-        let alert = UIAlertController(title: "錯誤", message: "儲存失敗，請稍後再試。", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-        
-        loadingView.hide()
     }
 }
 

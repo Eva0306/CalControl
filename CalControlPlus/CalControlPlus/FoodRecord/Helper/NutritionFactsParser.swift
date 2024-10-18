@@ -49,7 +49,6 @@ class NutritionFactsParser {
         }
     }
 
-    // 提取文字和 boundingBox
     private func extractLineData(from observations: [VNRecognizedTextObservation]) -> [(String, CGRect)] {
         var lineData: [(String, CGRect)] = []
         for observation in observations {
@@ -60,10 +59,9 @@ class NutritionFactsParser {
         return lineData
     }
 
-    // 排序和組合數據
     private func processLineData(_ lineData: [(String, CGRect)]) -> [[String]] {
         // 依照 boundingBox 的 y 座標進行排序
-        var sortedLineData = lineData.sorted { $0.1.origin.y > $1.1.origin.y }
+        let sortedLineData = lineData.sorted { $0.1.origin.y > $1.1.origin.y }
         
         var nutritionFactsArray: [[String]] = []
         var currentRow: [(String, CGRect)] = []

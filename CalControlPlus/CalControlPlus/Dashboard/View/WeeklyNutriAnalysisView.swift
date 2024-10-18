@@ -136,7 +136,8 @@ struct WeeklyNutriAnalysisView: View {
                             HStack {
                                 Circle().fill(nutrition.color).frame(width: 10, height: 10)
                                 let index = NutritionType.allCases.firstIndex(of: nutrition) ?? 0
-                                Text("\(nutrition.displayName) \(String(format: "%.1f", viewModel.todayNutrition[index] * 100))%")
+                                Text("\(nutrition.displayName)" +
+                                     "\(String(format: "%.1f", viewModel.todayNutrition[index] * 100))%")
                             }
                         }
                     }

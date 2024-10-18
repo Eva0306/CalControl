@@ -220,7 +220,7 @@ extension FriendListVC: UITableViewDelegate {
     }
     
     private func deleteFriend(_ friend: Friend) {
-        friendViewModel.removeFriend(friendID: friend.userID) { [weak self] in
+        friendViewModel.removeFriend(friendID: friend.userID) { 
             debugLog("Successfully deleted friend.")
         }
     }

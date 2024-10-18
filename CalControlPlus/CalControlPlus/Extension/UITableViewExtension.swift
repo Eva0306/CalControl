@@ -18,4 +18,11 @@ extension UITableView {
         }
         return cell
     }
+    
+    func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(withIdentifier identifier: String) -> T {
+        guard let view = dequeueReusableHeaderFooterView(withIdentifier: identifier) as? T else {
+            fatalError("Unable to dequeue header/footer view with identifier: \(identifier)")
+        }
+        return view
+    }
 }
