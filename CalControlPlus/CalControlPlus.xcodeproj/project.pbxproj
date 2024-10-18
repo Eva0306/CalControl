@@ -104,7 +104,7 @@
 		B3C3457B2CB535E9001294AA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = B3C3457A2CB535E9001294AA /* FirebaseCrashlytics */; };
 		B3C3457D2CB7E4E3001294AA /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */; };
 		B3C3457F2CB8D1A3001294AA /* HapticFeedbackHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */; };
-		B3C345822CB8FD6C001294AA /* TemporaryAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */; };
+		B3C345822CB8FD6C001294AA /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C345812CB8FD6C001294AA /* Alert.swift */; };
 		B3C345852CB93902001294AA /* APIKey-Sample.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C345842CB93902001294AA /* APIKey-Sample.plist */; };
 		B3C345882CB93A79001294AA /* APIKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C345872CB93A79001294AA /* APIKey.swift */; };
 		B3C3458C2CB98636001294AA /* APIKey.plist in Resources */ = {isa = PBXBuildFile; fileRef = B3C3458B2CB98635001294AA /* APIKey.plist */; };
@@ -268,7 +268,7 @@
 		B3B512852C91682700E02A43 /* CalControlPlus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalControlPlus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3C3457C2CB7E4E3001294AA /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticFeedbackHelper.swift; sourceTree = "<group>"; };
-		B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryAlert.swift; sourceTree = "<group>"; };
+		B3C345812CB8FD6C001294AA /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		B3C345842CB93902001294AA /* APIKey-Sample.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "APIKey-Sample.plist"; sourceTree = "<group>"; };
 		B3C345872CB93A79001294AA /* APIKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIKey.swift; sourceTree = "<group>"; };
 		B3C3458B2CB98635001294AA /* APIKey.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKey.plist; sourceTree = "<group>"; };
@@ -727,7 +727,7 @@
 			children = (
 				B3366C4F2CB3D38200C14D7F /* Logger.swift */,
 				B3C3457E2CB8D1A3001294AA /* HapticFeedbackHelper.swift */,
-				B3C345812CB8FD6C001294AA /* TemporaryAlert.swift */,
+				B3C345812CB8FD6C001294AA /* Alert.swift */,
 				B323DC702CAE997E006C35AC /* LoadingView.swift */,
 				B36C18CD2C99D96700D9D1CC /* MainTabBarController.swift */,
 				B36C18C42C99D96700D9D1CC /* BaseCardTableViewCell.swift */,
@@ -1112,7 +1112,7 @@
 				B36C19142C9AD90000D9D1CC /* DailyAnalysisViewModel.swift in Sources */,
 				B387D9992CA27AB000CCC311 /* PickerViewModal.swift in Sources */,
 				B3FA11B32CAA9E27001A3805 /* DailyProgressView.swift in Sources */,
-				B3C345822CB8FD6C001294AA /* TemporaryAlert.swift in Sources */,
+				B3C345822CB8FD6C001294AA /* Alert.swift in Sources */,
 				B3FA11912CAA66B4001A3805 /* FillWaterView.swift in Sources */,
 				B36C18D32C99D96700D9D1CC /* FoodRecordModel.swift in Sources */,
 				B31384702CA59847008272B0 /* AddFriendVC.swift in Sources */,

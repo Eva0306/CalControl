@@ -36,7 +36,7 @@ class FriendViewModel: ObservableObject {
         guard let currentUserID = UserProfileViewModel.shared?.user.id else { return }
 
         fetchFriendDocument(friendID: friendID, viewController: viewController) { [weak self] document in
-            guard let self = self, let document = document else { return }
+            guard let self = self, document != nil else { return }
 
             let timestamp = Timestamp(date: Date())
             let friendData: [String: Any] = [
@@ -77,7 +77,11 @@ class FriendViewModel: ObservableObject {
         }
     }
 
-    private func fetchFriendDocument(friendID: String, viewController: UIViewController, completion: @escaping (DocumentSnapshot?) -> Void) {
+    private func fetchFriendDocument(
+        friendID: String,
+        viewController: UIViewController,
+        completion: @escaping (DocumentSnapshot?) -> Void
+    ) {
         let usersCollection = FirestoreEndpoint.users.ref
 
         usersCollection.document(friendID).getDocument { document, error in
