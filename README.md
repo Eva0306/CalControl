@@ -7,8 +7,15 @@
   <a href="https://raw.githubusercontent.com/Eva0306/CalControl/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-black" alt="MIT License"></a>
   <br><br>
   <a> CalControl+ 是一款健康管理應用程式，幫助你輕鬆記錄每日卡路里攝取、管理健康狀況，並將資料以視覺畫圖表呈現</a>
+  <br><br>
+  <div>
+    <a href="#中文版本">中文版本</a> |
+    <a href="#english-version">English Version</a>
+  </div>
 </div>
 
+<h2 id="中文版本">中文版本</h2>
+<p>以下中文版本的內容。</p>
 
 ## 功能
 - 依據使用者個人數據規劃目標
@@ -112,3 +119,107 @@
 
 ## 聯絡方式
 有任何問題，請聯絡我們：[eva890306@gmail.com](mailto:eva890306@gmail.com)
+
+---
+
+<h2 id="english-version">English Version</h2>
+<p>CalControl+ is a health management application that helps you easily track daily calorie intake, manage your health, and visualize data through charts.</p>
+
+## Features
+- Plan goals based on user's personal data
+- Record daily food intake
+- Generate statistical reports and visualize data in charts
+- Use CoreML for food recognition and Vision framework for nutritional label text recognition
+
+## Installation
+1. Download the app (can be used directly, no configuration required)
+
+   <div style="display: flex; align-items: center; gap: 30px;">
+     <a href="https://apps.apple.com/in/app/calcontrol/id6692630915">
+       <img src="https://github.com/user-attachments/assets/f54f0a9d-28c8-4574-85a0-7427ecc621ff" alt="MyProject Frame 2" height="40">
+   </a>
+   <a href="https://apps.apple.com/in/app/calcontrol/id6692630915">
+       <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Demo of the Nextcloud iOS files app" height="40">
+   </a>
+   </div>
+
+2. Clone this project
+   ```bash
+   git clone https://github.com/Eva0306/CalControl.git
+
+3. Configure the API Key
+   - In the CalControl project, you will find an `APIKey-Sample.plist` file in the `APIKey` folder, which serves as a sample.
+   - When you first open the project and build it, an `APIKey.plist` file will automatically be created in that folder.
+   - Manually place this `APIKey.plist` in the project and replace the Demo strings in the value fields with `YOUR-API-KEY`.
+   - Alternatively, modify the source code.
+     APIKey.plist
+     ```xml
+     <?xml version="1.0" encoding="UTF-8"?>
+     <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+     <plist version="1.0">
+     <dict>
+        <key>translationAPIKey</key>
+        <string>YOUR_GOOGLE_TRANSLATION_API_KEY</string>
+        <key>nutritionAPIKey</key>
+        <string>YOUR_EDAMAM_API_KEY</string>
+     </dict>
+     </plist>
+     ```
+     > Please replace YOUR_GOOGLE_TRANSLATION_API_KEY with your own API key obtained from Google Cloud Translation.
+     > Replace YOUR_EDAMAM_API_KEY with your API key from EDAMAM API.
+
+4. The project uses Google Firebase to upload data
+   - This project uses Firebase Firestore to store data, so you need to configure the `GoogleService-Info.plist` file.
+   - Log in to Firebase Console, select your project (or create a new one if you don't have one).
+   - Go to "Project Settings" and select "iOS App", then follow the prompts to add the app (if not added already).
+   - Download the generated `GoogleService-Info.plist` file and place it in your Xcode project directory.
+  
+## Usage
+
+- After launching the app, sign in using `Sign in with Apple` and fill in the basic information.
+
+- Tap the "+" button in the center of the screen to add a new food record.
+
+- Three simple ways to record your meals:
+  - Select from the photo album
+  - Take a photo
+  - Text input: You can tap the icon in the top right corner ![takeoutbag and cup and straw](https://github.com/user-attachments/assets/26266d4e-86f5-4aff-aad1-9f6aec129315) to save frequently used items.
+
+- After capturing/selecting a photo, choose to recognize the food or the nutritional label.
+
+- The system will automatically sync the data on the main screen, and the records will be displayed in the appropriate meal section.
+
+- **Note**: When using the app for the first time, ensure that you allow the app to access Health data (Apple Health) so that your activity records can be synced automatically.
+
+## Screenshots
+
+<ul style="text-align: center; list-style-position: inside; margin-top: 5px; margin-bottom: 5px;">
+    <li>The main screen displays daily analysis data, while the Dashboard shows weekly analysis statistics</li>
+</ul>
+<div style="display: flex; justify-content: flex-start; gap: 20px; margin-bottom: 10px;">
+    <img src="https://github.com/user-attachments/assets/10e2705e-5e9c-4c84-bfe4-db160429d161" alt="Simulator Screenshot - 1" width="25%">
+    <img src="https://github.com/user-attachments/assets/84ca0d1d-0bd6-4761-b054-d41d7dadce32" alt="Simulator Screenshot - 3" width="25%">
+</div>
+<br><br>
+<ul style="text-align: center; font-weight: bold; margin-top: 5px; margin-bottom: 5px;">
+    <li>Meal records: Choose meal time, record method, and nutritional analysis display
+</ul>
+<div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 10px;">
+    <img src="https://github.com/user-attachments/assets/48c2e65b-925f-441b-adf8-32d4a9bfb554" alt="Simulator Screenshot - 2" width="25%">
+    <img src="https://github.com/user-attachments/assets/a34185b6-3f99-4337-9c6e-e0f7a339fd8d" alt="Simulator Screenshot - 4" width="25%">
+    <img src="https://github.com/user-attachments/assets/6fe8a3c5-1a94-4133-a74f-00634d12970a" alt="Simulator Screenshot - 5" width="25%">
+</div>
+<br><br>
+<ul style="text-align: center; font-weight: bold; margin-top: 5px; margin-bottom: 5px;">
+    <li>Friends and personal settings pages
+</ul>
+<div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 10px;">
+    <img src="https://github.com/user-attachments/assets/17525c4f-7d65-4d9a-862c-8793f2cc600e" alt="Simulator Screenshot - 7" width="25%">
+    <img src="https://github.com/user-attachments/assets/e0b10f1e-1f3e-4b67-9041-ac677e32cf09" alt="Simulator Screenshot - 6" width="25%">
+</div>
+
+## License
+This project is licensed under the [MIT License](https://raw.githubusercontent.com/Eva0306/CalControl/main/LICENSE).
+
+## Contact
+If you have any questions, please contact us at: [eva890306@gmail.com](mailto:eva890306@gmail.com)
