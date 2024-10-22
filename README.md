@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://github.com/user-attachments/assets/b48cb18b-049d-4fb5-b15d-e69e3202b5e9" alt="title">
+  <img src="https://github.com/user-attachments/assets/1ab3a800-1245-4d89-b3aa-9d2e0e646069" alt="title">
   <br><br>
   <a href="https://apps.apple.com/in/app/calcontrol/id6692630915"><img src="https://img.shields.io/badge/release-v1.1.1-blue" alt="App Release Version"></a>
   <a href="https://apps.apple.com/in/app/calcontrol/id6692630915"><img src="https://img.shields.io/badge/platform-iOS-green" alt="Platform iOS"></a>
@@ -21,7 +21,7 @@
 
    <div style="display: flex; align-items: center; gap: 30px;">
      <a href="https://apps.apple.com/in/app/calcontrol/id6692630915">
-       <img src="https://github.com/user-attachments/assets/2eba769c-ce2e-4d75-8d71-7dd497846ec9" alt="MyProject Frame 2" height="40">
+       <img src="https://github.com/user-attachments/assets/f54f0a9d-28c8-4574-85a0-7427ecc621ff" alt="MyProject Frame 2" height="40">
    </a>
    <a href="https://apps.apple.com/in/app/calcontrol/id6692630915">
        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Demo of the Nextcloud iOS files app" height="40">
