@@ -34,7 +34,7 @@
 		B3366C462CB13AEC00C14D7F /* FoodItem.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B3366C442CB13AEC00C14D7F /* FoodItem.xcdatamodeld */; };
 		B3366C4C2CB1404D00C14D7F /* InputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C4B2CB1404D00C14D7F /* InputViewController.swift */; };
 		B3366C502CB3D38200C14D7F /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C4F2CB3D38200C14D7F /* Logger.swift */; };
-		B3366C582CB43BC800C14D7F /* CalControlPlusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */; };
+		B3366C582CB43BC800C14D7F /* FriendViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C572CB43BC800C14D7F /* FriendViewModelTests.swift */; };
 		B3366C5F2CB4C51500C14D7F /* KeyboardManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */; };
 		B35E90F62CC0EEB5005D2070 /* NutritionCalculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E90F52CC0EEB5005D2070 /* NutritionCalculatorTests.swift */; };
 		B35E90F82CC11673005D2070 /* UICollectionViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B35E90F72CC11673005D2070 /* UICollectionViewExtension.swift */; };
@@ -200,7 +200,7 @@
 		B3366C4B2CB1404D00C14D7F /* InputViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputViewController.swift; sourceTree = "<group>"; };
 		B3366C4F2CB3D38200C14D7F /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		B3366C552CB43BC800C14D7F /* CalControlPlusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CalControlPlusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalControlPlusTests.swift; sourceTree = "<group>"; };
+		B3366C572CB43BC800C14D7F /* FriendViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendViewModelTests.swift; sourceTree = "<group>"; };
 		B3366C5E2CB4C51500C14D7F /* KeyboardManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardManager.swift; sourceTree = "<group>"; };
 		B35E90F52CC0EEB5005D2070 /* NutritionCalculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionCalculatorTests.swift; sourceTree = "<group>"; };
 		B35E90F72CC11673005D2070 /* UICollectionViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewExtension.swift; sourceTree = "<group>"; };
@@ -364,7 +364,7 @@
 		B3366C562CB43BC800C14D7F /* CalControlPlusTests */ = {
 			isa = PBXGroup;
 			children = (
-				B3366C572CB43BC800C14D7F /* CalControlPlusTests.swift */,
+				B3366C572CB43BC800C14D7F /* FriendViewModelTests.swift */,
 				B35E90F52CC0EEB5005D2070 /* NutritionCalculatorTests.swift */,
 			);
 			path = CalControlPlusTests;
@@ -1040,7 +1040,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B35E90F62CC0EEB5005D2070 /* NutritionCalculatorTests.swift in Sources */,
-				B3366C582CB43BC800C14D7F /* CalControlPlusTests.swift in Sources */,
+				B3366C582CB43BC800C14D7F /* FriendViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

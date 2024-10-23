@@ -12,12 +12,18 @@ class FriendViewModel: ObservableObject {
     @Published var friends: [Friend] = []
     @Published var blockFriends: [Friend] = []
     
-    func fetchFriendData() {
+    var firebaseManager: FirebaseManagerProtocol
+    
+    init(firebaseManager: FirebaseManagerProtocol = FirebaseManager.shared) {
+        self.firebaseManager = firebaseManager
+    }
+    
+    func fetchFriendData(userID: String = UserProfileViewModel.shared.user.id) {
         let condition = [
-            FirestoreCondition(field: "id", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id)
+            FirestoreCondition(field: "id", comparison: .isEqualTo, value: userID)
         ]
         
-        FirebaseManager.shared.getDocuments(from: .users, where: condition) { (users: [User]) in
+        firebaseManager.getDocuments(from: .users, where: condition) { (users: [User]) in
             guard let user = users.first else {
                 debugLog("No user data found")
                 return

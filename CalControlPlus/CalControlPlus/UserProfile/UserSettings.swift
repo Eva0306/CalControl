@@ -120,3 +120,11 @@ struct Friend: Codable, Equatable {
     var status: String
     var isFavorite: Bool
 }
+
+extension Friend {
+    static func == (lhs: Friend, rhs: Friend) -> Bool {
+        return lhs.userID == rhs.userID &&
+               lhs.status == rhs.status &&
+               lhs.isFavorite == rhs.isFavorite
+    }
+}

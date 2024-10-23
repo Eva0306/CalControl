@@ -61,7 +61,15 @@ enum StorageFolder {
     }
 }
 
-final class FirebaseManager {
+protocol FirebaseManagerProtocol {
+    func getDocuments<T: Decodable>(
+        from collection: FirestoreEndpoint,
+        where conditions: [FirestoreCondition],
+        completion: @escaping ([T]) -> Void
+    )
+}
+
+final class FirebaseManager: FirebaseManagerProtocol {
     
     static let shared = FirebaseManager()
     
