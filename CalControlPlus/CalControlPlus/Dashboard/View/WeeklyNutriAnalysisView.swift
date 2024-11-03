@@ -152,19 +152,3 @@ struct WeeklyNutriAnalysisView: View {
         .background(Color.clear)
     }
 }
-
-// #Preview {
-//    WeeklyNutriAnalysisView(
-//        weeklyNutritionData: [
-//            WANutriData(day: "Sun", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
-//            WANutriData(day: "Mon", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
-//            WANutriData(day: "Tue", carbohydrate: 0.4, fat: 0.2, protein: 0.4),
-//            WANutriData(day: "Wed", carbohydrate: 0.2, fat: 0.4, protein: 0.4),
-//            WANutriData(day: "Thu", carbohydrate: 0.4, fat: 0.3, protein: 0.3),
-//            WANutriData(day: "Fri", carbohydrate: 0.3, fat: 0.3, protein: 0.4),
-//            WANutriData(day: "Sat", carbohydrate: 0.3, fat: 0.3, protein: 0.4)
-//        ],
-//        todayNutrition: [0.33, 0.33, 0.34]
-//    )
-//    .frame(width: 393, height: 200)
-// }

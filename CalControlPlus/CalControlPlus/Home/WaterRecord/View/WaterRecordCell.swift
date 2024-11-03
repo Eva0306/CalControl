@@ -115,7 +115,7 @@ class WaterRecordCell: BaseCardTableViewCell {
     
     // MARK: - Configure Cell
     func configure(for date: Date) {
-        self.currentDate = date
+        currentDate = date
         viewModel.fetchWaterRecord(for: date)
     }
     

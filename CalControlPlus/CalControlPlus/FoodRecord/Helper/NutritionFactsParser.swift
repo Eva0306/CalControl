@@ -29,12 +29,8 @@ class NutritionFactsParser {
                 return
             }
             
-            // 提取觀察結果
             let lineData = self?.extractLineData(from: observations) ?? []
-            
-            // 排序並組合
             let nutritionFactsArray = self?.processLineData(lineData) ?? []
-            
             completion(nutritionFactsArray)
         }
         
@@ -60,7 +56,6 @@ class NutritionFactsParser {
     }
 
     private func processLineData(_ lineData: [(String, CGRect)]) -> [[String]] {
-        // 依照 boundingBox 的 y 座標進行排序
         let sortedLineData = lineData.sorted { $0.1.origin.y > $1.1.origin.y }
         
         var nutritionFactsArray: [[String]] = []
@@ -70,11 +65,9 @@ class NutritionFactsParser {
         for (text, boundingBox) in sortedLineData {
             let currentY = boundingBox.origin.y
             
-            // 檢查是否是同一行
             if previousY == -1.0 || abs(previousY - currentY) < 0.03 {
                 currentRow.append((text, boundingBox))
             } else {
-                // 如果換行，按 x 座標排序
                 if !currentRow.isEmpty {
                     let sortedRow = currentRow.sorted { $0.1.origin.x < $1.1.origin.x }
                     nutritionFactsArray.append(sortedRow.map { $0.0 })
@@ -84,7 +77,6 @@ class NutritionFactsParser {
             previousY = currentY
         }
         
-        // 加入最後一行
         if !currentRow.isEmpty {
             let sortedRow = currentRow.sorted { $0.1.origin.x < $1.1.origin.x }
             nutritionFactsArray.append(sortedRow.map { $0.0 })

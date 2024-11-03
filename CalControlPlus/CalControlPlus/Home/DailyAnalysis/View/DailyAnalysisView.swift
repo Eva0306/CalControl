@@ -75,17 +75,3 @@ struct DailyAnalysisView: View {
         .background(Color.clear)
     }
 }
-
-// #Preview {
-//    DailyAnalysisView(
-//        basicGoal: 1000,
-//        foodValue: 750,
-//        exerciseValue: 0,
-//        carbohydrateCurrent: 289,
-//        carbohydrateTotal: 300,
-//        proteinCurrent: 105,
-//        proteinTotal: 150,
-//        fatCurrent: 58,
-//        fatTotal: 70
-//    )
-// }

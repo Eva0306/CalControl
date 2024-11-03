@@ -23,15 +23,15 @@ class FriendViewModel: ObservableObject {
             FirestoreCondition(field: "id", comparison: .isEqualTo, value: userID)
         ]
         
-        firebaseManager.getDocuments(from: .users, where: condition) { (users: [User]) in
-            guard let user = users.first else {
+        firebaseManager.getDocuments(from: .users, where: condition) { [weak self] (users: [User]) in
+            guard let self = self, let user = users.first else {
                 debugLog("No user data found")
                 return
             }
             
-            DispatchQueue.main.async { [weak self] in
-                self?.friends = user.friends?.filter { $0.status == "accepted" } ?? []
-                self?.blockFriends = user.friends?.filter { $0.status == "blocked" } ?? []
+            DispatchQueue.main.async {
+                self.friends = user.friends?.filter { $0.status == "accepted" } ?? []
+                self.blockFriends = user.friends?.filter { $0.status == "blocked" } ?? []
                 debugLog("Successfully fetched friends and blocked friends.")
             }
         }
@@ -71,8 +71,7 @@ class FriendViewModel: ObservableObject {
                         friendData: currentUserData,
                         viewController: viewController,
                         isCurrentUser: false
-                    ) { [weak self] success in
-                        guard let self = self else { return }
+                    ) { success in
                         if success {
                             showTemporaryAlert(on: viewController, message: "已成功添加好友", feedbackType: .success)
                             self.fetchFriendData()
