@@ -142,8 +142,4 @@ extension FoodDetailCell: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        print("Finished editing: ", textField.text ?? "" )
-    }
 }

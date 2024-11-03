@@ -67,20 +67,17 @@ class CameraVC: UIViewController {
         }
         
         do {
-            // 設定相機輸入
             let input = try AVCaptureDeviceInput(device: camera)
             if captureSession.canAddInput(input) {
                 captureSession.addInput(input)
             }
             
-            // 設置自動對焦
             if camera.isFocusModeSupported(.continuousAutoFocus) {
                 try camera.lockForConfiguration()
                 camera.focusMode = .continuousAutoFocus
                 camera.unlockForConfiguration()
             }
             
-            // 設定相片輸出
             photoOutput = AVCapturePhotoOutput()
             if captureSession.canAddOutput(photoOutput) {
                 captureSession.addOutput(photoOutput)
@@ -88,18 +85,15 @@ class CameraVC: UIViewController {
             
             captureSession.commitConfiguration()
             
-            // 配置相機預覽層
             previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
             previewLayer.frame = view.layer.bounds
             previewLayer.videoGravity = .resizeAspectFill
             view.layer.addSublayer(previewLayer)
             
-            // 啟動相機捕獲（放在背景執行緒）
             DispatchQueue.global(qos: .background).async {
                 self.captureSession.startRunning()
             }
             
-            // 添加拍照按鈕
             setupCameraItems()
             
         } catch {

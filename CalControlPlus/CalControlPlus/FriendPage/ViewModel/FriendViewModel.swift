@@ -12,43 +12,38 @@ class FriendViewModel: ObservableObject {
     @Published var friends: [Friend] = []
     @Published var blockFriends: [Friend] = []
     
-    func fetchFriendData() {
+    var firebaseManager: FirebaseManagerProtocol
+    
+    init(firebaseManager: FirebaseManagerProtocol = FirebaseManager.shared) {
+        self.firebaseManager = firebaseManager
+    }
+    
+    func fetchFriendData(userID: String = UserProfileViewModel.shared.user.id) {
         let condition = [
-            FirestoreCondition(field: "id", comparison: .isEqualTo, value: UserProfileViewModel.shared.user.id)
+            FirestoreCondition(field: "id", comparison: .isEqualTo, value: userID)
         ]
         
-        FirebaseManager.shared.getDocuments(from: .users, where: condition) { (users: [User]) in
-            guard let user = users.first else {
+        firebaseManager.getDocuments(from: .users, where: condition) { [weak self] (users: [User]) in
+            guard let self = self, let user = users.first else {
                 debugLog("No user data found")
                 return
             }
             
-            DispatchQueue.main.async { [weak self] in
-                self?.friends = user.friends?.filter { $0.status == "accepted" } ?? []
-                self?.blockFriends = user.friends?.filter { $0.status == "blocked" } ?? []
+            DispatchQueue.main.async {
+                self.friends = user.friends?.filter { $0.status == "accepted" } ?? []
+                self.blockFriends = user.friends?.filter { $0.status == "blocked" } ?? []
                 debugLog("Successfully fetched friends and blocked friends.")
             }
         }
     }
     
+    // MARK: - Add Friend
     func addFriend(_ viewController: UIViewController, with friendID: String) {
         guard let currentUserID = UserProfileViewModel.shared?.user.id else { return }
-        
-        let usersCollection = FirestoreEndpoint.users.ref
-        
-        usersCollection.document(friendID).getDocument { [weak self] document, error in
-            if let error = error {
-                debugLog("Error fetching friend document - \(error.localizedDescription)")
-                self?.showAlert(in: viewController, message: "發生錯誤，請稍後再試。")
-                return
-            }
-            
-            guard let document = document, document.exists else {
-                debugLog("Friend ID does not exist")
-                self?.showAlert(in: viewController, message: "查無此 ID，請確認後再試。")
-                return
-            }
-            
+
+        fetchFriendDocument(friendID: friendID, viewController: viewController) { [weak self] document in
+            guard let self = self, document != nil else { return }
+
             let timestamp = Timestamp(date: Date())
             let friendData: [String: Any] = [
                 "userID": friendID,
@@ -57,7 +52,7 @@ class FriendViewModel: ObservableObject {
                 "isFavorite": false
             ]
             
-            self?.addNewFriend(
+            self.addNewFriend(
                 for: currentUserID,
                 friendData: friendData,
                 viewController: viewController,
@@ -70,14 +65,13 @@ class FriendViewModel: ObservableObject {
                         "status": "accepted",
                         "isFavorite": false
                     ]
-                    
-                    self?.addNewFriend(
+
+                    self.addNewFriend(
                         for: friendID,
                         friendData: currentUserData,
                         viewController: viewController,
                         isCurrentUser: false
-                    ) { [weak self] success in
-                        guard let self = self else { return }
+                    ) { success in
                         if success {
                             showTemporaryAlert(on: viewController, message: "已成功添加好友", feedbackType: .success)
                             self.fetchFriendData()
@@ -87,15 +81,30 @@ class FriendViewModel: ObservableObject {
             }
         }
     }
-    
-    private func showAlert(in viewController: UIViewController, message: String) {
-        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
-        let alert = UIAlertController(title: "錯誤", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "確定", style: .default, handler: nil)
-        alert.addAction(okAction)
-        
-        DispatchQueue.main.async {
-            viewController.present(alert, animated: true, completion: nil)
+
+    private func fetchFriendDocument(
+        friendID: String,
+        viewController: UIViewController,
+        completion: @escaping (DocumentSnapshot?) -> Void
+    ) {
+        let usersCollection = FirestoreEndpoint.users.ref
+
+        usersCollection.document(friendID).getDocument { document, error in
+            if let error = error {
+                debugLog("Error fetching friend document - \(error.localizedDescription)")
+                showOKAlert(on: viewController, title: "錯誤", message: "發生錯誤，請稍後再試。")
+                completion(nil)
+                return
+            }
+
+            guard let document = document, document.exists else {
+                debugLog("Friend ID does not exist")
+                showOKAlert(on: viewController, title: "錯誤", message: "查無此 ID，請確認後再試。")
+                completion(nil)
+                return
+            }
+
+            completion(document)
         }
     }
     
@@ -109,6 +118,11 @@ class FriendViewModel: ObservableObject {
         let collection = FirestoreEndpoint.users
         
         collection.ref.document(userID).getDocument { document, error in
+            if let error = error {
+                debugLog("Error picking Image: \(error.localizedDescription)")
+                return
+            }
+            
             guard let document = document, document.exists else {
                 completion(false)
                 return
@@ -177,6 +191,10 @@ extension FriendViewModel {
         let currentUserID = UserProfileViewModel.shared.user.id
         
         userRef.getDocument { document, error in
+            if let error = error {
+                debugLog("Error update friend status - \(error.localizedDescription)")
+            }
+            
             guard let document = document, document.exists else {
                 debugLog("Failed to fetch remote user data.")
                 completion(false)

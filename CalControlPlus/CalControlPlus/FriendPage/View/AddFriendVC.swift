@@ -98,7 +98,9 @@ class AddFriendVC: UIViewController {
         ])
         
         underlineLeadingConstraint = underlineView.leadingAnchor.constraint(equalTo: buttonStackView.leadingAnchor)
-        underlineWidthConstraint = underlineView.widthAnchor.constraint(equalTo: buttonStackView.widthAnchor, multiplier: 1/3)
+        underlineWidthConstraint = underlineView.widthAnchor.constraint(
+            equalTo: buttonStackView.widthAnchor, multiplier: 1/3
+        )
         
         underlineLeadingConstraint?.isActive = true
         underlineWidthConstraint?.isActive = true
@@ -181,7 +183,10 @@ extension AddFriendVC: UIPageViewControllerDataSource, UIPageViewControllerDeleg
         return pages[nextIndex]
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(
+        _ pageViewController: UIPageViewController,
+        viewControllerAfter viewController: UIViewController
+    ) -> UIViewController? {
         guard let index = pages.firstIndex(of: viewController), index < (pages.count - 1) else { return nil }
         nextIndex = index + 1
         return pages[nextIndex]
@@ -202,7 +207,9 @@ extension AddFriendVC: UIPageViewControllerDataSource, UIPageViewControllerDeleg
         previousViewControllers: [UIViewController],
         transitionCompleted completed: Bool
     ) {
-        if completed, let visibleVC = pageViewController.viewControllers?.first, let index = pages.firstIndex(of: visibleVC) {
+        if completed,
+           let visibleVC = pageViewController.viewControllers?.first,
+           let index = pages.firstIndex(of: visibleVC) {
             currentIndex = index
             isTabButtonPressed = false
         }

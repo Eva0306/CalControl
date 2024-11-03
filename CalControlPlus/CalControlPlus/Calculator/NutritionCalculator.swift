@@ -34,7 +34,7 @@ class NutritionCalculator {
     
     static func calculateWeeklyBudget(from records: [TotalNutrition], basicGoal: Int) -> Int {
         var weeklyTotalCal: Int = 0
-        var weeklyTotalGoal = basicGoal * 7
+        let weeklyTotalGoal = basicGoal * 7
         for record in records {
             weeklyTotalCal += Int(record.totalCalories)
         }

@@ -30,7 +30,11 @@ class DataCollectionContainerVC: UIViewController, UIPageViewControllerDataSourc
     }
     
     private func setupPageViewController() {
-        pageViewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        pageViewController = UIPageViewController(
+            transitionStyle: .scroll,
+            navigationOrientation: .horizontal,
+            options: nil
+        )
         pageViewController.dataSource = nil
         pageViewController.delegate = self
         
@@ -51,7 +55,9 @@ class DataCollectionContainerVC: UIViewController, UIPageViewControllerDataSourc
             pageViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            pageViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100)
+            pageViewController.view.bottomAnchor.constraint(
+                equalTo: view.safeAreaLayoutGuide.bottomAnchor,
+                constant: -100)
         ])
     }
     
@@ -154,7 +160,8 @@ class DataCollectionContainerVC: UIViewController, UIPageViewControllerDataSourc
         _ pageViewController: UIPageViewController,
         viewControllerAfter viewController: UIViewController
     ) -> UIViewController? {
-        guard let currentIndex = pages.firstIndex(of: viewController), currentIndex < (pages.count - 1) else { return nil }
+        guard let currentIndex = pages.firstIndex(of: viewController),
+              currentIndex < (pages.count - 1) else { return nil }
         return pages[currentIndex + 1]
     }
     

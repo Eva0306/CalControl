@@ -207,21 +207,21 @@ extension HomeVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: DailyAnalysisCell.identifier, for: indexPath) as! DailyAnalysisCell
-            // swiftlint:enable force_cast line_length
+            let cell: DailyAnalysisCell = tableView.dequeueReusableCell(
+                withIdentifier: DailyAnalysisCell.identifier, for: indexPath
+            )
             cell.configure(with: homeViewModel)
             return cell
         } else if indexPath.section == 1 {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: WaterRecordCell.identifier, for: indexPath) as! WaterRecordCell
-            // swiftlint:enable force_cast line_length
+            let cell: WaterRecordCell = tableView.dequeueReusableCell(
+                withIdentifier: WaterRecordCell.identifier, for: indexPath
+            )
             cell.configure(for: homeViewModel.currentDate)
             return cell
         } else {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: FoodRecordCell.identifier, for: indexPath) as! FoodRecordCell
-            // swiftlint:enable force_cast line_length
+            let cell: FoodRecordCell = tableView.dequeueReusableCell(
+                withIdentifier: FoodRecordCell.identifier, for: indexPath
+            )
             let foodRecord = homeViewModel.foodRecordsByCategory[indexPath.section - 2][indexPath.row]
             cell.configure(with: foodRecord)
             return cell
@@ -236,9 +236,9 @@ extension HomeVC: UITableViewDelegate {
         if section <= 1 {
             return nil
         }
-        // swiftlint:disable force_cast line_length
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: MealTitleView.identifier) as! MealTitleView
-        // swiftlint:enable force_cast line_length
+        let headerView: MealTitleView = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: MealTitleView.identifier
+        )
         headerView.delegate = self
         let isExpanded = self.mealCellIsExpanded[section - 2]
         

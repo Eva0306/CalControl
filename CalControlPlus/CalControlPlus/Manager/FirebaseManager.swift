@@ -61,11 +61,18 @@ enum StorageFolder {
     }
 }
 
-final class FirebaseManager {
+protocol FirebaseManagerProtocol {
+    func getDocuments<T: Decodable>(
+        from collection: FirestoreEndpoint,
+        where conditions: [FirestoreCondition],
+        completion: @escaping ([T]) -> Void
+    )
+}
+
+final class FirebaseManager: FirebaseManagerProtocol {
     
     static let shared = FirebaseManager()
     
-    // 通用的獲取 documents 方法，使用泛型
     func getDocuments<T: Decodable>(from collection: FirestoreEndpoint, completion: @escaping ([T]) -> Void) {
         collection.ref.getDocuments { [weak self] snapshot, error in
             guard let self = self else { return }
@@ -73,7 +80,6 @@ final class FirebaseManager {
         }
     }
     
-    // 依搜尋條件獲取 documents
     func getDocuments<T: Decodable>(
         from collection: FirestoreEndpoint,
         where conditions: [FirestoreCondition],
@@ -98,7 +104,11 @@ final class FirebaseManager {
         }
     }
     
-    func getDocument<T: Decodable>(from collection: FirestoreEndpoint, documentID: String, completion: @escaping (T?) -> Void) {
+    func getDocument<T: Decodable>(
+        from collection: FirestoreEndpoint,
+        documentID: String,
+        completion: @escaping (T?) -> Void
+    ) {
         let docRef = collection.ref.document(documentID)
         
         docRef.getDocument { document, error in
@@ -111,13 +121,13 @@ final class FirebaseManager {
                     completion(nil)
                 }
             } else {
-                debugLog("Document does not exist or error occurred - \(String(describing: error?.localizedDescription))")
+                debugLog("Document does not exist or error occurred -" +
+                         " \(String(describing: error?.localizedDescription))")
                 completion(nil)
             }
         }
     }
 
-    // 通用的添加 document 方法，使用泛型
     func setData<T: Encodable>(_ data: T, at docRef: DocumentReference, merge: Bool = false) {
         do {
             try docRef.setData(from: data, merge: merge)
@@ -126,16 +136,14 @@ final class FirebaseManager {
         }
     }
     
-    // 創建新 document 的參考
     func newDocument(of collection: FirestoreEndpoint, documentID: String? = nil) -> DocumentReference {
         if let documentID = documentID {
-            return collection.ref.document(documentID) // 使用傳入的 documentID
+            return collection.ref.document(documentID)
         } else {
-            return collection.ref.document() // 自動生成新的 documentID
+            return collection.ref.document()
         }
     }
     
-    // 解析獲取到的 documents，使用泛型解碼
     private func parseDocuments<T: Decodable>(snapshot: QuerySnapshot?, error: Error?) -> [T] {
         guard let snapshot = snapshot else {
             let errorMessage = error?.localizedDescription ?? ""
@@ -155,7 +163,6 @@ final class FirebaseManager {
         return models
     }
     
-    // 通用的刪除 document 方法，根據 Document ID 刪除
     func deleteDocument(from collection: FirestoreEndpoint, documentID: String, completion: @escaping (Bool) -> Void) {
         let docRef = collection.ref.document(documentID)
         docRef.delete { error in
@@ -168,7 +175,6 @@ final class FirebaseManager {
         }
     }
     
-    // 通用的更新 document 方法，根據 Document ID 更新某些欄位
     func updateDocument(
         from collection: FirestoreEndpoint,
         documentID: String, data: [String: Any],

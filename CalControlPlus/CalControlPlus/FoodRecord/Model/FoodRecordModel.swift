@@ -75,15 +75,6 @@ struct TotalDaily: Codable {
     let unit: String
 }
 
-enum Unit: String, Codable {
-    case empty = "%"
-    case g = "g"
-    case iu = "IU"
-    case kcal = "kcal"
-    case mg = "mg"
-    case µg = "µg"
-}
-
 // MARK: - TotalNutrientsKCal
 struct TotalNutrientsKCal: Codable {
     let enercKcal, procntKcal, fatKcal, chocdfKcal: TotalDaily

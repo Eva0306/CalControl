@@ -120,9 +120,9 @@ extension FriendListVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row < friendViewModel.friends.count {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: FriendListCell.identifier, for: indexPath) as! FriendListCell
-            // swiftlint:enable force_cast line_length
+            let cell: FriendListCell = tableView.dequeueReusableCell(
+                withIdentifier: FriendListCell.identifier, for: indexPath
+            )
             let friend = friendViewModel.friends[indexPath.row]
             cell.configure(with: friend)
             return cell
@@ -220,7 +220,7 @@ extension FriendListVC: UITableViewDelegate {
     }
     
     private func deleteFriend(_ friend: Friend) {
-        friendViewModel.removeFriend(friendID: friend.userID) { [weak self] in
+        friendViewModel.removeFriend(friendID: friend.userID) { 
             debugLog("Successfully deleted friend.")
         }
     }

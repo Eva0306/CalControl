@@ -197,9 +197,10 @@ class InfoStartVC: UIViewController {
         if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate,
            let window = sceneDelegate.window {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            // swiftlint:disable force_cast
-            let tabBarController = storyboard.instantiateInitialViewController() as! MainTabBarController
-            // swiftlint:enable force_cast
+            guard let tabBarController = storyboard.instantiateInitialViewController() as?
+                    MainTabBarController else {
+                fatalError("Unable to instantiate MainTabBarController from storyboard.")
+            }
             window.rootViewController = tabBarController
             window.makeKeyAndVisible()
         }

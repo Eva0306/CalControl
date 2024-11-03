@@ -111,23 +111,3 @@ struct WeeklyCalAnalysisView: View {
         .background(Color.clear)
     }
 }
-//
-// #Preview {
-//    WeeklyCalAnalysisView(basicGoal: 1000,
-//                       foodValue: 750,
-//                       exerciseValue: 0,
-//                       netCalories: 250,
-//                       bargetValue: 0,
-//                       threshold: 0.8,
-//                       weeklyCaloriesData: [
-//                        ("Sun", 0.8),
-//                        ("Mon", 0.7),
-//                        ("Tue", 0.7),
-//                        ("Wed", 0.7),
-//                        ("Thu", 0.94),
-//                        ("Fri", 0.6),
-//                        ("Sat", 0.6)
-//                       ]
-//    )
-//    .frame(width: 393, height: 200)
-// }

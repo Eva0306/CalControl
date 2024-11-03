@@ -100,7 +100,6 @@ class TranslationManager: NSObject {
         }
     }
     
-    
     private func makeRequest(
         usingTranslationAPI api: TranslationAPI,
         urlParams: [String: String],
@@ -128,7 +127,10 @@ class TranslationManager: NSObject {
                         if let response = response as? HTTPURLResponse, let results = results {
                             if response.statusCode == 200 || response.statusCode == 201 {
                                 do {
-                                    if let resultsDict = try JSONSerialization.jsonObject(with: results, options: JSONSerialization.ReadingOptions.mutableLeaves) as? [String: Any] {
+                                    if let resultsDict = try JSONSerialization.jsonObject(
+                                        with: results,
+                                        options: JSONSerialization.ReadingOptions.mutableLeaves
+                                    ) as? [String: Any] {
                                         completion(resultsDict)
                                     }
                                 } catch {

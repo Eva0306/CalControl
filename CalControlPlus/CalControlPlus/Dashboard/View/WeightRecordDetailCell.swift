@@ -72,7 +72,7 @@ class WeightRecordDetailCell: BaseCardTableViewCell {
         NSLayoutConstraint.activate([
             stackView.leadingAnchor.constraint(equalTo: innerContentView.leadingAnchor, constant: 20),
             stackView.trailingAnchor.constraint(equalTo: innerContentView.trailingAnchor, constant: -20),
-            stackView.bottomAnchor.constraint(equalTo: innerContentView.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            stackView.bottomAnchor.constraint(equalTo: innerContentView.bottomAnchor, constant: -20),
             stackView.topAnchor.constraint(equalTo: innerContentView.topAnchor, constant: 20)
         ])
     }

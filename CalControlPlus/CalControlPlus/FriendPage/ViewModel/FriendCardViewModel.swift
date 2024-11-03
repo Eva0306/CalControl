@@ -46,7 +46,9 @@ class FriendCardViewModel: ObservableObject {
         let calendar = Calendar.current
         let todayMidnight = Calendar.current.startOfDay(for: Date())
 
-        if let todayData = friend.totalNutrition.first(where: { calendar.startOfDay(for: $0.date.dateValue()) == todayMidnight }) {
+        if let todayData = friend.totalNutrition.first(
+            where: { calendar.startOfDay(for: $0.date.dateValue()) == todayMidnight }
+        ) {
             self.calProgress = todayData.totalCalories / Double(userSettings.basicGoal)
             self.carbsProgress = todayData.totalCarbs / userSettings.carbohydrateTotal
             self.fatsProgress = todayData.totalFats / userSettings.fatTotal

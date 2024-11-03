@@ -51,7 +51,6 @@ class WaterCupCell: UICollectionViewCell {
             plusImageView.heightAnchor.constraint(equalToConstant: 20)
         ])
         
-//        emptyWaterView.isHidden = true
         fillWaterView.isHidden = true
         plusImageView.isHidden = true
     }

@@ -19,20 +19,16 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
     }
     
     private func setupPhotoPicker() {
-        // 檢查照片庫權限
         PHPhotoLibrary.requestAuthorization { [weak self] status in
             DispatchQueue.main.async {
                 switch status {
                 case .authorized:
-                    // 用戶授權完全訪問
                     self?.presentPhotoPicker()
                     
                 case .limited:
-                    // 用戶只授權有限的照片訪問，提示用戶可以選擇更多的照片
                     self?.presentLimitedAccessAlert()
                     
                 case .denied, .restricted:
-                    // 用戶拒絕授權，可能需要提示用戶去設置授權
                     self?.presentDeniedAccessAlert()
                     
                 default:
@@ -43,21 +39,18 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
     }
     
     private func presentPhotoPicker() {
-        // 創建 PHPicker 的配置
+        
         var configuration = PHPickerConfiguration()
         configuration.filter = .images
         configuration.selectionLimit = 1
         
-        // 創建 PHPickerViewController
         let picker = PHPickerViewController(configuration: configuration)
         picker.delegate = self
         
-        // 添加 PHPickerViewController 作為子控制器
         addChild(picker)
         view.addSubview(picker.view)
         picker.view.translatesAutoresizingMaskIntoConstraints = false
         
-        // 設置約束，使其嵌入到當前視圖控制器中
         if let tabBarHeight = tabBarController?.tabBar.frame.height {
             NSLayoutConstraint.activate([
                 picker.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -67,7 +60,7 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
             ])
         }
         
-        picker.didMove(toParent: self) // 通知子控制器已添加完成
+        picker.didMove(toParent: self)
     }
     
     private func presentLimitedAccessAlert() {
@@ -106,16 +99,32 @@ class PhotosVC: UIViewController, PHPickerViewControllerDelegate {
         present(alert, animated: true, completion: nil)
     }
     
-    // PHPickerViewController Delegate
+    // MARK: - PHPickerViewController Delegate
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         if results.isEmpty {
             self.tabBarController?.dismiss(animated: true, completion: nil)
         } else {
             for result in results {
                 result.itemProvider.loadObject(ofClass: UIImage.self) { (object, error) in
+                    if let error = error {
+                        debugLog("Error picking Image: \(error.localizedDescription)")
+                        DispatchQueue.main.async {
+                            showTemporaryAlert(
+                                on: self, message: "發生錯誤\n請稍後再試",
+                                feedbackType: .error)
+                        }
+                        return
+                    }
+                    
                     if let image = object as? UIImage {
                         DispatchQueue.main.async {
                             self.goToCheckVC(with: image)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            showTemporaryAlert(
+                                on: self, message: "發生錯誤\n請稍後再試",
+                                feedbackType: .error)
                         }
                     }
                 }

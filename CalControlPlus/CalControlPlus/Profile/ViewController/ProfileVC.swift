@@ -12,7 +12,6 @@ class ProfileVC: UIViewController {
     private lazy var profileTableView: UITableView = {
         let tv = UITableView()
         tv.dataSource = self
-        tv.delegate = self
         tv.backgroundColor = .clear
         tv.separatorStyle = .none
         tv.showsVerticalScrollIndicator = false
@@ -54,24 +53,20 @@ extension ProfileVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: ProfileCell.identifier, for: indexPath) as! ProfileCell
-            // swiftlint:enable force_cast line_length
+            let cell: ProfileCell = tableView.dequeueReusableCell(
+                withIdentifier: ProfileCell.identifier, for: indexPath
+            )
             return cell
         } else if indexPath.row == 1 {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: UserBasicCardCell.identifier, for: indexPath) as! UserBasicCardCell
-            // swiftlint:enable force_cast line_length
+            let cell: UserBasicCardCell = tableView.dequeueReusableCell(
+                withIdentifier: UserBasicCardCell.identifier, for: indexPath
+            )
             return cell
         } else {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: SettingCardCell.identifier, for: indexPath) as! SettingCardCell
-            // swiftlint:enable force_cast line_length
+            let cell: SettingCardCell = tableView.dequeueReusableCell(
+                withIdentifier: SettingCardCell.identifier, for: indexPath
+            )
             return cell
         }
     }
-}
-
-extension ProfileVC: UITableViewDelegate {
-    
 }

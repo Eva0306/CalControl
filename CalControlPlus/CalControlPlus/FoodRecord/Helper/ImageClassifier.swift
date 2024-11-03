@@ -22,6 +22,15 @@ class ImageClassifier {
         }
         
         let request = VNCoreMLRequest(model: visionModel) { (request, error) in
+            
+            if let error = error {
+                print("Error in classification request: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    completion(nil, nil)
+                }
+                return
+            }
+            
             guard let results = request.results as? [VNClassificationObservation],
                   let firstResult = results.first else {
                 print("Couldn't classify the image")
@@ -39,9 +48,9 @@ class ImageClassifier {
             return
         }
         
-#if targetEnvironment(simulator)
+        #if targetEnvironment(simulator)
         request.usesCPUOnly = true
-#endif
+        #endif
         
         let handler = VNImageRequestHandler(ciImage: ciImage)
         DispatchQueue.global(qos: .userInteractive).async {

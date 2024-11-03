@@ -75,21 +75,17 @@ extension FoodDetailVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(
+            let cell: NutritionImageCell = tableView.dequeueReusableCell(
                 withIdentifier: NutritionImageCell.identifier, for: indexPath
-            ) as? NutritionImageCell else {
-                return UITableViewCell()
-            }
+            )
             if let foodRecord = foodRecord {
                 cell.configureCell(image: foodRecord.imageUrl, name: foodRecord.title)
             }
             return cell
         } else if indexPath.row == 1 {
-            guard let cell = tableView.dequeueReusableCell(
+            let cell: FoodDetailCell = tableView.dequeueReusableCell(
                 withIdentifier: FoodDetailCell.identifier, for: indexPath
-            ) as? FoodDetailCell else {
-                return UITableViewCell()
-            }
+            )
             if let foodRecord = foodRecord {
                 cell.configure(with: foodRecord)
                 let allTextFields = Array(cell.valueTextFields.values) + [cell.titleTextField]
@@ -98,11 +94,9 @@ extension FoodDetailVC: UITableViewDataSource {
             cell.isEditingMode = isEditingMode
             return cell
         } else {
-            guard let cell = tableView.dequeueReusableCell(
+            let cell: DeleteButtonCell = tableView.dequeueReusableCell(
                 withIdentifier: DeleteButtonCell.identifier, for: indexPath
-            ) as? DeleteButtonCell else {
-                return UITableViewCell()
-            }
+            )
             cell.deleteButton.addTarget(self, action: #selector(deleteFoodRecord), for: .touchUpInside)
             return cell
         }
@@ -133,7 +127,11 @@ extension FoodDetailVC {
         refreshCell(at: IndexPath(row: 1, section: 0))
         
         if updatedTitle != originalRecord.title || updatedNutritionFacts != originalRecord.nutritionFacts {
-            saveUpdatedRecord(title: updatedTitle, nutritionFacts: updatedNutritionFacts, originalRecord: originalRecord)
+            saveUpdatedRecord(
+                title: updatedTitle,
+                nutritionFacts: updatedNutritionFacts,
+                originalRecord: originalRecord
+            )
         }
     }
     

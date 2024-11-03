@@ -195,14 +195,26 @@ extension FriendCardCell {
     
     private func setupCombineStackView() {
         let labelStackView = createStackView(for: [carbsLabel, fatsLabel, proteinLabel], spacing: 10, axis: .vertical)
-        let progressBarStackView = createStackView(for: [carbsProgressView, fatsProgressView, proteinProgressView], spacing: 15, axis: .vertical)
+        let progressBarStackView = createStackView(
+            for: [carbsProgressView, fatsProgressView, proteinProgressView],
+            spacing: 15,
+            axis: .vertical
+        )
         progressBarStackView.isLayoutMarginsRelativeArrangement = true
         progressBarStackView.layoutMargins = UIEdgeInsets(top: 5, left: 0, bottom: 5, right: 0)
         
-        let nutrientsStackView = createStackView(for: [labelStackView, progressBarStackView], spacing: 10, axis: .horizontal)
+        let nutrientsStackView = createStackView(
+            for: [labelStackView, progressBarStackView],
+            spacing: 10,
+            axis: .horizontal
+        )
         nutrientsStackView.distribution = .fill
         
-        let combineStackView = createStackView(for: [nutrientsStackView, chartContainer], spacing: 30, axis: .horizontal)
+        let combineStackView = createStackView(
+            for: [nutrientsStackView, chartContainer],
+            spacing: 30,
+            axis: .horizontal
+        )
         combineStackView.distribution = .fillProportionally
         
         innerContentView.addSubview(combineStackView)

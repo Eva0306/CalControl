@@ -77,25 +77,25 @@ extension DashboardVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.item == 0 {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: WeeklyCalAnalysisCell.identifier, for: indexPath) as! WeeklyCalAnalysisCell
-            // swiftlint:enable force_cast line_length
+            let cell: WeeklyCalAnalysisCell = tableView.dequeueReusableCell(
+                withIdentifier: WeeklyCalAnalysisCell.identifier, for: indexPath
+            )
             if let homeViewModel = homeViewModel {
                 cell.configure(with: dashboardViewModel, homeViewModel)
             }
             return cell
         } else if indexPath.item == 1 {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: WeeklyNutriAnalysisCell.identifier, for: indexPath) as! WeeklyNutriAnalysisCell
-            // swiftlint:enable force_cast line_length
+            let cell: WeeklyNutriAnalysisCell = tableView.dequeueReusableCell(
+                withIdentifier: WeeklyNutriAnalysisCell.identifier, for: indexPath
+            )
             if let homeViewModel = homeViewModel {
                 cell.configure(with: dashboardViewModel, homeViewModel)
             }
             return cell
         } else if indexPath.item == 2 {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: WeightRecordCell.identifier, for: indexPath) as! WeightRecordCell
-            // swiftlint:enable force_cast line_length
+            let cell: WeightRecordCell = tableView.dequeueReusableCell(
+                withIdentifier: WeightRecordCell.identifier, for: indexPath
+            )
             return cell
         }
         return UITableViewCell()

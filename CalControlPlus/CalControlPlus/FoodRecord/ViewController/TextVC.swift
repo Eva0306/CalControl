@@ -104,7 +104,7 @@ class TextVC: UIViewController {
         tv.separatorStyle = .none
         tv.showsVerticalScrollIndicator = false
         tv.translatesAutoresizingMaskIntoConstraints = false
-        tv.register(TextViewCell.self, forCellReuseIdentifier: "TextViewCell")
+        tv.register(TextViewCell.self, forCellReuseIdentifier: TextViewCell.identifier)
         return tv
     }()
     
@@ -122,9 +122,7 @@ class TextVC: UIViewController {
     private let enabledButtonColor = UIColor.mainGreen
     private var foodPortion: String = "一個"
     private var foodRecord: String = ""
-    
     private var foodList: [FoodItem] = []
-    
     private let loadingView = LoadingView()
     
     override func viewDidLoad() {
@@ -133,10 +131,6 @@ class TextVC: UIViewController {
         setupNavigationBar()
         setupView()
         loadData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [portionTextField, foodTextField])
     }
     
@@ -158,7 +152,6 @@ class TextVC: UIViewController {
     }
     
     private func setupView() {
-        
         let tabBarHeight = tabBarController?.tabBar.frame.size.height
         
         view.addSubview(textTableView)
@@ -227,10 +220,8 @@ class TextVC: UIViewController {
         }
         
         let cancelAction = UIAlertAction(title: "取消", style: .cancel, handler: nil)
-        
         alert.addAction(saveAction)
         alert.addAction(cancelAction)
-        
         present(alert, animated: true, completion: nil)
     }
     
@@ -240,7 +231,6 @@ class TextVC: UIViewController {
         loadingView.show(in: view, withBackground: true)
         
         let fullText = "\(foodPortion) \(foodRecord)"
-        
         let dispatchGroup = DispatchGroup()
         var translatedText: String?
         var finalFoodRecord: FoodRecord?
@@ -252,7 +242,11 @@ class TextVC: UIViewController {
                     translatedText = result
                 } else {
                     DispatchQueue.main.async {
-                        self.showAlert()
+                        showOKAlert(
+                            on: self,
+                            title: "無法辨識資料",
+                            message: "試試其他說法或使用英文輸入"
+                        )
                     }
                 }
                 dispatchGroup.leave()
@@ -270,7 +264,9 @@ class TextVC: UIViewController {
                 
                 dispatchGroup.enter()
                 DispatchQueue.global(qos: .userInitiated).async {
-                    NutritionManager.shared.fetchNutritionFacts(self, mealType: mealType, ingredient: translatedText) { result in
+                    NutritionManager.shared.fetchNutritionFacts(
+                        self, mealType: mealType, ingredient: translatedText
+                    ) { result in
                         finalFoodRecord = result
                         dispatchGroup.leave()
                     }
@@ -299,9 +295,9 @@ extension TextVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row < foodList.count {
             let foodItem = foodList[indexPath.row]
-            // swiftlint:disable force_cast
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextViewCell", for: indexPath) as! TextViewCell
-            // swiftlint:enable force_cast
+            let cell: TextViewCell = tableView.dequeueReusableCell(
+                withIdentifier: TextViewCell.identifier, for: indexPath
+            )
             cell.configureCell(food: foodItem)
             cell.addStoredFood = { [weak self] food, portion in
                 guard let self = self else { return }
@@ -327,7 +323,6 @@ extension TextVC: UITableViewDataSource {
 
 // MARK: - Table View Delegate
 extension TextVC: UITableViewDelegate {
-    
     func tableView(
         _ tableView: UITableView,
         trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
@@ -386,21 +381,6 @@ extension TextVC: UITextFieldDelegate {
         addButton.backgroundColor = isBothTextFieldsNotEmpty ?
         enabledButtonColor : enabledButtonColor.withAlphaComponent(0.6)
         addButton.setTitleColor(isBothTextFieldsNotEmpty ? .white : .lightGray, for: .normal)
-    }
-}
-
-// MARK: - Show Alert
-extension TextVC {
-    func showAlert() {
-        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
-        let alert = UIAlertController(
-            title: "無法辨識資料",
-            message: "試試其他說法或使用英文輸入",
-            preferredStyle: .alert
-        )
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true, completion: nil)
     }
 }
 

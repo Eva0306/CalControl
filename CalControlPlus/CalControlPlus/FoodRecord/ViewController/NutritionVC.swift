@@ -183,8 +183,13 @@ class NutritionVC: UIViewController {
     }
     
     @objc private func addRecord() {
-        guard let foodRecord = foodRecord, let _ = foodRecord.title else {
-            showAlert()
+        guard let foodRecord = foodRecord, foodRecord.title != nil else {
+            showOKAlert(
+                on: self,
+                title: "資料缺失",
+                message: "請確認輸入食物名字",
+                feedbackType: .warning
+            )
             return
         }
         
@@ -203,7 +208,13 @@ class NutritionVC: UIViewController {
                 folder: .FoodRecordImages
             ) { [weak self] url in
                 guard let self = self else {
-                    self?.showErrorAlert()
+                    showOKAlert(
+                        on: self ?? UIViewController(),
+                        title: "錯誤",
+                        message: "儲存失敗，請稍後再試。",
+                        feedbackType: .error
+                    )
+                    self?.loadingView.hide()
                     return
                 }
                 
@@ -233,9 +244,9 @@ extension NutritionVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.row == 0 {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: NutritionImageCell.identifier, for: indexPath) as! NutritionImageCell
-            // swiftlint:enable force_cast line_length
+            let cell: NutritionImageCell = tableView.dequeueReusableCell(
+                withIdentifier: NutritionImageCell.identifier, for: indexPath
+            )
             cell.configureCell(image: checkPhoto, name: foodRecord?.title)
             cell.didChangedPhoto = { [weak self] selectedImage in
                 self?.checkPhoto = selectedImage
@@ -243,11 +254,10 @@ extension NutritionVC: UITableViewDataSource {
             return cell
             
         } else if indexPath.row == 1 {
-            // swiftlint:disable force_cast  line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: NutritionTitleCell.identifier, for: indexPath) as! NutritionTitleCell
-            // swiftlint:enable force_cast line_length
+            let cell: NutritionTitleCell = tableView.dequeueReusableCell(
+                withIdentifier: NutritionTitleCell.identifier, for: indexPath
+            )
             cell.configureCell(title: foodRecord?.title)
-            
             cell.didUpdateTitle = { [weak self] newTitle in
                 guard let strongSelf = self else { return }
                 strongSelf.foodRecord?.title = newTitle
@@ -255,46 +265,19 @@ extension NutritionVC: UITableViewDataSource {
                 let indexPathForImageCell = IndexPath(row: 0, section: 0)
                 strongSelf.nutritionTableView.reloadRows(at: [indexPathForImageCell], with: .automatic)
             }
-            
             KeyboardManager.shared.setupKeyboardManager(for: self, textFields: [cell.titleTextField])
-            
             return cell
             
         } else if indexPath.row == 2 {
-            // swiftlint:disable force_cast line_length
-            let cell = tableView.dequeueReusableCell(withIdentifier: NutritionFactsCell.identifier, for: indexPath) as! NutritionFactsCell
-            // swiftlint:enable force_cast line_length
+            let cell: NutritionFactsCell = tableView.dequeueReusableCell(
+                withIdentifier: NutritionFactsCell.identifier, for: indexPath
+            )
             if let foodRecord = foodRecord {
                 cell.configureCell(nutritionFacts: foodRecord.nutritionFacts)
             }
-            
             return cell
         }
         return UITableViewCell()
-    }
-}
-
-// MARK: - Show Alert
-extension NutritionVC {
-    func showAlert() {
-        HapticFeedbackHelper.generateNotificationFeedback(type: .warning)
-        let alert = UIAlertController(
-            title: "資料缺失",
-            message: "請確認輸入食物名字",
-            preferredStyle: .alert
-        )
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true, completion: nil)
-    }
-    
-    func showErrorAlert() {
-        HapticFeedbackHelper.generateNotificationFeedback(type: .error)
-        let alert = UIAlertController(title: "錯誤", message: "儲存失敗，請稍後再試。", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "確定", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
-        
-        loadingView.hide()
     }
 }
 

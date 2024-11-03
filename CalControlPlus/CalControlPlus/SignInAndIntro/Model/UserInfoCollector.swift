@@ -41,7 +41,7 @@ class UserInfoCollector {
             createdTime: Timestamp(date: Date()),
             email: email,
             name: name,
-            avatarUrl: nil, // 處理 avatar URL
+            avatarUrl: nil,
             gender: gender,
             birthday: birthday,
             height: height,
